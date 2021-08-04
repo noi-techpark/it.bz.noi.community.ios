@@ -1,0 +1,12 @@
+name: CI
+on: [pull_request, push]
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v2
+      - name: List schemes (optional step)
+        run: xcodebuild -list -project NOICommunity.xcodeproj
+      - name: Test the app 1
+        run: xcodebuild clean test -scheme NOICommunity -destination 'platform=iOS Simulator,OS=14.4,name=iPhone 12'
