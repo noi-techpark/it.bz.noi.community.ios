@@ -42,4 +42,4 @@ jobs:
       - name: Setup provisioning profile
         env:
           IOS_KEY_PASSPHRASE: ${{ secrets.IOS_KEY_PASSPHRASE }}
-        run: ./.github/secrets/decrypt_secrets.sh
+        run: ./.github/scripts/decrypt_secrets.sh

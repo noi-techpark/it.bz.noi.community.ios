@@ -6,6 +6,8 @@ MOBILEPROV_NAME="itbznoicommunity.mobileprovision"
 CERTIFICATE_NAME="ios_distribution.cer"
 SECRETS_PATH="./.github/secrets"
 
+cd ../secrets
+
 gpg --quiet --batch --yes --decrypt --passphrase="$IOS_KEY_PASSPHRASE" --output $SECRETS_PATH/$MOBILEPROV_NAME.mobileprovision $SECRETS_PATH/$MOBILEPROV_NAME.gpg
 gpg --quiet --batch --yes --decrypt --passphrase="$IOS_KEY_PASSPHRASE" --output $SECRETS_PATH/$CERTIFICATE_NAME $SECRETS_PATH/$CERTIFICATE_NAME.gpg
 
