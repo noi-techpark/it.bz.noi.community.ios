@@ -92,3 +92,4 @@ iOSInjectionProject/
 *.pem
 *.cer
 *.mobileprovision
+*.p12
