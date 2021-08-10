@@ -48,7 +48,6 @@ jobs:
         run: |
           set -eo pipefail
           xcodebuild clean archive \
-            -workspace NOICommunity.xcodeproj/project.xcworkspace \
             -scheme NOICommunity \
             -sdk iphoneos \
             -configuration AppStoreDistribution \
