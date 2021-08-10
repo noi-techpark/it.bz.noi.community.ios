@@ -5,17 +5,17 @@ NOI Community App for iOS
 
 *Table of Contents*
 - [it.bz.noi.community.ios](#itbznoicommunityios)
-  - [Getting started](#getting-started)
-    - [Prerequisites](#prerequisites)
-    - [Source code](#source-code)
-    - [Configure the project](#configure-the-project)
-  - [Running tests](#running-tests)
-  - [Deployment](#deployment)
-  - [Information](#information)
-    - [Support](#support)
-    - [Contributing](#contributing)
-    - [Documentation](#documentation)
-    - [License](#license)
+	- [Getting started](#getting-started)
+		- [Prerequisites](#prerequisites)
+		- [Source code](#source-code)
+		- [Configure the project](#configure-the-project)
+	- [Running tests](#running-tests)
+	- [Deployment](#deployment)
+	- [Information](#information)
+		- [Support](#support)
+		- [Contributing](#contributing)
+		- [Documentation](#documentation)
+		- [License](#license)
 
 ## Getting started
 
@@ -94,7 +94,7 @@ If you'd like to contribute, please follow the following instructions:
 
 ### Documentation
 
-More documentation can be found at 
+More documentation can be found at
 
 > TODO
 
