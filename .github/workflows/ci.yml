@@ -12,7 +12,7 @@ jobs:
 
       # See https://xcodereleases.com/ for details (we choose the latest Release)
       - name: Force XCode 12.5
-        run: sudo xcode-select -switch /Applications/Xcode_12.5.app
+        run: ls -la /Applications; xcode-select -switch /Applications/Xcode_12.5.app
 
       - name: List schemes (optional step to gather information)
         run: xcodebuild -list -project NOICommunity.xcodeproj
