@@ -3,7 +3,7 @@
 set -xeo pipefail
 
 MOBILEPROV_NAME="itbznoicommunity.mobileprovision"
-CERTIFICATE_NAME="key.p12"
+CERTIFICATE_NAME="ios_distribution.p12"
 SECRETS_PATH=".github/secrets"
 
 gpg --quiet --batch --yes --decrypt --passphrase="$IOS_KEY_PASSPHRASE" --output $SECRETS_PATH/$MOBILEPROV_NAME $SECRETS_PATH/$MOBILEPROV_NAME.gpg
