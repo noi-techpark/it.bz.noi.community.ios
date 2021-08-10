@@ -26,8 +26,9 @@ on your local machine for development and testing purposes.
 
 To build the project, the following prerequisites must be met:
 
-> TODO
-
+1. Xcode 12 (downloadable from https://developer.apple.com/xcode/resources/)
+2. Be a member of NOI SPA Apple Developer Team (if you want to run the app and tests on your device)
+   (write a mail to [help@opendatahub.bz.it](mailto:help@opendatahub.bz.it), if you need access)
 
 ### Source code
 
@@ -39,15 +40,35 @@ git clone git@github.com:noi-techpark/it.bz.noi.community.ios.git
 
 ### Configure the project
 
-> TODO
+No configuration is needed.
 
 ## Running tests
 
-The unit tests can be executed with the following command:
+The unit tests can be executed on a device by replacing `<device_name>` with
+your device name with the following command:
 
 ```bash
-> TODO
+xcodebuild  -project NOICommunity.xcodeproj \
+-scheme NOICommunity \
+-destination 'platform=iOS,name=<device_name>' \
+clean test
 ```
+
+or on an iOS simulator by replacing `<simulator_name>` with a simulator name
+with the following command:
+
+```bash
+xcodebuild  -project NOICommunity.xcodeproj \
+-scheme NOICommunity \
+-destination 'platform=iOS Simulator,OS=14.5,name=<simulator_name>' \
+clean test
+```
+
+When you install Xcode it comes with default simulators, one per each supported
+device and its simulator name is the device model; e.g. "iPhone 12".
+
+For some examples see [.github/workflows].
+
 
 ## Deployment
 
