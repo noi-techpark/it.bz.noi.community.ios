@@ -3,29 +3,30 @@ on: [pull_request, push]
 jobs:
 
   ## Test on latest MacOS
-  test:
-    runs-on: macos-latest
-    steps:
+  # test:
+  #   runs-on: macos-latest
+  #   steps:
 
-      - name: Checkout the code
-        uses: actions/checkout@v2
+  #     - name: Checkout the code
+  #       uses: actions/checkout@v2
 
-      # See https://xcodereleases.com/ for details (we choose the latest Release)
-      - name: Force XCode 12.4
-        run: sudo xcode-select -switch /Applications/Xcode_12.4.app
+  #     # See https://xcodereleases.com/ for details (we choose the latest Release)
+  #     - name: Force XCode 12.4
+  #       run: sudo xcode-select -switch /Applications/Xcode_12.4.app
 
-      - name: List schemes (optional step to gather information)
-        run: xcodebuild -list -project NOICommunity.xcodeproj
+  #     - name: List schemes (optional step to gather information)
+  #       run: xcodebuild -list -project NOICommunity.xcodeproj
 
-      - name: Test the app
-        run: |
-          set -eo pipefail
-          xcodebuild clean test -scheme NOICommunity -destination 'platform=iOS Simulator,OS=14.4,name=iPhone 12' | xcpretty
+  #     - name: Test the app
+  #       run: |
+  #         set -eo pipefail
+  #         xcodebuild clean test -scheme NOICommunity -destination 'platform=iOS Simulator,OS=14.4,name=iPhone 12' | xcpretty
 
   ## Deploy to TestFlight
   deploy_testflight:
     name: Deploying to Testflight
     runs-on: macos-latest
+    # needs: [ test ]
     steps:
 
       - name: Checkout the code
@@ -41,4 +42,4 @@ jobs:
       - name: Setup provisioning profile
         env:
           IOS_KEY_PASSPHRASE: ${{ secrets.IOS_KEY_PASSPHRASE }}
-        run: ./.github/scripts/decrypt-secrets.sh
+        run: ./.github/scripts/decrypt_secrets.sh
