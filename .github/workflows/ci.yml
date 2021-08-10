@@ -37,7 +37,7 @@ jobs:
         run: sudo xcode-select -switch /Applications/Xcode_12.4.app
 
       - name: Install gpg
-        run: brew install gnupg
+        run: gpg --version || brew install gnupg
 
       - name: Setup provisioning profile
         env:
