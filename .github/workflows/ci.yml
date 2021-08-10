@@ -22,4 +22,23 @@ jobs:
           set -eo pipefail
           xcodebuild clean test -scheme NOICommunity -destination 'platform=iOS Simulator,OS=14.4,name=iPhone 12' | xcpretty
 
-  ##
+  ## Deploy to TestFlight
+  deploy_testflight:
+    name: Deploying to Testflight
+    runs-on: macos-latest
+    steps:
+
+      - name: Checkout the code
+        uses: actions/checkout@v2
+
+      # See https://xcodereleases.com/ for details (we choose the latest Release, available on macos-latest)
+      - name: Force XCode 12.4
+        run: sudo xcode-select -switch /Applications/Xcode_12.4.app
+
+      - name: Install gpg
+        run: brew install gnupg
+
+      - name: Setup provisioning profile
+        env:
+          IOS_KEY_PASSPHRASE: ${{ secrets.IOS_KEY_PASSPHRASE }}
+        run: ./.github/scripts/decrypt-secrets.sh
