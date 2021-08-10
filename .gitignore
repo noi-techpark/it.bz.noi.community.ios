@@ -93,3 +93,4 @@ iOSInjectionProject/
 *.cer
 *.mobileprovision
 *.p12
+.passphrase
