@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -eo pipefail
+set -xeo pipefail
 
 MOBILEPROV_NAME="itbznoicommunity.mobileprovision"
 CERTIFICATE_NAME="ios_distribution.p12"
