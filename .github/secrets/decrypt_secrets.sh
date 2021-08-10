@@ -1,18 +1,17 @@
 #!/bin/bash
 
-set -eo pipefail
+set -xeo pipefail
 
 MOBILEPROV_NAME="itbznoicommunity.mobileprovision"
 CERTIFICATE_NAME="ios_distribution.cer"
 SECRETS_PATH="./.github/secrets"
 
-gpg --quiet --batch --yes --decrypt --passphrase="$IOS_KEY_PASSPHRASE" --output $SECRETS_PATH/$MOBILEPROV_NAME.mobileprovision $SECRETS_PATH/$MOBILEPROV_NAME.gpg
+gpg --quiet --batch --yes --decrypt --passphrase="$IOS_KEY_PASSPHRASE" --output $SECRETS_PATH/$MOBILEPROV_NAME $SECRETS_PATH/$MOBILEPROV_NAME.gpg
 gpg --quiet --batch --yes --decrypt --passphrase="$IOS_KEY_PASSPHRASE" --output $SECRETS_PATH/$CERTIFICATE_NAME $SECRETS_PATH/$CERTIFICATE_NAME.gpg
 
-mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+mkdir -p "$HOME/Library/MobileDevice/Provisioning Profiles"
 
-cp $SECRETS_PATH/$MOBILEPROV_NAME.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles/$MOBILEPROV_NAME.mobileprovision
-
+cp $SECRETS_PATH/$MOBILEPROV_NAME "$HOME/Library/MobileDevice/Provisioning Profiles/$MOBILEPROV_NAME"
 
 security create-keychain -p "" build.keychain
 security import $SECRETS_PATH/$CERTIFICATE_NAME -t agg -k ~/Library/Keychains/build.keychain -P "" -A
