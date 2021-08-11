@@ -53,6 +53,7 @@ jobs:
             -sdk iphoneos \
             -configuration AppStoreDistribution \
             -archivePath $PWD/build/NOICommunity.xcarchive \
+            OTHER_CODE_SIGN_FLAGS="--keychain ~/Library/Keychains/build.keychain"
             CODE_SIGN_STYLE=Manual \
             PROVISIONING_PROFILE='b30a7000-f624-4d42-a1b1-d06403dbb38c' \
           | xcpretty
