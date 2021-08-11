@@ -3,7 +3,8 @@ on: [pull_request, push]
 jobs:
 
   ## Test on latest MacOS
-  # test:
+  # test:display
+  
   #   runs-on: macos-latest
   #   steps:
 
