@@ -4,7 +4,7 @@ jobs:
 
   ## Test on latest MacOS
   # test:display
-  
+
   #   runs-on: macos-latest
   #   steps:
 
@@ -53,6 +53,7 @@ jobs:
             -sdk iphoneos \
             -configuration AppStoreDistribution \
             -archivePath $PWD/build/NOICommunity.xcarchive \
+            PROVISIONING_PROFILE='b30a7000-f624-4d42-a1b1-d06403dbb38c' \
           | xcpretty
 
       - name: Export .ipa
