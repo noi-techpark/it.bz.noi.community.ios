@@ -13,9 +13,9 @@ gpg --quiet --batch --yes --decrypt --passphrase="$IOS_KEY_PASSPHRASE" --output 
 mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles/
 cp $SECRETS_PATH/$MOBILEPROV_NAME ~/Library/MobileDevice/Provisioning\ Profiles/
 
-security create-keychain -p "$IOS_KEY_PASSPHRASE" build.keychain
+security create-keychain -p "" build.keychain
 security import $SECRETS_PATH/$CERTIFICATE_NAME -t agg -k ~/Library/Keychains/build.keychain -P "$IOS_KEY_PASSPHRASE" -A
 security list-keychains -s ~/Library/Keychains/build.keychain
 security default-keychain -s ~/Library/Keychains/build.keychain
-security unlock-keychain -p "$IOS_KEY_PASSPHRASE" ~/Library/Keychains/build.keychain
+security unlock-keychain -p "" ~/Library/Keychains/build.keychain
 security set-key-partition-list -S apple-tool:,apple: -s -k "" ~/Library/Keychains/build.keychain
