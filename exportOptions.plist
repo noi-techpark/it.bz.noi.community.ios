@@ -12,5 +12,12 @@
     <true/>
     <key>uploadBitcode</key>
     <true/>
+	<key>provisioningProfiles</key>
+    <dict>
+        <key>it.bz.noi.community</key>
+        <string>it.bz.noi.community</string>
+    </dict>
+    <key>signingCertificate</key>
+    <string>Apple Distribution</string>
 </dict>
 </plist>
