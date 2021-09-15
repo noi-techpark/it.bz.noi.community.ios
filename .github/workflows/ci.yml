@@ -58,15 +58,15 @@ jobs:
             CODE_SIGN_IDENTITY="Apple Distribution" \
           | xcpretty
 
-      # - name: Export .ipa
-      #   run: |
-      #     set -eo pipefail
-      #     xcodebuild -archivePath $PWD/build/NOICommunity.xcarchive \
-      #       -exportOptionsPlist NOICommunity/NOICommunity/exportOptions.plist \
-      #       -exportPath $PWD/build \
-      #       -allowProvisioningUpdates \
-      #       -exportArchive \
-      #     | xcpretty
+      - name: Export .ipa
+        run: |
+          set -eo pipefail
+          xcodebuild -archivePath "$PWD/build/NOICommunity.xcarchive" \
+            -exportOptionsPlist exportOptions.plist \
+            -exportPath $PWD/build \
+            -allowProvisioningUpdates \
+            -exportArchive \
+          | xcpretty
 
       # - name: Publish the App
       #   if: success()
