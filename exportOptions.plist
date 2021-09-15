@@ -7,7 +7,7 @@
     <key>teamID</key>
     <string>5V2Q9SWB7H</string>
     <key>destination</key>
-    <string>upload</string>
+    <string>export</string>
     <key>uploadSymbols</key>
     <true/>
     <key>uploadBitcode</key>
