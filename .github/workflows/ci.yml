@@ -54,7 +54,7 @@ jobs:
             -archivePath "$PWD/build/NOICommunity.xcarchive" \
             OTHER_CODE_SIGN_FLAGS="--keychain ~/Library/Keychains/build.keychain" \
             CODE_SIGN_STYLE=Manual \
-            PROVISIONING_PROFILE='49cb6d44-d2d1-4c97-992b-1f0a57137b79' \
+            PROVISIONING_PROFILE='a5e85966-b44d-4f43-b01d-babf8ce192c3' \
             CODE_SIGN_IDENTITY="Apple Distribution" \
           | xcpretty
 
