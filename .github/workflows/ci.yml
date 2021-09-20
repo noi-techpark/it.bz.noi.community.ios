@@ -1,18 +1,19 @@
 name: CI
-on: [pull_request, push]
+on: [ pull_request, push ]
 jobs:
 
   ## Test on latest MacOS
   test:
+
     runs-on: macos-latest
     steps:
 
       - name: Checkout the code
         uses: actions/checkout@v2
 
-      # See https://xcodereleases.com/ for details (we choose the latest Release)
-      - name: Force XCode 12.5.1
-        run: sudo xcode-select -switch /Applications/Xcode_12.5.1.app
+      # See https://xcodereleases.com/ for details (we choose the latest Release, available on macos-latest)
+      - name: Force XCode 12.4
+        run: sudo xcode-select -switch /Applications/Xcode_12.4.app
 
       - name: List schemes (optional step to gather information)
         run: xcodebuild -list -project NOICommunity.xcodeproj
@@ -20,6 +21,68 @@ jobs:
       - name: Test the app
         run: |
           set -eo pipefail
-          xcodebuild clean test -scheme NOICommunity -destination 'platform=iOS Simulator,OS=14.4,name=iPhone 12' | xcpretty
+          xcodebuild clean test \
+            -scheme NOICommunity \
+            -destination 'platform=iOS Simulator,OS=14.4,name=iPhone 12' \
+            IPHONEOS_DEPLOYMENT_TARGET='14.4' \
+          | xcpretty
 
-  ##
+  ## Deploy to TestFlight
+  deploy_testflight:
+    name: Deploy to Testflight
+    runs-on: macos-latest
+    if: github.ref == 'refs/heads/development'
+    needs: [ test ]
+    steps:
+
+      - name: Checkout the code
+        uses: actions/checkout@v2
+
+      # See https://xcodereleases.com/ for details (we choose the latest Release, available on macos-latest)
+      - name: Force XCode 12.4
+        run: sudo xcode-select -switch /Applications/Xcode_12.4.app
+
+      - name: Install gpg (if absent)
+        run: gpg --version &>/dev/null || brew install gnupg
+
+      - name: Setup provisioning profile
+        env:
+          IOS_KEY_PASSPHRASE: ${{ secrets.IOS_KEY_PASSPHRASE }}
+        run: ./.github/secrets/decrypt_secrets.sh
+
+      - name: Archive the project
+        run: |
+          set -eo pipefail
+          xcodebuild clean archive \
+            -scheme NOICommunity \
+            -sdk iphoneos \
+            -archivePath "$PWD/build/NOICommunity.xcarchive" \
+            OTHER_CODE_SIGN_FLAGS="--keychain ~/Library/Keychains/build.keychain" \
+            CODE_SIGN_STYLE=Manual \
+            PROVISIONING_PROFILE='a5e85966-b44d-4f43-b01d-babf8ce192c3' \
+            CODE_SIGN_IDENTITY="Apple Distribution" \
+          | xcpretty
+
+      - name: Export .ipa
+        run: |
+          set -eo pipefail
+          xcodebuild -archivePath "$PWD/build/NOICommunity.xcarchive" \
+            -exportOptionsPlist exportOptions.plist \
+            -exportPath $PWD/build \
+            -allowProvisioningUpdates \
+            -exportArchive \
+          | xcpretty
+
+      - name: Publish the App on TestFlight
+        if: success()
+        env:
+          APPLEID_USERNAME: ${{ secrets.APPLEID_USERNAME }}
+          APPLEID_PASSWORD: ${{ secrets.APPLEID_PASSWORD }}
+        run: |
+          xcrun altool \
+            --upload-app \
+            -t ios \
+            -f build/NOICommunity.ipa \
+            -u "$APPLEID_USERNAME" \
+            -p "$APPLEID_PASSWORD" \
+            --verbose
