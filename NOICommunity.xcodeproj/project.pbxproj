@@ -138,6 +138,7 @@
 				3145D22926B3F73F00F16787 /* Sources */,
 				3145D22A26B3F73F00F16787 /* Frameworks */,
 				3145D22B26B3F73F00F16787 /* Resources */,
+				31A5A1D226FB75C000CF3DB7 /* Set Build Script */,
 			);
 			buildRules = (
 			);
@@ -252,6 +253,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		31A5A1D226FB75C000CF3DB7 /* Set Build Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Set Build Script";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "## Generate the build number using current date and time (E.g. 202109.22.1630)\nbuildNumber=$(date \"+%Y%m.%d.%H%M\")\n\n## Set the build number in plist file\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		3145D22926B3F73F00F16787 /* Sources */ = {
