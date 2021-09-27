@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EventsViewController" customModule="NOICommunity" customModuleProvider="target">
+            <connections>
+                <outlet property="contentContainerView" destination="huW-Xk-v9e" id="ZME-MU-tny"/>
+                <outlet property="dateIntervalsScrollView" destination="8qv-r9-32A" id="kiE-TC-bGh"/>
+                <outlet property="topStackView" destination="G9T-76-Zph" id="goh-R5-5PM"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="G9T-76-Zph">
+                    <rect key="frame" x="17" y="61" width="397" height="40"/>
+                    <subviews>
+                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DwA-FM-OmS">
+                            <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                            <color key="backgroundColor" name="background_color"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="DwA-FM-OmS" secondAttribute="height" multiplier="1:1" id="1Bk-Cv-DRh"/>
+                                <constraint firstAttribute="width" constant="40" id="BUZ-fU-AgW"/>
+                            </constraints>
+                            <color key="tintColor" name="primary_color"/>
+                            <buttonConfiguration key="configuration" style="plain" image="ic_filter"/>
+                        </button>
+                        <scrollView verifyAmbiguity="off" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8qv-r9-32A">
+                            <rect key="frame" x="0.0" y="0.0" width="397" height="40"/>
+                            <viewLayoutGuide key="contentLayoutGuide" id="JtB-O8-khR"/>
+                            <viewLayoutGuide key="frameLayoutGuide" id="9yq-Xf-vED"/>
+                        </scrollView>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="wfq-PT-Cx2"/>
+                    </constraints>
+                </stackView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="huW-Xk-v9e">
+                    <rect key="frame" x="0.0" y="101" width="414" height="795"/>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" name="secondary_background_color"/>
+            <constraints>
+                <constraint firstItem="G9T-76-Zph" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="17" id="5ie-d6-9im"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="G9T-76-Zph" secondAttribute="trailing" id="C9u-Fh-D4o"/>
+                <constraint firstItem="huW-Xk-v9e" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Dpt-r4-O55"/>
+                <constraint firstItem="huW-Xk-v9e" firstAttribute="top" secondItem="G9T-76-Zph" secondAttribute="bottom" id="HsU-cw-tKr"/>
+                <constraint firstAttribute="bottom" secondItem="huW-Xk-v9e" secondAttribute="bottom" id="XJH-xK-sHP"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="huW-Xk-v9e" secondAttribute="trailing" id="n7e-QG-xZa"/>
+                <constraint firstItem="G9T-76-Zph" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="17" id="yDa-FP-G3J"/>
+            </constraints>
+            <point key="canvasLocation" x="4" y="73"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="ic_filter" width="24" height="20"/>
+        <namedColor name="background_color">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="primary_color">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="secondary_background_color">
+            <color red="0.94509803921568625" green="0.94509803921568625" blue="0.94509803921568625" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

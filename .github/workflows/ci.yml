@@ -4,16 +4,19 @@ jobs:
 
   ## Test on latest MacOS
   test:
-
-    runs-on: macos-latest
+    runs-on: macos-11
     steps:
 
       - name: Checkout the code
         uses: actions/checkout@v2
 
-      # See https://xcodereleases.com/ for details (we choose the latest Release, available on macos-latest)
-      - name: Force XCode 12.4
-        run: sudo xcode-select -switch /Applications/Xcode_12.4.app
+      #   # List possible Xcode versions
+      # - name: Force Xcode versions
+      #   run: sudo ls /Applications | grep -i "xcode"
+
+      # See https://xcodereleases.com/ for details (we choose the latest Release)
+      - name: Force XCode 13.0.0
+        run: sudo xcode-select -switch /Applications/Xcode_13.0.app
 
       - name: List schemes (optional step to gather information)
         run: xcodebuild -list -project NOICommunity.xcodeproj
@@ -23,8 +26,8 @@ jobs:
           set -eo pipefail
           xcodebuild clean test \
             -scheme NOICommunity \
-            -destination 'platform=iOS Simulator,OS=14.4,name=iPhone 12' \
-            IPHONEOS_DEPLOYMENT_TARGET='14.4' \
+            -destination 'platform=iOS Simulator,OS=15.0,name=iPhone 13' \
+            IPHONEOS_DEPLOYMENT_TARGET='15.0' \
           | xcpretty
 
   ## Deploy to TestFlight

@@ -1,0 +1,19 @@
+{
+  "images" : [
+    {
+      "filename" : "ic_orientate.pdf",
+      "idiom" : "universal"
+    },
+    {
+      "idiom" : "ipad"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  },
+  "properties" : {
+    "preserves-vector-representation" : true,
+    "template-rendering-intent" : "template"
+  }
+}
