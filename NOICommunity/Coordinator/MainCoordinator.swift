@@ -57,6 +57,12 @@ final class MainCoordinator: BaseTabCoordinator {
         moreNavController.tabBarItem.title = .localized("tab_title_more")
         moreNavController.tabBarItem.image = UIImage(named: "ic_more")
         moreNavController.navigationBar.prefersLargeTitles = true
+        let moreCoordinator = MoreCoordinator(
+            navigationController: moreNavController,
+            dependencyContainer: dependencyContainer
+        )
+        moreCoordinator.start(animated: false)
+        childCoordinators.append(moreCoordinator)
 
         tabBarController.viewControllers = [
             eventsNavController,

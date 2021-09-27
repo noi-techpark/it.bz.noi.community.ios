@@ -76,6 +76,8 @@
 		31C640C626FE1E43004B71A2 /* MeetMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C640C326FE1E43004B71A2 /* MeetMainViewController.swift */; };
 		31C8B7F927059001007A37EE /* Restaurants.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 31C8B7F827059001007A37EE /* Restaurants.bundle */; };
 		31CE9BF62701BF33005EA61A /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 31CE9BF52701BF33005EA61A /* Kingfisher */; };
+		31DA4A762705EA110098E395 /* MoreMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31DA4A742705EA110098E395 /* MoreMainViewController.swift */; };
+		31DA4A772705EA110098E395 /* MoreCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31DA4A752705EA110098E395 /* MoreCoordinator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -174,6 +176,8 @@
 		31C640C326FE1E43004B71A2 /* MeetMainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeetMainViewController.swift; sourceTree = "<group>"; };
 		31C8B7F827059001007A37EE /* Restaurants.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Restaurants.bundle; sourceTree = "<group>"; };
 		31D9C78926FDFCD3001F2DBB /* BaseTabCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTabCoordinator.swift; sourceTree = "<group>"; };
+		31DA4A742705EA110098E395 /* MoreMainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoreMainViewController.swift; sourceTree = "<group>"; };
+		31DA4A752705EA110098E395 /* MoreCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoreCoordinator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -237,6 +241,7 @@
 				31D9C78726FDFC58001F2DBB /* OrientateFeature */,
 				31C640C126FE1E43004B71A2 /* MeetFeature */,
 				3167681427035D9500A9DB87 /* EatFeature */,
+				31DA4A732705EA110098E395 /* MoreFeature */,
 				31B3623A26F1D62700031024 /* Helpers */,
 				319C0E8F26F33BE200C6D38B /* ViewControllers */,
 				31AA31EC26F0A94400744A00 /* Views */,
@@ -404,6 +409,15 @@
 			path = Coordinator;
 			sourceTree = "<group>";
 		};
+		31DA4A732705EA110098E395 /* MoreFeature */ = {
+			isa = PBXGroup;
+			children = (
+				31DA4A742705EA110098E395 /* MoreMainViewController.swift */,
+				31DA4A752705EA110098E395 /* MoreCoordinator.swift */,
+			);
+			path = MoreFeature;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -524,7 +538,7 @@
 				315F4BE227034C00001905AF /* EventCardContentView.xib in Resources */,
 				3187667926FB3A9300782FA6 /* EventDetailsViewController.xib in Resources */,
 				31C8B7F927059001007A37EE /* Restaurants.bundle in Resources */,
-				3187667926FB3A9300782FA6 /* EventDetailsViewControl.xib in Resources */,
+				3187667926FB3A9300782FA6 /* EventDetailsViewController.xib in Resources */,
 				3145D23D26B3F74000F16787 /* LaunchScreen.storyboard in Resources */,
 				31157D0C26FC70A500A43B33 /* Localizable.strings in Resources */,
 				319C0EA426F4A43C00C6D38B /* EventsMainViewController.xib in Resources */,
@@ -581,7 +595,9 @@
 				317615C926FDD369007FE10F /* UIFont+Additions.swift in Sources */,
 				31C640A026FE0B9D004B71A2 /* BaseTabCoordinator.swift in Sources */,
 				31C640B126FE1449004B71A2 /* TabCoordinator.swift in Sources */,
+				31DA4A762705EA110098E395 /* MoreMainViewController.swift in Sources */,
 				31178FDC26FA26C500BDCDAA /* EventDetailsViewController.swift in Sources */,
+				31DA4A772705EA110098E395 /* MoreCoordinator.swift in Sources */,
 				3145D23326B3F73F00F16787 /* SceneDelegate.swift in Sources */,
 				31AA31E826F09E3600744A00 /* Event.swift in Sources */,
 				3187667726FB38D600782FA6 /* DateIntervalFormatter+Factory.swift in Sources */,
