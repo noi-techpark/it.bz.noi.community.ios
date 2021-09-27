@@ -17,7 +17,6 @@
 		31157D1926FCA1EB00A43B33 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31157D1826FCA1EB00A43B33 /* WebViewController.swift */; };
 		31157D1B26FCB26200A43B33 /* String+Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31157D1A26FCB26200A43B33 /* String+Localization.swift */; };
 		31178FCE26F8D7CC00BDCDAA /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31178FCD26F8D7CC00BDCDAA /* Localization.swift */; };
-		31178FD426F8E44300BDCDAA /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 31178FD326F8E44300BDCDAA /* Kingfisher */; };
 		31178FD626F9D6EB00BDCDAA /* DateIntervalFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31178FD526F9D6EB00BDCDAA /* DateIntervalFilter.swift */; };
 		31178FD826F9FD3800BDCDAA /* EventsFeatureConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31178FD726F9FD3800BDCDAA /* EventsFeatureConstants.swift */; };
 		31178FDA26FA16A200BDCDAA /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31178FD926FA16A200BDCDAA /* NavigationController.swift */; };
@@ -54,6 +53,7 @@
 		31AA31F126F0B40800744A00 /* EventCardContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31AA31F026F0B40800744A00 /* EventCardContentView.swift */; };
 		31B3623E26F1E27A00031024 /* UIColor+NOI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B3623D26F1E27A00031024 /* UIColor+NOI.swift */; };
 		31B4477F26F86FE5000999BA /* SegmentedControlBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B4477E26F86FE4000999BA /* SegmentedControlBuilder.swift */; };
+		31B7BE032701AD85000E1F8D /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 31B7BE022701AD85000E1F8D /* Kingfisher */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -137,7 +137,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				31178FD426F8E44300BDCDAA /* Kingfisher in Frameworks */,
+				31B7BE032701AD85000E1F8D /* Kingfisher in Frameworks */,
 				319C0E9626F3427C00C6D38B /* EventShortClient in Frameworks */,
 				319C0E9826F3427C00C6D38B /* EventShortClientLive in Frameworks */,
 			);
@@ -318,7 +318,7 @@
 			packageProductDependencies = (
 				319C0E9526F3427C00C6D38B /* EventShortClient */,
 				319C0E9726F3427C00C6D38B /* EventShortClientLive */,
-				31178FD326F8E44300BDCDAA /* Kingfisher */,
+				31B7BE022701AD85000E1F8D /* Kingfisher */,
 			);
 			productName = NOICommunity;
 			productReference = 3145D22D26B3F73F00F16787 /* NOICommunity.app */;
@@ -394,7 +394,7 @@
 			);
 			mainGroup = 3145D22426B3F73F00F16787;
 			packageReferences = (
-				31178FD226F8E44300BDCDAA /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				31B7BE012701AD85000E1F8D /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = 3145D22E26B3F73F00F16787 /* Products */;
 			projectDirPath = "";
@@ -847,22 +847,17 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		31178FD226F8E44300BDCDAA /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+		31B7BE012701AD85000E1F8D /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 6.0.0;
+				minimumVersion = 7.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		31178FD326F8E44300BDCDAA /* Kingfisher */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 31178FD226F8E44300BDCDAA /* XCRemoteSwiftPackageReference "Kingfisher" */;
-			productName = Kingfisher;
-		};
 		319C0E9526F3427C00C6D38B /* EventShortClient */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = EventShortClient;
@@ -870,6 +865,11 @@
 		319C0E9726F3427C00C6D38B /* EventShortClientLive */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = EventShortClientLive;
+		};
+		31B7BE022701AD85000E1F8D /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 31B7BE012701AD85000E1F8D /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
