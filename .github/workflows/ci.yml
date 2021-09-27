@@ -18,8 +18,11 @@ jobs:
       - name: Force XCode 13.0.0
         run: sudo xcode-select -switch /Applications/Xcode_13.0.app
 
+      - name: Resolve package dependencies
+        run: xcodebuild -resolvePackageDependencies
+
       - name: List schemes (optional step to gather information)
-        run: xcodebuild -list -project NOICommunity.xcodeproj
+        run: xcodebuild -list -project NOICommunity.xcodeproj      
 
       - name: Test the app
         run: |
@@ -45,6 +48,9 @@ jobs:
       - name: Force XCode 13.0.0
         run: sudo xcode-select -switch /Applications/Xcode_13.0.app
 
+      - name: Resolve package dependencies
+        run: xcodebuild -resolvePackageDependencies    
+
       - name: Install gpg (if absent)
         run: gpg --version &>/dev/null || brew install gnupg
 
@@ -60,6 +66,7 @@ jobs:
             -scheme NOICommunity \
             -sdk iphoneos \
             -archivePath "$PWD/build/NOICommunity.xcarchive" \
+            -destination "generic/platform=iOS,name=Any iOS Device" \
             OTHER_CODE_SIGN_FLAGS="--keychain ~/Library/Keychains/build.keychain" \
             CODE_SIGN_STYLE=Manual \
             PROVISIONING_PROFILE='a5e85966-b44d-4f43-b01d-babf8ce192c3' \
