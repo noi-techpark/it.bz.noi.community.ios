@@ -174,6 +174,27 @@ private extension Event {
             from: eventShort.localizedEventTexts,
             defaultValue: eventShort.eventTextEN
         )
+
+        var imageUrl = (eventShort.imageGallery ?? [])
+            .lazy
+            .compactMap(\.imageUrl)
+            .first
+            .flatMap(URL.init(string:))
+        // Get an image from a http url as https content
+        // see https://github.com/noi-techpark/odh-docs/wiki/How-to-get-a-Image-from-a-http-url-as-https-content.
+        if
+            let nonOptImageUrl = imageUrl,
+            case "http" = nonOptImageUrl.scheme {
+            var urlComponents = URLComponents(
+                string: "https://images.opendatahub.bz.it/api/Image/GetImageByUrl"
+            )!
+            urlComponents.queryItems = [URLQueryItem(
+                name: "imageurl",
+                value: nonOptImageUrl.absoluteString
+            )]
+            imageUrl = urlComponents.url!
+        }
+
         self.init(
             id: eventShort.id ?? UUID().uuidString,
             title: title,
@@ -181,11 +202,7 @@ private extension Event {
             endDate: eventShort.endDate,
             location: eventShort.eventLocation,
             venue: eventShort.anchorVenue,
-            imageURL: (eventShort.imageGallery ?? [])
-                .lazy
-                .compactMap(\.imageUrl)
-                .first
-                .flatMap(URL.init(string:)),
+            imageURL: imageUrl,
             description: description,
             organizer: !eventShort.display5.isNilOrEmpty ?
             eventShort.display5 :
