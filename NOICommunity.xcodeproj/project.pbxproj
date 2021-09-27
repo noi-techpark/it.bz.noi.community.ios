@@ -67,6 +67,8 @@
 		31C640B526FE14ED004B71A2 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C640B426FE14ED004B71A2 /* MainCoordinator.swift */; };
 		31C640B726FE17F6004B71A2 /* EventsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C640B626FE17F6004B71A2 /* EventsCoordinator.swift */; };
 		31CE9BF62701BF33005EA61A /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 31CE9BF52701BF33005EA61A /* Kingfisher */; };
+		31C640C526FE1E43004B71A2 /* MeetCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C640C226FE1E43004B71A2 /* MeetCoordinator.swift */; };
+		31C640C626FE1E43004B71A2 /* MeetMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C640C326FE1E43004B71A2 /* MeetMainViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -155,6 +157,8 @@
 		31C640B226FE148C004B71A2 /* BaseCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCoordinator.swift; sourceTree = "<group>"; };
 		31C640B426FE14ED004B71A2 /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
 		31C640B626FE17F6004B71A2 /* EventsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsCoordinator.swift; sourceTree = "<group>"; };
+		31C640C226FE1E43004B71A2 /* MeetCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeetCoordinator.swift; sourceTree = "<group>"; };
+		31C640C326FE1E43004B71A2 /* MeetMainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeetMainViewController.swift; sourceTree = "<group>"; };
 		31D9C78926FDFCD3001F2DBB /* BaseTabCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTabCoordinator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -217,6 +221,7 @@
 				31AA31F226F0B71800744A00 /* Extensions */,
 				319C0E8026F332FE00C6D38B /* EventsFeature */,
 				31D9C78726FDFC58001F2DBB /* OrientateFeature */,
+				31C640C126FE1E43004B71A2 /* MeetFeature */,
 				31B3623A26F1D62700031024 /* Helpers */,
 				319C0E8F26F33BE200C6D38B /* ViewControllers */,
 				31AA31EC26F0A94400744A00 /* Views */,
@@ -337,6 +342,15 @@
 				31C640AC26FE13CC004B71A2 /* ViewModelFactory.swift */,
 			);
 			path = Factories;
+			sourceTree = "<group>";
+		};
+		31C640C126FE1E43004B71A2 /* MeetFeature */ = {
+			isa = PBXGroup;
+			children = (
+				31C640C226FE1E43004B71A2 /* MeetCoordinator.swift */,
+				31C640C326FE1E43004B71A2 /* MeetMainViewController.swift */,
+			);
+			path = MeetFeature;
 			sourceTree = "<group>";
 		};
 		31D9C78726FDFC58001F2DBB /* OrientateFeature */ = {
@@ -567,6 +581,8 @@
 				31178FD826F9FD3800BDCDAA /* EventsFeatureConstants.swift in Sources */,
 				31AA31EA26F0A6D700744A00 /* EventListViewController.swift in Sources */,
 				31157D0026FC648700A43B33 /* Event+CalendarEvent.swift in Sources */,
+				31C640C626FE1E43004B71A2 /* MeetMainViewController.swift in Sources */,
+				31C640C526FE1E43004B71A2 /* MeetCoordinator.swift in Sources */,
 				31C6409F26FE0B73004B71A2 /* OrientateCoordinator.swift in Sources */,
 				3187667526FB35C100782FA6 /* String+NotDefined.swift in Sources */,
 				319C0E8A26F33BD000C6D38B /* UIAlertController+Error.swift in Sources */,

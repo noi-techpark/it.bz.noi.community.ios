@@ -35,6 +35,12 @@ final class MainCoordinator: BaseTabCoordinator {
         meetNavController.tabBarItem.title = .localized("tab_title_meet")
         meetNavController.tabBarItem.image = UIImage(named: "ic_meet")
         meetNavController.navigationBar.prefersLargeTitles = true
+        let meetCoordinator = MeetCoordinator(
+            navigationController: meetNavController,
+            dependencyContainer: dependencyContainer
+        )
+        meetCoordinator.start(animated: false)
+        childCoordinators.append(meetCoordinator)
 
         let eatNavController = NavigationController()
         eatNavController.tabBarItem.title = .localized("tab_title_eat")
