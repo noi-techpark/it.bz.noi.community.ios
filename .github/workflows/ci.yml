@@ -12,7 +12,7 @@ jobs:
 
       #   # List possible Xcode versions
       # - name: Force Xcode versions
-      #   run: sudo ls /Applications | grep -i "xcode"
+      #   run: sudo ls /Applications/*xcode*
 
       # See https://xcodereleases.com/ for details (we choose the latest Release)
       - name: Force XCode 13.0.0
@@ -33,7 +33,7 @@ jobs:
   ## Deploy to TestFlight
   deploy_testflight:
     name: Deploy to Testflight
-    runs-on: macos-latest
+    runs-on: macos-11
     if: github.ref == 'refs/heads/development'
     needs: [ test ]
     steps:
@@ -42,8 +42,8 @@ jobs:
         uses: actions/checkout@v2
 
       # See https://xcodereleases.com/ for details (we choose the latest Release, available on macos-latest)
-      - name: Force XCode 12.4
-        run: sudo xcode-select -switch /Applications/Xcode_12.4.app
+      - name: Force XCode 13.0.0
+        run: sudo xcode-select -switch /Applications/Xcode_13.0.app
 
       - name: Install gpg (if absent)
         run: gpg --version &>/dev/null || brew install gnupg
