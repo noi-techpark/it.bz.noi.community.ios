@@ -44,7 +44,7 @@ struct Message {
     }
 }
 
-class MessageViewController: UIViewController {
+final class MessageViewController: UIViewController {
     private let message: Message
 
     @IBOutlet private var imageView: UIImageView?
@@ -61,7 +61,7 @@ class MessageViewController: UIViewController {
 
     init(message: Message) {
         self.message = message
-        super.init(nibName: "\(MessageViewController.self)", bundle: nil)
+        super.init(nibName: "\(Self.self)", bundle: nil)
     }
 
     convenience init(
@@ -92,8 +92,9 @@ class MessageViewController: UIViewController {
             actionHandler: actionHandler))
     }
 
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("\(#function) has not been implemented")
     }
 
     override func viewDidLoad() {

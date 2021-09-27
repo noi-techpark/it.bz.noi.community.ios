@@ -1,5 +1,5 @@
 //
-//  EventsViewController.swift
+//  EventsMainViewController.swift
 //  NOICommunity
 //
 //  Created by Matteo Matassoni on 16/09/21.
@@ -8,9 +8,11 @@
 import UIKit
 import Combine
 
-class EventsViewController: UIViewController {
+final class EventsMainViewController: UIViewController {
 
     let viewModel: EventsViewModel
+
+    var didSelectHandler: ((IndexPath, Event) -> Void)?
 
     private var subscriptions: Set<AnyCancellable> = []
 
@@ -73,7 +75,7 @@ class EventsViewController: UIViewController {
 
     init(viewModel: EventsViewModel) {
         self.viewModel = viewModel
-        super.init(nibName: "\(EventsViewController.self)", bundle: nil)
+        super.init(nibName: "\(Self.self)", bundle: nil)
     }
 
     @available(*, unavailable)
@@ -106,59 +108,7 @@ class EventsViewController: UIViewController {
 
 // MARK: Private APIs
 
-private extension EventsViewController {
-    func addEventToCalendar(_ event: Event) {
-        EventsCalendarManager.shared.presentCalendarModalToAddEvent(
-            event: event.toCalendarEvent(),
-            from: self
-        ) { [weak self] result in
-            guard case let .failure(error) = result
-            else { return }
-
-            if let calendarError = error as? CalendarError {
-                self?.showCalendarError(calendarError)
-            } else {
-                self?.showError(error)
-            }
-        }
-    }
-
-    func locateEvent(_ event: Event) {
-        let mapViewController = WebViewController()
-        mapViewController.url = event.mapUrl ??
-        URL(string: .localized("url_map"))!
-        mapViewController.navigationItem.title = event.mapUrl != nil ?
-        event.venue:
-            .localized("title_generic_noi_techpark_map")
-        navigationController?.pushViewController(
-            mapViewController,
-            animated: true
-        )
-    }
-
-    // TODO: move to flow controller/coordinator
-    func goToDetails(of event: Event) {
-        let detailVC = EventDetailsViewControl(
-            for: event,
-               relatedEvents: viewModel.relatedEvent(of: event)
-        )
-        detailVC.addToCalendarActionHandler = { [weak self] in
-            self?.addEventToCalendar($0)
-        }
-        detailVC.locateActionHandler = { [weak self] in
-            self?.locateEvent($0)
-        }
-        detailVC.didSelectRelatedEventHandler = { [weak self] _, selectedEvent in
-            self?.goToDetails(of: selectedEvent)
-        }
-        detailVC.navigationItem.title = event.title
-        detailVC.navigationItem.largeTitleDisplayMode = .never
-        navigationController?.pushViewController(
-            detailVC,
-            animated: true
-        )
-    }
-
+private extension EventsMainViewController {
     func configureViewHierarchy() {
     }
 
@@ -170,9 +120,8 @@ private extension EventsViewController {
 
     func makeResultsViewController() -> EventListViewController {
         let resultsViewController = EventListViewController(items: [])
-        // TODO: move to flow controller/coordinator
-        resultsViewController.didSelectHandler = { [weak self] _, selectedEvent in
-            self?.goToDetails(of: selectedEvent)
+        resultsViewController.didSelectHandler = { [weak self] in
+            self?.didSelectHandler?($0, $1)
         }
         return resultsViewController
     }

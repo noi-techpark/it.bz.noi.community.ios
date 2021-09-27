@@ -12,6 +12,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
+    let dependencyContainer = DependencyContainer(eventShortClient: .live)
+    var mainCoordinator: MainCoordinator!
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
@@ -20,43 +22,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene)
         else { return }
 
-        let eventsViewModel = EventsViewModel(eventShortClient: .live)
-        let eventsVC = EventsViewController(viewModel: eventsViewModel)
-        eventsVC.navigationItem.title = .localized("title_today")
-        eventsVC.navigationItem.largeTitleDisplayMode = .always
-        let todayNavController = NavigationController(rootViewController: eventsVC)
-        todayNavController.tabBarItem.title = .localized("tab_title_today")
-        todayNavController.tabBarItem.image = UIImage(named: "ic_today")
-        todayNavController.navigationBar.prefersLargeTitles = true
-
-        let orientateNavController = NavigationController()
-        orientateNavController.tabBarItem.title = .localized("tab_title_orientate")
-        orientateNavController.tabBarItem.image = UIImage(named: "ic_orientate")
-        orientateNavController.navigationBar.prefersLargeTitles = true
-
-        let meetNavController = NavigationController()
-        meetNavController.tabBarItem.title = .localized("tab_title_meet")
-        meetNavController.tabBarItem.image = UIImage(named: "ic_meet")
-        meetNavController.navigationBar.prefersLargeTitles = true
-
-        let eatNavController = NavigationController()
-        eatNavController.tabBarItem.title = .localized("tab_title_eat")
-        eatNavController.tabBarItem.image = UIImage(named: "ic_eat")
-        eatNavController.navigationBar.prefersLargeTitles = true
-
-        let moreNavController = NavigationController()
-        moreNavController.tabBarItem.title = .localized("tab_title_more")
-        moreNavController.tabBarItem.image = UIImage(named: "ic_more")
-        moreNavController.navigationBar.prefersLargeTitles = true
-
         let tabBarController = TabBarController()
-        tabBarController.viewControllers = [
-            todayNavController,
-            orientateNavController,
-            meetNavController,
-            eatNavController,
-            moreNavController
-        ]
+        mainCoordinator = MainCoordinator(
+            tabBarController: tabBarController,
+            dependencyContainer: dependencyContainer
+        )
+        mainCoordinator.start(animated: false)
 
         let window = UIWindow(windowScene: windowScene)
         self.window = window

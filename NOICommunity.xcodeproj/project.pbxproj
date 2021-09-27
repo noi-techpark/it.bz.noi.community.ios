@@ -36,7 +36,7 @@
 		3187667726FB38D600782FA6 /* DateIntervalFormatter+Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3187667626FB38D600782FA6 /* DateIntervalFormatter+Factory.swift */; };
 		3187667926FB3A9300782FA6 /* EventDetailsViewControl.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3187667826FB3A9300782FA6 /* EventDetailsViewControl.xib */; };
 		319C0E8226F333A700C6D38B /* EventsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319C0E8126F333A700C6D38B /* EventsViewModel.swift */; };
-		319C0E8426F33AD900C6D38B /* EventsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319C0E8326F33AD900C6D38B /* EventsViewController.swift */; };
+		319C0E8426F33AD900C6D38B /* EventsMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319C0E8326F33AD900C6D38B /* EventsMainViewController.swift */; };
 		319C0E8A26F33BD000C6D38B /* UIAlertController+Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319C0E8826F33BD000C6D38B /* UIAlertController+Error.swift */; };
 		319C0E8B26F33BD000C6D38B /* UIViewController+ShowError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319C0E8926F33BD000C6D38B /* UIViewController+ShowError.swift */; };
 		319C0E8C26F33BD000C6D38B /* UIView+Subviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319C0E8626F33BD000C6D38B /* UIView+Subviews.swift */; };
@@ -46,14 +46,27 @@
 		319C0E9826F3427C00C6D38B /* EventShortClientLive in Frameworks */ = {isa = PBXBuildFile; productRef = 319C0E9726F3427C00C6D38B /* EventShortClientLive */; };
 		319C0E9A26F3483600C6D38B /* UIControl+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319C0E9926F3483600C6D38B /* UIControl+Combine.swift */; };
 		319C0EA026F4790300C6D38B /* CalendarAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319C0E9F26F4790300C6D38B /* CalendarAdditions.swift */; };
-		319C0EA426F4A43C00C6D38B /* EventsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 319C0EA226F4A43C00C6D38B /* EventsViewController.xib */; };
+		319C0EA426F4A43C00C6D38B /* EventsMainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 319C0EA226F4A43C00C6D38B /* EventsMainViewController.xib */; };
 		31AA31E826F09E3600744A00 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31AA31E726F09E3600744A00 /* Event.swift */; };
 		31AA31EA26F0A6D700744A00 /* EventListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31AA31E926F0A6D700744A00 /* EventListViewController.swift */; };
 		31AA31EE26F0A94E00744A00 /* IdentifiableCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31AA31ED26F0A94E00744A00 /* IdentifiableCollectionViewCell.swift */; };
 		31AA31F126F0B40800744A00 /* EventCardContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31AA31F026F0B40800744A00 /* EventCardContentView.swift */; };
 		31B3623E26F1E27A00031024 /* UIColor+NOI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B3623D26F1E27A00031024 /* UIColor+NOI.swift */; };
 		31B4477F26F86FE5000999BA /* SegmentedControlBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B4477E26F86FE4000999BA /* SegmentedControlBuilder.swift */; };
-		31B7BE032701AD85000E1F8D /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 31B7BE022701AD85000E1F8D /* Kingfisher */; };
+		31C6409F26FE0B73004B71A2 /* OrientateCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C6409E26FE0B73004B71A2 /* OrientateCoordinator.swift */; };
+		31C640A026FE0B9D004B71A2 /* BaseTabCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D9C78926FDFCD3001F2DBB /* BaseTabCoordinator.swift */; };
+		31C640A226FE0BA9004B71A2 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C640A126FE0BA9004B71A2 /* Coordinator.swift */; };
+		31C640A426FE0C64004B71A2 /* URL+KnowNOIURLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C640A326FE0C64004B71A2 /* URL+KnowNOIURLs.swift */; };
+		31C640A726FE0CF8004B71A2 /* OrientateMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C640A526FE0CF8004B71A2 /* OrientateMainViewController.swift */; };
+		31C640A826FE0CF8004B71A2 /* OrientateMainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31C640A626FE0CF8004B71A2 /* OrientateMainViewController.xib */; };
+		31C640AB26FE1397004B71A2 /* DependencyContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C640AA26FE1397004B71A2 /* DependencyContainer.swift */; };
+		31C640AD26FE13CC004B71A2 /* ViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C640AC26FE13CC004B71A2 /* ViewModelFactory.swift */; };
+		31C640AF26FE13D3004B71A2 /* ViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C640AE26FE13D3004B71A2 /* ViewControllerFactory.swift */; };
+		31C640B126FE1449004B71A2 /* TabCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C640B026FE1449004B71A2 /* TabCoordinator.swift */; };
+		31C640B326FE148C004B71A2 /* BaseCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C640B226FE148C004B71A2 /* BaseCoordinator.swift */; };
+		31C640B526FE14ED004B71A2 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C640B426FE14ED004B71A2 /* MainCoordinator.swift */; };
+		31C640B726FE17F6004B71A2 /* EventsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C640B626FE17F6004B71A2 /* EventsCoordinator.swift */; };
+		31CE9BF62701BF33005EA61A /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 31CE9BF52701BF33005EA61A /* Kingfisher */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -115,7 +128,7 @@
 		3187667626FB38D600782FA6 /* DateIntervalFormatter+Factory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateIntervalFormatter+Factory.swift"; sourceTree = "<group>"; };
 		3187667826FB3A9300782FA6 /* EventDetailsViewControl.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventDetailsViewControl.xib; sourceTree = "<group>"; };
 		319C0E8126F333A700C6D38B /* EventsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsViewModel.swift; sourceTree = "<group>"; };
-		319C0E8326F33AD900C6D38B /* EventsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsViewController.swift; sourceTree = "<group>"; };
+		319C0E8326F33AD900C6D38B /* EventsMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsMainViewController.swift; sourceTree = "<group>"; };
 		319C0E8526F33BD000C6D38B /* ContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
 		319C0E8626F33BD000C6D38B /* UIView+Subviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Subviews.swift"; sourceTree = "<group>"; };
 		319C0E8726F33BD000C6D38B /* UIViewController+Children.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Children.swift"; sourceTree = "<group>"; };
@@ -123,13 +136,26 @@
 		319C0E8926F33BD000C6D38B /* UIViewController+ShowError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+ShowError.swift"; sourceTree = "<group>"; };
 		319C0E9926F3483600C6D38B /* UIControl+Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIControl+Combine.swift"; sourceTree = "<group>"; };
 		319C0E9F26F4790300C6D38B /* CalendarAdditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarAdditions.swift; sourceTree = "<group>"; };
-		319C0EA226F4A43C00C6D38B /* EventsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventsViewController.xib; sourceTree = "<group>"; };
+		319C0EA226F4A43C00C6D38B /* EventsMainViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventsMainViewController.xib; sourceTree = "<group>"; };
 		31AA31E726F09E3600744A00 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		31AA31E926F0A6D700744A00 /* EventListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListViewController.swift; sourceTree = "<group>"; };
 		31AA31ED26F0A94E00744A00 /* IdentifiableCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifiableCollectionViewCell.swift; sourceTree = "<group>"; };
 		31AA31F026F0B40800744A00 /* EventCardContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCardContentView.swift; sourceTree = "<group>"; };
 		31B3623D26F1E27A00031024 /* UIColor+NOI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+NOI.swift"; sourceTree = "<group>"; };
 		31B4477E26F86FE4000999BA /* SegmentedControlBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControlBuilder.swift; sourceTree = "<group>"; };
+		31C6409E26FE0B73004B71A2 /* OrientateCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrientateCoordinator.swift; sourceTree = "<group>"; };
+		31C640A126FE0BA9004B71A2 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		31C640A326FE0C64004B71A2 /* URL+KnowNOIURLs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+KnowNOIURLs.swift"; sourceTree = "<group>"; };
+		31C640A526FE0CF8004B71A2 /* OrientateMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrientateMainViewController.swift; sourceTree = "<group>"; };
+		31C640A626FE0CF8004B71A2 /* OrientateMainViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OrientateMainViewController.xib; sourceTree = "<group>"; };
+		31C640AA26FE1397004B71A2 /* DependencyContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyContainer.swift; sourceTree = "<group>"; };
+		31C640AC26FE13CC004B71A2 /* ViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelFactory.swift; sourceTree = "<group>"; };
+		31C640AE26FE13D3004B71A2 /* ViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerFactory.swift; sourceTree = "<group>"; };
+		31C640B026FE1449004B71A2 /* TabCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabCoordinator.swift; sourceTree = "<group>"; };
+		31C640B226FE148C004B71A2 /* BaseCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCoordinator.swift; sourceTree = "<group>"; };
+		31C640B426FE14ED004B71A2 /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
+		31C640B626FE17F6004B71A2 /* EventsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsCoordinator.swift; sourceTree = "<group>"; };
+		31D9C78926FDFCD3001F2DBB /* BaseTabCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTabCoordinator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,7 +163,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				31B7BE032701AD85000E1F8D /* Kingfisher in Frameworks */,
+				31CE9BF62701BF33005EA61A /* Kingfisher in Frameworks */,
 				319C0E9626F3427C00C6D38B /* EventShortClient in Frameworks */,
 				319C0E9826F3427C00C6D38B /* EventShortClientLive in Frameworks */,
 			);
@@ -186,8 +212,11 @@
 		3145D22F26B3F73F00F16787 /* NOICommunity */ = {
 			isa = PBXGroup;
 			children = (
+				31C640A926FE1389004B71A2 /* Factories */,
+				31D9C78826FDFCC1001F2DBB /* Coordinator */,
 				31AA31F226F0B71800744A00 /* Extensions */,
 				319C0E8026F332FE00C6D38B /* EventsFeature */,
+				31D9C78726FDFC58001F2DBB /* OrientateFeature */,
 				31B3623A26F1D62700031024 /* Helpers */,
 				319C0E8F26F33BE200C6D38B /* ViewControllers */,
 				31AA31EC26F0A94400744A00 /* Views */,
@@ -231,9 +260,10 @@
 				3187667826FB3A9300782FA6 /* EventDetailsViewControl.xib */,
 				31AA31E926F0A6D700744A00 /* EventListViewController.swift */,
 				31178FD726F9FD3800BDCDAA /* EventsFeatureConstants.swift */,
-				319C0E8326F33AD900C6D38B /* EventsViewController.swift */,
-				319C0EA226F4A43C00C6D38B /* EventsViewController.xib */,
+				319C0E8326F33AD900C6D38B /* EventsMainViewController.swift */,
+				319C0EA226F4A43C00C6D38B /* EventsMainViewController.xib */,
 				319C0E8126F333A700C6D38B /* EventsViewModel.swift */,
+				31C640B626FE17F6004B71A2 /* EventsCoordinator.swift */,
 			);
 			path = EventsFeature;
 			sourceTree = "<group>";
@@ -285,6 +315,7 @@
 				319C0E8726F33BD000C6D38B /* UIViewController+Children.swift */,
 				31157D1426FC83FE00A43B33 /* UIViewController+ShowCalenderError.swift */,
 				319C0E8926F33BD000C6D38B /* UIViewController+ShowError.swift */,
+				31C640A326FE0C64004B71A2 /* URL+KnowNOIURLs.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -296,6 +327,38 @@
 				31178FCD26F8D7CC00BDCDAA /* Localization.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		31C640A926FE1389004B71A2 /* Factories */ = {
+			isa = PBXGroup;
+			children = (
+				31C640AA26FE1397004B71A2 /* DependencyContainer.swift */,
+				31C640AE26FE13D3004B71A2 /* ViewControllerFactory.swift */,
+				31C640AC26FE13CC004B71A2 /* ViewModelFactory.swift */,
+			);
+			path = Factories;
+			sourceTree = "<group>";
+		};
+		31D9C78726FDFC58001F2DBB /* OrientateFeature */ = {
+			isa = PBXGroup;
+			children = (
+				31C6409E26FE0B73004B71A2 /* OrientateCoordinator.swift */,
+				31C640A526FE0CF8004B71A2 /* OrientateMainViewController.swift */,
+				31C640A626FE0CF8004B71A2 /* OrientateMainViewController.xib */,
+			);
+			path = OrientateFeature;
+			sourceTree = "<group>";
+		};
+		31D9C78826FDFCC1001F2DBB /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				31C640B226FE148C004B71A2 /* BaseCoordinator.swift */,
+				31D9C78926FDFCD3001F2DBB /* BaseTabCoordinator.swift */,
+				31C640A126FE0BA9004B71A2 /* Coordinator.swift */,
+				31C640B026FE1449004B71A2 /* TabCoordinator.swift */,
+				31C640B426FE14ED004B71A2 /* MainCoordinator.swift */,
+			);
+			path = Coordinator;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -318,7 +381,7 @@
 			packageProductDependencies = (
 				319C0E9526F3427C00C6D38B /* EventShortClient */,
 				319C0E9726F3427C00C6D38B /* EventShortClientLive */,
-				31B7BE022701AD85000E1F8D /* Kingfisher */,
+				31CE9BF52701BF33005EA61A /* Kingfisher */,
 			);
 			productName = NOICommunity;
 			productReference = 3145D22D26B3F73F00F16787 /* NOICommunity.app */;
@@ -394,7 +457,7 @@
 			);
 			mainGroup = 3145D22426B3F73F00F16787;
 			packageReferences = (
-				31B7BE012701AD85000E1F8D /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				31CE9BF42701BF33005EA61A /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = 3145D22E26B3F73F00F16787 /* Products */;
 			projectDirPath = "";
@@ -412,13 +475,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				31C640A826FE0CF8004B71A2 /* OrientateMainViewController.xib in Resources */,
 				317615CA26FDD637007FE10F /* MessageViewController.xib in Resources */,
 				3110CF5E26F0CE58003B7174 /* EventCardContentView.xib in Resources */,
 				31157D0526FC66FB00A43B33 /* InfoPlist.strings in Resources */,
 				3187667926FB3A9300782FA6 /* EventDetailsViewControl.xib in Resources */,
 				3145D23D26B3F74000F16787 /* LaunchScreen.storyboard in Resources */,
 				31157D0C26FC70A500A43B33 /* Localizable.strings in Resources */,
-				319C0EA426F4A43C00C6D38B /* EventsViewController.xib in Resources */,
+				319C0EA426F4A43C00C6D38B /* EventsMainViewController.xib in Resources */,
 				3145D23A26B3F74000F16787 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -470,35 +534,47 @@
 				31157CFE26FC5DEB00A43B33 /* EventsCalendarManager.swift in Sources */,
 				31B3623E26F1E27A00031024 /* UIColor+NOI.swift in Sources */,
 				3110CF6026F0E89C003B7174 /* CircleView.swift in Sources */,
+				31C640AB26FE1397004B71A2 /* DependencyContainer.swift in Sources */,
 				31157D1B26FCB26200A43B33 /* String+Localization.swift in Sources */,
 				31AA31EE26F0A94E00744A00 /* IdentifiableCollectionViewCell.swift in Sources */,
 				317615C726FDD0FE007FE10F /* MessageViewController.swift in Sources */,
 				319C0E8226F333A700C6D38B /* EventsViewModel.swift in Sources */,
+				31C640AD26FE13CC004B71A2 /* ViewModelFactory.swift in Sources */,
+				31C640B326FE148C004B71A2 /* BaseCoordinator.swift in Sources */,
 				31178FE026FA318800BDCDAA /* Collection.swift in Sources */,
 				31AA31F126F0B40800744A00 /* EventCardContentView.swift in Sources */,
-				319C0E8426F33AD900C6D38B /* EventsViewController.swift in Sources */,
+				319C0E8426F33AD900C6D38B /* EventsMainViewController.swift in Sources */,
 				3145D23126B3F73F00F16787 /* AppDelegate.swift in Sources */,
 				31178FDA26FA16A200BDCDAA /* NavigationController.swift in Sources */,
 				319C0EA026F4790300C6D38B /* CalendarAdditions.swift in Sources */,
+				31C640A226FE0BA9004B71A2 /* Coordinator.swift in Sources */,
 				319C0E8E26F33BD000C6D38B /* UIViewController+Children.swift in Sources */,
+				31C640A426FE0C64004B71A2 /* URL+KnowNOIURLs.swift in Sources */,
 				31157D1926FCA1EB00A43B33 /* WebViewController.swift in Sources */,
 				31157D1526FC83FE00A43B33 /* UIViewController+ShowCalenderError.swift in Sources */,
 				317615C926FDD369007FE10F /* UIFont+Additions.swift in Sources */,
+				31C640A026FE0B9D004B71A2 /* BaseTabCoordinator.swift in Sources */,
+				31C640B126FE1449004B71A2 /* TabCoordinator.swift in Sources */,
 				31178FDC26FA26C500BDCDAA /* EventDetailsViewControl.swift in Sources */,
 				3145D23326B3F73F00F16787 /* SceneDelegate.swift in Sources */,
 				31AA31E826F09E3600744A00 /* Event.swift in Sources */,
 				3187667726FB38D600782FA6 /* DateIntervalFormatter+Factory.swift in Sources */,
 				319C0E8D26F33BD000C6D38B /* ContainerViewController.swift in Sources */,
 				319C0E9A26F3483600C6D38B /* UIControl+Combine.swift in Sources */,
+				31C640A726FE0CF8004B71A2 /* OrientateMainViewController.swift in Sources */,
 				31178FDE26FA2F7100BDCDAA /* TabBarController.swift in Sources */,
 				319C0E8B26F33BD000C6D38B /* UIViewController+ShowError.swift in Sources */,
 				31178FD826F9FD3800BDCDAA /* EventsFeatureConstants.swift in Sources */,
 				31AA31EA26F0A6D700744A00 /* EventListViewController.swift in Sources */,
 				31157D0026FC648700A43B33 /* Event+CalendarEvent.swift in Sources */,
+				31C6409F26FE0B73004B71A2 /* OrientateCoordinator.swift in Sources */,
 				3187667526FB35C100782FA6 /* String+NotDefined.swift in Sources */,
 				319C0E8A26F33BD000C6D38B /* UIAlertController+Error.swift in Sources */,
 				31B4477F26F86FE5000999BA /* SegmentedControlBuilder.swift in Sources */,
 				319C0E8C26F33BD000C6D38B /* UIView+Subviews.swift in Sources */,
+				31C640B526FE14ED004B71A2 /* MainCoordinator.swift in Sources */,
+				31C640B726FE17F6004B71A2 /* EventsCoordinator.swift in Sources */,
+				31C640AF26FE13D3004B71A2 /* ViewControllerFactory.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -847,7 +923,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		31B7BE012701AD85000E1F8D /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+		31CE9BF42701BF33005EA61A /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
 			requirement = {
@@ -866,9 +942,9 @@
 			isa = XCSwiftPackageProductDependency;
 			productName = EventShortClientLive;
 		};
-		31B7BE022701AD85000E1F8D /* Kingfisher */ = {
+		31CE9BF52701BF33005EA61A /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 31B7BE012701AD85000E1F8D /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			package = 31CE9BF42701BF33005EA61A /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
 		};
 /* End XCSwiftPackageProductDependency section */
