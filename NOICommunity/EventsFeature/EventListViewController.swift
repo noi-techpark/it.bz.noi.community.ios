@@ -176,8 +176,8 @@ private extension EventListViewController {
             content.leadingSecondaryText = item.venue ?? .notDefined
             content.trailingSecondaryText = timeIntervalFormatter
                 .string(from: timeInterval) ?? .notDefined
-            content.badgeText = dayMonthIntervalFormatter.string(from: dateInterval)?
-                .replacingOccurrences(of: "/", with: ".") ?? .notDefined
+            content.badgeText = dayMonthIntervalFormatter.string(from: dateInterval) ??
+                .notDefined
             content.badgeTextProprieties.numberOfLines = 0
             content.image = UIImage(named: "placeholder_noi_events")
             cell.contentConfiguration = content
