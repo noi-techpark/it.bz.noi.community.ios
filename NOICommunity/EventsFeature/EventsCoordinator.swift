@@ -53,7 +53,7 @@ private extension EventsCoordinator {
     }
 
     func goToDetails(of event: Event) {
-        let detailVC = EventDetailsViewControl(
+        let detailVC = EventDetailsViewController(
             for: event,
                relatedEvents: eventsViewModel.relatedEvent(of: event)
         )

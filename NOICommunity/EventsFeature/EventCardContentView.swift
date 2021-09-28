@@ -136,7 +136,7 @@ struct EventCardContentConfiguration: UIContentConfiguration, Hashable {
     var leadingSecondaryAttributedText: NSAttributedString?
 
     /// Properties for configuring the leading secondary text.
-    var leadingSecondaryTextProprieties = TextProperties()
+    var leadingSecondaryTextProprieties = TextProperties(numberOfLines: 1)
 
     /// The trailing secondary text.
     var trailingSecondaryText: String?
@@ -145,7 +145,7 @@ struct EventCardContentConfiguration: UIContentConfiguration, Hashable {
     var trailingSecondaryAttributedText: NSAttributedString?
 
     /// Properties for configuring the trailing secondary text.
-    var trailingSecondaryTextProprieties = TextProperties()
+    var trailingSecondaryTextProprieties = TextProperties(numberOfLines: 1)
 
     /// The tertiary text.
     var tertiaryText: String?
@@ -177,7 +177,7 @@ struct EventCardContentConfiguration: UIContentConfiguration, Hashable {
 extension EventCardContentConfiguration {
     struct TextProperties: Hashable {
         /// The maximum number of lines for the text.
-        var numberOfLines: Int = 1
+        var numberOfLines: Int = 0
     }
 }
 

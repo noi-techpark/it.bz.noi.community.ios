@@ -13,41 +13,41 @@ class EventListViewController: UICollectionViewController {
         didSet {
             guard isViewLoaded
             else { return }
-
+            
             let animated = view.window != nil
             updateUI(items: items, animated: animated)
         }
     }
-
+    
     let embeddedHorizontally: Bool
-
+    
     var refreshControl = UIRefreshControl()
-
+    
     var didSelectHandler: ((IndexPath, Event) -> Void)?
-
+    
     private var dataSource: UICollectionViewDiffableDataSource<Section, Event>! = nil
     private var currentSnapshot: NSDiffableDataSourceSnapshot<Section, Event>! = nil
     private var imagePrefetcher: ImagePrefetcher?
-
+    
     init(items: [Event], embeddedHorizontally: Bool = false) {
         self.items = items
         self.embeddedHorizontally = embeddedHorizontally
         let collectionViewLayout = Self.createLayout(embeddedHorizontally: embeddedHorizontally)
         super.init(collectionViewLayout: collectionViewLayout)
     }
-
+    
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("\(#function) not implemented")
     }
-
+    
     @available(*, unavailable)
     override init(
         collectionViewLayout layout: UICollectionViewLayout
     ) {
         fatalError("\(#function) not implemented")
     }
-
+    
     @available(*, unavailable)
     override init(
         nibName nibNameOrNil: String?,
@@ -55,23 +55,23 @@ class EventListViewController: UICollectionViewController {
     ) {
         fatalError("\(#function) not implemented")
     }
-
+    
     @available(*, unavailable)
     init() {
         fatalError("\(#function) not implemented")
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         configureCollectionView()
         configureDataSource()
         updateUI(items: items, animated: false)
     }
-
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-
+        
         preferredContentSize = collectionView.contentSize
     }
 }
@@ -82,7 +82,7 @@ private extension EventListViewController {
     enum Section {
         case main
     }
-
+    
     static func columnCount(
         for layoutEnviroment: NSCollectionLayoutEnvironment,
         embeddedHorizontally: Bool
@@ -98,21 +98,21 @@ private extension EventListViewController {
             return 2
         }
     }
-
+    
     static func createLayout(embeddedHorizontally: Bool) -> UICollectionViewLayout {
         let layout = UICollectionViewCompositionalLayout { sectionIndex, layoutEnvironment in
             let columns = self.columnCount(
                 for: layoutEnvironment,
                    embeddedHorizontally: embeddedHorizontally
             )
-
+            
             let estimatedHeight = NSCollectionLayoutDimension.estimated(300)
             let itemSize = NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1.0),
                 heightDimension: estimatedHeight
             )
             let item = NSCollectionLayoutItem(layoutSize: itemSize)
-
+            
             let groupSize: NSCollectionLayoutSize
             if embeddedHorizontally {
                 groupSize = NSCollectionLayoutSize(
@@ -130,7 +130,7 @@ private extension EventListViewController {
                 subitem: item,
                 count: columns
             )
-
+            
             let section = NSCollectionLayoutSection(group: group)
             section.interGroupSpacing = 20
             if embeddedHorizontally {
@@ -149,39 +149,21 @@ private extension EventListViewController {
         }
         return layout
     }
-
+    
     func configureDataSource() {
         let dayMonthIntervalFormatter = DateIntervalFormatter.dayMonth()
         let timeIntervalFormatter = DateIntervalFormatter.time()
-
+        
         let cellRegistration = UICollectionView.CellRegistration<IdentifiableCollectionViewCell<Event>, Event> { cell, indexPath, item in
             cell.identifiable = item
-
-            let dateInterval = DateInterval(
-                start: item.startDate,
-                end: item.endDate
-            )
-            let timeInterval = DateInterval(
-                start: Calendar.current.dateForTime(from: item.startDate),
-                end: Calendar.current.dateForTime(from: item.endDate)
-            )
             
-            var content = EventCardContentConfiguration()
-            content.text = item.title ?? .notDefined
-            if self.embeddedHorizontally {
-                content.textProprieties.numberOfLines = 2
-            } else {
-                content.textProprieties.numberOfLines = 0
-            }
-            content.leadingSecondaryText = item.venue ?? .notDefined
-            content.trailingSecondaryText = timeIntervalFormatter
-                .string(from: timeInterval) ?? .notDefined
-            content.badgeText = dayMonthIntervalFormatter.string(from: dateInterval) ??
-                .notDefined
-            content.badgeTextProprieties.numberOfLines = 0
-            content.image = UIImage(named: "placeholder_noi_events")
-            cell.contentConfiguration = content
-
+            let contentConfiguration = EventCardContentConfiguration.makeContentConfiguration(
+                for: item,
+                   dayMonthIntervalFormatter: dayMonthIntervalFormatter,
+                   timeIntervalFormatter: timeIntervalFormatter
+            )
+            cell.contentConfiguration = contentConfiguration
+            
             if let imageURL = item.imageURL {
                 KingfisherManager.shared
                     .retrieveImage(with: imageURL) { result in
@@ -190,13 +172,13 @@ private extension EventListViewController {
                             case let .success(imageInfo) = result,
                             var contentConfiguration = cell.contentConfiguration as? EventCardContentConfiguration
                         else { return }
-
+                        
                         contentConfiguration.image = imageInfo.image
                         cell.contentConfiguration = contentConfiguration
                     }
             }
         }
-
+        
         dataSource = .init(
             collectionView: collectionView
         ) { collectionView, indexPath, item in
@@ -207,18 +189,18 @@ private extension EventListViewController {
             )
         }
     }
-
+    
     func configureCollectionView() {
         collectionView.refreshControl = refreshControl
         collectionView.backgroundColor = .secondaryBackgroundColor
     }
-
+    
     func updateUI(items: [Event], animated: Bool) {
         currentSnapshot = NSDiffableDataSourceSnapshot<Section, Event>()
-
+        
         currentSnapshot.appendSections([.main])
         currentSnapshot.appendItems(items, toSection: .main)
-
+        
         dataSource.apply(currentSnapshot, animatingDifferences: animated)
     }
 }
