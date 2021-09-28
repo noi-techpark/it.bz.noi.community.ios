@@ -193,6 +193,7 @@ private extension EventListViewController {
     func configureCollectionView() {
         collectionView.refreshControl = refreshControl
         collectionView.backgroundColor = .secondaryBackgroundColor
+        collectionView.prefetchDataSource = self
     }
     
     func updateUI(items: [Event], animated: Bool) {
@@ -205,22 +206,27 @@ private extension EventListViewController {
     }
 }
 
-//// MARK: UICollectionViewDataSourcePrefetching
-//extension EventListViewController: UICollectionViewDataSourcePrefetching {
-//    func collectionView(
-//        _ collectionView: UICollectionView,
-//        prefetchItemsAt indexPaths: [IndexPath]
-//    ) {
-//        let imageUrls = indexPaths
-//            .compactMap(dataSource.itemIdentifier(for:))
-//            .compactMap(\.imageURL)
-//        let imagePrefetcher = ImagePrefetcher(urls: imageUrls)
-//        self.imagePrefetcher = imagePrefetcher
-//        imagePrefetcher.start()
-//    }
-//}
+// MARK: UICollectionViewDataSourcePrefetching
+
+extension EventListViewController: UICollectionViewDataSourcePrefetching {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        prefetchItemsAt indexPaths: [IndexPath]
+    ) {
+        let imageUrls = indexPaths
+            .compactMap(dataSource.itemIdentifier(for:))
+            .compactMap(\.imageURL)
+        guard !imageUrls.isEmpty
+        else { return }
+
+        let imagePrefetcher = ImagePrefetcher(urls: imageUrls)
+        self.imagePrefetcher = imagePrefetcher
+        imagePrefetcher.start()
+    }
+}
 
 // MARK: UICollectionViewDelegate
+
 extension EventListViewController {
     override func collectionView(
         _ collectionView: UICollectionView,
