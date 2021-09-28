@@ -33,7 +33,7 @@ final class EventsMainViewController: UIViewController {
         builder.font = .boldSystemFont(ofSize: 19)
         builder.font = .boldSystemFont(ofSize: 19)
         builder.selectedFont = builder.font
-        builder.class = NoSwipeSegmentedControl.self
+        builder.class = SegmentedControl.self
         return builder.makeSegmentedControl(
             items: DateIntervalFilter.allCases.map(\.localizedString)
         )
@@ -212,9 +212,19 @@ private extension EventsMainViewController {
     }
 }
 
-class NoSwipeSegmentedControl: UISegmentedControl {
-    override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
+private extension EventsMainViewController {
+    class SegmentedControl: UISegmentedControl {
+
+        // Removes swipe gesture
+        override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+            return true
+        }
+
+        override func layoutSubviews() {
+            super.layoutSubviews()
+
+            // Force a square shape
+            layer.cornerRadius = 0
+        }
     }
 }
-
