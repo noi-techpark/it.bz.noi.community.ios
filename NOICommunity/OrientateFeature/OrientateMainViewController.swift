@@ -52,6 +52,10 @@ final class OrientateMainViewController: UIViewController {
         super.viewDidLayoutSubviews()
         actionsContainersView.layer.shadowPath = UIBezierPath(rect: actionsContainersView.bounds).cgPath
     }
+
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
 }
 
 // MARK: Private APIs

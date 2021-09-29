@@ -124,6 +124,10 @@ class EventDetailsViewController: UIViewController {
         configureViewHierarchy()
         configureChilds()
     }
+
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
