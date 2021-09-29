@@ -26,31 +26,31 @@ final class MeetViewModel {
 
         static let companies = Self(
             localizedTitle: .localized("meet_item_companies"),
-            url: .urlCompanies
+            url: .companies
         )
         static let startups = Self(
             localizedTitle: .localized("meet_item_startups"),
-            url: .urlStartups
+            url: .startups
         )
         static let university = Self(
             localizedTitle: .localized("meet_item_university"),
-            url: .urlUniversity
+            url: .university
         )
         static let researchInstitution = Self(
             localizedTitle: .localized("meet_item_research"),
-            url: .urlResearch
+            url: .research
         )
         static let institutionalSupport = Self(
             localizedTitle: .localized("meet_item_support"),
-            url: .urlInstitutions
+            url: .institutions
         )
         static let laboratories = Self(
             localizedTitle: .localized("meet_item_lab"),
-            url: .urlLab
+            url: .lab
         )
         static let teamNOI = Self(
             localizedTitle: .localized("meet_item_team"),
-            url: .urlAboutUs
+            url: .aboutUs
         )
     }
 }
