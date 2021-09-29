@@ -18,7 +18,7 @@ extension Calendar {
 
     func lastDayOfWeek(for date: Date) -> Date {
         let numberOfDaysInAWeek = weekdaySymbols.count
-        let lastWeekday = numberOfDaysInAWeek - firstWeekday + 1
+        let lastWeekday = ((firstWeekday - 1) + (numberOfDaysInAWeek - 1)) % numberOfDaysInAWeek + 1
         let components = DateComponents(weekday: lastWeekday)
         if component(.weekday, from: date) == lastWeekday {
             return date
