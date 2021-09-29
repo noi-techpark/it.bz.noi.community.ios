@@ -116,7 +116,19 @@ private extension MeetMainViewController {
         let cellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, Entry> { cell, _, entry in
             var contentConfiguration = UIListContentConfiguration.cell()
             contentConfiguration.text = entry.localizedTitle
+            contentConfiguration.textProperties.color = .secondaryColor
             cell.contentConfiguration = contentConfiguration
+
+            var backgroundConfiguration = UIBackgroundConfiguration.listPlainCell()
+            backgroundConfiguration.backgroundColorTransformer = UIConfigurationColorTransformer { [weak cell] color in
+                switch cell?.configurationState {
+                case let foo? where foo.isSelected || foo.isHighlighted:
+                    return color
+                default:
+                    return .tertiaryBackgroundColor
+                }
+            }
+            cell.backgroundConfiguration = backgroundConfiguration
 
             cell.accessories = [.disclosureIndicator()]
         }
