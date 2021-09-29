@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3110CF5E26F0CE58003B7174 /* EventCardContentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3110CF5D26F0CE58003B7174 /* EventCardContentView.xib */; };
 		3110CF6026F0E89C003B7174 /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3110CF5F26F0E89C003B7174 /* CircleView.swift */; };
 		31157CFE26FC5DEB00A43B33 /* EventsCalendarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31157CFD26FC5DEB00A43B33 /* EventsCalendarManager.swift */; };
 		31157D0026FC648700A43B33 /* Event+CalendarEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31157CFF26FC648700A43B33 /* Event+CalendarEvent.swift */; };
@@ -20,7 +19,7 @@
 		31178FD626F9D6EB00BDCDAA /* DateIntervalFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31178FD526F9D6EB00BDCDAA /* DateIntervalFilter.swift */; };
 		31178FD826F9FD3800BDCDAA /* EventsFeatureConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31178FD726F9FD3800BDCDAA /* EventsFeatureConstants.swift */; };
 		31178FDA26FA16A200BDCDAA /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31178FD926FA16A200BDCDAA /* NavigationController.swift */; };
-		31178FDC26FA26C500BDCDAA /* EventDetailsViewControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31178FDB26FA26C500BDCDAA /* EventDetailsViewControl.swift */; };
+		31178FDC26FA26C500BDCDAA /* EventDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31178FDB26FA26C500BDCDAA /* EventDetailsViewController.swift */; };
 		31178FDE26FA2F7100BDCDAA /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31178FDD26FA2F7100BDCDAA /* TabBarController.swift */; };
 		31178FE026FA318800BDCDAA /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31178FDF26FA318800BDCDAA /* Collection.swift */; };
 		3145D23126B3F73F00F16787 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3145D23026B3F73F00F16787 /* AppDelegate.swift */; };
@@ -29,12 +28,14 @@
 		3145D23D26B3F74000F16787 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3145D23B26B3F74000F16787 /* LaunchScreen.storyboard */; };
 		3145D24826B3F74000F16787 /* NOICommunityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3145D24726B3F74000F16787 /* NOICommunityTests.swift */; };
 		3145D25326B3F74000F16787 /* NOICommunityUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3145D25226B3F74000F16787 /* NOICommunityUITests.swift */; };
+		315F4BE227034C00001905AF /* EventCardContentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 315F4BE127034C00001905AF /* EventCardContentView.xib */; };
+		315F4BE427035679001905AF /* EventCardContentConfiguration.SharedConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315F4BE327035679001905AF /* EventCardContentConfiguration.SharedConfig.swift */; };
 		317615C726FDD0FE007FE10F /* MessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317615C626FDD0FE007FE10F /* MessageViewController.swift */; };
 		317615C926FDD369007FE10F /* UIFont+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317615C826FDD369007FE10F /* UIFont+Additions.swift */; };
 		317615CA26FDD637007FE10F /* MessageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 317615C526FDCFF7007FE10F /* MessageViewController.xib */; };
 		3187667526FB35C100782FA6 /* String+NotDefined.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3187667426FB35C100782FA6 /* String+NotDefined.swift */; };
 		3187667726FB38D600782FA6 /* DateIntervalFormatter+Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3187667626FB38D600782FA6 /* DateIntervalFormatter+Factory.swift */; };
-		3187667926FB3A9300782FA6 /* EventDetailsViewControl.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3187667826FB3A9300782FA6 /* EventDetailsViewControl.xib */; };
+		3187667926FB3A9300782FA6 /* EventDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3187667826FB3A9300782FA6 /* EventDetailsViewController.xib */; };
 		319C0E8226F333A700C6D38B /* EventsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319C0E8126F333A700C6D38B /* EventsViewModel.swift */; };
 		319C0E8426F33AD900C6D38B /* EventsMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319C0E8326F33AD900C6D38B /* EventsMainViewController.swift */; };
 		319C0E8A26F33BD000C6D38B /* UIAlertController+Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319C0E8826F33BD000C6D38B /* UIAlertController+Error.swift */; };
@@ -66,9 +67,9 @@
 		31C640B326FE148C004B71A2 /* BaseCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C640B226FE148C004B71A2 /* BaseCoordinator.swift */; };
 		31C640B526FE14ED004B71A2 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C640B426FE14ED004B71A2 /* MainCoordinator.swift */; };
 		31C640B726FE17F6004B71A2 /* EventsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C640B626FE17F6004B71A2 /* EventsCoordinator.swift */; };
-		31CE9BF62701BF33005EA61A /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 31CE9BF52701BF33005EA61A /* Kingfisher */; };
 		31C640C526FE1E43004B71A2 /* MeetCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C640C226FE1E43004B71A2 /* MeetCoordinator.swift */; };
 		31C640C626FE1E43004B71A2 /* MeetMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C640C326FE1E43004B71A2 /* MeetMainViewController.swift */; };
+		31CE9BF62701BF33005EA61A /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 31CE9BF52701BF33005EA61A /* Kingfisher */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,7 +90,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		3110CF5D26F0CE58003B7174 /* EventCardContentView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventCardContentView.xib; sourceTree = "<group>"; };
 		3110CF5F26F0E89C003B7174 /* CircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
 		31157CFD26FC5DEB00A43B33 /* EventsCalendarManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventsCalendarManager.swift; sourceTree = "<group>"; };
 		31157CFF26FC648700A43B33 /* Event+CalendarEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Event+CalendarEvent.swift"; sourceTree = "<group>"; };
@@ -106,7 +106,7 @@
 		31178FD526F9D6EB00BDCDAA /* DateIntervalFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateIntervalFilter.swift; sourceTree = "<group>"; };
 		31178FD726F9FD3800BDCDAA /* EventsFeatureConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsFeatureConstants.swift; sourceTree = "<group>"; };
 		31178FD926FA16A200BDCDAA /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
-		31178FDB26FA26C500BDCDAA /* EventDetailsViewControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailsViewControl.swift; sourceTree = "<group>"; };
+		31178FDB26FA26C500BDCDAA /* EventDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailsViewController.swift; sourceTree = "<group>"; };
 		31178FDD26FA2F7100BDCDAA /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		31178FDF26FA318800BDCDAA /* Collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
 		3130FB1826FB7FE7007CD7C8 /* EventShortClient */ = {isa = PBXFileReference; lastKnownFileType = folder; path = EventShortClient; sourceTree = "<group>"; };
@@ -122,13 +122,15 @@
 		3145D24E26B3F74000F16787 /* NOICommunityUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NOICommunityUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3145D25226B3F74000F16787 /* NOICommunityUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NOICommunityUITests.swift; sourceTree = "<group>"; };
 		3145D25426B3F74000F16787 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		315F4BE127034C00001905AF /* EventCardContentView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EventCardContentView.xib; sourceTree = "<group>"; };
+		315F4BE327035679001905AF /* EventCardContentConfiguration.SharedConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCardContentConfiguration.SharedConfig.swift; sourceTree = "<group>"; };
 		3164BAC326F8630D00443CF0 /* NOICommunity.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = NOICommunity.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		317615C526FDCFF7007FE10F /* MessageViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MessageViewController.xib; sourceTree = "<group>"; };
 		317615C626FDD0FE007FE10F /* MessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewController.swift; sourceTree = "<group>"; };
 		317615C826FDD369007FE10F /* UIFont+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Additions.swift"; sourceTree = "<group>"; };
 		3187667426FB35C100782FA6 /* String+NotDefined.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+NotDefined.swift"; sourceTree = "<group>"; };
 		3187667626FB38D600782FA6 /* DateIntervalFormatter+Factory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateIntervalFormatter+Factory.swift"; sourceTree = "<group>"; };
-		3187667826FB3A9300782FA6 /* EventDetailsViewControl.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventDetailsViewControl.xib; sourceTree = "<group>"; };
+		3187667826FB3A9300782FA6 /* EventDetailsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventDetailsViewController.xib; sourceTree = "<group>"; };
 		319C0E8126F333A700C6D38B /* EventsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsViewModel.swift; sourceTree = "<group>"; };
 		319C0E8326F33AD900C6D38B /* EventsMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsMainViewController.swift; sourceTree = "<group>"; };
 		319C0E8526F33BD000C6D38B /* ContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
@@ -259,16 +261,17 @@
 			children = (
 				31178FD526F9D6EB00BDCDAA /* DateIntervalFilter.swift */,
 				31AA31E726F09E3600744A00 /* Event.swift */,
+				315F4BE327035679001905AF /* EventCardContentConfiguration.SharedConfig.swift */,
 				31AA31F026F0B40800744A00 /* EventCardContentView.swift */,
-				3110CF5D26F0CE58003B7174 /* EventCardContentView.xib */,
-				31178FDB26FA26C500BDCDAA /* EventDetailsViewControl.swift */,
-				3187667826FB3A9300782FA6 /* EventDetailsViewControl.xib */,
+				315F4BE127034C00001905AF /* EventCardContentView.xib */,
+				31178FDB26FA26C500BDCDAA /* EventDetailsViewController.swift */,
+				3187667826FB3A9300782FA6 /* EventDetailsViewController.xib */,
 				31AA31E926F0A6D700744A00 /* EventListViewController.swift */,
+				31C640B626FE17F6004B71A2 /* EventsCoordinator.swift */,
 				31178FD726F9FD3800BDCDAA /* EventsFeatureConstants.swift */,
 				319C0E8326F33AD900C6D38B /* EventsMainViewController.swift */,
 				319C0EA226F4A43C00C6D38B /* EventsMainViewController.xib */,
 				319C0E8126F333A700C6D38B /* EventsViewModel.swift */,
-				31C640B626FE17F6004B71A2 /* EventsCoordinator.swift */,
 			);
 			path = EventsFeature;
 			sourceTree = "<group>";
@@ -490,9 +493,9 @@
 			files = (
 				31C640A826FE0CF8004B71A2 /* OrientateMainViewController.xib in Resources */,
 				317615CA26FDD637007FE10F /* MessageViewController.xib in Resources */,
-				3110CF5E26F0CE58003B7174 /* EventCardContentView.xib in Resources */,
 				31157D0526FC66FB00A43B33 /* InfoPlist.strings in Resources */,
-				3187667926FB3A9300782FA6 /* EventDetailsViewControl.xib in Resources */,
+				315F4BE227034C00001905AF /* EventCardContentView.xib in Resources */,
+				3187667926FB3A9300782FA6 /* EventDetailsViewController.xib in Resources */,
 				3145D23D26B3F74000F16787 /* LaunchScreen.storyboard in Resources */,
 				31157D0C26FC70A500A43B33 /* Localizable.strings in Resources */,
 				319C0EA426F4A43C00C6D38B /* EventsMainViewController.xib in Resources */,
@@ -547,7 +550,7 @@
 				317615C926FDD369007FE10F /* UIFont+Additions.swift in Sources */,
 				31C640A026FE0B9D004B71A2 /* BaseTabCoordinator.swift in Sources */,
 				31C640B126FE1449004B71A2 /* TabCoordinator.swift in Sources */,
-				31178FDC26FA26C500BDCDAA /* EventDetailsViewControl.swift in Sources */,
+				31178FDC26FA26C500BDCDAA /* EventDetailsViewController.swift in Sources */,
 				3145D23326B3F73F00F16787 /* SceneDelegate.swift in Sources */,
 				31AA31E826F09E3600744A00 /* Event.swift in Sources */,
 				3187667726FB38D600782FA6 /* DateIntervalFormatter+Factory.swift in Sources */,
@@ -558,6 +561,7 @@
 				319C0E8B26F33BD000C6D38B /* UIViewController+ShowError.swift in Sources */,
 				31178FD826F9FD3800BDCDAA /* EventsFeatureConstants.swift in Sources */,
 				31AA31EA26F0A6D700744A00 /* EventListViewController.swift in Sources */,
+				315F4BE427035679001905AF /* EventCardContentConfiguration.SharedConfig.swift in Sources */,
 				31157D0026FC648700A43B33 /* Event+CalendarEvent.swift in Sources */,
 				31C640C626FE1E43004B71A2 /* MeetMainViewController.swift in Sources */,
 				31C640C526FE1E43004B71A2 /* MeetCoordinator.swift in Sources */,

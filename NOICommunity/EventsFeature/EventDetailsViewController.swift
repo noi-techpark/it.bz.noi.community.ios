@@ -1,5 +1,5 @@
 //
-//  EventDetailsViewControl.swift
+//  EventDetailsViewController.swift
 //  NOICommunity
 //
 //  Created by Matteo Matassoni on 21/09/21.
@@ -8,7 +8,7 @@
 import UIKit
 import Kingfisher
 
-class EventDetailsViewControl: UIViewController {
+class EventDetailsViewController: UIViewController {
     
     let event: Event
     let relatedEvents: [Event]
@@ -124,6 +124,10 @@ class EventDetailsViewControl: UIViewController {
         configureViewHierarchy()
         configureChilds()
     }
+
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -140,45 +144,23 @@ class EventDetailsViewControl: UIViewController {
 }
 
 // MARK: Private APIs
-private extension EventDetailsViewControl {
+private extension EventDetailsViewController {
     func configureViewHierarchy() {
-        let dayMonthIntervalFormatter = DateIntervalFormatter.dayMonth()
-        let timeIntervalFormatter = DateIntervalFormatter.time()
-        let dateInterval = DateInterval(
-            start: event.startDate,
-            end: event.endDate
-        )
-        let timeInterval = DateInterval(
-            start: Calendar.current.dateForTime(from: event.startDate),
-            end: Calendar.current.dateForTime(from: event.endDate)
-        )
-        var content = EventCardContentConfiguration()
+        var contentConfiguration = EventCardContentConfiguration.makeDetailedContentConfiguration(for: event)
         defer {
-            cardView = content.makeContentView()
+            cardView = contentConfiguration.makeContentView()
             contentStackView.insertArrangedSubview(cardView, at: 0)
         }
         
-        content.image = UIImage(named: "placeholder_noi_events")
         if let imageURL = event.imageURL {
             KingfisherManager.shared.retrieveImage(with: imageURL) { [weak cardView] result in
                 guard case let .success(imageInfo) = result
                 else { return }
                 
-                content.image = imageInfo.image
-                cardView?.configuration = content
+                contentConfiguration.image = imageInfo.image
+                cardView?.configuration = contentConfiguration
             }
         }
-        
-        content.text = event.title ?? .notDefined
-        
-        content.leadingSecondaryText = event.venue ?? .notDefined
-        content.trailingSecondaryText = timeIntervalFormatter
-            .string(from: timeInterval) ?? .notDefined
-        
-        content.tertiaryText = event.organizer ?? .notDefined
-        
-        content.badgeText = dayMonthIntervalFormatter.string(from: dateInterval)?
-            .replacingOccurrences(of: "/", with: ".") ?? .notDefined
     }
     
     func configureChilds() {

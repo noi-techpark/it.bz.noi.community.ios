@@ -93,6 +93,10 @@ final class MeetMainViewController: UICollectionViewController {
 
         configureDataSource()
     }
+
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
 }
 
 // MARK: Private APIs

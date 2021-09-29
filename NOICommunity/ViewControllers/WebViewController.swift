@@ -32,6 +32,10 @@ class WebViewController: UIViewController {
 
         updateUI(for: url)
     }
+
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
 }
 
 // MARK: WKNavigationDelegate
