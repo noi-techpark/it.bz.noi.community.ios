@@ -154,8 +154,8 @@ private extension EventListViewController {
         let dayMonthIntervalFormatter = DateIntervalFormatter.dayMonth()
         let timeIntervalFormatter = DateIntervalFormatter.time()
         
-        let cellRegistration = UICollectionView.CellRegistration<IdentifiableCollectionViewCell<Event>, Event> { cell, indexPath, item in
-            cell.identifiable = item
+        let cellRegistration = UICollectionView.CellRegistration<IdentifiableCollectionViewCell<String>, Event> { cell, indexPath, item in
+            cell.id = item.id
             
             let contentConfiguration = EventCardContentConfiguration.makeContentConfiguration(
                 for: item,
@@ -168,7 +168,7 @@ private extension EventListViewController {
                 KingfisherManager.shared
                     .retrieveImage(with: imageURL) { result in
                         guard
-                            cell.identifiable.id == item.id,
+                            cell.id == item.id,
                             case let .success(imageInfo) = result,
                             var contentConfiguration = cell.contentConfiguration as? EventCardContentConfiguration
                         else { return }
@@ -218,7 +218,7 @@ extension EventListViewController: UICollectionViewDataSourcePrefetching {
             .compactMap(\.imageURL)
         guard !imageUrls.isEmpty
         else { return }
-
+        
         let imagePrefetcher = ImagePrefetcher(urls: imageUrls)
         self.imagePrefetcher = imagePrefetcher
         imagePrefetcher.start()

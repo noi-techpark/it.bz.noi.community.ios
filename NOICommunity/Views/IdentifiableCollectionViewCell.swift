@@ -7,12 +7,11 @@
 
 import UIKit
 
-class IdentifiableCollectionViewCell<T: Identifiable>: UICollectionViewCell {
-
-    var identifiable: T!
+class IdentifiableCollectionViewCell<T>: UICollectionViewCell, Identifiable {
+    var id: T!
 
     override func prepareForReuse() {
         super.prepareForReuse()
-        identifiable = nil
+        id = nil
     }
 }

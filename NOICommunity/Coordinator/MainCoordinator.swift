@@ -46,6 +46,12 @@ final class MainCoordinator: BaseTabCoordinator {
         eatNavController.tabBarItem.title = .localized("tab_title_eat")
         eatNavController.tabBarItem.image = UIImage(named: "ic_eat")
         eatNavController.navigationBar.prefersLargeTitles = true
+        let eatCoordinator = EatCoordinator(
+            navigationController: eatNavController,
+            dependencyContainer: dependencyContainer
+        )
+        eatCoordinator.start(animated: false)
+        childCoordinators.append(eatCoordinator)
 
         let moreNavController = NavigationController()
         moreNavController.tabBarItem.title = .localized("tab_title_more")

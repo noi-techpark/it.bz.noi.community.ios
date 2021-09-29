@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PlaceCardContentView" customModule="NOICommunity" customModuleProvider="target">
+            <connections>
+                <outlet property="actionButton" destination="02J-0C-izf" id="5uk-H6-BLd"/>
+                <outlet property="collectionView" destination="oeK-Ku-Hbg" id="LQy-ha-3lU"/>
+                <outlet property="containerView" destination="Cvg-Na-Fx5" id="eK1-MW-LfB"/>
+                <outlet property="detailTextLabel" destination="KkC-cE-if6" id="7Gk-WI-Tt5"/>
+                <outlet property="textLabel" destination="8Fd-7V-yEp" id="Zsu-ve-jeo"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="Cvg-Na-Fx5">
+            <rect key="frame" x="0.0" y="0.0" width="297" height="322"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacingType="standard" baselineRelativeArrangement="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wUZ-lx-eDn">
+                    <rect key="frame" x="0.0" y="0.0" width="297" height="42"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Fd-7V-yEp">
+                            <rect key="frame" x="0.0" y="0.0" width="297" height="24.5"/>
+                            <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                            <color key="textColor" name="secondary_color"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="ZU2-c0-VbN">
+                            <rect key="frame" x="0.0" y="25" width="297" height="17"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KkC-cE-if6">
+                                    <rect key="frame" x="0.0" y="0.0" width="229" height="17"/>
+                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                    <color key="textColor" name="secondary_color"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="02J-0C-izf">
+                                    <rect key="frame" x="237" y="0.0" width="60" height="17"/>
+                                    <color key="backgroundColor" name="background_color"/>
+                                    <color key="tintColor" name="primary_color"/>
+                                    <state key="normal" title="Button"/>
+                                    <buttonConfiguration key="configuration" style="plain" title="Menu">
+                                        <fontDescription key="titleFontDescription" style="UICTFontTextStyleBody"/>
+                                    </buttonConfiguration>
+                                    <connections>
+                                        <action selector="triggerActionWithSender:" destination="-1" eventType="touchUpInside" id="Q7D-Se-4bI"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                        </stackView>
+                    </subviews>
+                </stackView>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="oeK-Ku-Hbg">
+                    <rect key="frame" x="0.0" y="72" width="297" height="250"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="250" id="Rla-iT-YdT"/>
+                    </constraints>
+                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="QGe-X1-jGk">
+                        <size key="itemSize" width="128" height="128"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                </collectionView>
+            </subviews>
+            <constraints>
+                <constraint firstItem="wUZ-lx-eDn" firstAttribute="top" secondItem="Cvg-Na-Fx5" secondAttribute="top" id="ANv-B9-eID"/>
+                <constraint firstAttribute="trailing" secondItem="oeK-Ku-Hbg" secondAttribute="trailing" id="HId-3M-p02"/>
+                <constraint firstAttribute="trailing" secondItem="wUZ-lx-eDn" secondAttribute="trailing" id="N1E-9h-x5W"/>
+                <constraint firstItem="wUZ-lx-eDn" firstAttribute="leading" secondItem="Cvg-Na-Fx5" secondAttribute="leading" id="ayg-6n-tC8"/>
+                <constraint firstItem="oeK-Ku-Hbg" firstAttribute="leading" secondItem="Cvg-Na-Fx5" secondAttribute="leading" id="oxk-8r-vCi"/>
+                <constraint firstAttribute="bottom" secondItem="oeK-Ku-Hbg" secondAttribute="bottom" id="qgR-L8-UeE"/>
+                <constraint firstItem="oeK-Ku-Hbg" firstAttribute="top" secondItem="wUZ-lx-eDn" secondAttribute="bottom" constant="30" id="u3D-TP-OeB"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="44" y="134.93253373313345"/>
+        </view>
+    </objects>
+    <resources>
+        <namedColor name="background_color">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="primary_color">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="secondary_color">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
