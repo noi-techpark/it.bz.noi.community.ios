@@ -66,5 +66,9 @@
 	<false/>
 	<key>NSCalendarsUsageDescription</key>
 	<string>NSCalendarsUsageDescription</string>
+	<key>UIUserInterfaceStyle</key>
+	<string>Light</string>
+	<key>UIStatusBarStyle</key>
+	<string>UIStatusBarStyleLightContent</string>
 </dict>
 </plist>
