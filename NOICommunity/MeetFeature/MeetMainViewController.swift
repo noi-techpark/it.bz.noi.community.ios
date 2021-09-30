@@ -41,7 +41,7 @@ final class MeetViewModel {
             url: .research
         )
         static let institutionalSupport = Self(
-            localizedTitle: .localized("meet_item_support"),
+            localizedTitle: .localized("meet_item_institutions"),
             url: .institutions
         )
         static let laboratories = Self(
