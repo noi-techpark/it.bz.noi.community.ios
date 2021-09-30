@@ -15,7 +15,19 @@ class EventDetailsViewController: UIViewController {
     
     var locateActionHandler: ((Event) -> Void)?
     var addToCalendarActionHandler: ((Event) -> Void)?
-    var didSelectRelatedEventHandler: ((IndexPath, Event) -> Void)?
+    var didSelectRelatedEventHandler: ((
+        UICollectionView,
+        UICollectionViewCell,
+        IndexPath,
+        Event
+    ) -> Void)?
+
+    private var _cardView: (UIView & UIContentView)!
+
+    var cardView: (UIView & UIContentView)! {
+        loadViewIfNeeded()
+        return _cardView
+    }
     
     private var relatedEventsVC: EventListViewController!
     
@@ -31,8 +43,6 @@ class EventDetailsViewController: UIViewController {
     }
     
     @IBOutlet private var contentStackView: UIStackView!
-    
-    private var cardView: (UIView & UIContentView)!
     
     @IBOutlet private var aboutSection: UIView! {
         didSet {
@@ -148,17 +158,17 @@ private extension EventDetailsViewController {
     func configureViewHierarchy() {
         var contentConfiguration = EventCardContentConfiguration.makeDetailedContentConfiguration(for: event)
         defer {
-            cardView = contentConfiguration.makeContentView()
-            contentStackView.insertArrangedSubview(cardView, at: 0)
+            _cardView = contentConfiguration.makeContentView()
+            contentStackView.insertArrangedSubview(_cardView, at: 0)
         }
         
         if let imageURL = event.imageURL {
-            KingfisherManager.shared.retrieveImage(with: imageURL) { [weak cardView] result in
+            KingfisherManager.shared.retrieveImage(with: imageURL) { [weak _cardView] result in
                 guard case let .success(imageInfo) = result
                 else { return }
                 
                 contentConfiguration.image = imageInfo.image
-                cardView?.configuration = contentConfiguration
+                _cardView?.configuration = contentConfiguration
             }
         }
     }
@@ -171,7 +181,9 @@ private extension EventDetailsViewController {
             items: relatedEvents,
             embeddedHorizontally: true
         )
-        relatedEventsVC.didSelectHandler = didSelectRelatedEventHandler
+        relatedEventsVC.didSelectHandler = { [weak self] in
+            self?.didSelectRelatedEventHandler?($0, $1, $2, $3)
+        }
         embedChild(relatedEventsVC, in: relatedEventsContainerView)
         relatedEventsContainerViewHeight.constant = relatedEventsVC.preferredContentSize.height
     }
@@ -182,5 +194,12 @@ private extension EventDetailsViewController {
     
     @IBAction func addToCalendarAction(sender: Any?) {
         addToCalendarActionHandler?(event)
+    }
+}
+
+extension EventDetailsViewController: CurrentScrollOffsetProvider
+{
+    var currentScrollOffset: CGPoint {
+        relatedEventsVC?.currentScrollOffset ?? .zero
     }
 }

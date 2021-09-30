@@ -18,12 +18,19 @@ class EventListViewController: UICollectionViewController {
             updateUI(items: items, animated: animated)
         }
     }
+
+    var currentScrollOffset: CGPoint = .zero
     
     let embeddedHorizontally: Bool
     
     var refreshControl = UIRefreshControl()
     
-    var didSelectHandler: ((IndexPath, Event) -> Void)?
+    var didSelectHandler: ((
+        UICollectionView,
+        UICollectionViewCell,
+        IndexPath,
+        Event
+    ) -> Void)?
     
     private var dataSource: UICollectionViewDiffableDataSource<Section, Event>! = nil
     private var currentSnapshot: NSDiffableDataSourceSnapshot<Section, Event>! = nil
@@ -32,8 +39,7 @@ class EventListViewController: UICollectionViewController {
     init(items: [Event], embeddedHorizontally: Bool = false) {
         self.items = items
         self.embeddedHorizontally = embeddedHorizontally
-        let collectionViewLayout = Self.createLayout(embeddedHorizontally: embeddedHorizontally)
-        super.init(collectionViewLayout: collectionViewLayout)
+        super.init(collectionViewLayout: UICollectionViewFlowLayout())
     }
     
     @available(*, unavailable)
@@ -83,7 +89,7 @@ private extension EventListViewController {
         case main
     }
     
-    static func columnCount(
+    func columnCount(
         for layoutEnviroment: NSCollectionLayoutEnvironment,
         embeddedHorizontally: Bool
     ) -> Int {
@@ -99,7 +105,7 @@ private extension EventListViewController {
         }
     }
     
-    static func createLayout(embeddedHorizontally: Bool) -> UICollectionViewLayout {
+    func createLayout(embeddedHorizontally: Bool) -> UICollectionViewLayout {
         let layout = UICollectionViewCompositionalLayout { sectionIndex, layoutEnvironment in
             let columns = self.columnCount(
                 for: layoutEnvironment,
@@ -144,6 +150,9 @@ private extension EventListViewController {
                     bottom: 20,
                     trailing: 17
                 )
+            }
+            section.visibleItemsInvalidationHandler = { [weak self] _, scrollOffset, _ in
+                self?.currentScrollOffset = scrollOffset
             }
             return section
         }
@@ -194,6 +203,9 @@ private extension EventListViewController {
         collectionView.refreshControl = refreshControl
         collectionView.backgroundColor = .secondaryBackgroundColor
         collectionView.prefetchDataSource = self
+        collectionView.collectionViewLayout = createLayout(
+            embeddedHorizontally: embeddedHorizontally
+        )
     }
     
     func updateUI(items: [Event], animated: Bool) {
@@ -233,6 +245,7 @@ extension EventListViewController {
         didSelectItemAt indexPath: IndexPath
     ) {
         let item = dataSource.itemIdentifier(for:indexPath)!
-        didSelectHandler?(indexPath, item)
+        let selectedCell = collectionView.cellForItem(at: indexPath)!
+        didSelectHandler?(collectionView, selectedCell, indexPath, item)
     }
 }

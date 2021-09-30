@@ -12,7 +12,12 @@ final class EventsMainViewController: UIViewController {
 
     let viewModel: EventsViewModel
 
-    var didSelectHandler: ((IndexPath, Event) -> Void)?
+    var didSelectHandler: ((
+            UICollectionView,
+            UICollectionViewCell,
+            IndexPath,
+            Event
+        ) -> Void)?
 
     private var subscriptions: Set<AnyCancellable> = []
 
@@ -121,7 +126,7 @@ private extension EventsMainViewController {
     func makeResultsViewController() -> EventListViewController {
         let resultsViewController = EventListViewController(items: [])
         resultsViewController.didSelectHandler = { [weak self] in
-            self?.didSelectHandler?($0, $1)
+            self?.didSelectHandler?($0, $1, $2, $3)
         }
         return resultsViewController
     }
