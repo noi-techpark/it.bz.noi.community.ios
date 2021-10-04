@@ -8,9 +8,22 @@
 import UIKit
 import AVKit
 
-class IntroViewController: UIViewController {
+final class IntroViewController: UIViewController {
 
-    var player: AVPlayer!
+    @IBOutlet private var playerContainerView: UIView!
+    private var player: AVPlayer!
+    private var playerLayer: AVPlayerLayer!
+
+    var didFinishHandler: (() -> Void)?
+
+    init() {
+        super.init(nibName: "\(IntroViewController.self)", bundle: nil)
+    }
+
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("\(#function) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,18 +35,39 @@ class IntroViewController: UIViewController {
 
         // Init video
         player = AVPlayer(url: videoURL)
-        self.player?.isMuted = true
-        self.player?.actionAtItemEnd = .none
+        player.isMuted = true
+        player.actionAtItemEnd = .none
 
         // Add player layer
-        let playerLayer = AVPlayerLayer(player: player)
-        playerLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
-        playerLayer.frame = view.frame
+        playerLayer = AVPlayerLayer(player: player)
+        playerLayer.videoGravity = .resizeAspectFill
+        playerLayer.frame = playerContainerView.bounds
 
         // Add video layer
-        self.videoView.layer.addSublayer(playerLayer)
+        playerContainerView.layer.addSublayer(playerLayer)
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(playerDidFinishPlaying(_:)),
+            name: NSNotification.Name.AVPlayerItemDidPlayToEndTime,
+            object: player.currentItem
+        )
 
         // Play video
-        self.player?.play()
+        player.play()
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+
+        playerLayer.frame = playerContainerView.bounds
+    }
+}
+
+// MARK: Private APIs
+
+private extension IntroViewController {
+    @objc func playerDidFinishPlaying(_ notification: NSNotification) {
+        didFinishHandler?()
     }
 }

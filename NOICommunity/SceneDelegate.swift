@@ -22,16 +22,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene)
         else { return }
 
-        let tabBarController = TabBarController()
-        mainCoordinator = MainCoordinator(
-            tabBarController: tabBarController,
-            dependencyContainer: dependencyContainer
-        )
-        mainCoordinator.start(animated: false)
+        let introVC = IntroViewController()
+        introVC.didFinishHandler = { [weak self] in
+            self?.showTabs()
+        }
 
         let window = UIWindow(windowScene: windowScene)
         self.window = window
-        window.rootViewController = tabBarController
+        window.rootViewController = introVC
         window.makeKeyAndVisible()
     }
 
@@ -66,3 +64,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 }
 
+// MARK: Private APIs
+
+private extension SceneDelegate {
+    func showTabs() {
+        let tabBarController = TabBarController()
+        self.mainCoordinator = MainCoordinator(
+            tabBarController: tabBarController,
+            dependencyContainer: self.dependencyContainer
+        )
+        self.mainCoordinator.start(animated: false)
+        self.window?.rootViewController = tabBarController
+    }
+}
