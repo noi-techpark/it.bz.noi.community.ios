@@ -22,7 +22,7 @@ jobs:
         run: xcodebuild -resolvePackageDependencies
 
       - name: List schemes (optional step to gather information)
-        run: xcodebuild -list -project NOICommunity.xcodeproj      
+        run: xcodebuild -list -project NOICommunity.xcodeproj
 
       - name: Test the app
         run: |
@@ -49,7 +49,7 @@ jobs:
         run: sudo xcode-select -switch /Applications/Xcode_13.0.app
 
       - name: Resolve package dependencies
-        run: xcodebuild -resolvePackageDependencies    
+        run: xcodebuild -resolvePackageDependencies
 
       - name: Install gpg (if absent)
         run: gpg --version &>/dev/null || brew install gnupg
@@ -98,7 +98,7 @@ jobs:
           xcrun altool \
             --upload-app \
             -t ios \
-            -f build/NOICommunity.ipa \
+            -f build/NOI-Community.ipa \
             -u "$APPLEID_USERNAME" \
             -p "$APPLEID_PASSWORD" \
             --verbose
