@@ -12,7 +12,7 @@ func localizedValue<T>(
     defaultValue: T,
     bundle: Bundle = .main
 ) -> T {
-    let preferredLanguages = Bundle.main.preferredLocalizations
+    let preferredLanguages = bundle.preferredLocalizations
     for language in preferredLanguages {
         if let localizedValue = localizedDict[language] {
             return localizedValue
