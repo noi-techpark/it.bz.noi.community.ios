@@ -79,7 +79,7 @@
 		31CF8127270B3CD90077CB0D /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CF8124270B3CD90077CB0D /* IntroViewController.swift */; };
 		31CF8128270B3CD90077CB0D /* NOI_begins-with-you_Animation_black_short.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 31CF8125270B3CD90077CB0D /* NOI_begins-with-you_Animation_black_short.mp4 */; };
 		31CF8129270B3CD90077CB0D /* IntroViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31CF8126270B3CD90077CB0D /* IntroViewController.xib */; };
-		31CF812B270B3D5F0077CB0D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31CF812A270B3D5F0077CB0D /* LaunchScreen.storyboard */; };
+		31CF812D270B3E340077CB0D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31CF812C270B3E340077CB0D /* LaunchScreen.storyboard */; };
 		31DA4A762705EA110098E395 /* MoreMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31DA4A742705EA110098E395 /* MoreMainViewController.swift */; };
 		31DA4A772705EA110098E395 /* MoreCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31DA4A752705EA110098E395 /* MoreCoordinator.swift */; };
 /* End PBXBuildFile section */
@@ -182,7 +182,7 @@
 		31CF8124270B3CD90077CB0D /* IntroViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntroViewController.swift; sourceTree = "<group>"; };
 		31CF8125270B3CD90077CB0D /* NOI_begins-with-you_Animation_black_short.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NOI_begins-with-you_Animation_black_short.mp4"; sourceTree = "<group>"; };
 		31CF8126270B3CD90077CB0D /* IntroViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IntroViewController.xib; sourceTree = "<group>"; };
-		31CF812A270B3D5F0077CB0D /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		31CF812C270B3E340077CB0D /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		31D9C78926FDFCD3001F2DBB /* BaseTabCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTabCoordinator.swift; sourceTree = "<group>"; };
 		31DA4A742705EA110098E395 /* MoreMainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoreMainViewController.swift; sourceTree = "<group>"; };
 		31DA4A752705EA110098E395 /* MoreCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoreCoordinator.swift; sourceTree = "<group>"; };
@@ -257,7 +257,7 @@
 				3145D23E26B3F74000F16787 /* Info.plist */,
 				3145D23026B3F73F00F16787 /* AppDelegate.swift */,
 				3145D23226B3F73F00F16787 /* SceneDelegate.swift */,
-				31CF812A270B3D5F0077CB0D /* LaunchScreen.storyboard */,
+				31CF812C270B3E340077CB0D /* LaunchScreen.storyboard */,
 				3145D23926B3F74000F16787 /* Images.xcassets */,
 				316ED05C270B12C60070D272 /* Colors.xcassets */,
 				31157D0E26FC70A500A43B33 /* Localizable.strings */,
@@ -554,7 +554,7 @@
 				3167681C27036A2F00A9DB87 /* PlaceCardContentView.xib in Resources */,
 				31C640A826FE0CF8004B71A2 /* OrientateMainViewController.xib in Resources */,
 				316ED05D270B12CF0070D272 /* Colors.xcassets in Resources */,
-				31CF812B270B3D5F0077CB0D /* LaunchScreen.storyboard in Resources */,
+				31CF812D270B3E340077CB0D /* LaunchScreen.storyboard in Resources */,
 				317615CA26FDD637007FE10F /* MessageViewController.xib in Resources */,
 				31157D0526FC66FB00A43B33 /* InfoPlist.strings in Resources */,
 				315F4BE227034C00001905AF /* EventCardContentView.xib in Resources */,
