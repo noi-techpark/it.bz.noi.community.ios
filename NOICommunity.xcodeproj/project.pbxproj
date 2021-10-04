@@ -35,6 +35,7 @@
 		3167681827035D9500A9DB87 /* EatCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3167681627035D9500A9DB87 /* EatCoordinator.swift */; };
 		3167681B27036A2F00A9DB87 /* PlaceCardContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3167681927036A2F00A9DB87 /* PlaceCardContentView.swift */; };
 		3167681C27036A2F00A9DB87 /* PlaceCardContentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3167681A27036A2F00A9DB87 /* PlaceCardContentView.xib */; };
+		316ED053270AD8890070D272 /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 316ED052270AD8890070D272 /* IntroViewController.swift */; };
 		317615C726FDD0FE007FE10F /* MessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317615C626FDD0FE007FE10F /* MessageViewController.swift */; };
 		317615C926FDD369007FE10F /* UIFont+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317615C826FDD369007FE10F /* UIFont+Additions.swift */; };
 		317615CA26FDD637007FE10F /* MessageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 317615C526FDCFF7007FE10F /* MessageViewController.xib */; };
@@ -138,6 +139,8 @@
 		3167681627035D9500A9DB87 /* EatCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EatCoordinator.swift; sourceTree = "<group>"; };
 		3167681927036A2F00A9DB87 /* PlaceCardContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceCardContentView.swift; sourceTree = "<group>"; };
 		3167681A27036A2F00A9DB87 /* PlaceCardContentView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlaceCardContentView.xib; sourceTree = "<group>"; };
+		316ED052270AD8890070D272 /* IntroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroViewController.swift; sourceTree = "<group>"; };
+		316ED054270AD8E50070D272 /* NOI_begins-with-you_Animation_black_short.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NOI_begins-with-you_Animation_black_short.mp4"; sourceTree = "<group>"; };
 		317615C526FDCFF7007FE10F /* MessageViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MessageViewController.xib; sourceTree = "<group>"; };
 		317615C626FDD0FE007FE10F /* MessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewController.swift; sourceTree = "<group>"; };
 		317615C826FDD369007FE10F /* UIFont+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Additions.swift"; sourceTree = "<group>"; };
@@ -240,6 +243,7 @@
 				31C640A926FE1389004B71A2 /* Factories */,
 				31D9C78826FDFCC1001F2DBB /* Coordinator */,
 				31AA31F226F0B71800744A00 /* Extensions */,
+				316ED051270AD85E0070D272 /* IntroFeature */,
 				319C0E8026F332FE00C6D38B /* EventsFeature */,
 				31D9C78726FDFC58001F2DBB /* OrientateFeature */,
 				31C640C126FE1E43004B71A2 /* MeetFeature */,
@@ -287,6 +291,15 @@
 				3167681A27036A2F00A9DB87 /* PlaceCardContentView.xib */,
 			);
 			path = EatFeature;
+			sourceTree = "<group>";
+		};
+		316ED051270AD85E0070D272 /* IntroFeature */ = {
+			isa = PBXGroup;
+			children = (
+				316ED054270AD8E50070D272 /* NOI_begins-with-you_Animation_black_short.mp4 */,
+				316ED052270AD8890070D272 /* IntroViewController.swift */,
+			);
+			path = IntroFeature;
 			sourceTree = "<group>";
 		};
 		319C0E8026F332FE00C6D38B /* EventsFeature */ = {
@@ -607,6 +620,7 @@
 				319C0E8D26F33BD000C6D38B /* ContainerViewController.swift in Sources */,
 				319C0E9A26F3483600C6D38B /* UIControl+Combine.swift in Sources */,
 				31C640A726FE0CF8004B71A2 /* OrientateMainViewController.swift in Sources */,
+				316ED053270AD8890070D272 /* IntroViewController.swift in Sources */,
 				31178FDE26FA2F7100BDCDAA /* TabBarController.swift in Sources */,
 				3167681B27036A2F00A9DB87 /* PlaceCardContentView.swift in Sources */,
 				319C0E8B26F33BD000C6D38B /* UIViewController+ShowError.swift in Sources */,
