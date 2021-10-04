@@ -95,11 +95,10 @@ jobs:
           APPLEID_USERNAME: ${{ secrets.APPLEID_USERNAME }}
           APPLEID_PASSWORD: ${{ secrets.APPLEID_PASSWORD }}
         run: |
-          ls -la $PWD/build
           xcrun altool \
             --upload-app \
             -t ios \
-            -f $PWD/build/NOI-Community.ipa \
+            -f $PWD/build/NOICommunity.ipa \
             -u "$APPLEID_USERNAME" \
             -p "$APPLEID_PASSWORD" \
             --verbose
