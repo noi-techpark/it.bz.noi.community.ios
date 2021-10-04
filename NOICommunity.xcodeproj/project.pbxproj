@@ -80,6 +80,8 @@
 		31CF8128270B3CD90077CB0D /* NOI_begins-with-you_Animation_black_short.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 31CF8125270B3CD90077CB0D /* NOI_begins-with-you_Animation_black_short.mp4 */; };
 		31CF8129270B3CD90077CB0D /* IntroViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31CF8126270B3CD90077CB0D /* IntroViewController.xib */; };
 		31CF812D270B3E340077CB0D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31CF812C270B3E340077CB0D /* LaunchScreen.storyboard */; };
+		31CF8132270B49100077CB0D /* VersionContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CF8130270B472F0077CB0D /* VersionContentView.swift */; };
+		31CF8133270B49100077CB0D /* VersionContentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31CF812E270B46470077CB0D /* VersionContentView.xib */; };
 		31DA4A762705EA110098E395 /* MoreMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31DA4A742705EA110098E395 /* MoreMainViewController.swift */; };
 		31DA4A772705EA110098E395 /* MoreCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31DA4A752705EA110098E395 /* MoreCoordinator.swift */; };
 /* End PBXBuildFile section */
@@ -183,6 +185,8 @@
 		31CF8125270B3CD90077CB0D /* NOI_begins-with-you_Animation_black_short.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NOI_begins-with-you_Animation_black_short.mp4"; sourceTree = "<group>"; };
 		31CF8126270B3CD90077CB0D /* IntroViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IntroViewController.xib; sourceTree = "<group>"; };
 		31CF812C270B3E340077CB0D /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		31CF812E270B46470077CB0D /* VersionContentView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VersionContentView.xib; sourceTree = "<group>"; };
+		31CF8130270B472F0077CB0D /* VersionContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionContentView.swift; sourceTree = "<group>"; };
 		31D9C78926FDFCD3001F2DBB /* BaseTabCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTabCoordinator.swift; sourceTree = "<group>"; };
 		31DA4A742705EA110098E395 /* MoreMainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoreMainViewController.swift; sourceTree = "<group>"; };
 		31DA4A752705EA110098E395 /* MoreCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoreCoordinator.swift; sourceTree = "<group>"; };
@@ -434,6 +438,8 @@
 			children = (
 				31DA4A742705EA110098E395 /* MoreMainViewController.swift */,
 				31DA4A752705EA110098E395 /* MoreCoordinator.swift */,
+				31CF8130270B472F0077CB0D /* VersionContentView.swift */,
+				31CF812E270B46470077CB0D /* VersionContentView.xib */,
 			);
 			path = MoreFeature;
 			sourceTree = "<group>";
@@ -554,6 +560,7 @@
 				3167681C27036A2F00A9DB87 /* PlaceCardContentView.xib in Resources */,
 				31C640A826FE0CF8004B71A2 /* OrientateMainViewController.xib in Resources */,
 				316ED05D270B12CF0070D272 /* Colors.xcassets in Resources */,
+				31CF8133270B49100077CB0D /* VersionContentView.xib in Resources */,
 				31CF812D270B3E340077CB0D /* LaunchScreen.storyboard in Resources */,
 				317615CA26FDD637007FE10F /* MessageViewController.xib in Resources */,
 				31157D0526FC66FB00A43B33 /* InfoPlist.strings in Resources */,
@@ -616,6 +623,7 @@
 				31CF8127270B3CD90077CB0D /* IntroViewController.swift in Sources */,
 				31157D1926FCA1EB00A43B33 /* WebViewController.swift in Sources */,
 				31157D1526FC83FE00A43B33 /* UIViewController+ShowCalenderError.swift in Sources */,
+				31CF8132270B49100077CB0D /* VersionContentView.swift in Sources */,
 				317615C926FDD369007FE10F /* UIFont+Additions.swift in Sources */,
 				31C640A026FE0B9D004B71A2 /* BaseTabCoordinator.swift in Sources */,
 				31C640B126FE1449004B71A2 /* TabCoordinator.swift in Sources */,

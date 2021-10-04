@@ -82,6 +82,9 @@ final class MoreMainViewController: UICollectionViewController {
 // MARK: Private APIs
 
 private extension MoreMainViewController {
+    static let sectionHeaderElementKind = "section-header-element-kind"
+    static let sectionFooterElementKind = "section-footer-element-kind"
+
     enum Section: Hashable {
         case main
     }
@@ -89,16 +92,31 @@ private extension MoreMainViewController {
     static func createLayout() -> UICollectionViewLayout {
         var config = UICollectionLayoutListConfiguration(appearance: .plain)
         config.backgroundColor = .secondaryBackgroundColor
+        config.footerMode = .supplementary
         return UICollectionViewCompositionalLayout.list(using: config)
     }
 
     func configureDataSource() {
-        let cellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, Entry> { cell, _, entry in
+        let cellRegistration = UICollectionView.CellRegistration
+        <UICollectionViewListCell, Entry> { cell, _, entry in
             var contentConfiguration = UIListContentConfiguration.cell()
             contentConfiguration.text = entry.localizedTitle
             cell.contentConfiguration = contentConfiguration
 
             cell.accessories = [.disclosureIndicator()]
+        }
+
+        let footerRegistration = UICollectionView.SupplementaryRegistration
+        <UICollectionViewListCell>(elementKind: UICollectionView.elementKindSectionFooter) { footerView, _, _ in
+            var contentConfiguration = VersionContentConfiguration()
+            if
+                let infoDictionary = Bundle.main.infoDictionary,
+                let version = infoDictionary["CFBundleShortVersionString"] as? String,
+                let buildNumber = infoDictionary["CFBundleVersion"] as? String {
+                contentConfiguration.version = "\(version) (\(buildNumber))"
+            }
+            footerView.contentConfiguration = contentConfiguration
+            footerView.backgroundConfiguration = UIBackgroundConfiguration.clear()
         }
 
         dataSource = .init(
@@ -109,6 +127,17 @@ private extension MoreMainViewController {
                 for: indexPath,
                 item: item
             )
+        }
+        dataSource.supplementaryViewProvider = { collectionView, kind, indexPath in
+            switch kind {
+            case UICollectionView.elementKindSectionFooter:
+                return collectionView.dequeueConfiguredReusableSupplementary(
+                    using: footerRegistration,
+                    for: indexPath
+                )
+            default:
+                return nil
+            }
         }
 
         // initial data
