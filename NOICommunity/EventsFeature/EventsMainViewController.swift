@@ -25,11 +25,12 @@ final class EventsMainViewController: UIViewController {
         let activeColor = UIColor.black
         let color = activeColor.withAlphaComponent(0.5)
         var imageFactory = UnderlineSegmentedControlImageFactory()
-        imageFactory.size = CGSize(width: 1, height: 40)
+        imageFactory.size.height = 40
         imageFactory.lineWidth = 2
         imageFactory.selectedLineWidth = 2
         imageFactory.lineColor = color
         imageFactory.selectedLineColor = activeColor
+        imageFactory.extraSpacing = 12
         var builder = SegmentedControlBuilder(
             imageFactory: imageFactory
         )

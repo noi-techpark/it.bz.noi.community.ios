@@ -149,33 +149,26 @@ private extension SegmentedControlBuilder {
 // MARK: - UnderlineSegmentedControlImageFactory
 
 struct UnderlineSegmentedControlImageFactory: SegmentedControlImageFactory {
-    var size = CGSize(width: 2, height: 29)
+    var size = CGSize(width: 1, height: 29)
     var selectedStates: [UIControl.State] = [.selected, .highlighted]
     var lineWidth: CGFloat = 1
     var selectedLineWidth: CGFloat = 2
     var lineColor = UIColor.white.withAlphaComponent(0.5)
     var selectedLineColor = UIColor.white
+    var extraSpacing: CGFloat = 8
 
     func background(for state: UIControl.State) -> UIImage? {
-        let stateInfo: (color: UIColor, lineWidth: CGFloat)
-        switch state {
-        case .selected,
-                .highlighted,
-            [.selected, .highlighted]:
-            stateInfo = (selectedLineColor, selectedLineWidth)
-        default:
-            stateInfo = (lineColor, lineWidth)
-        }
-
+        let (color, lineWidth) = colorAndLineWidth(for: state)
+        let rect = CGRect(
+            x: 0,
+            y: size.height - lineWidth,
+            width: size.width,
+            height: lineWidth
+        )
         let renderer = UIGraphicsImageRenderer(size: size)
         return renderer.image { context in
-            stateInfo.color.setFill()
-            context.fill(CGRect(
-                x: 0,
-                y: size.height - stateInfo.lineWidth,
-                width: size.width,
-                height: stateInfo.lineWidth
-            ))
+            color.setFill()
+            context.fill(rect)
         }
     }
 
@@ -183,7 +176,46 @@ struct UnderlineSegmentedControlImageFactory: SegmentedControlImageFactory {
         leftState: UIControl.State,
         rightState: UIControl.State
     ) -> UIImage? {
-        let renderer = UIGraphicsImageRenderer(size: .zero)
-        return renderer.image { _ in }
+        let (leftColor, leftLineWidth) = colorAndLineWidth(for: leftState)
+        let (rightColor, rightLineWidth) = colorAndLineWidth(for: rightState)
+        let size = CGSize(width: extraSpacing, height: size.height)
+        let leftRect = CGRect(
+            x: 0,
+            y: size.height - leftLineWidth,
+            width: size.width / 2,
+            height: leftLineWidth
+        )
+        let rightRect = CGRect(
+            x: size.width / 2,
+            y: size.height - rightLineWidth,
+            width: size.width / 2,
+            height: rightLineWidth
+        )
+
+        let renderer = UIGraphicsImageRenderer(size: size)
+        return renderer.image { context in
+            leftColor.setFill()
+            context.fill(leftRect)
+
+            rightColor.setFill()
+            context.fill(rightRect)
+        }
+    }
+}
+
+// MARK: Private APIs
+
+private extension UnderlineSegmentedControlImageFactory {
+    func colorAndLineWidth(
+        for state: UIControl.State
+    ) -> (color: UIColor, lineWidth: CGFloat) {
+        switch state {
+        case .selected,
+                .highlighted,
+            [.selected, .highlighted]:
+            return (selectedLineColor, selectedLineWidth)
+        default:
+            return (lineColor, lineWidth)
+        }
     }
 }
