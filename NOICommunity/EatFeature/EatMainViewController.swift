@@ -36,7 +36,7 @@ final class EatViewModel {
         )
         static let noiCommunityBar = Self(
             name: "NOI Community Bar",
-            openeningText: .localized("noi_bar_openings"),
+            openeningText: .localized("community_bar_openings"),
             menuUrl: .noiBarMenu,
             imageUrls:[
                 .rockinBeetsAsparagiLasagneImageURL,
