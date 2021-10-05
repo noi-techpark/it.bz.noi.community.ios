@@ -27,34 +27,34 @@
                     <rect key="frame" x="0.0" y="44" width="375" height="734"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Ms9-9u-gmy">
-                            <rect key="frame" x="0.0" y="60" width="375" height="235"/>
+                            <rect key="frame" x="17" y="60" width="341" height="235"/>
                             <subviews>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="unknown" translatesAutoresizingMaskIntoConstraints="NO" id="z9P-NP-clB">
-                                    <rect key="frame" x="123.66666666666669" y="0.0" width="128" height="128"/>
+                                    <rect key="frame" x="106.66666666666669" y="0.0" width="128" height="128"/>
                                 </imageView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A title must go here." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z8C-Ni-lXY">
-                                    <rect key="frame" x="122.33333333333333" y="136" width="130.33333333333337" height="17"/>
+                                    <rect key="frame" x="105.33333333333333" y="136" width="130.33333333333337" height="17"/>
                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A long and complicated message can go here. Fortunately, it can have multiple lines" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nLB-Z6-v2C">
-                                    <rect key="frame" x="37" y="161" width="301.33333333333331" height="36"/>
+                                    <rect key="frame" x="20" y="161" width="301.33333333333331" height="36"/>
                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ds8-9d-sgr">
-                                    <rect key="frame" x="86" y="205" width="203" height="30"/>
+                                    <rect key="frame" x="69" y="205" width="203" height="30"/>
                                     <state key="normal" title="Tap here to perform an action"/>
                                 </button>
                             </subviews>
                         </stackView>
                     </subviews>
                     <constraints>
-                        <constraint firstItem="Ms9-9u-gmy" firstAttribute="leading" secondItem="jkE-vN-MNa" secondAttribute="leading" id="0cl-kR-80s"/>
-                        <constraint firstItem="Ms9-9u-gmy" firstAttribute="width" secondItem="QeO-FA-lUc" secondAttribute="width" id="24u-Wr-5ZD"/>
-                        <constraint firstItem="Ms9-9u-gmy" firstAttribute="trailing" secondItem="jkE-vN-MNa" secondAttribute="trailing" id="C5D-cE-TdX"/>
+                        <constraint firstItem="jkE-vN-MNa" firstAttribute="leading" secondItem="Ms9-9u-gmy" secondAttribute="leading" constant="-17" id="0cl-kR-80s"/>
+                        <constraint firstItem="Ms9-9u-gmy" firstAttribute="centerX" secondItem="QeO-FA-lUc" secondAttribute="centerX" id="6Lr-83-gzu"/>
+                        <constraint firstItem="jkE-vN-MNa" firstAttribute="trailing" secondItem="Ms9-9u-gmy" secondAttribute="trailing" constant="17" id="C5D-cE-TdX"/>
                         <constraint firstItem="Ms9-9u-gmy" firstAttribute="top" secondItem="jkE-vN-MNa" secondAttribute="top" constant="60" id="jJQ-qs-uzA"/>
                         <constraint firstItem="jkE-vN-MNa" firstAttribute="bottom" secondItem="Ms9-9u-gmy" secondAttribute="bottom" id="yhY-C9-3lf"/>
                     </constraints>
