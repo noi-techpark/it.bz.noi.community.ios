@@ -7,7 +7,6 @@
 
 import Foundation
 import UIKit
-import Kingfisher
 
 // MARK: - EventsCoordinator
 
@@ -15,11 +14,13 @@ final class EventsCoordinator: BaseCoordinator {
 
     private var mainVC: EventsMainViewController!
     private var eventsViewModel: EventsViewModel!
-
-    private var transitionInfos: [TransitionInfo] = []
+    private var navigationDelegate: EventsNavigationControllerDelegate!
 
     override func start(animated: Bool) {
-        navigationController.delegate = self
+        navigationDelegate = EventsNavigationControllerDelegate(
+            navigationController: navigationController
+        )
+        navigationController.delegate = navigationDelegate
         eventsViewModel = dependencyContainer.makeEventsViewModel()
         mainVC = EventsMainViewController(viewModel: eventsViewModel)
         mainVC.didSelectHandler = { [weak self] collectionView, _, indexPath, event in
@@ -74,11 +75,13 @@ private extension EventsCoordinator {
         if
             let transitionCollectionView = transitionCollectionView,
             let transitionIndexPath = transitionIndexPath {
-            transitionInfos.append(.init(
+            let transitionInfo = EventsNavigationControllerDelegate.TransitionInfo(
                 id: transitionId,
                 collectionView: transitionCollectionView,
                 indexPath: transitionIndexPath,
-                event: event))
+                event: event
+            )
+            navigationDelegate.transitionInfos.append(transitionInfo)
         }
 
         let detailVC = EventDetailsViewController(
@@ -103,78 +106,4 @@ private extension EventsCoordinator {
         detailVC.navigationItem.largeTitleDisplayMode = .never
         navigationController.pushViewController(detailVC, animated: true)
     }
-}
-
-// MARK: UINavigationControllerDelegate
-
-extension EventsCoordinator: UINavigationControllerDelegate {
-    func navigationController(
-        _ navigationController: UINavigationController,
-        animationControllerFor operation: UINavigationController.Operation,
-        from fromVC: UIViewController,
-        to toVC: UIViewController
-    ) -> UIViewControllerAnimatedTransitioning? {
-        guard
-            let transitionInfo = transitionInfos.last,
-            let transitionCollectionView = transitionInfo.collectionView
-        else { return nil }
-
-        let transitionBackgroundColor: UIColor = .secondaryBackgroundColor
-        switch operation {
-        case .push:
-            return SourcePresentAnimator(
-                with: transitionCollectionView,
-                for: transitionInfo.indexPath,
-                id: transitionInfo.id,
-                transitionBackgroundColor: transitionBackgroundColor
-            ) { sourceView in
-                var contentConfiguration = EventCardContentConfiguration.makeDetailedContentConfiguration(for: transitionInfo.event)
-                let detailedEventCardView = contentConfiguration.makeContentView()
-                if let imageURL = transitionInfo.event.imageURL {
-                    KingfisherManager.shared.retrieveImage(with: imageURL) { [weak detailedEventCardView] result in
-                        guard case let .success(imageInfo) = result
-                        else { return }
-
-                        contentConfiguration.image = imageInfo.image
-                        detailedEventCardView?.configuration = contentConfiguration
-                    }
-                }
-                return detailedEventCardView
-            }
-        case .pop:
-            defer {
-                transitionInfos.removeLast()
-            }
-            return SourceDismissAnimator(
-                with: transitionCollectionView,
-                for: transitionInfo.indexPath,
-                id: transitionInfo.id,
-                transitionBackgroundColor: transitionBackgroundColor
-            ) { sourceView in
-                var contentConfiguration = EventCardContentConfiguration.makeContentConfiguration(for: transitionInfo.event)
-                let detailedEventCardView = contentConfiguration.makeContentView()
-                if let imageURL = transitionInfo.event.imageURL {
-                    KingfisherManager.shared.retrieveImage(with: imageURL) { [weak detailedEventCardView] result in
-                        guard case let .success(imageInfo) = result
-                        else { return }
-
-                        contentConfiguration.image = imageInfo.image
-                        detailedEventCardView?.configuration = contentConfiguration
-                    }
-                }
-                return detailedEventCardView
-            }
-        default:
-            return nil
-        }
-    }
-}
-
-// MARK: - TransitionInfo
-
-private struct TransitionInfo {
-    var id: String
-    weak var collectionView: UICollectionView!
-    var indexPath: IndexPath
-    var event: Event
 }

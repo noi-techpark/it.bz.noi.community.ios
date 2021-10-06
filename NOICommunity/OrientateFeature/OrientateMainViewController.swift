@@ -35,7 +35,7 @@ final class OrientateMainViewController: UIViewController {
     }
 
     init() {
-        super.init(nibName: "\(Self.self)", bundle: nil)
+        super.init(nibName: "\(OrientateMainViewController.self)", bundle: nil)
     }
 
     @available(*, unavailable)
