@@ -81,7 +81,7 @@ final class EventsMainViewController: UIViewController {
 
     init(viewModel: EventsViewModel) {
         self.viewModel = viewModel
-        super.init(nibName: "\(Self.self)", bundle: nil)
+        super.init(nibName: "\(EventsMainViewController.self)", bundle: nil)
     }
 
     @available(*, unavailable)

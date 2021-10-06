@@ -113,7 +113,7 @@ class EventDetailsViewController: UIViewController {
     init(for item: Event, relatedEvents: [Event]) {
         self.event = item
         self.relatedEvents = relatedEvents
-        super.init(nibName: nil, bundle: nil)
+        super.init(nibName: "\(EventDetailsViewController.self)", bundle: nil)
     }
     
     @available(*, unavailable)

@@ -61,7 +61,7 @@ final class MessageViewController: UIViewController {
 
     init(message: Message) {
         self.message = message
-        super.init(nibName: "\(Self.self)", bundle: nil)
+        super.init(nibName: "\(MessageViewController.self)", bundle: nil)
     }
 
     convenience init(
