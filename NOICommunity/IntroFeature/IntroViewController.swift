@@ -66,6 +66,14 @@ final class IntroViewController: UIViewController {
             height: edge
         )
     }
+
+    override var prefersHomeIndicatorAutoHidden: Bool {
+        true
+    }
+
+    override var prefersStatusBarHidden: Bool {
+        true
+    }
 }
 
 // MARK: Private APIs
