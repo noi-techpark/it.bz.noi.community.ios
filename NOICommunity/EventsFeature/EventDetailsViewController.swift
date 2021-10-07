@@ -21,9 +21,9 @@ class EventDetailsViewController: UIViewController {
         IndexPath,
         Event
     ) -> Void)?
-
+    
     private var _cardView: (UIView & UIContentView)!
-
+    
     var cardView: (UIView & UIContentView)! {
         loadViewIfNeeded()
         return _cardView
@@ -94,6 +94,7 @@ class EventDetailsViewController: UIViewController {
     
     @IBOutlet private var locateEventButton: UIButton! {
         didSet {
+            locateEventButton.configureAsActionButton()
             locateEventButton.setTitle(
                 .localized("btn_find_on_maps"),
                 for: .normal
@@ -103,6 +104,7 @@ class EventDetailsViewController: UIViewController {
     
     @IBOutlet private var addToCalendarButton: UIButton! {
         didSet {
+            addToCalendarButton.configureAsActionButton()
             addToCalendarButton.setTitle(
                 .localized("btn_add_to_calendar"),
                 for: .normal
@@ -134,7 +136,7 @@ class EventDetailsViewController: UIViewController {
         configureViewHierarchy()
         configureChilds()
     }
-
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }

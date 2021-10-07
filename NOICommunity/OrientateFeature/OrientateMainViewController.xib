@@ -25,13 +25,13 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xTe-k4-PFK">
-                    <rect key="frame" x="0.0" y="778" width="414" height="84"/>
+                    <rect key="frame" x="0.0" y="797" width="414" height="99"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacingType="standard" baselineRelativeArrangement="YES" translatesAutoresizingMaskIntoConstraints="NO" id="R2k-ek-ZPy">
-                            <rect key="frame" x="17" y="17" width="380" height="50"/>
+                            <rect key="frame" x="17" y="17" width="380" height="31"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DyO-jt-YjG">
-                                    <rect key="frame" x="0.0" y="0.0" width="380" height="50"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="380" height="31"/>
                                     <color key="backgroundColor" name="background_color"/>
                                     <color key="tintColor" name="primary_color"/>
                                     <state key="normal" title="Button"/>
@@ -43,34 +43,32 @@
                                     </connections>
                                 </button>
                             </subviews>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="50" id="yCs-7X-y6W"/>
-                            </constraints>
                         </stackView>
                     </subviews>
+                    <viewLayoutGuide key="safeArea" id="XO1-yV-Tyg"/>
                     <color key="backgroundColor" name="tertiary_background_color"/>
                     <constraints>
-                        <constraint firstItem="R2k-ek-ZPy" firstAttribute="top" secondItem="xTe-k4-PFK" secondAttribute="top" constant="17" id="SET-bN-W5T"/>
-                        <constraint firstItem="R2k-ek-ZPy" firstAttribute="centerY" secondItem="xTe-k4-PFK" secondAttribute="centerY" id="Tsf-9I-IXx"/>
-                        <constraint firstItem="R2k-ek-ZPy" firstAttribute="centerX" secondItem="xTe-k4-PFK" secondAttribute="centerX" id="WYx-mJ-46b"/>
-                        <constraint firstItem="R2k-ek-ZPy" firstAttribute="leading" secondItem="xTe-k4-PFK" secondAttribute="leading" constant="17" id="azQ-Cj-RyV"/>
+                        <constraint firstItem="R2k-ek-ZPy" firstAttribute="leading" secondItem="xTe-k4-PFK" secondAttribute="leading" constant="17" id="MwL-YJ-Wwf"/>
+                        <constraint firstAttribute="trailing" secondItem="R2k-ek-ZPy" secondAttribute="trailing" constant="17" id="bqq-Yt-Ybo"/>
+                        <constraint firstItem="R2k-ek-ZPy" firstAttribute="top" secondItem="XO1-yV-Tyg" secondAttribute="top" constant="17" id="gw8-JJ-poD"/>
+                        <constraint firstItem="XO1-yV-Tyg" firstAttribute="bottom" secondItem="R2k-ek-ZPy" secondAttribute="bottom" constant="17" id="wG7-6R-ECb"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5AG-2G-jHF">
-                    <rect key="frame" x="0.0" y="44" width="414" height="734"/>
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="797"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="2Oc-zK-hKa"/>
             <color key="backgroundColor" name="secondary_background_color"/>
             <constraints>
-                <constraint firstItem="2Oc-zK-hKa" firstAttribute="bottom" secondItem="xTe-k4-PFK" secondAttribute="bottom" id="3CZ-sN-79U"/>
-                <constraint firstItem="xTe-k4-PFK" firstAttribute="leading" secondItem="2Oc-zK-hKa" secondAttribute="leading" id="7O5-1T-wby"/>
-                <constraint firstItem="2Oc-zK-hKa" firstAttribute="trailing" secondItem="5AG-2G-jHF" secondAttribute="trailing" id="Now-tf-Dbs"/>
-                <constraint firstItem="xTe-k4-PFK" firstAttribute="trailing" secondItem="2Oc-zK-hKa" secondAttribute="trailing" id="eEy-nF-3xK"/>
-                <constraint firstItem="xTe-k4-PFK" firstAttribute="top" secondItem="5AG-2G-jHF" secondAttribute="bottom" id="oBq-wu-Urn"/>
-                <constraint firstItem="5AG-2G-jHF" firstAttribute="leading" secondItem="2Oc-zK-hKa" secondAttribute="leading" id="yZB-2A-Hbi"/>
-                <constraint firstItem="5AG-2G-jHF" firstAttribute="top" secondItem="2Oc-zK-hKa" secondAttribute="top" id="ypn-bc-p28"/>
+                <constraint firstItem="2Oc-zK-hKa" firstAttribute="trailing" secondItem="xTe-k4-PFK" secondAttribute="trailing" id="C2a-cm-VX9"/>
+                <constraint firstItem="xTe-k4-PFK" firstAttribute="bottom" secondItem="uie-5P-Umu" secondAttribute="bottom" id="IzQ-Nb-pRF"/>
+                <constraint firstItem="xTe-k4-PFK" firstAttribute="leading" secondItem="2Oc-zK-hKa" secondAttribute="leading" id="NIL-yz-in9"/>
+                <constraint firstItem="2Oc-zK-hKa" firstAttribute="trailing" secondItem="5AG-2G-jHF" secondAttribute="trailing" id="Qmt-Ez-MwI"/>
+                <constraint firstItem="xTe-k4-PFK" firstAttribute="top" secondItem="5AG-2G-jHF" secondAttribute="bottom" id="ZGF-DA-Eef"/>
+                <constraint firstItem="5AG-2G-jHF" firstAttribute="leading" secondItem="2Oc-zK-hKa" secondAttribute="leading" id="jHs-Bc-nTG"/>
+                <constraint firstItem="5AG-2G-jHF" firstAttribute="top" secondItem="uie-5P-Umu" secondAttribute="top" id="o2f-E3-vGp"/>
             </constraints>
             <point key="canvasLocation" x="138.40000000000001" y="122.78860569715144"/>
         </view>

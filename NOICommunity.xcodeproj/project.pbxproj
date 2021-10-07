@@ -64,6 +64,8 @@
 		31B3623E26F1E27A00031024 /* UIColor+NOI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B3623D26F1E27A00031024 /* UIColor+NOI.swift */; };
 		31B4477F26F86FE5000999BA /* SegmentedControlBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B4477E26F86FE4000999BA /* SegmentedControlBuilder.swift */; };
 		31C3629D270EFA0300C92532 /* EventDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3187667826FB3A9300782FA6 /* EventDetailsViewController.xib */; };
+		31C3629F270EFC5C00C92532 /* UIButton+Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C3629E270EFC5C00C92532 /* UIButton+Background.swift */; };
+		31C362A1270EFCC200C92532 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C362A0270EFCC200C92532 /* Button.swift */; };
 		31C6409F26FE0B73004B71A2 /* OrientateCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C6409E26FE0B73004B71A2 /* OrientateCoordinator.swift */; };
 		31C640A026FE0B9D004B71A2 /* BaseTabCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D9C78926FDFCD3001F2DBB /* BaseTabCoordinator.swift */; };
 		31C640A226FE0BA9004B71A2 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C640A126FE0BA9004B71A2 /* Coordinator.swift */; };
@@ -176,6 +178,8 @@
 		31AA31F026F0B40800744A00 /* EventCardContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCardContentView.swift; sourceTree = "<group>"; };
 		31B3623D26F1E27A00031024 /* UIColor+NOI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+NOI.swift"; sourceTree = "<group>"; };
 		31B4477E26F86FE4000999BA /* SegmentedControlBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControlBuilder.swift; sourceTree = "<group>"; };
+		31C3629E270EFC5C00C92532 /* UIButton+Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Background.swift"; sourceTree = "<group>"; };
+		31C362A0270EFCC200C92532 /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		31C6409E26FE0B73004B71A2 /* OrientateCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrientateCoordinator.swift; sourceTree = "<group>"; };
 		31C640A126FE0BA9004B71A2 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		31C640A326FE0C64004B71A2 /* URL+KnowNOIURLs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+KnowNOIURLs.swift"; sourceTree = "<group>"; };
@@ -370,6 +374,7 @@
 				31AA31ED26F0A94E00744A00 /* IdentifiableCollectionViewCell.swift */,
 				3110CF5F26F0E89C003B7174 /* CircleView.swift */,
 				31B4477E26F86FE4000999BA /* SegmentedControlBuilder.swift */,
+				31C362A0270EFCC200C92532 /* Button.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -392,6 +397,7 @@
 				31157D1426FC83FE00A43B33 /* UIViewController+ShowCalenderError.swift */,
 				319C0E8926F33BD000C6D38B /* UIViewController+ShowError.swift */,
 				31C640A326FE0C64004B71A2 /* URL+KnowNOIURLs.swift */,
+				31C3629E270EFC5C00C92532 /* UIButton+Background.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -642,6 +648,7 @@
 				3136CC422706F8D200C27129 /* UIView+TransitionId.swift in Sources */,
 				319C0EA026F4790300C6D38B /* CalendarAdditions.swift in Sources */,
 				31C640A226FE0BA9004B71A2 /* Coordinator.swift in Sources */,
+				31C3629F270EFC5C00C92532 /* UIButton+Background.swift in Sources */,
 				319C0E8E26F33BD000C6D38B /* UIViewController+Children.swift in Sources */,
 				31C640A426FE0C64004B71A2 /* URL+KnowNOIURLs.swift in Sources */,
 				31CF8127270B3CD90077CB0D /* IntroViewController.swift in Sources */,
@@ -653,6 +660,7 @@
 				31C640B126FE1449004B71A2 /* TabCoordinator.swift in Sources */,
 				31DA4A762705EA110098E395 /* MoreMainViewController.swift in Sources */,
 				31178FDC26FA26C500BDCDAA /* EventDetailsViewController.swift in Sources */,
+				31C362A1270EFCC200C92532 /* Button.swift in Sources */,
 				31DA4A772705EA110098E395 /* MoreCoordinator.swift in Sources */,
 				3145D23326B3F73F00F16787 /* SceneDelegate.swift in Sources */,
 				31AA31E826F09E3600744A00 /* Event.swift in Sources */,
