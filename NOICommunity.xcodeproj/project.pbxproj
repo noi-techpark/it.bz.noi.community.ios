@@ -32,7 +32,6 @@
 		3145D24826B3F74000F16787 /* NOICommunityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3145D24726B3F74000F16787 /* NOICommunityTests.swift */; };
 		3145D25326B3F74000F16787 /* NOICommunityUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3145D25226B3F74000F16787 /* NOICommunityUITests.swift */; };
 		314EB4A1270DDDF60067FACA /* EventsCoordinator.NavigationControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314EB4A0270DDDF60067FACA /* EventsCoordinator.NavigationControllerDelegate.swift */; };
-		315F4BE227034C00001905AF /* EventCardContentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 315F4BE127034C00001905AF /* EventCardContentView.xib */; };
 		315F4BE427035679001905AF /* EventCardContentConfiguration.SharedConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315F4BE327035679001905AF /* EventCardContentConfiguration.SharedConfig.swift */; };
 		3167681727035D9500A9DB87 /* EatMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3167681527035D9500A9DB87 /* EatMainViewController.swift */; };
 		3167681827035D9500A9DB87 /* EatCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3167681627035D9500A9DB87 /* EatCoordinator.swift */; };
@@ -64,6 +63,8 @@
 		31AAC053270F2FFD00C26850 /* FooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31AAC052270F2FFD00C26850 /* FooterView.swift */; };
 		31B3623E26F1E27A00031024 /* UIColor+NOI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B3623D26F1E27A00031024 /* UIColor+NOI.swift */; };
 		31B4477F26F86FE5000999BA /* SegmentedControlBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B4477E26F86FE4000999BA /* SegmentedControlBuilder.swift */; };
+		31C2261C270F596E0098A70E /* EventCardContentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 315F4BE127034C00001905AF /* EventCardContentView.xib */; };
+		31C2261D270F59750098A70E /* EventDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3187667826FB3A9300782FA6 /* EventDetailsViewController.xib */; };
 		31C3629F270EFC5C00C92532 /* UIButton+Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C3629E270EFC5C00C92532 /* UIButton+Background.swift */; };
 		31C362A1270EFCC200C92532 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C362A0270EFCC200C92532 /* Button.swift */; };
 		31C6409F26FE0B73004B71A2 /* OrientateCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C6409E26FE0B73004B71A2 /* OrientateCoordinator.swift */; };
@@ -587,13 +588,13 @@
 			files = (
 				3167681C27036A2F00A9DB87 /* PlaceCardContentView.xib in Resources */,
 				31C640A826FE0CF8004B71A2 /* OrientateMainViewController.xib in Resources */,
+				31C2261D270F59750098A70E /* EventDetailsViewController.xib in Resources */,
 				316ED05D270B12CF0070D272 /* Colors.xcassets in Resources */,
-				31C3629D270EFA0300C92532 /* EventDetailsViewController.xib in Resources */,
 				31CF8133270B49100077CB0D /* VersionContentView.xib in Resources */,
 				31CF812D270B3E340077CB0D /* LaunchScreen.storyboard in Resources */,
+				31C2261C270F596E0098A70E /* EventCardContentView.xib in Resources */,
 				317615CA26FDD637007FE10F /* MessageViewController.xib in Resources */,
 				31157D0526FC66FB00A43B33 /* InfoPlist.strings in Resources */,
-				315F4BE227034C00001905AF /* EventCardContentView.xib in Resources */,
 				31C8B7F927059001007A37EE /* Restaurants.bundle in Resources */,
 				31CF8128270B3CD90077CB0D /* NOI_begins-with-you_Animation_black_short.mp4 in Resources */,
 				31157D0C26FC70A500A43B33 /* Localizable.strings in Resources */,
