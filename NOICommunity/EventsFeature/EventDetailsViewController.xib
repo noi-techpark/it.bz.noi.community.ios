@@ -110,7 +110,7 @@
                     <viewLayoutGuide key="contentLayoutGuide" id="jkE-vN-MNa"/>
                     <viewLayoutGuide key="frameLayoutGuide" id="U92-5u-5HP"/>
                 </scrollView>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jJG-8A-cEa">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jJG-8A-cEa" customClass="FooterView" customModule="NOICommunity" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="707" width="375" height="105"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacingType="standard" baselineRelativeArrangement="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wen-Nd-rfN">

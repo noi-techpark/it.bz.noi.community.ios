@@ -82,15 +82,7 @@ class EventDetailsViewController: UIViewController {
     
     @IBOutlet private var relatedEventsContainerViewHeight: NSLayoutConstraint!
     
-    @IBOutlet private var actionsContainersView: UIView! {
-        didSet {
-            actionsContainersView.layer.shadowPath = UIBezierPath(rect: actionsContainersView.bounds).cgPath
-            actionsContainersView.layer.shadowColor = UIColor.backgroundColor.cgColor
-            actionsContainersView.layer.shadowRadius = 5
-            actionsContainersView.layer.shadowOffset = .zero
-            actionsContainersView.layer.shadowOpacity = 0.16
-        }
-    }
+    @IBOutlet private var actionsContainersView: FooterView!
     
     @IBOutlet private var locateEventButton: UIButton! {
         didSet {
@@ -139,11 +131,6 @@ class EventDetailsViewController: UIViewController {
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        actionsContainersView.layer.shadowPath = UIBezierPath(rect: actionsContainersView.bounds).cgPath
     }
     
     override func preferredContentSizeDidChange(forChildContentContainer container: UIContentContainer) {

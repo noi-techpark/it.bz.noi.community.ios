@@ -61,6 +61,7 @@
 		31AA31EA26F0A6D700744A00 /* EventListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31AA31E926F0A6D700744A00 /* EventListViewController.swift */; };
 		31AA31EE26F0A94E00744A00 /* IdentifiableCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31AA31ED26F0A94E00744A00 /* IdentifiableCollectionViewCell.swift */; };
 		31AA31F126F0B40800744A00 /* EventCardContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31AA31F026F0B40800744A00 /* EventCardContentView.swift */; };
+		31AAC053270F2FFD00C26850 /* FooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31AAC052270F2FFD00C26850 /* FooterView.swift */; };
 		31B3623E26F1E27A00031024 /* UIColor+NOI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B3623D26F1E27A00031024 /* UIColor+NOI.swift */; };
 		31B4477F26F86FE5000999BA /* SegmentedControlBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B4477E26F86FE4000999BA /* SegmentedControlBuilder.swift */; };
 		31C3629F270EFC5C00C92532 /* UIButton+Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C3629E270EFC5C00C92532 /* UIButton+Background.swift */; };
@@ -174,6 +175,7 @@
 		31AA31E926F0A6D700744A00 /* EventListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListViewController.swift; sourceTree = "<group>"; };
 		31AA31ED26F0A94E00744A00 /* IdentifiableCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifiableCollectionViewCell.swift; sourceTree = "<group>"; };
 		31AA31F026F0B40800744A00 /* EventCardContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCardContentView.swift; sourceTree = "<group>"; };
+		31AAC052270F2FFD00C26850 /* FooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterView.swift; sourceTree = "<group>"; };
 		31B3623D26F1E27A00031024 /* UIColor+NOI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+NOI.swift"; sourceTree = "<group>"; };
 		31B4477E26F86FE4000999BA /* SegmentedControlBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControlBuilder.swift; sourceTree = "<group>"; };
 		31C3629E270EFC5C00C92532 /* UIButton+Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Background.swift"; sourceTree = "<group>"; };
@@ -372,6 +374,7 @@
 				3110CF5F26F0E89C003B7174 /* CircleView.swift */,
 				31B4477E26F86FE4000999BA /* SegmentedControlBuilder.swift */,
 				31C362A0270EFCC200C92532 /* Button.swift */,
+				31AAC052270F2FFD00C26850 /* FooterView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -674,6 +677,7 @@
 				31157D0026FC648700A43B33 /* Event+CalendarEvent.swift in Sources */,
 				31C640C626FE1E43004B71A2 /* MeetMainViewController.swift in Sources */,
 				31C640C526FE1E43004B71A2 /* MeetCoordinator.swift in Sources */,
+				31AAC053270F2FFD00C26850 /* FooterView.swift in Sources */,
 				31C6409F26FE0B73004B71A2 /* OrientateCoordinator.swift in Sources */,
 				3187667526FB35C100782FA6 /* String+NotDefined.swift in Sources */,
 				319C0E8A26F33BD000C6D38B /* UIAlertController+Error.swift in Sources */,
@@ -865,15 +869,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5V2Q9SWB7H;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = 24PN5XJ85Y;
 				INFOPLIST_FILE = NOICommunity/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = it.bz.noi.community;
+				PRODUCT_BUNDLE_IDENTIFIER = "it.dimension.noi-community";
 				PRODUCT_NAME = "${TARGET_NAME}";
+				PROVISIONING_PROFILE_SPECIFIER = "5e8b3c4f-eb78-48ec-aa7e-4ce5a7f6d4b3";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -884,7 +889,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "Apple Distribution";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 5V2Q9SWB7H;
 				INFOPLIST_FILE = NOICommunity/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -893,6 +899,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = it.bz.noi.community;
 				PRODUCT_NAME = "${TARGET_NAME}";
+				PROVISIONING_PROFILE_SPECIFIER = "a5e85966-b44d-4f43-b01d-babf8ce192c3";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
