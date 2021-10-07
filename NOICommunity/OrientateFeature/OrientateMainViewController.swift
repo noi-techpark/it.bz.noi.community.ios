@@ -13,6 +13,8 @@ final class OrientateMainViewController: UIViewController {
 
     private var webVC: WebViewController!
 
+    private var activityIndicator: UIActivityIndicatorView!
+
     @IBOutlet private var contentContainer: UIView!
 
     @IBOutlet private var actionsContainersView: FooterView!
@@ -35,6 +37,8 @@ final class OrientateMainViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        configureViewHierarchy()
         configureChilds()
     }
 
@@ -46,11 +50,35 @@ final class OrientateMainViewController: UIViewController {
 // MARK: Private APIs
 
 private extension OrientateMainViewController {
+
+    func configureViewHierarchy() {
+        activityIndicator = { activityIndicator in
+            activityIndicator.hidesWhenStopped = true
+            activityIndicator.style = .medium
+            return activityIndicator
+        }(UIActivityIndicatorView())
+
+        activityIndicator.sizeToFit()
+        activityIndicator.color = .primaryColor
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: activityIndicator)
+    }
+
     func configureChilds() {
         webVC = WebViewController()
         webVC.url = .map
+        webVC.isLoadingHandler = { [weak self] isLoading in
+            self?.setIsLoading(isLoading)
+        }
         webVC.navigationItem.title = .localized("title_orientate")
         embedChild(webVC, in: contentContainer)
+    }
+
+    func setIsLoading(_ isLoading: Bool) {
+        if isLoading {
+            activityIndicator.startAnimating()
+        } else {
+            activityIndicator.stopAnimating()
+        }
     }
 
     @IBAction func bookRoomAction(sender: Any?) {
