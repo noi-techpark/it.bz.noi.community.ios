@@ -48,10 +48,10 @@
                     <viewLayoutGuide key="safeArea" id="XO1-yV-Tyg"/>
                     <color key="backgroundColor" name="tertiary_background_color"/>
                     <constraints>
-                        <constraint firstItem="R2k-ek-ZPy" firstAttribute="leading" secondItem="xTe-k4-PFK" secondAttribute="leading" constant="17" id="MwL-YJ-Wwf"/>
-                        <constraint firstAttribute="trailing" secondItem="R2k-ek-ZPy" secondAttribute="trailing" constant="17" id="bqq-Yt-Ybo"/>
-                        <constraint firstItem="R2k-ek-ZPy" firstAttribute="top" secondItem="XO1-yV-Tyg" secondAttribute="top" constant="17" id="gw8-JJ-poD"/>
-                        <constraint firstItem="XO1-yV-Tyg" firstAttribute="bottom" secondItem="R2k-ek-ZPy" secondAttribute="bottom" constant="17" id="wG7-6R-ECb"/>
+                        <constraint firstItem="XO1-yV-Tyg" firstAttribute="trailing" secondItem="R2k-ek-ZPy" secondAttribute="trailing" constant="17" id="GZc-on-2uX"/>
+                        <constraint firstItem="R2k-ek-ZPy" firstAttribute="leading" secondItem="XO1-yV-Tyg" secondAttribute="leading" constant="17" id="SRC-fH-ASW"/>
+                        <constraint firstItem="XO1-yV-Tyg" firstAttribute="bottom" secondItem="R2k-ek-ZPy" secondAttribute="bottom" constant="17" id="bZR-9c-5j4"/>
+                        <constraint firstItem="R2k-ek-ZPy" firstAttribute="top" secondItem="XO1-yV-Tyg" secondAttribute="top" constant="17" id="o4e-aD-NGa"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5AG-2G-jHF">
@@ -59,16 +59,15 @@
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </view>
             </subviews>
-            <viewLayoutGuide key="safeArea" id="2Oc-zK-hKa"/>
             <color key="backgroundColor" name="secondary_background_color"/>
             <constraints>
-                <constraint firstItem="2Oc-zK-hKa" firstAttribute="trailing" secondItem="xTe-k4-PFK" secondAttribute="trailing" id="C2a-cm-VX9"/>
-                <constraint firstItem="xTe-k4-PFK" firstAttribute="bottom" secondItem="uie-5P-Umu" secondAttribute="bottom" id="IzQ-Nb-pRF"/>
-                <constraint firstItem="xTe-k4-PFK" firstAttribute="leading" secondItem="2Oc-zK-hKa" secondAttribute="leading" id="NIL-yz-in9"/>
-                <constraint firstItem="2Oc-zK-hKa" firstAttribute="trailing" secondItem="5AG-2G-jHF" secondAttribute="trailing" id="Qmt-Ez-MwI"/>
-                <constraint firstItem="xTe-k4-PFK" firstAttribute="top" secondItem="5AG-2G-jHF" secondAttribute="bottom" id="ZGF-DA-Eef"/>
-                <constraint firstItem="5AG-2G-jHF" firstAttribute="leading" secondItem="2Oc-zK-hKa" secondAttribute="leading" id="jHs-Bc-nTG"/>
-                <constraint firstItem="5AG-2G-jHF" firstAttribute="top" secondItem="uie-5P-Umu" secondAttribute="top" id="o2f-E3-vGp"/>
+                <constraint firstItem="xTe-k4-PFK" firstAttribute="top" secondItem="5AG-2G-jHF" secondAttribute="bottom" id="Oif-qA-N2U"/>
+                <constraint firstItem="5AG-2G-jHF" firstAttribute="leading" secondItem="xTe-k4-PFK" secondAttribute="leading" id="PJc-rC-Mc4"/>
+                <constraint firstItem="5AG-2G-jHF" firstAttribute="leading" secondItem="uie-5P-Umu" secondAttribute="leading" id="Slw-PP-R5S"/>
+                <constraint firstAttribute="bottom" secondItem="xTe-k4-PFK" secondAttribute="bottom" id="eIj-Mr-fbp"/>
+                <constraint firstItem="5AG-2G-jHF" firstAttribute="top" secondItem="uie-5P-Umu" secondAttribute="top" id="efZ-oJ-0KL"/>
+                <constraint firstItem="5AG-2G-jHF" firstAttribute="centerX" secondItem="uie-5P-Umu" secondAttribute="centerX" id="gIS-sb-KUs"/>
+                <constraint firstItem="5AG-2G-jHF" firstAttribute="trailing" secondItem="xTe-k4-PFK" secondAttribute="trailing" id="rdo-Fg-0rc"/>
             </constraints>
             <point key="canvasLocation" x="138.40000000000001" y="122.78860569715144"/>
         </view>

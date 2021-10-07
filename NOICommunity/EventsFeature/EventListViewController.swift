@@ -136,6 +136,7 @@ private extension EventListViewController {
                 subitem: item,
                 count: columns
             )
+            group.interItemSpacing = .fixed(20)
             
             let section = NSCollectionLayoutSection(group: group)
             section.interGroupSpacing = 20
