@@ -10,23 +10,15 @@ import AVKit
 
 final class IntroViewController: UIViewController {
 
-    @IBOutlet private var playerContainerView: UIView!
     private var player: AVPlayer!
     private var playerLayer: AVPlayerLayer!
 
     var didFinishHandler: (() -> Void)?
 
-    init() {
-        super.init(nibName: "\(IntroViewController.self)", bundle: nil)
-    }
-
-    @available(*, unavailable)
-    required init?(coder: NSCoder) {
-        fatalError("\(#function) has not been implemented")
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        view.backgroundColor = .backgroundColor
 
         let videoURL = Bundle.main.url(
             forResource: "NOI_begins-with-you_Animation_black_short",
@@ -41,10 +33,16 @@ final class IntroViewController: UIViewController {
         // Add player layer
         playerLayer = AVPlayerLayer(player: player)
         playerLayer.videoGravity = .resizeAspectFill
-        playerLayer.frame = playerContainerView.bounds
+        let edge = min(view.frame.width, view.frame.height)
+        playerLayer.frame = CGRect(
+            x: (view.frame.width - edge) / 2,
+            y: (view.frame.height - edge) / 2,
+            width: edge,
+            height: edge
+        )
 
         // Add video layer
-        playerContainerView.layer.addSublayer(playerLayer)
+        view.layer.addSublayer(playerLayer)
 
         NotificationCenter.default.addObserver(
             self,
@@ -60,7 +58,13 @@ final class IntroViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
-        playerLayer.frame = playerContainerView.bounds
+        let edge = min(view.frame.width, view.frame.height)
+        playerLayer.frame = CGRect(
+            x: (view.frame.width - edge) / 2,
+            y: (view.frame.height - edge) / 2,
+            width: edge,
+            height: edge
+        )
     }
 }
 

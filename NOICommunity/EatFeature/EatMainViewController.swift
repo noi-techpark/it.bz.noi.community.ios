@@ -112,21 +112,8 @@ private extension EatMainViewController {
         case main
     }
 
-    static func columnCount(
-        for layoutEnviroment: NSCollectionLayoutEnvironment
-    ) -> Int {
-        switch layoutEnviroment.container.effectiveContentSize.width {
-        case 0..<600:
-            return 1
-        default:
-            return 2
-        }
-    }
-
     static func createLayout() -> UICollectionViewLayout {
         let layout = UICollectionViewCompositionalLayout { sectionIndex, layoutEnvironment in
-            let columns = self.columnCount(for: layoutEnvironment)
-
             let estimatedHeight = NSCollectionLayoutDimension.estimated(300)
             let itemSize = NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1.0),
@@ -141,7 +128,7 @@ private extension EatMainViewController {
             let group = NSCollectionLayoutGroup.horizontal(
                 layoutSize: groupSize,
                 subitem: item,
-                count: columns
+                count: 1
             )
 
             let section = NSCollectionLayoutSection(group: group)

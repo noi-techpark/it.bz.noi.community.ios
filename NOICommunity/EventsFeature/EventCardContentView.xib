@@ -5,6 +5,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -102,6 +103,7 @@ Foo</string>
                     </subviews>
                 </stackView>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="7GG-It-dCU"/>
             <color key="backgroundColor" name="background_color"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="enX-xJ-0D0" secondAttribute="trailing" id="0lU-bV-Uug"/>
@@ -112,7 +114,7 @@ Foo</string>
                 <constraint firstItem="UNu-Fa-SGo" firstAttribute="centerY" secondItem="enX-xJ-0D0" secondAttribute="bottom" id="7rQ-Tg-W7M"/>
                 <constraint firstItem="enX-xJ-0D0" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="K1H-oN-hYK"/>
                 <constraint firstItem="WbG-Jx-Dki" firstAttribute="top" secondItem="wbh-Yn-98n" secondAttribute="bottom" constant="8" id="PQ2-pG-iD8"/>
-                <constraint firstAttribute="trailing" secondItem="UNu-Fa-SGo" secondAttribute="trailing" constant="23" id="Sjl-vl-D8G"/>
+                <constraint firstItem="7GG-It-dCU" firstAttribute="trailing" secondItem="UNu-Fa-SGo" secondAttribute="trailing" constant="23" id="Sjl-vl-D8G"/>
                 <constraint firstItem="dnA-CJ-J2P" firstAttribute="bottom" secondItem="ZRq-m4-eHk" secondAttribute="firstBaseline" id="UGn-6O-Mqv"/>
                 <constraint firstItem="wbh-Yn-98n" firstAttribute="firstBaseline" secondItem="ZRq-m4-eHk" secondAttribute="firstBaseline" id="X4a-ij-WIJ"/>
                 <constraint firstItem="wbh-Yn-98n" firstAttribute="trailing" secondItem="4cu-Au-KOx" secondAttribute="trailing" id="ZO2-eg-WEX"/>
@@ -121,8 +123,8 @@ Foo</string>
                 <constraint firstItem="WbG-Jx-Dki" firstAttribute="trailing" secondItem="4cu-Au-KOx" secondAttribute="trailing" id="gCL-Rk-I2m"/>
                 <constraint firstAttribute="bottom" secondItem="WbG-Jx-Dki" secondAttribute="bottom" constant="20" id="i8H-do-OAA"/>
                 <constraint firstItem="One-Ky-ggi" firstAttribute="leading" secondItem="ZRq-m4-eHk" secondAttribute="trailing" constant="8" id="kiI-R2-DLA"/>
-                <constraint firstItem="4cu-Au-KOx" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="kws-Ks-xjX"/>
-                <constraint firstAttribute="trailing" secondItem="4cu-Au-KOx" secondAttribute="trailing" constant="20" id="mZf-us-mhk"/>
+                <constraint firstItem="4cu-Au-KOx" firstAttribute="leading" secondItem="7GG-It-dCU" secondAttribute="leading" constant="20" id="kws-Ks-xjX"/>
+                <constraint firstItem="7GG-It-dCU" firstAttribute="trailing" secondItem="4cu-Au-KOx" secondAttribute="trailing" constant="20" id="mZf-us-mhk"/>
                 <constraint firstItem="ZRq-m4-eHk" firstAttribute="leading" secondItem="dnA-CJ-J2P" secondAttribute="trailing" constant="4" id="mcF-WX-PD7"/>
                 <constraint firstItem="One-Ky-ggi" firstAttribute="bottom" secondItem="wbh-Yn-98n" secondAttribute="firstBaseline" id="uZ7-Ez-hiM"/>
                 <constraint firstItem="WbG-Jx-Dki" firstAttribute="top" secondItem="ZRq-m4-eHk" secondAttribute="bottom" constant="8" id="vaE-8x-neR"/>
