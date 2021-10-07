@@ -27,10 +27,8 @@ final class OrientateMainViewController: UIViewController {
 
     @IBOutlet private var bookRoomButton: UIButton! {
         didSet {
-            bookRoomButton.setTitle(
-                .localized("room_booking"),
-                for: .normal
-            )
+            bookRoomButton.configureAsActionButton()
+            bookRoomButton.setTitle(.localized("room_booking"), for: .normal)
         }
     }
 

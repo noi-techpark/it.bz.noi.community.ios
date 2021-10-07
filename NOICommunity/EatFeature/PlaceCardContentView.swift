@@ -14,7 +14,11 @@ class PlaceCardContentView: UIView, UIContentView {
     @IBOutlet var containerView: UIView!
     @IBOutlet var textLabel: UILabel!
     @IBOutlet var detailTextLabel: UILabel!
-    @IBOutlet var actionButton: UIButton!
+    @IBOutlet var actionButton: UIButton! {
+        didSet {
+            actionButton.configureAsActionButton(minHeight: 44)
+        }
+    }
     @IBOutlet var collectionView: UICollectionView!
 
     private var currentConfiguration: PlaceCardContentConfiguration!
