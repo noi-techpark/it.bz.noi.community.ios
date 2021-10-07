@@ -15,15 +15,7 @@ final class OrientateMainViewController: UIViewController {
 
     @IBOutlet private var contentContainer: UIView!
 
-    @IBOutlet private var actionsContainersView: UIView! {
-        didSet {
-            actionsContainersView.layer.shadowPath = UIBezierPath(rect: actionsContainersView.bounds).cgPath
-            actionsContainersView.layer.shadowColor = UIColor.backgroundColor.cgColor
-            actionsContainersView.layer.shadowRadius = 5
-            actionsContainersView.layer.shadowOffset = .zero
-            actionsContainersView.layer.shadowOpacity = 0.16
-        }
-    }
+    @IBOutlet private var actionsContainersView: FooterView!
 
     @IBOutlet private var bookRoomButton: UIButton! {
         didSet {
@@ -44,11 +36,6 @@ final class OrientateMainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureChilds()
-    }
-
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        actionsContainersView.layer.shadowPath = UIBezierPath(rect: actionsContainersView.bounds).cgPath
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
