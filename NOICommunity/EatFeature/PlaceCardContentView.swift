@@ -102,7 +102,7 @@ private extension PlaceCardContentView {
         var snapshot = NSDiffableDataSourceSnapshot<Section, URL>()
         snapshot.appendSections([.main])
         snapshot.appendItems(configuration.imagesURLs)
-        dataSource.apply(snapshot, animatingDifferences: false)
+        dataSource.apply(snapshot, animatingDifferences: true)
     }
 
     @IBAction private func triggerAction(sender: Any?) {
