@@ -78,12 +78,13 @@ class EventsCalendarManager: NSObject {
             // Auth is not determined
             // We should request access to the calendar
             requestAccess { accessGranted, _ in
-                if accessGranted {
-                    DispatchQueue.main.async(execute: presentationBlock)
-                    completion(.success(()))
-                } else {
-                    // Auth denied, we should display a popup
-                    completion(.failure(CalendarError.calendarAccessDeniedOrRestricted))
+                DispatchQueue.main.async {
+                    if accessGranted {
+                        completion(.success(()))
+                    } else {
+                        // Auth denied, we should display a popup
+                        completion(.failure(CalendarError.calendarAccessDeniedOrRestricted))
+                    }
                 }
             }
         case .denied,
