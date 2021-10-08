@@ -34,7 +34,14 @@ extension UIButton {
             heightConstraint.isActive = true
         }
 
-        titleLabel?.font = .preferredFont(forTextStyle: .body, weight: .bold)
+        titleLabel?.font = .preferredFont(
+            forTextStyle: .body,
+            weight: .semibold
+        )
+        titleLabel?.numberOfLines = 0
+        titleLabel?.textAlignment = .center
+
+        setTitleColor(.primaryColor, for: .normal)
 
         return self
     }
