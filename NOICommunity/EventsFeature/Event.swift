@@ -19,5 +19,5 @@ struct Event: Hashable, Identifiable {
     let description: String?
     let organizer: String?
     let technologyFields: [String]
-    let mapUrl: URL?
+    let mapURL: URL?
 }
