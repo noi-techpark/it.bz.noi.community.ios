@@ -195,6 +195,10 @@ private extension Event {
             imageUrl = urlComponents.url!
         }
 
+        let mapURL = eventShort.anchorVenueRoomMapping
+            .flatMap { key in roomMapping[key] }
+            .flatMap(URL.init(string:))
+
         self.init(
             id: eventShort.id ?? UUID().uuidString,
             title: title,
@@ -208,9 +212,7 @@ private extension Event {
             eventShort.display5 :
                 eventShort.companyName,
             technologyFields: eventShort.technologyFields ?? [],
-            mapUrl: eventShort.anchorVenueRoomMapping
-                .flatMap { key in roomMapping[key] }
-                .flatMap(URL.init(string:))
+            mapUrl: mapURL
         )
     }
 }

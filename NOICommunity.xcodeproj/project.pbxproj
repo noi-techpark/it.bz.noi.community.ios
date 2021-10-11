@@ -91,6 +91,7 @@
 		31CF8133270B49100077CB0D /* VersionContentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31CF812E270B46470077CB0D /* VersionContentView.xib */; };
 		31DA4A762705EA110098E395 /* MoreMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31DA4A742705EA110098E395 /* MoreMainViewController.swift */; };
 		31DA4A772705EA110098E395 /* MoreCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31DA4A752705EA110098E395 /* MoreCoordinator.swift */; };
+		31EE1A9227143AA1006A8EEF /* MapWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EE1A9127143AA1006A8EEF /* MapWebViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -204,6 +205,7 @@
 		31D9C78926FDFCD3001F2DBB /* BaseTabCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTabCoordinator.swift; sourceTree = "<group>"; };
 		31DA4A742705EA110098E395 /* MoreMainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoreMainViewController.swift; sourceTree = "<group>"; };
 		31DA4A752705EA110098E395 /* MoreCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoreCoordinator.swift; sourceTree = "<group>"; };
+		31EE1A9127143AA1006A8EEF /* MapWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapWebViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -355,6 +357,7 @@
 				317615C626FDD0FE007FE10F /* MessageViewController.swift */,
 				31178FD926FA16A200BDCDAA /* NavigationController.swift */,
 				31178FDD26FA2F7100BDCDAA /* TabBarController.swift */,
+				31EE1A9127143AA1006A8EEF /* MapWebViewController.swift */,
 				31157D1826FCA1EB00A43B33 /* WebViewController.swift */,
 			);
 			path = ViewControllers;
@@ -627,6 +630,7 @@
 				31178FD626F9D6EB00BDCDAA /* DateIntervalFilter.swift in Sources */,
 				3136CC402706F75F00C27129 /* SourcePresentAnimator.swift in Sources */,
 				31178FCE26F8D7CC00BDCDAA /* Localization.swift in Sources */,
+				31EE1A9227143AA1006A8EEF /* MapWebViewController.swift in Sources */,
 				31157CFE26FC5DEB00A43B33 /* EventsCalendarManager.swift in Sources */,
 				3167681727035D9500A9DB87 /* EatMainViewController.swift in Sources */,
 				31B3623E26F1E27A00031024 /* UIColor+NOI.swift in Sources */,

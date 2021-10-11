@@ -141,8 +141,8 @@ private extension PlaceCardContentView {
     }
 
     func configureDataSource() {
-        let cellRegistration = UICollectionView.CellRegistration<IdentifiableCollectionViewCell<URL>, URL> { cell, _, imageUrl in
-            cell.id = imageUrl
+        let cellRegistration = UICollectionView.CellRegistration<IdentifiableCollectionViewCell<URL>, URL> { cell, _, imageURL in
+            cell.id = imageURL
             var contentConfiguration = ImageContentConfiguration()
             contentConfiguration.image = UIImage(named: "placeholder_noi_events")
             var imageProperties = ImageContentConfiguration.ImageProperties()
@@ -150,9 +150,9 @@ private extension PlaceCardContentView {
             contentConfiguration.imageProperties = imageProperties
             cell.contentConfiguration = contentConfiguration
 
-            KingfisherManager.shared.retrieveImage(with: imageUrl) { result in
+            KingfisherManager.shared.retrieveImage(with: imageURL) { result in
                 guard
-                    cell.id == imageUrl,
+                    cell.id == imageURL,
                     case let .success(imageInfo) = result,
                     var contentConfiguration = cell.contentConfiguration as? ImageContentConfiguration
                 else { return }

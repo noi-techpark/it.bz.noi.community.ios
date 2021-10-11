@@ -15,7 +15,7 @@ final class EatCoordinator: BaseCoordinator {
         mainVC = EatMainViewController()
         mainVC.showMenuHandler = { [weak navigationController] entry in
             let detailVC = WebViewController()
-            detailVC.url = entry.menuUrl
+            detailVC.url = entry.menuURL
             detailVC.navigationItem.title = entry.name
             detailVC.navigationItem.largeTitleDisplayMode = .never
             navigationController?.pushViewController(detailVC, animated: true)

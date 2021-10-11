@@ -226,13 +226,13 @@ extension EventListViewController: UICollectionViewDataSourcePrefetching {
         _ collectionView: UICollectionView,
         prefetchItemsAt indexPaths: [IndexPath]
     ) {
-        let imageUrls = indexPaths
+        let imageURLs = indexPaths
             .compactMap(dataSource.itemIdentifier(for:))
             .compactMap(\.imageURL)
-        guard !imageUrls.isEmpty
+        guard !imageURLs.isEmpty
         else { return }
         
-        let imagePrefetcher = ImagePrefetcher(urls: imageUrls)
+        let imagePrefetcher = ImagePrefetcher(urls: imageURLs)
         self.imagePrefetcher = imagePrefetcher
         imagePrefetcher.start()
     }

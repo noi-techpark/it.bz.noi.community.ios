@@ -64,7 +64,7 @@ private extension OrientateMainViewController {
     }
 
     func configureChilds() {
-        webVC = WebViewController()
+        webVC = MapWebViewController()
         webVC.url = .map
         webVC.isLoadingHandler = { [weak self] isLoading in
             self?.setIsLoading(isLoading)

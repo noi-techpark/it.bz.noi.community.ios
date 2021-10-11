@@ -19,14 +19,14 @@ final class EatViewModel {
 
         let name: String
         let openeningText: String
-        let menuUrl: URL
-        let imageUrls: [URL]
+        let menuURL: URL
+        let imageURLs: [URL]
 
         static let noisteria = Self(
             name: "Noisteria",
             openeningText: .localized("noisteria_openings"),
-            menuUrl: .noisteriaMenu,
-            imageUrls: [
+            menuURL: .noisteriaMenu,
+            imageURLs: [
                 .noisteriaaußenImageURL,
                 .noisteriaBarImageURL,
                 .noisteriaInnenImageURL,
@@ -37,8 +37,8 @@ final class EatViewModel {
         static let noiCommunityBar = Self(
             name: "NOI Community Bar",
             openeningText: .localized("community_bar_openings"),
-            menuUrl: .noiBarMenu,
-            imageUrls:[
+            menuURL: .noiBarMenu,
+            imageURLs:[
                 .rockinBeetsAsparagiLasagneImageURL,
                 .rockinBeetsMealPrepImageURL,
                 .rockinBeetsMealsImageURL,
@@ -48,8 +48,8 @@ final class EatViewModel {
         static let alumix = Self(
             name: "Alumix",
             openeningText: .localized("alumix_openings"),
-            menuUrl: .alumixMenu,
-            imageUrls: [
+            menuURL: .alumixMenu,
+            imageURLs: [
                 .alumixImageURL,
                 .alumixFritturaImageURL,
                 .alumixPizzaImageURL,
@@ -157,7 +157,7 @@ private extension EatMainViewController {
             contentConfiguration.actionHandler = { [weak self] in
                 self?.showMenuHandler?(entry)
             }
-            contentConfiguration.imagesURLs = entry.imageUrls
+            contentConfiguration.imagesURLs = entry.imageURLs
             cell.contentConfiguration = contentConfiguration
             cell.backgroundConfiguration = UIBackgroundConfiguration.clear()
         }

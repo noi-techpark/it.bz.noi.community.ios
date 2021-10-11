@@ -55,9 +55,9 @@ private extension EventsCoordinator {
     }
 
     func locateEvent(_ event: Event) {
-        let mapViewController = WebViewController()
-        mapViewController.url = event.mapUrl ?? .map
-        mapViewController.navigationItem.title = event.mapUrl != nil ?
+        let mapViewController = MapWebViewController()
+        mapViewController.url = event.mapURL ?? .map
+        mapViewController.navigationItem.title = event.mapURL != nil ?
         event.venue:
             .localized("title_generic_noi_techpark_map")
         navigationController.pushViewController(
