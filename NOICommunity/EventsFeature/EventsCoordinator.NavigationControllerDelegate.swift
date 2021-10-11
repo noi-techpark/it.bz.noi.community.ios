@@ -28,6 +28,8 @@ extension EventsCoordinator {
         
         private let transitionBackgroundColor: UIColor = .secondaryBackgroundColor
         
+        private var shouldCancel = false
+        
         struct TransitionInfo {
             var id: String
             weak var collectionView: UICollectionView!
@@ -57,22 +59,16 @@ extension EventsCoordinator {
                 else { return }
                 
                 let translation = recognizer.translation(in: view)
-                let percent = abs(translation.x / view.bounds.width)
-                interactionController.update(percent)
-            case .ended:
-                guard let interactionController = interactionController
-                else { return }
-                
-                let translation = recognizer.translation(in: view)
-                let percent = abs(translation.x / view.bounds.width)
-                if percent.isLess(than: 0.3) {
-                    interactionController.cancel()
+                let progress = max(0, min(1, translation.x / view.bounds.width))
+                shouldCancel = progress.isLess(than: 0.3)
+                interactionController.update(progress)
+            case .ended, .cancelled:
+                if shouldCancel {
+                    interactionController?.cancel()
                 } else {
-                    interactionController.finish()
+                    interactionController?.finish()
                 }
-                self.interactionController = nil
-            case .cancelled:
-                break
+                interactionController = nil
             default:
                 break
             }
@@ -93,9 +89,13 @@ extension EventsCoordinator.EventsNavigationControllerDelegate: UIGestureRecogni
 
 extension EventsCoordinator.EventsNavigationControllerDelegate: UINavigationControllerDelegate {
     
-    func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
+    func navigationController(
+        _ navigationController: UINavigationController,
+        didShow viewController: UIViewController,
+        animated: Bool) {
         navigationController.interactivePopGestureRecognizer?.isEnabled = !(viewController is EventDetailsViewController)
     }
+
     func navigationController(
         _ navigationController: UINavigationController,
         animationControllerFor operation: UINavigationController.Operation,
@@ -127,10 +127,10 @@ extension EventsCoordinator.EventsNavigationControllerDelegate: UINavigationCont
             guard fromVC is EventDetailsViewController
             else { return nil }
             
-            guard let transitionInfo = transitionInfos.popLast()
+            guard let transitionInfo = transitionInfos.last
             else { return nil }
             
-            return SourceDismissAnimator(
+            let dismissAnimator = SourceDismissAnimator(
                 with: transitionInfo.collectionView,
                 for: transitionInfo.indexPath,
                 id: transitionInfo.id,
@@ -143,6 +143,12 @@ extension EventsCoordinator.EventsNavigationControllerDelegate: UINavigationCont
                 contentConfiguration.image = sourceContentConfig.image
                 return contentConfiguration.makeContentView()
             }
+            dismissAnimator.onAnimationEnded = { [weak self] transitionCompleted in
+                if transitionCompleted {
+                    self?.transitionInfos.removeLast()
+                }
+            }
+            return dismissAnimator
         default:
             return nil
         }

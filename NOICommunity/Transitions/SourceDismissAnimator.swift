@@ -16,9 +16,9 @@ class SourceDismissAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     private let sourceViewPlaceholderMaker: (UIView) -> UIView?
     private let transitionDuration: TimeInterval
 
-    private var animator: UIViewImplicitlyAnimating?
+    private var animatorForCurrentSession: UIViewPropertyAnimator?
 
-    private var isAnimating: Bool = false
+    var onAnimationEnded: ((Bool) -> Void)?
 
     init(
         with collectionView: UICollectionView,
@@ -47,8 +47,8 @@ class SourceDismissAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     func interruptibleAnimator(
         using transitionContext: UIViewControllerContextTransitioning
     ) -> UIViewImplicitlyAnimating {
-        guard animator == nil
-        else { return animator! }
+        guard animatorForCurrentSession == nil
+        else { return animatorForCurrentSession! }
 
         guard
             let fromVC = transitionContext.viewController(forKey: .from),
@@ -98,22 +98,22 @@ class SourceDismissAnimator: NSObject, UIViewControllerAnimatedTransitioning {
         animator.addCompletion { position in
             switch position {
             case .start:
-                toVC.view.alpha = 0
+                toVC.view.alpha = 1
                 fromVC.view.alpha = 1
-                targetView.alpha = 0
+                targetView.alpha = 1
             case .end:
                 toVC.view.alpha = 1
                 fromVC.view.alpha = 0
                 targetView.alpha = 1
-            case .current: break
-            @unknown default: break
+            case .current:
+                break
+            @unknown default:
+                break
             }
             sourcePlaceholderView.removeFromSuperview()
             transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
-            self.isAnimating = false
-
         }
-        self.animator = animator
+        self.animatorForCurrentSession = animator
         return animator
     }
 
@@ -122,5 +122,9 @@ class SourceDismissAnimator: NSObject, UIViewControllerAnimatedTransitioning {
         if case .inactive = animator.state {
             animator.startAnimation()
         }
+    }
+
+    func animationEnded(_ transitionCompleted: Bool) {
+        onAnimationEnded?(transitionCompleted)
     }
 }
