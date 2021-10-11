@@ -12,23 +12,22 @@ import EventShortClient
 // MARK: - EventsViewModel
 
 class EventsViewModel {
-
+    
     @Published var isLoading = false
     @Published var isEmpty = false
     @Published var error: Error!
     @Published var eventResults: [Event] = []
-    @Published var roomMapping: [String:String] = [:]
-
-    var eventShortListRequestCancellable: AnyCancellable?
-    var eventShortRoomMappingRequestCancellable: AnyCancellable?
-
+    
+    var refreshEventsRequestCancellable: AnyCancellable?
+    
     let eventShortClient: EventShortClient
     let maximumNumberOfEvents: Int
     let maximumNumberOfRelatedEvents: Int
-
+    
     private var subscriptions: Set<AnyCancellable> = []
-    private var responseResults: [EventShort] = []
-
+    
+    private var roomMapping: [String:String]!
+    
     init(
         eventShortClient: EventShortClient,
         maximumNumberOfEvents: Int = EventsFeatureConstants.maximumNumberOfEvents,
@@ -37,30 +36,24 @@ class EventsViewModel {
         self.eventShortClient = eventShortClient
         self.maximumNumberOfEvents = maximumNumberOfEvents
         self.maximumNumberOfRelatedEvents = maximumNumberOfRelatedEvents
-
-        refreshRoomMapping()
     }
-
+    
     func refreshEvents(dateIntervalFilter: DateIntervalFilter = .all) {
+        let (startDate, endDate) = dateIntervalFilter.toStartEndDates()
+        
         isLoading = true
         isEmpty = false
         eventResults = []
-
-        let calendar = Calendar.current
-        let now = Date()
-        let startDate = calendar.startOfDay(for: now)
-        let endDate: Date?
-        switch dateIntervalFilter {
-        case .all:
-            endDate = nil
-        case .today:
-            endDate = calendar.endOfDay(for: now)
-        case .currentWeek:
-            endDate = calendar.endOfDay(for: calendar.lastDayOfWeek(for: now))
-        case .currentMonth:
-            endDate = calendar.endOfDay(for: calendar.lastDayOfMonth(for: now))
+        
+        let roomMappingPublisher: AnyPublisher<[String : String], Error>
+        if let roomMapping = roomMapping {
+            roomMappingPublisher = Just(roomMapping)
+                .setFailureType(to: Error.self)
+                .eraseToAnyPublisher()
+        } else {
+            roomMappingPublisher = eventShortClient.roomMapping()
         }
-        eventShortListRequestCancellable = eventShortClient
+        let eventListPublisher = eventShortClient
             .list(EventShortListRequest(
                 pageSize: maximumNumberOfEvents,
                 startDate: startDate,
@@ -69,11 +62,14 @@ class EventsViewModel {
                 onlyActive: true,
                 removeNullValues: true
             ))
+        
+        refreshEventsRequestCancellable = roomMappingPublisher
+            .zip(eventListPublisher)
             .receive(on: DispatchQueue.main)
             .sink(
                 receiveCompletion: { [weak self] completion in
                     self?.isLoading = false
-
+                    
                     switch completion {
                     case .finished:
                         break
@@ -81,26 +77,30 @@ class EventsViewModel {
                         self?.error = error
                     }
                 },
-                receiveValue: { [weak self] response in
+                receiveValue: { [weak self] in
                     guard let self = self
                     else { return }
-
-                    let allEventsShort = response.items ?? []
+                    
+                    let (roomMappingResponse, eventShortListResponse) = $0
+                    self.roomMapping = roomMappingResponse
+                    let allEventsShort = eventShortListResponse.items ?? []
                     self.isEmpty = allEventsShort.isEmpty
-                    self.responseResults = allEventsShort
                     self.eventResults = allEventsShort.map { eventShort in
-                        Event(from: eventShort, roomMapping: self.roomMapping)
+                        Event(
+                            from: eventShort,
+                            roomMapping: roomMappingResponse
+                        )
                     }
                 })
     }
-
+    
     func relatedEvent(of event: Event) -> [Event] {
         let slice = eventResults
             .lazy
             .filter { candidateEvent in
                 guard candidateEvent.id != event.id
                 else { return false }
-
+                
                 for techField in event.technologyFields {
                     if candidateEvent.technologyFields.contains(techField) {
                         return true
@@ -113,34 +113,31 @@ class EventsViewModel {
     }
 }
 
-// MARK: Private APIs
+// MARK: - DateIntervalFilter Additions
 
-private extension EventsViewModel {
-    func refreshRoomMapping() {
-        isLoading = true
-        roomMapping = [:]
-
-        eventShortRoomMappingRequestCancellable = eventShortClient
-            .roomMapping()
-            .receive(on: DispatchQueue.main)
-            .sink(
-                receiveCompletion: { [weak self] completion in
-                    self?.isLoading = false
-
-                    switch completion {
-                    case .finished:
-                        break
-                    case .failure(let error):
-                        self?.error = error
-                    }
-                },
-                receiveValue: { [weak self] response in
-                    self?.roomMapping = response
-                })
+private extension DateIntervalFilter {
+    func toStartEndDates(
+        using calendar: Calendar = .current
+    ) -> (start: Date, end: Date?) {
+        let now = Date()
+        let startDate = calendar.startOfDay(for: now)
+        let endDate: Date?
+        switch self {
+        case .all:
+            endDate = nil
+        case .today:
+            endDate = calendar.endOfDay(for: now)
+        case .currentWeek:
+            endDate = calendar.endOfDay(for: calendar.lastDayOfWeek(for: now))
+        case .currentMonth:
+            endDate = calendar.endOfDay(for: calendar.lastDayOfMonth(for: now))
+        }
+        return (startDate, endDate)
     }
 }
 
 // MARK: - EventShort Additions
+
 private extension EventShort {
     var localizedEventDescriptions: [String:String] {
         Dictionary(uniqueKeysWithValues: [
@@ -149,7 +146,7 @@ private extension EventShort {
             eventDescriptionDE.map { ("de", $0) }
         ].compactMap { $0 })
     }
-
+    
     var localizedEventTexts: [String:String] {
         Dictionary(uniqueKeysWithValues: [
             eventTextIT.map { ("it", $0) },
@@ -174,8 +171,8 @@ private extension Event {
             from: eventShort.localizedEventTexts,
             defaultValue: eventShort.eventTextEN
         )
-
-        var imageUrl = (eventShort.imageGallery ?? [])
+        
+        var imageURL = (eventShort.imageGallery ?? [])
             .lazy
             .compactMap(\.imageUrl)
             .first
@@ -183,22 +180,22 @@ private extension Event {
         // Get an image from a http url as https content
         // see https://github.com/noi-techpark/odh-docs/wiki/How-to-get-a-Image-from-a-http-url-as-https-content.
         if
-            let nonOptImageUrl = imageUrl,
-            case "http" = nonOptImageUrl.scheme {
+            let nonOptImageURL = imageURL,
+            case "http" = nonOptImageURL.scheme {
             var urlComponents = URLComponents(
-                string: "https://images.opendatahub.bz.it/api/Image/GetImageByUrl"
+                string: "https://images.opendatahub.bz.it/api/Image/GetImageByURL"
             )!
             urlComponents.queryItems = [URLQueryItem(
                 name: "imageurl",
-                value: nonOptImageUrl.absoluteString
+                value: nonOptImageURL.absoluteString
             )]
-            imageUrl = urlComponents.url!
+            imageURL = urlComponents.url!
         }
-
+        
         let mapURL = eventShort.anchorVenueRoomMapping
             .flatMap { key in roomMapping[key] }
             .flatMap(URL.init(string:))
-
+        
         self.init(
             id: eventShort.id ?? UUID().uuidString,
             title: title,
@@ -206,13 +203,13 @@ private extension Event {
             endDate: eventShort.endDate,
             location: eventShort.eventLocation,
             venue: eventShort.anchorVenue,
-            imageURL: imageUrl,
+            imageURL: imageURL,
             description: description,
             organizer: !eventShort.display5.isNilOrEmpty ?
             eventShort.display5 :
                 eventShort.companyName,
             technologyFields: eventShort.technologyFields ?? [],
-            mapUrl: mapURL
+            mapURL: mapURL
         )
     }
 }
