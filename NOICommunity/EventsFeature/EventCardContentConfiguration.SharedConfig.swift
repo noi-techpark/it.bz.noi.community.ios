@@ -17,10 +17,16 @@ extension EventCardContentConfiguration {
             start: item.startDate,
             end: item.endDate
         )
-        let timeInterval = DateInterval(
-            start: Calendar.current.dateForTime(from: item.startDate),
-            end: Calendar.current.dateForTime(from: item.endDate)
-        )
+
+        let timeInterval: DateInterval = {
+            let date1 = Calendar.current.dateForTime(from: item.startDate)
+            let date2 = Calendar.current.dateForTime(from: item.endDate)
+            if date1 < date2 {
+                return DateInterval(start: date1, end: date2)
+            } else {
+                return DateInterval(start: date2, end: date1)
+            }
+        }()
 
         var contentConfiguration = EventCardContentConfiguration()
         contentConfiguration.text = item.title ?? .notDefined
