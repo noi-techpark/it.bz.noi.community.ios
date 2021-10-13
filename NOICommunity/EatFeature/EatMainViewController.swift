@@ -12,8 +12,8 @@ import UIKit
 final class EatViewModel {
     struct Entry: Hashable, CaseIterable {
         static var allCases: [Entry] = [
-            .noisteria,
             .noiCommunityBar,
+            .noisteria,
             .alumix
         ]
 
@@ -23,7 +23,7 @@ final class EatViewModel {
         let imageURLs: [URL]
 
         static let noisteria = Self(
-            name: "Noisteria",
+            name: .localized("noisteria_name"),
             openeningText: .localized("noisteria_openings"),
             menuURL: .noisteriaMenu,
             imageURLs: [
@@ -35,7 +35,7 @@ final class EatViewModel {
             ]
         )
         static let noiCommunityBar = Self(
-            name: "NOI Community Bar",
+            name: .localized("community_bar_name"),
             openeningText: .localized("community_bar_openings"),
             menuURL: .noiBarMenu,
             imageURLs:[
@@ -46,7 +46,7 @@ final class EatViewModel {
             ]
         )
         static let alumix = Self(
-            name: "Alumix",
+            name: .localized("alumix_name"),
             openeningText: .localized("alumix_openings"),
             menuURL: .alumixMenu,
             imageURLs: [
