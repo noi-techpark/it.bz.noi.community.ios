@@ -122,10 +122,7 @@ private extension PlaceCardContentView {
             )
             let item = NSCollectionLayoutItem(layoutSize: itemSize)
 
-            let groupSize = NSCollectionLayoutSize(
-                    widthDimension: .absolute(167),
-                    heightDimension: .absolute(250)
-                )
+            let groupSize = itemSize
             let group = NSCollectionLayoutGroup.horizontal(
                 layoutSize: groupSize,
                 subitem: item,
@@ -133,7 +130,7 @@ private extension PlaceCardContentView {
             )
 
             let section = NSCollectionLayoutSection(group: group)
-            section.interGroupSpacing = 20
+            section.interGroupSpacing = 7
             section.orthogonalScrollingBehavior = .groupPaging
             return section
         }
