@@ -17,7 +17,6 @@ class EventCardContentView: UIView, UIContentView {
     @IBOutlet var trailingDetailTextLabel: UILabel!
     @IBOutlet var tertiaryTextLabel: UILabel?
     @IBOutlet var badgeTextLabel: UILabel!
-    @IBOutlet var badgeDetailTextLabel: UILabel!
 
     private var currentConfiguration: EventCardContentConfiguration!
     var configuration: UIContentConfiguration {
