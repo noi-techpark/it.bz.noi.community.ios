@@ -11,8 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EventCardContentView" customModule="NOICommunity" customModuleProvider="target">
             <connections>
-                <outlet property="badgeDetailTextLabel" destination="6my-Du-hUl" id="7TW-AK-GtJ"/>
-                <outlet property="badgeTextLabel" destination="6my-Du-hUl" id="gx8-yu-3Fw"/>
+                <outlet property="badgeTextLabel" destination="NAc-oq-i4m" id="Whd-Dm-IV7"/>
                 <outlet property="containerView" destination="iN0-l3-epB" id="b0K-gJ-bDt"/>
                 <outlet property="imageView" destination="enX-xJ-0D0" id="H3K-zA-iN3"/>
                 <outlet property="leadingDetailTextLabel" destination="ZRq-m4-eHk" id="gPN-Qx-YxM"/>
@@ -35,26 +34,21 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UNu-Fa-SGo" customClass="CircleView" customModule="NOICommunity" customModuleProvider="target">
                     <rect key="frame" x="331" y="197" width="60" height="60"/>
                     <subviews>
-                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="8sR-O6-T0p">
-                            <rect key="frame" x="10" y="10" width="40" height="40"/>
-                            <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.59999999999999998" translatesAutoresizingMaskIntoConstraints="NO" id="6my-Du-hUl">
-                                    <rect key="frame" x="1.5" y="0.0" width="37.5" height="40"/>
-                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
-                                    <color key="textColor" name="secondary_color"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                            </subviews>
-                        </stackView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Days" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.60000002384185791" translatesAutoresizingMaskIntoConstraints="NO" id="NAc-oq-i4m">
+                            <rect key="frame" x="8" y="8" width="44" height="44"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                            <color key="textColor" name="secondary_color"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                     </subviews>
                     <color key="backgroundColor" name="accent_color"/>
                     <constraints>
-                        <constraint firstItem="8sR-O6-T0p" firstAttribute="centerX" secondItem="UNu-Fa-SGo" secondAttribute="centerX" id="CTb-kZ-k2D"/>
-                        <constraint firstItem="8sR-O6-T0p" firstAttribute="top" secondItem="UNu-Fa-SGo" secondAttribute="top" constant="10" id="L7V-JV-ql5"/>
+                        <constraint firstItem="NAc-oq-i4m" firstAttribute="centerX" secondItem="UNu-Fa-SGo" secondAttribute="centerX" id="2Lf-UN-PaQ"/>
+                        <constraint firstItem="NAc-oq-i4m" firstAttribute="top" secondItem="UNu-Fa-SGo" secondAttribute="top" constant="8" id="AHi-my-oEf"/>
+                        <constraint firstItem="NAc-oq-i4m" firstAttribute="centerY" secondItem="UNu-Fa-SGo" secondAttribute="centerY" id="Hoi-m5-Cn5"/>
                         <constraint firstAttribute="width" secondItem="UNu-Fa-SGo" secondAttribute="height" multiplier="1:1" id="LwP-bM-70e"/>
-                        <constraint firstItem="8sR-O6-T0p" firstAttribute="centerY" secondItem="UNu-Fa-SGo" secondAttribute="centerY" id="Ruf-OY-lWa"/>
+                        <constraint firstItem="NAc-oq-i4m" firstAttribute="leading" secondItem="UNu-Fa-SGo" secondAttribute="leading" constant="8" id="ZHx-DA-pzM"/>
                         <constraint firstAttribute="width" constant="60" id="xEK-aM-Mv7"/>
-                        <constraint firstItem="8sR-O6-T0p" firstAttribute="leading" secondItem="UNu-Fa-SGo" secondAttribute="leading" constant="10" id="zve-7U-376"/>
                     </constraints>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Text" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4cu-Au-KOx">
