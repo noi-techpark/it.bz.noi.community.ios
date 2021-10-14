@@ -94,3 +94,5 @@ iOSInjectionProject/
 *.mobileprovision
 *.p12
 .passphrase
+
+GoogleService-Info.plist

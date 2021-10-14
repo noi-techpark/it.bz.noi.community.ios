@@ -51,6 +51,11 @@ jobs:
       - name: Resolve package dependencies
         run: xcodebuild -resolvePackageDependencies
 
+      - name: Inject GoogleService-Info.plist
+        env:
+          GOOGLE_SERVICE_INFO_PLIST: ${{ secrets.GOOGLE_SERVICE_INFO_PLIST }}
+        run: echo "$GOOGLE_SERVICE_INFO_PLIST" > NOICommunity/GoogleService-Info.plist
+
       - name: Install gpg (if absent)
         run: gpg --version &>/dev/null || brew install gnupg
 
