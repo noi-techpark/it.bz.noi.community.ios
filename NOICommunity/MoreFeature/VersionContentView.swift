@@ -10,18 +10,21 @@ import UIKit
 // MARK: - VersionContentView
 
 class VersionContentView: UIView, UIContentView {
+
     @IBOutlet var containerView: UIView!
+
     @IBOutlet var logoImageView: UIImageView! {
         didSet {
             logoImageView.image = UIImage(named: "logo")
         }
     }
+
     @IBOutlet var logoImageViewHeightConstraint: NSLayoutConstraint! {
         didSet {
-            logoImageViewHeightConstraint.constant = UIFontMetrics.default
-                .scaledValue(for: 44)
+            updateLogoDynamicTypeHeight()
         }
     }
+
     @IBOutlet var textLabel: UILabel!
 
     private var currentConfiguration: VersionContentConfiguration!
@@ -52,8 +55,7 @@ class VersionContentView: UIView, UIContentView {
         super.traitCollectionDidChange(previousTraitCollection)
 
         if traitCollection.preferredContentSizeCategory != previousTraitCollection?.preferredContentSizeCategory {
-            logoImageViewHeightConstraint.constant = UIFontMetrics.default
-                .scaledValue(for: 66)
+            updateLogoDynamicTypeHeight()
         }
     }
 }
@@ -81,6 +83,12 @@ private extension VersionContentView {
             or: configuration.version
         )
         textLabel.apply(textProperties: configuration.textProprieties)
+    }
+
+    func updateLogoDynamicTypeHeight() {
+        logoImageViewHeightConstraint?.constant = UIFontMetrics(
+            forTextStyle: .largeTitle
+        ).scaledValue(for: 60)
     }
 }
 

@@ -145,7 +145,7 @@ private extension EatMainViewController {
     }
 
     func configureCollectionView() {
-        collectionView.backgroundColor = .secondaryBackgroundColor
+        collectionView.backgroundColor = .noiSecondaryBackgroundColor
     }
 
     func configureDataSource() {

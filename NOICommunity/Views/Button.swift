@@ -22,7 +22,7 @@ extension UIButton {
         minHeight: CGFloat = 50
     )  -> UIButton {
         configureAsRectangleButton(
-            withBackgroundColor: .backgroundColor,
+            withBackgroundColor: .noiBackgroundColor,
             contentEdgeInsets: .init(top: 12, left: 12, bottom: 12, right: 12)
         )
 
@@ -41,7 +41,7 @@ extension UIButton {
         titleLabel?.numberOfLines = 0
         titleLabel?.textAlignment = .center
 
-        setTitleColor(.primaryColor, for: .normal)
+        setTitleColor(.noiPrimaryColor, for: .normal)
 
         return self
     }

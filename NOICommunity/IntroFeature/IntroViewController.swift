@@ -18,7 +18,7 @@ final class IntroViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .backgroundColor
+        view.backgroundColor = .noiBackgroundColor
 
         let videoURL = Bundle.main.url(
             forResource: "NOI_begins-with-you_Animation_black_short",

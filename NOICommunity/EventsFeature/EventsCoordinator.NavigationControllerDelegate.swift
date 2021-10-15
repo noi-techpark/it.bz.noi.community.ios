@@ -26,7 +26,7 @@ extension EventsCoordinator {
             return result
         }()
         
-        private let transitionBackgroundColor: UIColor = .secondaryBackgroundColor
+        private let transitionBackgroundColor: UIColor = .noiSecondaryBackgroundColor
         
         private var shouldCancel = false
         
