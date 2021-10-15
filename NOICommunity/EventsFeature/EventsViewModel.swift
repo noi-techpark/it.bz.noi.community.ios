@@ -23,6 +23,7 @@ class EventsViewModel {
     let eventShortClient: EventShortClient
     let maximumNumberOfEvents: Int
     let maximumNumberOfRelatedEvents: Int
+    let language: Language?
     
     private var subscriptions: Set<AnyCancellable> = []
     
@@ -30,10 +31,12 @@ class EventsViewModel {
     
     init(
         eventShortClient: EventShortClient,
+        language: Language?,
         maximumNumberOfEvents: Int = EventsFeatureConstants.maximumNumberOfEvents,
         maximumNumberOfRelatedEvents: Int = EventsFeatureConstants.maximumNumberOfRelatedEvents
     ) {
         self.eventShortClient = eventShortClient
+        self.language = language
         self.maximumNumberOfEvents = maximumNumberOfEvents
         self.maximumNumberOfRelatedEvents = maximumNumberOfRelatedEvents
     }
@@ -51,7 +54,7 @@ class EventsViewModel {
                 .setFailureType(to: Error.self)
                 .eraseToAnyPublisher()
         } else {
-            roomMappingPublisher = eventShortClient.roomMapping()
+            roomMappingPublisher = eventShortClient.roomMapping(language)
         }
         let eventListPublisher = eventShortClient
             .list(EventShortListRequest(
