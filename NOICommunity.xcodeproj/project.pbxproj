@@ -26,6 +26,8 @@
 		3136CC402706F75F00C27129 /* SourcePresentAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3136CC3F2706F75F00C27129 /* SourcePresentAnimator.swift */; };
 		3136CC422706F8D200C27129 /* UIView+TransitionId.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3136CC412706F8D200C27129 /* UIView+TransitionId.swift */; };
 		3136CC442707093B00C27129 /* SourceDismissAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3136CC432707093B00C27129 /* SourceDismissAnimator.swift */; };
+		313FB0B52719C438000AD9DA /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 313FB0B42719C438000AD9DA /* FirebaseCrashlytics */; };
+		313FB0B72719C518000AD9DA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 313FB0B62719C518000AD9DA /* GoogleService-Info.plist */; };
 		3145D23126B3F73F00F16787 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3145D23026B3F73F00F16787 /* AppDelegate.swift */; };
 		3145D23326B3F73F00F16787 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3145D23226B3F73F00F16787 /* SceneDelegate.swift */; };
 		3145D23A26B3F74000F16787 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3145D23926B3F74000F16787 /* Images.xcassets */; };
@@ -137,6 +139,7 @@
 		3136CC3F2706F75F00C27129 /* SourcePresentAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourcePresentAnimator.swift; sourceTree = "<group>"; };
 		3136CC412706F8D200C27129 /* UIView+TransitionId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+TransitionId.swift"; sourceTree = "<group>"; };
 		3136CC432707093B00C27129 /* SourceDismissAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceDismissAnimator.swift; sourceTree = "<group>"; };
+		313FB0B62719C518000AD9DA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3145D22D26B3F73F00F16787 /* NOICommunity.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NOICommunity.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3145D23026B3F73F00F16787 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3145D23226B3F73F00F16787 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -216,6 +219,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				31CE9BF62701BF33005EA61A /* Kingfisher in Frameworks */,
+				313FB0B52719C438000AD9DA /* FirebaseCrashlytics in Frameworks */,
 				319C0E9626F3427C00C6D38B /* EventShortClient in Frameworks */,
 				319C0E9826F3427C00C6D38B /* EventShortClientLive in Frameworks */,
 			);
@@ -296,6 +300,7 @@
 				316ED05C270B12C60070D272 /* Colors.xcassets */,
 				31157D0E26FC70A500A43B33 /* Localizable.strings */,
 				31157D0726FC66FB00A43B33 /* InfoPlist.strings */,
+				313FB0B62719C518000AD9DA /* GoogleService-Info.plist */,
 			);
 			path = NOICommunity;
 			sourceTree = "<group>";
@@ -489,6 +494,7 @@
 				3145D22926B3F73F00F16787 /* Sources */,
 				3145D22A26B3F73F00F16787 /* Frameworks */,
 				3145D22B26B3F73F00F16787 /* Resources */,
+				313FB0B82719C548000AD9DA /* Crashlytics */,
 			);
 			buildRules = (
 			);
@@ -499,6 +505,7 @@
 				319C0E9526F3427C00C6D38B /* EventShortClient */,
 				319C0E9726F3427C00C6D38B /* EventShortClientLive */,
 				31CE9BF52701BF33005EA61A /* Kingfisher */,
+				313FB0B42719C438000AD9DA /* FirebaseCrashlytics */,
 			);
 			productName = NOICommunity;
 			productReference = 3145D22D26B3F73F00F16787 /* NOICommunity.app */;
@@ -575,6 +582,7 @@
 			mainGroup = 3145D22426B3F73F00F16787;
 			packageReferences = (
 				31CE9BF42701BF33005EA61A /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				313FB0B32719C438000AD9DA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 3145D22E26B3F73F00F16787 /* Products */;
 			projectDirPath = "";
@@ -594,6 +602,7 @@
 			files = (
 				3167681C27036A2F00A9DB87 /* PlaceCardContentView.xib in Resources */,
 				31C640A826FE0CF8004B71A2 /* OrientateMainViewController.xib in Resources */,
+				313FB0B72719C518000AD9DA /* GoogleService-Info.plist in Resources */,
 				31C2261D270F59750098A70E /* EventDetailsViewController.xib in Resources */,
 				316ED05D270B12CF0070D272 /* Colors.xcassets in Resources */,
 				31CF8133270B49100077CB0D /* VersionContentView.xib in Resources */,
@@ -624,6 +633,29 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		313FB0B82719C548000AD9DA /* Crashlytics */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}\n",
+				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)\n",
+			);
+			name = Crashlytics;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "GOOGLE_PLIST=\"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app/GoogleService-Info.plist\"\nif [[ \"${CONFIGURATION}\" == \"Release\" ]] && [[ -f ${GOOGLE_PLIST} ]]; then\n    ${BUILD_DIR%Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		3145D22926B3F73F00F16787 /* Sources */ = {
@@ -879,6 +911,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Manual;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 24PN5XJ85Y;
 				INFOPLIST_FILE = NOICommunity/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1040,6 +1073,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		313FB0B32719C438000AD9DA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.0.0;
+			};
+		};
 		31CE9BF42701BF33005EA61A /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
@@ -1051,6 +1092,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		313FB0B42719C438000AD9DA /* FirebaseCrashlytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 313FB0B32719C438000AD9DA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCrashlytics;
+		};
 		319C0E9526F3427C00C6D38B /* EventShortClient */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = EventShortClient;
