@@ -91,7 +91,7 @@ private extension MoreMainViewController {
 
     static func createLayout() -> UICollectionViewLayout {
         var config = UICollectionLayoutListConfiguration(appearance: .plain)
-        config.backgroundColor = .secondaryBackgroundColor
+        config.backgroundColor = .noiSecondaryBackgroundColor
         config.footerMode = .supplementary
         return UICollectionViewCompositionalLayout.list(using: config)
     }
@@ -99,11 +99,13 @@ private extension MoreMainViewController {
     func configureDataSource() {
         let cellRegistration = UICollectionView.CellRegistration
         <UICollectionViewListCell, Entry> { cell, _, entry in
-            var contentConfiguration = UIListContentConfiguration.cell()
+            var contentConfiguration = UIListContentConfiguration.noiCell()
             contentConfiguration.text = entry.localizedTitle
             cell.contentConfiguration = contentConfiguration
 
-            cell.accessories = [.disclosureIndicator()]
+            cell.backgroundConfiguration = .noiListPlainCell(for: cell)
+
+            cell.accessories = [.noiDisclosureIndicator()]
         }
 
         let footerRegistration = UICollectionView.SupplementaryRegistration

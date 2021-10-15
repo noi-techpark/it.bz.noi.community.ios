@@ -59,7 +59,7 @@ private extension OrientateMainViewController {
         }(UIActivityIndicatorView())
 
         activityIndicator.sizeToFit()
-        activityIndicator.color = .primaryColor
+        activityIndicator.color = .noiPrimaryColor
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: activityIndicator)
     }
 

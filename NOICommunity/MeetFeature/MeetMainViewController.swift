@@ -108,29 +108,19 @@ private extension MeetMainViewController {
 
     static func createLayout() -> UICollectionViewLayout {
         var config = UICollectionLayoutListConfiguration(appearance: .plain)
-        config.backgroundColor = .secondaryBackgroundColor
+        config.backgroundColor = .noiSecondaryBackgroundColor
         return UICollectionViewCompositionalLayout.list(using: config)
     }
 
     func configureDataSource() {
         let cellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, Entry> { cell, _, entry in
-            var contentConfiguration = UIListContentConfiguration.cell()
+            var contentConfiguration = UIListContentConfiguration.noiCell()
             contentConfiguration.text = entry.localizedTitle
-            contentConfiguration.textProperties.color = .secondaryColor
             cell.contentConfiguration = contentConfiguration
 
-            var backgroundConfiguration = UIBackgroundConfiguration.listPlainCell()
-            backgroundConfiguration.backgroundColorTransformer = UIConfigurationColorTransformer { [weak cell] color in
-                switch cell?.configurationState {
-                case let foo? where foo.isSelected || foo.isHighlighted:
-                    return color
-                default:
-                    return .tertiaryBackgroundColor
-                }
-            }
-            cell.backgroundConfiguration = backgroundConfiguration
+            cell.backgroundConfiguration = .noiListPlainCell(for: cell)
 
-            cell.accessories = [.disclosureIndicator()]
+            cell.accessories = [.noiDisclosureIndicator()]
         }
 
         dataSource = .init(

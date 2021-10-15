@@ -39,7 +39,7 @@ class WebViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .secondaryBackgroundColor
+        view.backgroundColor = .noiSecondaryBackgroundColor
         configureViewHierarchy()
         updateUI(for: url)
     }
@@ -83,7 +83,7 @@ private extension WebViewController {
         }(UIActivityIndicatorView())
 
         activityIndicator.sizeToFit()
-        activityIndicator.color = .primaryColor
+        activityIndicator.color = .noiPrimaryColor
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: activityIndicator)
     }
 

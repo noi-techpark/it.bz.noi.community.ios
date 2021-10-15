@@ -202,7 +202,7 @@ private extension EventListViewController {
     
     func configureCollectionView() {
         collectionView.refreshControl = refreshControl
-        collectionView.backgroundColor = .secondaryBackgroundColor
+        collectionView.backgroundColor = .noiSecondaryBackgroundColor
         collectionView.prefetchDataSource = self
         collectionView.collectionViewLayout = createLayout(
             embeddedHorizontally: embeddedHorizontally

@@ -28,7 +28,7 @@ class FooterView: UIView {
 private extension FooterView {
     func configure() {
         layer.shadowPath = UIBezierPath(rect: bounds).cgPath
-        layer.shadowColor = UIColor.backgroundColor.cgColor
+        layer.shadowColor = UIColor.noiBackgroundColor.cgColor
         layer.shadowRadius = 5
         layer.shadowOffset = .zero
         layer.shadowOpacity = 0.16

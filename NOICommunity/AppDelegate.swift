@@ -38,31 +38,31 @@ private extension AppDelegate {
     func configureAppearances() {
         let navBarAppearance = UINavigationBarAppearance()
         navBarAppearance.configureWithOpaqueBackground()
-        navBarAppearance.backgroundColor = .backgroundColor
-        navBarAppearance.titleTextAttributes = [.foregroundColor: UIColor.primaryColor]
-        navBarAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.primaryColor]
+        navBarAppearance.backgroundColor = .noiBackgroundColor
+        navBarAppearance.titleTextAttributes = [.foregroundColor: UIColor.noiPrimaryColor]
+        navBarAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.noiPrimaryColor]
         UINavigationBar.appearance().standardAppearance = navBarAppearance
         UINavigationBar.appearance().scrollEdgeAppearance = navBarAppearance
 
         let button = UIBarButtonItemAppearance()
-        button.normal.titleTextAttributes = [.foregroundColor: UIColor.primaryColor]
-        UIButton.appearance(whenContainedInInstancesOf: [UINavigationBar.self]).tintColor = UIColor.primaryColor
+        button.normal.titleTextAttributes = [.foregroundColor: UIColor.noiPrimaryColor]
+        UIButton.appearance(whenContainedInInstancesOf: [UINavigationBar.self]).tintColor = UIColor.noiPrimaryColor
         navBarAppearance.buttonAppearance = button
         navBarAppearance.backButtonAppearance = button
         let doneButton = UIBarButtonItemAppearance(style: .done)
-        doneButton.normal.titleTextAttributes = [.foregroundColor: UIColor.primaryColor]
+        doneButton.normal.titleTextAttributes = [.foregroundColor: UIColor.noiPrimaryColor]
         navBarAppearance.doneButtonAppearance = doneButton
 
         let tabBarAppearance = UITabBarAppearance()
         func setTabBarItemColors(_ itemAppearance: UITabBarItemAppearance) {
-            itemAppearance.normal.iconColor = .disabled1Color
-            itemAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor.disabled1Color]
+            itemAppearance.normal.iconColor = .noiDisabled1Color
+            itemAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor.noiDisabled1Color]
 
-            itemAppearance.selected.iconColor = .primaryColor
-            itemAppearance.selected.titleTextAttributes = [.foregroundColor: UIColor.primaryColor]
+            itemAppearance.selected.iconColor = .noiPrimaryColor
+            itemAppearance.selected.titleTextAttributes = [.foregroundColor: UIColor.noiPrimaryColor]
         }
         tabBarAppearance.configureWithOpaqueBackground()
-        tabBarAppearance.backgroundColor = .backgroundColor
+        tabBarAppearance.backgroundColor = .noiBackgroundColor
         [
             tabBarAppearance.stackedLayoutAppearance,
             tabBarAppearance.inlineLayoutAppearance,
