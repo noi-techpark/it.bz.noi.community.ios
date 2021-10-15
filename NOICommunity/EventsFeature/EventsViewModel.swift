@@ -14,9 +14,8 @@ import EventShortClient
 class EventsViewModel {
     
     @Published var isLoading = false
-    @Published var isEmpty = false
     @Published var error: Error!
-    @Published var eventResults: [Event] = []
+    @Published var eventResults: [Event]!
     
     var refreshEventsRequestCancellable: AnyCancellable?
     
@@ -45,8 +44,7 @@ class EventsViewModel {
         let (startDate, endDate) = dateIntervalFilter.toStartEndDates()
         
         isLoading = true
-        isEmpty = false
-        eventResults = []
+        eventResults = nil
         
         let roomMappingPublisher: AnyPublisher<[String : String], Error>
         if let roomMapping = roomMapping {
@@ -87,7 +85,6 @@ class EventsViewModel {
                     let (roomMappingResponse, eventShortListResponse) = $0
                     self.roomMapping = roomMappingResponse
                     let allEventsShort = eventShortListResponse.items ?? []
-                    self.isEmpty = allEventsShort.isEmpty
                     self.eventResults = allEventsShort.map { eventShort in
                         Event(
                             from: eventShort,

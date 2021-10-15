@@ -76,5 +76,8 @@ private extension AppDelegate {
         if #available(iOS 15.0, *) {
             UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
         }
+
+        let refreshControlAppearanceInsideNavigationBar = UIRefreshControl.appearance(whenContainedInInstancesOf: [UINavigationBar.self])
+        refreshControlAppearanceInsideNavigationBar.tintColor = .noiPrimaryColor
     }
 }
