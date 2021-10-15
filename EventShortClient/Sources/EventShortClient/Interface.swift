@@ -10,11 +10,11 @@ import Combine
 
 public struct EventShortClient {
     public var list: (EventShortListRequest?) -> AnyPublisher<EventShortListResponse, Error>
-    public var roomMapping: () -> AnyPublisher<[String:String], Error>
+    public var roomMapping: (Language?) -> AnyPublisher<[String:String], Error>
 
     public init(
         list: @escaping (EventShortListRequest?) -> AnyPublisher<EventShortListResponse, Error>,
-        roomMapping: @escaping () -> AnyPublisher<[String:String], Error>
+        roomMapping: @escaping (Language?) -> AnyPublisher<[String:String], Error>
     ) {
         self.list = list
         self.roomMapping = roomMapping

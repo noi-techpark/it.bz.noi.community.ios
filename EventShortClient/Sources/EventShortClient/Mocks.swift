@@ -23,7 +23,7 @@ extension EventShortClient {
                 .setFailureType(to: Error.self)
                 .eraseToAnyPublisher()
         },
-        roomMapping: {
+        roomMapping: { _ in
             Just([:])
                 .setFailureType(to: Error.self)
                 .eraseToAnyPublisher()
@@ -44,7 +44,7 @@ extension EventShortClient {
                 .setFailureType(to: Error.self)
                 .eraseToAnyPublisher()
         },
-        roomMapping: {
+        roomMapping: { _ in
             Just([:])
                 .setFailureType(to: Error.self)
                 .eraseToAnyPublisher()
@@ -56,7 +56,7 @@ extension EventShortClient {
             Fail(error: NSError(domain: "", code: 1))
                 .eraseToAnyPublisher()
         },
-        roomMapping: {
+        roomMapping: { _ in
             Fail(error: NSError(domain: "", code: 1))
                 .eraseToAnyPublisher()
         }

@@ -8,6 +8,8 @@
 import Foundation
 import EventShortClient
 
+// MARK: - DependencyContainer
+
 final class DependencyContainer {
     let eventShortClient: EventShortClient
 
@@ -17,13 +19,22 @@ final class DependencyContainer {
 }
 
 // MARK: ViewModelFactory
+
 extension DependencyContainer: ViewModelFactory {
     func makeEventsViewModel() -> EventsViewModel {
-        EventsViewModel(eventShortClient: eventShortClient)
+        let supportedPreferredLanguage = Bundle.main.preferredLocalizations
+            .lazy
+            .compactMap(Language.init(rawValue:))
+            .first
+        return EventsViewModel(
+            eventShortClient: eventShortClient,
+            language: supportedPreferredLanguage
+        )
     }
 }
 
 // MARK: ViewControllerFactory
+
 extension DependencyContainer: ViewControllerFactory {
     func makeEventListViewController() -> EventListViewController {
         EventListViewController(items: [])

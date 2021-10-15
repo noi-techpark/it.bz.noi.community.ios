@@ -7,6 +7,8 @@
 
 import Foundation
 
+// MARK: - EventShortListResponse
+
 public struct EventShortListResponse: Decodable, Equatable {
     public let totalResults: Int
     public let totalPages: Int
@@ -16,6 +18,8 @@ public struct EventShortListResponse: Decodable, Equatable {
     public let seed: String?
     public let items: [EventShort]?
 }
+
+// MARK: - EventShort
 
 public struct EventShort: Decodable, Equatable {
     public let licenseInfo: LicenseInfo?
@@ -85,6 +89,8 @@ public struct EventShort: Decodable, Equatable {
     public let publishedOn: [String]?
 }
 
+// MARK: - EventShortListRequest
+
 public struct EventShortListRequest {
     public let pageNumber: Int?
     public let pageSize: Int?
@@ -150,12 +156,16 @@ public struct EventShortListRequest {
     }
 }
 
+// MARK: - Source
+
 public struct Source: Hashable {
     public let rawValue: String
 
     public static let content = Self(rawValue: "Content")
     public static let ebms = Self(rawValue: "EBMS")
 }
+
+// MARK: - EventLocation
 
 public struct EventLocation: Hashable {
     public let rawValue: String
@@ -172,6 +182,8 @@ extension EventLocation: Decodable {
     }
 }
 
+// MARK: - Order
+
 public struct Order: Hashable {
     public let rawValue: String
 
@@ -179,12 +191,16 @@ public struct Order: Hashable {
     public static let descending = Self(rawValue: "DESC")
 }
 
+// MARK: - LicenseInfo
+
 public struct LicenseInfo: Decodable, Equatable {
     public let license: String?
     public let licenseHolder: String?
     public let author: String?
     public let closedData: Bool
 }
+
+// MARK: - RoomBooked
 
 public struct RoomBooked: Decodable, Equatable {
     public let space: String?
@@ -196,6 +212,8 @@ public struct RoomBooked: Decodable, Equatable {
     public let startDate: Date
     public let endDate: Date
 }
+
+// MARK: - GpsInfo
 
 public struct GpsInfo: Decodable, Equatable {
     public let gpsType: String?
@@ -213,10 +231,14 @@ public struct GpsInfo: Decodable, Equatable {
     }
 }
 
+// MARK: - DocumentPDF
+
 public struct DocumentPDF: Decodable, Equatable {
     public let documentURL: String?
     public let language: String?
 }
+
+// MARK: - ImageGallery
 
 public struct ImageGallery: Decodable, Equatable {
     public let imageName: String?
@@ -235,4 +257,12 @@ public struct ImageGallery: Decodable, Equatable {
     public let license: String?
     public let licenseHolder: String?
     public let imageTags: [String]?
+}
+
+// MARK: - Language
+
+public enum Language: String {
+    case en = "en"
+    case it = "it"
+    case de = "de"
 }
