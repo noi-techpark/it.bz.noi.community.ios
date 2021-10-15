@@ -93,7 +93,7 @@ private extension VersionContentView {
     func updateLogoDynamicTypeHeight() {
         logoImageViewHeightConstraint?.constant = UIFontMetrics(
             forTextStyle: .largeTitle
-        ).scaledValue(for: 60)
+        ).scaledValue(for: 50)
     }
 
     @objc func didRecognizeCrashTapGesture() {

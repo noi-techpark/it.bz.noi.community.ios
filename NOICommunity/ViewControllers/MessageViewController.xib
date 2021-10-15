@@ -5,7 +5,6 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
-        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -14,6 +13,7 @@
                 <outlet property="actionButton" destination="Ds8-9d-sgr" id="hFT-Wh-WqF"/>
                 <outlet property="detailedTextLabel" destination="nLB-Z6-v2C" id="SSv-ME-Eh6"/>
                 <outlet property="imageView" destination="z9P-NP-clB" id="mt8-bZ-71o"/>
+                <outlet property="scrollView" destination="QeO-FA-lUc" id="zGc-NN-Cu1"/>
                 <outlet property="textLabel" destination="Z8C-Ni-lXY" id="Zcz-z7-P4P"/>
                 <outlet property="view" destination="iN0-l3-epB" id="Rr7-cF-DkH"/>
             </connections>
@@ -24,7 +24,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QeO-FA-lUc">
-                    <rect key="frame" x="0.0" y="44" width="375" height="734"/>
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Ms9-9u-gmy">
                             <rect key="frame" x="17" y="60" width="341" height="235"/>
@@ -62,13 +62,12 @@
                     <viewLayoutGuide key="frameLayoutGuide" id="U92-5u-5HP"/>
                 </scrollView>
             </subviews>
-            <viewLayoutGuide key="safeArea" id="S0A-cv-gmB"/>
             <color key="backgroundColor" name="secondary_background_color"/>
             <constraints>
-                <constraint firstItem="QeO-FA-lUc" firstAttribute="top" secondItem="S0A-cv-gmB" secondAttribute="top" id="3lQ-Qn-NkS"/>
-                <constraint firstItem="S0A-cv-gmB" firstAttribute="bottom" secondItem="QeO-FA-lUc" secondAttribute="bottom" id="HXF-np-3aA"/>
-                <constraint firstItem="S0A-cv-gmB" firstAttribute="trailing" secondItem="QeO-FA-lUc" secondAttribute="trailing" id="Isf-lm-eYc"/>
-                <constraint firstItem="QeO-FA-lUc" firstAttribute="leading" secondItem="S0A-cv-gmB" secondAttribute="leading" id="cud-yI-VUn"/>
+                <constraint firstItem="QeO-FA-lUc" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="3lQ-Qn-NkS"/>
+                <constraint firstAttribute="bottom" secondItem="QeO-FA-lUc" secondAttribute="bottom" id="HXF-np-3aA"/>
+                <constraint firstAttribute="trailing" secondItem="QeO-FA-lUc" secondAttribute="trailing" id="Isf-lm-eYc"/>
+                <constraint firstItem="QeO-FA-lUc" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="cud-yI-VUn"/>
             </constraints>
             <point key="canvasLocation" x="138.40000000000001" y="122.78860569715144"/>
         </view>

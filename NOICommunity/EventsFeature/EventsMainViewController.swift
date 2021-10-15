@@ -13,71 +13,31 @@ final class EventsMainViewController: UIViewController {
     let viewModel: EventsViewModel
 
     var didSelectHandler: ((
-            UICollectionView,
-            UICollectionViewCell,
-            IndexPath,
-            Event
-        ) -> Void)?
+        UICollectionView,
+        UICollectionViewCell,
+        IndexPath,
+        Event
+    ) -> Void)?
 
     private var subscriptions: Set<AnyCancellable> = []
 
-    private lazy var dateIntervalsControl: UISegmentedControl = {
-        let activeColor = UIColor.black
-        let color = activeColor.withAlphaComponent(0.5)
-        var imageFactory = UnderlineSegmentedControlImageFactory()
-        imageFactory.size.height = 40
-        imageFactory.lineWidth = 2
-        imageFactory.selectedLineWidth = 2
-        imageFactory.lineColor = color
-        imageFactory.selectedLineColor = activeColor
-        imageFactory.extraSpacing = 12
-        var builder = SegmentedControlBuilder(
-            imageFactory: imageFactory
-        )
-        builder.tintColor = color
-        builder.selectedTintedColor = activeColor
-        builder.font = .boldSystemFont(ofSize: 19)
-        builder.font = .boldSystemFont(ofSize: 19)
-        builder.selectedFont = builder.font
-        builder.class = SegmentedControl.self
-        return builder.makeSegmentedControl(
-            items: DateIntervalFilter.allCases.map(\.localizedString)
-        )
-    }()
+    private var navigationBarFrameObserver: NSKeyValueObservation?
 
-    @IBOutlet private var dateIntervalsScrollView: UIScrollView! {
-        didSet {
-            dateIntervalsScrollView.contentInset = .init(
-                top: 0,
-                left: 0,
-                bottom: 0,
-                right: 17
-            )
-            dateIntervalsScrollView.addSubview(dateIntervalsControl)
-            dateIntervalsControl.translatesAutoresizingMaskIntoConstraints = false
-            let contentGuide = dateIntervalsScrollView.contentLayoutGuide
-            let frameGuide = dateIntervalsScrollView.frameLayoutGuide
-            NSLayoutConstraint.activate([
-                dateIntervalsControl.leadingAnchor
-                    .constraint(equalTo: contentGuide.leadingAnchor),
-                dateIntervalsControl.trailingAnchor
-                    .constraint(equalTo: contentGuide.trailingAnchor),
-                dateIntervalsControl.bottomAnchor
-                    .constraint(equalTo: contentGuide.bottomAnchor),
-                dateIntervalsControl.topAnchor
-                    .constraint(equalTo: contentGuide.topAnchor),
-                frameGuide.heightAnchor
-                    .constraint(equalTo: contentGuide.heightAnchor),
-            ])
-        }
+    @IBOutlet private var filterBarContainerView: UIView!
+    @IBOutlet private var filterBarView: FiltersBarView!
+    @IBOutlet private var filterBarViewTopConstraint: NSLayoutConstraint!
+
+    private var dateIntervalsControl: UISegmentedControl {
+        filterBarView.dateIntervalsControl
     }
 
-    private var contentContainerVC: ContainerViewController!
+    private var dateIntervalsScrollView: UIScrollView {
+        filterBarView.scrollView
+    }
 
-    @IBOutlet private var topStackView: UIStackView!
-    @IBOutlet private var contentContainerView: UIView!
+    private var refreshControl: UIRefreshControl!
 
-    private var resultsVC: EventListViewController!
+    private lazy var resultsVC = makeResultsViewController()
 
     init(viewModel: EventsViewModel) {
         self.viewModel = viewModel
@@ -101,8 +61,20 @@ final class EventsMainViewController: UIViewController {
         super.viewDidLoad()
 
         configureViewHierarchy()
-        configureChilds()
         configureBindings()
+
+        // Observe manually navigation bar frame, since there is a bug on
+        // safe area insets when you make bounce navigation bar and scroll view
+        // vertically
+        navigationBarFrameObserver = navigationController?.navigationBar
+            .observe(\.frame, options: [.new]) { [weak self] navigationBar, _ in
+                guard let self = self
+                else { return }
+
+                let navBarMaxY = navigationBar.frame.maxY
+                let safeAreaTop = self.view.safeAreaInsets.top
+                self.filterBarViewTopConstraint.constant = navBarMaxY - safeAreaTop
+            }
 
         viewModel.refreshEvents()
     }
@@ -115,13 +87,9 @@ final class EventsMainViewController: UIViewController {
 // MARK: Private APIs
 
 private extension EventsMainViewController {
-    func configureViewHierarchy() {
-    }
 
-    func configureChilds() {
-        resultsVC = makeResultsViewController()
-        contentContainerVC = ContainerViewController(content: resultsVC)
-        embedChild(contentContainerVC, in: contentContainerView)
+    func configureViewHierarchy() {
+        refreshControl = UIRefreshControl()
     }
 
     func makeResultsViewController() -> EventListViewController {
@@ -129,11 +97,25 @@ private extension EventsMainViewController {
         resultsViewController.didSelectHandler = { [weak self] in
             self?.didSelectHandler?($0, $1, $2, $3)
         }
+        resultsViewController.refreshControl = refreshControl
         return resultsViewController
     }
 
+    func makeEmptyResultsViewController() -> MessageViewController {
+        let emptyResultsVC = MessageViewController(
+            text: .localized("label_events_empty_state_title"),
+            detailedText: .localized("label_events_empty_state_subtitle")
+        )
+        emptyResultsVC.refreshControl = refreshControl
+        return emptyResultsVC
+    }
+
+    func makeLoadingViewController() -> LoadingViewController {
+        LoadingViewController()
+    }
+
     func configureBindings() {
-        resultsVC.refreshControl.publisher(for: .valueChanged)
+        refreshControl.publisher(for: .valueChanged)
             .sink { [weak viewModel] in
                 viewModel?.refreshEvents()
             }
@@ -173,20 +155,32 @@ private extension EventsMainViewController {
             .store(in: &subscriptions)
 
         viewModel.$isLoading
+            .dropFirst()
             .receive(on: DispatchQueue.main)
-            .sink(receiveValue: { [weak resultsVC] isLoading in
-                guard let refreshControl = resultsVC?.refreshControl
+            .sink(receiveValue: { [weak self] isLoading in
+                guard let self = self
                 else { return }
 
-                if isLoading {
-                    refreshControl.beginRefreshing()
+                if !self.children.isEmpty {
+                    if isLoading {
+                        if !self.refreshControl.isRefreshing {
+                            self.refreshControl.beginRefreshing()
+                        }
+                    } else {
+                        if self.refreshControl.isRefreshing {
+                            self.refreshControl.endRefreshing()
+                        }
+                    }
                 } else {
-                    refreshControl.endRefreshing()
+                    if isLoading {
+                        self.display(content: self.makeLoadingViewController())
+                    }
                 }
             })
             .store(in: &subscriptions)
 
         viewModel.$error
+            .dropFirst()
             .receive(on: DispatchQueue.main)
             .sink { [weak self] error in
                 if let error = error {
@@ -196,41 +190,52 @@ private extension EventsMainViewController {
             .store(in: &subscriptions)
 
         viewModel.$eventResults
+            .dropFirst()
             .receive(on: DispatchQueue.main)
-            .sink { [weak resultsVC] results in
-                resultsVC?.items = results
-            }
-            .store(in: &subscriptions)
+            .sink { [weak self] results in
+                guard let self = self
+                else { return }
 
-        viewModel.$isEmpty
-            .receive(on: DispatchQueue.main)
-            .sink { [weak contentContainerVC, resultsVC] isEmpty in
-                if isEmpty {
-                    contentContainerVC?.content = MessageViewController(
-                        text: .localized("label_events_empty_state_title"),
-                        detailedText: .localized("label_events_empty_state_subtitle")
-                    )
+                guard let results = results
+                else { return }
+
+                self.resultsVC.items = results
+                if results.isEmpty {
+                    self.display(content: self.makeEmptyResultsViewController())
                 } else {
-                    contentContainerVC?.content = resultsVC
+                    self.display(content: self.resultsVC)
                 }
             }
             .store(in: &subscriptions)
     }
-}
 
-private extension EventsMainViewController {
-    class SegmentedControl: UISegmentedControl {
+    func display(content: UIViewController) {
+        guard children.last != content
+        else { return }
 
-        // Removes swipe gesture
-        override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-            return true
+        children.forEach { child in
+            child.willMove(toParent: nil)
+            child.view.removeFromSuperview()
+            child.removeFromParent()
         }
 
-        override func layoutSubviews() {
-            super.layoutSubviews()
+        content.additionalSafeAreaInsets = UIEdgeInsets(
+            top: filterBarContainerView.bounds.height,
+            left: 0,
+            bottom: 0,
+            right: 0
+        )
 
-            // Force a square shape
-            layer.cornerRadius = 0
-        }
+        addChild(content)
+        let contentView = content.view!
+        view.insertSubview(contentView, at: 0)
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            contentView.topAnchor.constraint(equalTo: view.topAnchor),
+            contentView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            contentView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
+        content.didMove(toParent: self)
     }
 }

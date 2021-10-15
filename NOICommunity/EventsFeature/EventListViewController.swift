@@ -23,7 +23,10 @@ class EventListViewController: UICollectionViewController {
     
     let embeddedHorizontally: Bool
     
-    var refreshControl = UIRefreshControl()
+    var refreshControl: UIRefreshControl? {
+        get { collectionView.refreshControl }
+        set { collectionView.refreshControl = newValue }
+    }
     
     var didSelectHandler: ((
         UICollectionView,
@@ -111,7 +114,7 @@ private extension EventListViewController {
                 for: layoutEnvironment,
                    embeddedHorizontally: embeddedHorizontally
             )
-            
+
             let estimatedHeight = NSCollectionLayoutDimension.estimated(300)
             let itemSize = NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1.0),
@@ -201,7 +204,6 @@ private extension EventListViewController {
     }
     
     func configureCollectionView() {
-        collectionView.refreshControl = refreshControl
         collectionView.backgroundColor = .noiSecondaryBackgroundColor
         collectionView.prefetchDataSource = self
         collectionView.collectionViewLayout = createLayout(

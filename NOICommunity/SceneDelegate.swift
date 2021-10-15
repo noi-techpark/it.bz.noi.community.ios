@@ -22,14 +22,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene)
         else { return }
 
+        let window = UIWindow(windowScene: windowScene)
+        self.window = window
+#if RELEASE
         let introVC = IntroViewController()
         introVC.didFinishHandler = { [weak self] in
             self?.showTabs()
         }
-
-        let window = UIWindow(windowScene: windowScene)
-        self.window = window
         window.rootViewController = introVC
+#else
+        showTabs()
+#endif
         window.makeKeyAndVisible()
     }
 

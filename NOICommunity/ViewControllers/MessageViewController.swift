@@ -45,8 +45,16 @@ struct Message {
 }
 
 final class MessageViewController: UIViewController {
+
+    var refreshControl: UIRefreshControl? {
+        didSet {
+            scrollView?.refreshControl = refreshControl
+        }
+    }
+    
     private let message: Message
 
+    @IBOutlet private var scrollView: UIScrollView?
     @IBOutlet private var imageView: UIImageView?
     @IBOutlet private var textLabel: UILabel? {
         didSet {
@@ -100,6 +108,7 @@ final class MessageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        scrollView?.refreshControl = refreshControl
         if let image = message.image {
             imageView?.image = image
         } else {
