@@ -13,11 +13,7 @@ class VersionContentView: UIView, UIContentView {
 
     @IBOutlet var containerView: UIView!
 
-    @IBOutlet var logoImageView: UIImageView! {
-        didSet {
-            logoImageView.image = UIImage(named: "logo")
-        }
-    }
+    @IBOutlet var logoImageView: UIImageView!
 
     @IBOutlet var logoImageViewHeightConstraint: NSLayoutConstraint! {
         didSet {
@@ -71,6 +67,15 @@ private extension VersionContentView {
             options: nil
         )
         embedSubview(containerView)
+
+        let crashTapGesture = UITapGestureRecognizer()
+        crashTapGesture.numberOfTouchesRequired = 3
+        crashTapGesture.numberOfTapsRequired = 2
+        crashTapGesture.addTarget(
+            self,
+            action: #selector(didRecognizeCrashTapGesture)
+        )
+        addGestureRecognizer(crashTapGesture)
     }
 
     func apply(configuration: VersionContentConfiguration) {
@@ -89,6 +94,11 @@ private extension VersionContentView {
         logoImageViewHeightConstraint?.constant = UIFontMetrics(
             forTextStyle: .largeTitle
         ).scaledValue(for: 60)
+    }
+
+    @objc func didRecognizeCrashTapGesture() {
+        let numbers = [0]
+        _ = numbers[1]
     }
 }
 
