@@ -656,7 +656,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "GOOGLE_PLIST=\"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app/GoogleService-Info.plist\"\nif [[ \"${CONFIGURATION}\" == \"Release\" ]] && [[ -f ${GOOGLE_PLIST} ]]; then\n    ${BUILD_DIR%Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\nfi\n";
+			shellScript = "if [[ \"${CONFIGURATION}\" == \"Release\" ]]\nthen\n    ${BUILD_DIR%Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\n    echo \"✅ Crashlytics on configuration: ${CONFIGURATION}\"\nelse\n    echo \"❌ Crashlytics on configuration: ${CONFIGURATION}\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
