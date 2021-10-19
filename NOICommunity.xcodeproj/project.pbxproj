@@ -28,6 +28,7 @@
 		3136CC442707093B00C27129 /* SourceDismissAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3136CC432707093B00C27129 /* SourceDismissAnimator.swift */; };
 		313FB0B52719C438000AD9DA /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 313FB0B42719C438000AD9DA /* FirebaseCrashlytics */; };
 		313FB0B72719C518000AD9DA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 313FB0B62719C518000AD9DA /* GoogleService-Info.plist */; };
+		314263A5271F048800DA4429 /* AppFeatureSwitches.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314263A4271F048800DA4429 /* AppFeatureSwitches.swift */; };
 		3145D23126B3F73F00F16787 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3145D23026B3F73F00F16787 /* AppDelegate.swift */; };
 		3145D23326B3F73F00F16787 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3145D23226B3F73F00F16787 /* SceneDelegate.swift */; };
 		3145D23A26B3F74000F16787 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3145D23926B3F74000F16787 /* Images.xcassets */; };
@@ -140,6 +141,7 @@
 		3136CC412706F8D200C27129 /* UIView+TransitionId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+TransitionId.swift"; sourceTree = "<group>"; };
 		3136CC432707093B00C27129 /* SourceDismissAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceDismissAnimator.swift; sourceTree = "<group>"; };
 		313FB0B62719C518000AD9DA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		314263A4271F048800DA4429 /* AppFeatureSwitches.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFeatureSwitches.swift; sourceTree = "<group>"; };
 		3145D22D26B3F73F00F16787 /* NOICommunity.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NOICommunity.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3145D23026B3F73F00F16787 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3145D23226B3F73F00F16787 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -295,6 +297,7 @@
 				3145D23E26B3F74000F16787 /* Info.plist */,
 				3145D23026B3F73F00F16787 /* AppDelegate.swift */,
 				3145D23226B3F73F00F16787 /* SceneDelegate.swift */,
+				314263A4271F048800DA4429 /* AppFeatureSwitches.swift */,
 				31CF812C270B3E340077CB0D /* LaunchScreen.storyboard */,
 				3145D23926B3F74000F16787 /* Images.xcassets */,
 				316ED05C270B12C60070D272 /* Colors.xcassets */,
@@ -680,6 +683,7 @@
 				31178FE026FA318800BDCDAA /* Collection.swift in Sources */,
 				31AA31F126F0B40800744A00 /* EventCardContentView.swift in Sources */,
 				319C0E8426F33AD900C6D38B /* EventsMainViewController.swift in Sources */,
+				314263A5271F048800DA4429 /* AppFeatureSwitches.swift in Sources */,
 				3145D23126B3F73F00F16787 /* AppDelegate.swift in Sources */,
 				3167681827035D9500A9DB87 /* EatCoordinator.swift in Sources */,
 				31178FDA26FA16A200BDCDAA /* NavigationController.swift in Sources */,
@@ -911,7 +915,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Manual;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 24PN5XJ85Y;
 				INFOPLIST_FILE = NOICommunity/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
