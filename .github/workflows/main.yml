@@ -87,8 +87,7 @@ jobs:
             OTHER_CODE_SIGN_FLAGS="--keychain ~/Library/Keychains/build.keychain" \
             CODE_SIGN_STYLE=Manual \
             PROVISIONING_PROFILE='a5e85966-b44d-4f43-b01d-babf8ce192c3' \
-            CODE_SIGN_IDENTITY="Apple Distribution" \
-          | xcpretty
+            CODE_SIGN_IDENTITY="Apple Distribution"
 
       - name: Export .ipa
         run: |
@@ -97,8 +96,7 @@ jobs:
             -exportOptionsPlist exportOptions.plist \
             -exportPath $PWD/build \
             -allowProvisioningUpdates \
-            -exportArchive \
-          | xcpretty
+            -exportArchive 
 
       - name: Publish the App on TestFlight
         if: success()
