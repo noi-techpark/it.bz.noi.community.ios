@@ -20,4 +20,5 @@ struct Event: Hashable, Identifiable {
     let organizer: String?
     let technologyFields: [String]
     let mapURL: URL?
+    let signupURL: URL?
 }

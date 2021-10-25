@@ -38,6 +38,7 @@ final class EventsCoordinator: BaseCoordinator {
 // MARK: Private APIs
 
 private extension EventsCoordinator {
+
     func addEventToCalendar(_ event: Event) {
         EventsCalendarManager.shared.presentCalendarModalToAddEvent(
             event: event.toCalendarEvent(),
@@ -63,6 +64,14 @@ private extension EventsCoordinator {
         navigationController.pushViewController(
             mapViewController,
             animated: true
+        )
+    }
+
+    func signupEvent(_ event: Event) {
+        UIApplication.shared.open(
+            event.signupURL!,
+            options: [:],
+            completionHandler: nil
         )
     }
 
@@ -94,6 +103,9 @@ private extension EventsCoordinator {
         }
         detailVC.locateActionHandler = { [weak self] in
             self?.locateEvent($0)
+        }
+        detailVC.signupActionHandler = { [weak self] in
+            self?.signupEvent($0)
         }
         detailVC.didSelectRelatedEventHandler = { [weak self] collectionView, _, indexPath, selectedEvent in
             self?.goToDetails(
