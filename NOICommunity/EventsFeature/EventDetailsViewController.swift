@@ -14,7 +14,11 @@ class EventDetailsViewController: UIViewController {
     let relatedEvents: [Event]
     
     var locateActionHandler: ((Event) -> Void)?
+
     var addToCalendarActionHandler: ((Event) -> Void)?
+
+    var signupActionHandler: ((Event) -> Void)?
+
     var didSelectRelatedEventHandler: ((
         UICollectionView,
         UICollectionViewCell,
@@ -103,6 +107,16 @@ class EventDetailsViewController: UIViewController {
             )
         }
     }
+
+    @IBOutlet private var signupButton: UIButton! {
+        didSet {
+            signupButton.configureAsActionButton()
+            signupButton.setTitle(
+                .localized("btn_sign_up"),
+                for: .normal
+            )
+        }
+    }
     
     init(for item: Event, relatedEvents: [Event]) {
         self.event = item
@@ -160,6 +174,12 @@ private extension EventDetailsViewController {
                 _cardView?.configuration = contentConfiguration
             }
         }
+
+        if event.signupURL == nil {
+            signupButton.removeFromSuperview()
+        } else {
+            addToCalendarButton.removeFromSuperview()
+        }
     }
     
     func configureChilds() {
@@ -183,6 +203,10 @@ private extension EventDetailsViewController {
     
     @IBAction func addToCalendarAction(sender: Any?) {
         addToCalendarActionHandler?(event)
+    }
+
+    @IBAction func signupAction(sender: Any?) {
+        signupActionHandler?(event)
     }
 }
 

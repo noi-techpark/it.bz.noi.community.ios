@@ -212,7 +212,8 @@ private extension Event {
             eventShort.display5 :
                 eventShort.companyName,
             technologyFields: eventShort.technologyFields ?? [],
-            mapURL: mapURL
+            mapURL: mapURL,
+            signupURL: eventShort.webAddress.flatMap(URL.init(string:))
         )
     }
 }

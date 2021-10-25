@@ -24,6 +24,7 @@
                 <outlet property="relatedEventsLabel" destination="tFh-cA-dVL" id="DYn-d2-u3e"/>
                 <outlet property="relatedSection" destination="2PU-Pp-kjG" id="rzK-oa-r4H"/>
                 <outlet property="scrollView" destination="QeO-FA-lUc" id="YVH-xN-i78"/>
+                <outlet property="signupButton" destination="Y3W-5G-W9S" id="3A7-Hm-k4H"/>
                 <outlet property="view" destination="iN0-l3-epB" id="Rr7-cF-DkH"/>
             </connections>
         </placeholder>
@@ -33,7 +34,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QeO-FA-lUc">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="707"/>
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="688"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Ms9-9u-gmy">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="911"/>
@@ -111,13 +112,13 @@
                     <viewLayoutGuide key="frameLayoutGuide" id="U92-5u-5HP"/>
                 </scrollView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jJG-8A-cEa" customClass="FooterView" customModule="NOICommunity" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="707" width="375" height="105"/>
+                    <rect key="frame" x="0.0" y="688" width="375" height="124"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacingType="standard" baselineRelativeArrangement="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wen-Nd-rfN">
-                            <rect key="frame" x="61" y="17" width="253" height="50"/>
+                            <rect key="frame" x="61" y="17" width="253" height="69"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3SC-Q2-mzi">
-                                    <rect key="frame" x="0.0" y="0.0" width="122.66666666666667" height="50"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="79" height="69"/>
                                     <color key="backgroundColor" name="background_color"/>
                                     <color key="tintColor" name="primary_color"/>
                                     <state key="normal" title="Button"/>
@@ -125,11 +126,11 @@
                                         <fontDescription key="titleFontDescription" style="UICTFontTextStyleBody"/>
                                     </buttonConfiguration>
                                     <connections>
-                                        <action selector="findOnMapsActionWithSender:" destination="-1" eventType="touchUpInside" id="B6d-3l-xwZ"/>
+                                        <action selector="findOnMapsActionWithSender:" destination="-1" eventType="primaryActionTriggered" id="jzf-jf-iQ3"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r7U-vZ-h8f">
-                                    <rect key="frame" x="130.66666666666666" y="0.0" width="122.33333333333334" height="50"/>
+                                    <rect key="frame" x="87" y="0.0" width="79" height="69"/>
                                     <color key="backgroundColor" name="background_color"/>
                                     <color key="tintColor" name="primary_color"/>
                                     <state key="normal" title="Button"/>
@@ -137,7 +138,19 @@
                                         <fontDescription key="titleFontDescription" style="UICTFontTextStyleBody"/>
                                     </buttonConfiguration>
                                     <connections>
-                                        <action selector="addToCalendarActionWithSender:" destination="-1" eventType="touchUpInside" id="g0n-D2-soz"/>
+                                        <action selector="addToCalendarActionWithSender:" destination="-1" eventType="primaryActionTriggered" id="M3z-eH-AKm"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y3W-5G-W9S">
+                                    <rect key="frame" x="174" y="0.0" width="79" height="69"/>
+                                    <color key="backgroundColor" name="background_color"/>
+                                    <color key="tintColor" name="primary_color"/>
+                                    <state key="normal" title="Button"/>
+                                    <buttonConfiguration key="configuration" style="plain" title="Sign up">
+                                        <fontDescription key="titleFontDescription" style="UICTFontTextStyleBody"/>
+                                    </buttonConfiguration>
+                                    <connections>
+                                        <action selector="signupActionWithSender:" destination="-1" eventType="primaryActionTriggered" id="ii1-ad-xd0"/>
                                     </connections>
                                 </button>
                             </subviews>
