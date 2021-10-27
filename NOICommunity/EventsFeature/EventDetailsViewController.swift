@@ -62,9 +62,15 @@ class EventDetailsViewController: UIViewController {
         }
     }
     
-    @IBOutlet private var descriptionLabel: UILabel! {
+    @IBOutlet private var descriptionTextView: UITextView! {
         didSet {
-            descriptionLabel.text = event.description
+            descriptionTextView.textContainerInset = .zero
+            descriptionTextView.textContainer.lineFragmentPadding = 0
+            descriptionTextView.linkTextAttributes = [
+                .foregroundColor: UIColor.noiSecondaryColor,
+                .underlineStyle: NSUnderlineStyle.single.rawValue,
+            ]
+            descriptionTextView.text = event.description
         }
     }
     
