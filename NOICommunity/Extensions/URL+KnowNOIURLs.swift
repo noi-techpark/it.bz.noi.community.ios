@@ -17,7 +17,7 @@ extension URL {
     static let institutions = URL(string: .localized("url_institutions"))!
     static let lab = URL(string: .localized("url_lab"))!
     static let aboutUs = URL(string: .localized("url_about_us"))!
-    static let onboarding: URL? = nil // TODO: add correct url
+    static let onboarding = URL(string: .localized("url_onboarding"))!
     static let feedbacks = URL(string: .localized("url_provide_feedback"))!
     static let noisteriaMenu = URL(string: .localized("url_noisteria_menu"))!
     static let noiBarMenu = URL(string: .localized("url_noi_bar_menu"))!
