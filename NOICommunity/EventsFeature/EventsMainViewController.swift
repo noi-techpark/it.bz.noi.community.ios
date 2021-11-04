@@ -8,6 +8,14 @@
 import UIKit
 import Combine
 
+protocol UIRefreshableViewController: UIViewController {
+    var refreshControl: UIRefreshControl? { get set }
+}
+
+extension EventListViewController: UIRefreshableViewController {}
+
+extension MessageViewController: UIRefreshableViewController {}
+
 final class EventsMainViewController: UIViewController {
 
     let viewModel: EventsViewModel
@@ -21,11 +29,41 @@ final class EventsMainViewController: UIViewController {
 
     private var subscriptions: Set<AnyCancellable> = []
 
-    private var navigationBarFrameObserver: NSKeyValueObservation?
+    private var content: UIViewController? {
+        get { children.last }
+        set {
+            guard newValue != content
+            else { return }
+
+            var isLoading = false
+            if let content = content {
+                if let refreshableContent = content as? UIRefreshableViewController,
+                   let refreshControl = refreshableContent.refreshControl {
+                    isLoading = refreshControl.isLoading
+                    refreshControl.isLoading = false
+                }
+                
+                content.willMove(toParent: nil)
+                content.view.removeFromSuperview()
+                content.removeFromParent()
+            }
+
+            if let newContent = newValue {
+                embedChild(newContent, in: contentContainerView)
+
+                if let refreshableNewContent = newContent as? UIRefreshableViewController {
+                    addRefreshControl(
+                        to: refreshableNewContent,
+                        isLoading: isLoading
+                    )
+                }
+            }
+        }
+    }
 
     @IBOutlet private var filterBarContainerView: UIView!
     @IBOutlet private var filterBarView: FiltersBarView!
-    @IBOutlet private var filterBarViewTopConstraint: NSLayoutConstraint!
+    @IBOutlet private var contentContainerView: UIView!
 
     private var dateIntervalsControl: UISegmentedControl {
         filterBarView.dateIntervalsControl
@@ -34,8 +72,6 @@ final class EventsMainViewController: UIViewController {
     private var dateIntervalsScrollView: UIScrollView {
         filterBarView.scrollView
     }
-
-    private var refreshControl: UIRefreshControl!
 
     private lazy var resultsVC = makeResultsViewController()
 
@@ -63,18 +99,6 @@ final class EventsMainViewController: UIViewController {
         configureViewHierarchy()
         configureBindings()
 
-        // Observe manually navigation bar frame, since there is a bug on
-        // safe area insets when you make bounce navigation bar and scroll view
-        // vertically
-        navigationBarFrameObserver = navigationController?.navigationBar
-            .observe(\.frame, options: [.new]) { [weak self] navigationBar, _ in
-                guard let self = self
-                else { return }
-
-                let navBarMaxY = navigationBar.frame.maxY
-                let safeAreaTop = self.view.safeAreaInsets.top
-                self.filterBarViewTopConstraint.constant = navBarMaxY - safeAreaTop
-            }
 
         viewModel.refreshEvents()
     }
@@ -89,7 +113,6 @@ final class EventsMainViewController: UIViewController {
 private extension EventsMainViewController {
 
     func configureViewHierarchy() {
-        refreshControl = UIRefreshControl()
     }
 
     func makeResultsViewController() -> EventListViewController {
@@ -97,7 +120,6 @@ private extension EventsMainViewController {
         resultsViewController.didSelectHandler = { [weak self] in
             self?.didSelectHandler?($0, $1, $2, $3)
         }
-        resultsViewController.refreshControl = refreshControl
         return resultsViewController
     }
 
@@ -106,7 +128,6 @@ private extension EventsMainViewController {
             text: .localized("label_events_empty_state_title"),
             detailedText: .localized("label_events_empty_state_subtitle")
         )
-        emptyResultsVC.refreshControl = refreshControl
         return emptyResultsVC
     }
 
@@ -114,13 +135,18 @@ private extension EventsMainViewController {
         LoadingViewController()
     }
 
-    func configureBindings() {
+    func addRefreshControl(to viewController: UIRefreshableViewController, isLoading: Bool) {
+        let refreshControl = UIRefreshControl()
         refreshControl.publisher(for: .valueChanged)
             .sink { [weak viewModel] in
                 viewModel?.refreshEvents()
             }
             .store(in: &subscriptions)
+        viewController.refreshControl = refreshControl
+        refreshControl.isLoading = isLoading
+    }
 
+    func configureBindings() {
         dateIntervalsControl.publisher(for: .valueChanged)
             .sink { [unowned dateIntervalsControl, weak viewModel, weak dateIntervalsScrollView] in
                 let selectedSegmentIndex = dateIntervalsControl.selectedSegmentIndex
@@ -161,19 +187,16 @@ private extension EventsMainViewController {
                 guard let self = self
                 else { return }
 
-                if !self.children.isEmpty {
-                    if isLoading {
-                        if !self.refreshControl.isRefreshing {
-                            self.refreshControl.beginRefreshing()
-                        }
-                    } else {
-                        if self.refreshControl.isRefreshing {
-                            self.refreshControl.endRefreshing()
-                        }
-                    }
+                if let refreshableContent = self.content as? UIRefreshableViewController,
+                   let refreshControl = refreshableContent.refreshControl {
+                    refreshControl.isLoading = isLoading
                 } else {
                     if isLoading {
-                        self.display(content: self.makeLoadingViewController())
+                        self.content = self.makeLoadingViewController()
+                    } else {
+                        if self.content is LoadingViewController {
+                            self.content = nil
+                        }
                     }
                 }
             })
@@ -196,46 +219,16 @@ private extension EventsMainViewController {
                 guard let self = self
                 else { return }
 
-                guard let results = results
-                else { return }
-
-                self.resultsVC.items = results
-                if results.isEmpty {
-                    self.display(content: self.makeEmptyResultsViewController())
-                } else {
-                    self.display(content: self.resultsVC)
+                self.resultsVC.items = results ?? []
+                switch results?.isEmpty {
+                case nil:
+                    break
+                case false?:
+                    self.content = self.resultsVC
+                case true?:
+                    self.content = self.makeEmptyResultsViewController()
                 }
             }
             .store(in: &subscriptions)
-    }
-
-    func display(content: UIViewController) {
-        guard children.last != content
-        else { return }
-
-        children.forEach { child in
-            child.willMove(toParent: nil)
-            child.view.removeFromSuperview()
-            child.removeFromParent()
-        }
-
-        content.additionalSafeAreaInsets = UIEdgeInsets(
-            top: filterBarContainerView.bounds.height,
-            left: 0,
-            bottom: 0,
-            right: 0
-        )
-
-        addChild(content)
-        let contentView = content.view!
-        view.insertSubview(contentView, at: 0)
-        contentView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            contentView.topAnchor.constraint(equalTo: view.topAnchor),
-            contentView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            contentView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            contentView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-        ])
-        content.didMove(toParent: self)
     }
 }
