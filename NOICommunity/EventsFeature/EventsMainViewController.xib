@@ -6,14 +6,15 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EventsMainViewController" customModule="NOICommunity" customModuleProvider="target">
             <connections>
+                <outlet property="contentContainerView" destination="2Oj-iy-CAR" id="mHC-1x-a9n"/>
                 <outlet property="filterBarContainerView" destination="Aqx-Jh-ykX" id="fcg-78-9ZR"/>
                 <outlet property="filterBarView" destination="3EA-IT-ax3" id="QHL-ji-pRC"/>
-                <outlet property="filterBarViewTopConstraint" destination="ef0-hG-G74" id="QnC-tK-6ye"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -22,28 +23,40 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Aqx-Jh-ykX">
-                    <rect key="frame" x="0.0" y="44" width="414" height="57"/>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="6o4-tO-H0N">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                     <subviews>
-                        <view contentMode="scaleToFill" placeholderIntrinsicWidth="414" placeholderIntrinsicHeight="40" translatesAutoresizingMaskIntoConstraints="NO" id="3EA-IT-ax3" customClass="FiltersBarView" customModule="NOICommunity" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="17" width="414" height="40"/>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Aqx-Jh-ykX" userLabel="Filter Bar Container View">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" placeholderIntrinsicWidth="414" placeholderIntrinsicHeight="40" translatesAutoresizingMaskIntoConstraints="NO" id="3EA-IT-ax3" customClass="FiltersBarView" customModule="NOICommunity" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="61" width="414" height="835"/>
+                                </view>
+                            </subviews>
+                            <viewLayoutGuide key="safeArea" id="QUg-ac-Gan"/>
+                            <color key="backgroundColor" name="secondary_background_color"/>
+                            <constraints>
+                                <constraint firstItem="3EA-IT-ax3" firstAttribute="leading" secondItem="Aqx-Jh-ykX" secondAttribute="leading" id="A2g-xP-ozd"/>
+                                <constraint firstAttribute="trailing" secondItem="3EA-IT-ax3" secondAttribute="trailing" id="PdG-FJ-FNr"/>
+                                <constraint firstItem="3EA-IT-ax3" firstAttribute="top" secondItem="QUg-ac-Gan" secondAttribute="top" constant="17" id="Q14-nF-6kP"/>
+                                <constraint firstAttribute="bottom" secondItem="3EA-IT-ax3" secondAttribute="bottom" id="u1D-Hn-R9u"/>
+                            </constraints>
+                        </view>
+                        <view contentMode="scaleToFill" id="2Oj-iy-CAR" userLabel="Content Container View">
+                            <rect key="frame" x="0.0" y="896" width="414" height="0.0"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <viewLayoutGuide key="safeArea" id="pMA-Pt-Nf6"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         </view>
                     </subviews>
-                    <color key="backgroundColor" name="secondary_background_color"/>
-                    <constraints>
-                        <constraint firstItem="3EA-IT-ax3" firstAttribute="leading" secondItem="Aqx-Jh-ykX" secondAttribute="leading" id="A2g-xP-ozd"/>
-                        <constraint firstAttribute="trailing" secondItem="3EA-IT-ax3" secondAttribute="trailing" id="PdG-FJ-FNr"/>
-                        <constraint firstItem="3EA-IT-ax3" firstAttribute="top" secondItem="Aqx-Jh-ykX" secondAttribute="top" constant="17" id="Q14-nF-6kP"/>
-                        <constraint firstAttribute="bottom" secondItem="3EA-IT-ax3" secondAttribute="bottom" id="u1D-Hn-R9u"/>
-                    </constraints>
-                </view>
+                </stackView>
             </subviews>
-            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" name="secondary_background_color"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="Aqx-Jh-ykX" secondAttribute="trailing" id="Xsw-yi-98y"/>
-                <constraint firstItem="Aqx-Jh-ykX" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="ef0-hG-G74"/>
-                <constraint firstItem="Aqx-Jh-ykX" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="hAY-on-gEl"/>
+                <constraint firstItem="6o4-tO-H0N" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="GB8-ka-0bb"/>
+                <constraint firstAttribute="trailing" secondItem="6o4-tO-H0N" secondAttribute="trailing" id="K7U-cN-acy"/>
+                <constraint firstItem="6o4-tO-H0N" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="XU7-j3-Hcl"/>
+                <constraint firstAttribute="bottom" secondItem="6o4-tO-H0N" secondAttribute="bottom" id="xHx-Rz-mpT"/>
             </constraints>
             <point key="canvasLocation" x="4" y="73"/>
         </view>
@@ -52,5 +65,8 @@
         <namedColor name="secondary_background_color">
             <color red="0.94509803921568625" green="0.94509803921568625" blue="0.94509803921568625" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

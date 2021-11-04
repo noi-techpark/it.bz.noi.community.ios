@@ -28,8 +28,8 @@
 		3136CC442707093B00C27129 /* SourceDismissAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3136CC432707093B00C27129 /* SourceDismissAnimator.swift */; };
 		313FB0B52719C438000AD9DA /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 313FB0B42719C438000AD9DA /* FirebaseCrashlytics */; };
 		313FB0B72719C518000AD9DA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 313FB0B62719C518000AD9DA /* GoogleService-Info.plist */; };
-		314263A5271F048800DA4429 /* AppFeatureSwitches.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314263A4271F048800DA4429 /* AppFeatureSwitches.swift */; };
 		313FB0B92719CFA9000AD9DA /* EventsMainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 319C0EA226F4A43C00C6D38B /* EventsMainViewController.xib */; };
+		314263A5271F048800DA4429 /* AppFeatureSwitches.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314263A4271F048800DA4429 /* AppFeatureSwitches.swift */; };
 		3145D23126B3F73F00F16787 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3145D23026B3F73F00F16787 /* AppDelegate.swift */; };
 		3145D23326B3F73F00F16787 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3145D23226B3F73F00F16787 /* SceneDelegate.swift */; };
 		3145D23A26B3F74000F16787 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3145D23926B3F74000F16787 /* Images.xcassets */; };
@@ -97,6 +97,7 @@
 		31CF812D270B3E340077CB0D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31CF812C270B3E340077CB0D /* LaunchScreen.storyboard */; };
 		31CF8132270B49100077CB0D /* VersionContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CF8130270B472F0077CB0D /* VersionContentView.swift */; };
 		31CF8133270B49100077CB0D /* VersionContentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31CF812E270B46470077CB0D /* VersionContentView.xib */; };
+		31D77E742733FFDD0054397C /* UIRefreshControlAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D77E732733FFDD0054397C /* UIRefreshControlAdditions.swift */; };
 		31DA4A762705EA110098E395 /* MoreMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31DA4A742705EA110098E395 /* MoreMainViewController.swift */; };
 		31DA4A772705EA110098E395 /* MoreCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31DA4A752705EA110098E395 /* MoreCoordinator.swift */; };
 		31EE1A9227143AA1006A8EEF /* MapWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EE1A9127143AA1006A8EEF /* MapWebViewController.swift */; };
@@ -217,6 +218,7 @@
 		31CF812C270B3E340077CB0D /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		31CF812E270B46470077CB0D /* VersionContentView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VersionContentView.xib; sourceTree = "<group>"; };
 		31CF8130270B472F0077CB0D /* VersionContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionContentView.swift; sourceTree = "<group>"; };
+		31D77E732733FFDD0054397C /* UIRefreshControlAdditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIRefreshControlAdditions.swift; sourceTree = "<group>"; };
 		31D9C78926FDFCD3001F2DBB /* BaseTabCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTabCoordinator.swift; sourceTree = "<group>"; };
 		31DA4A742705EA110098E395 /* MoreMainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoreMainViewController.swift; sourceTree = "<group>"; };
 		31DA4A752705EA110098E395 /* MoreCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoreCoordinator.swift; sourceTree = "<group>"; };
@@ -424,6 +426,7 @@
 				319C0E8926F33BD000C6D38B /* UIViewController+ShowError.swift */,
 				31C640A326FE0C64004B71A2 /* URL+KnowNOIURLs.swift */,
 				31C3629E270EFC5C00C92532 /* UIButton+Background.swift */,
+				31D77E732733FFDD0054397C /* UIRefreshControlAdditions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -696,6 +699,7 @@
 				31C640B326FE148C004B71A2 /* BaseCoordinator.swift in Sources */,
 				31178FE026FA318800BDCDAA /* Collection.swift in Sources */,
 				31AA31F126F0B40800744A00 /* EventCardContentView.swift in Sources */,
+				31D77E742733FFDD0054397C /* UIRefreshControlAdditions.swift in Sources */,
 				319C0E8426F33AD900C6D38B /* EventsMainViewController.swift in Sources */,
 				314263A5271F048800DA4429 /* AppFeatureSwitches.swift in Sources */,
 				3145D23126B3F73F00F16787 /* AppDelegate.swift in Sources */,
