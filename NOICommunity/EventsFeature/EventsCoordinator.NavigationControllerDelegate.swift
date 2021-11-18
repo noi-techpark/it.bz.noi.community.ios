@@ -9,7 +9,7 @@ import UIKit
 
 // MARK: - EventsCoordinator.EventsNavigationControllerDelegate
 extension EventsCoordinator {
-    class EventsNavigationControllerDelegate: NSObject {
+    class EventsNavigationControllerDelegate: NavigationControllerDelegate {
         
         private weak var navigationController: UINavigationController!
         
@@ -87,7 +87,7 @@ extension EventsCoordinator.EventsNavigationControllerDelegate: UIGestureRecogni
 
 // MARK: UINavigationControllerDelegate
 
-extension EventsCoordinator.EventsNavigationControllerDelegate: UINavigationControllerDelegate {
+extension EventsCoordinator.EventsNavigationControllerDelegate {
     
     func navigationController(
         _ navigationController: UINavigationController,
