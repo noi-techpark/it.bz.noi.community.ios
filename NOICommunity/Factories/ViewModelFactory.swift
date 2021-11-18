@@ -8,5 +8,7 @@
 import Foundation
 
 protocol ViewModelFactory {
+    func makeLoadAppPreferencesViewModel() -> LoadAppPreferencesViewModel
+    func makeUpdateAppPreferencesViewModel() -> UpdateAppPreferencesViewModel
     func makeEventsViewModel() -> EventsViewModel
 }

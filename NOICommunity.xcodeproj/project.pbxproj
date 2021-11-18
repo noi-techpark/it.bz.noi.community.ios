@@ -48,6 +48,12 @@
 		317615CA26FDD637007FE10F /* MessageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 317615C526FDCFF7007FE10F /* MessageViewController.xib */; };
 		3187667526FB35C100782FA6 /* String+NotDefined.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3187667426FB35C100782FA6 /* String+NotDefined.swift */; };
 		3187667726FB38D600782FA6 /* DateIntervalFormatter+Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3187667626FB38D600782FA6 /* DateIntervalFormatter+Factory.swift */; };
+		31927A7527464CC800EA96AC /* AppPreferencesClient in Frameworks */ = {isa = PBXBuildFile; productRef = 31927A7427464CC800EA96AC /* AppPreferencesClient */; };
+		31927A7727464CC800EA96AC /* AppPreferencesClientLive in Frameworks */ = {isa = PBXBuildFile; productRef = 31927A7627464CC800EA96AC /* AppPreferencesClientLive */; };
+		31927A8127464E2800EA96AC /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31927A8027464E2800EA96AC /* AppCoordinator.swift */; };
+		31927A8427465BE500EA96AC /* LoadAppPreferencesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31927A8327465BE500EA96AC /* LoadAppPreferencesViewModel.swift */; };
+		31927A8627465D7500EA96AC /* LoadAppPreferencesMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31927A8527465D7500EA96AC /* LoadAppPreferencesMainViewController.swift */; };
+		31927A8C274675B800EA96AC /* UpdateAppPreferencesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31927A8B274675B800EA96AC /* UpdateAppPreferencesViewModel.swift */; };
 		319C0E8226F333A700C6D38B /* EventsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319C0E8126F333A700C6D38B /* EventsViewModel.swift */; };
 		319C0E8426F33AD900C6D38B /* EventsMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319C0E8326F33AD900C6D38B /* EventsMainViewController.swift */; };
 		319C0E8A26F33BD000C6D38B /* UIAlertController+Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319C0E8826F33BD000C6D38B /* UIAlertController+Error.swift */; };
@@ -174,6 +180,11 @@
 		3187667426FB35C100782FA6 /* String+NotDefined.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+NotDefined.swift"; sourceTree = "<group>"; };
 		3187667626FB38D600782FA6 /* DateIntervalFormatter+Factory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateIntervalFormatter+Factory.swift"; sourceTree = "<group>"; };
 		3187667826FB3A9300782FA6 /* EventDetailsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventDetailsViewController.xib; sourceTree = "<group>"; };
+		31927A7327463DD500EA96AC /* AppPreferencesClient */ = {isa = PBXFileReference; lastKnownFileType = folder; path = AppPreferencesClient; sourceTree = "<group>"; };
+		31927A8027464E2800EA96AC /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		31927A8327465BE500EA96AC /* LoadAppPreferencesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadAppPreferencesViewModel.swift; sourceTree = "<group>"; };
+		31927A8527465D7500EA96AC /* LoadAppPreferencesMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadAppPreferencesMainViewController.swift; sourceTree = "<group>"; };
+		31927A8B274675B800EA96AC /* UpdateAppPreferencesViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateAppPreferencesViewModel.swift; sourceTree = "<group>"; };
 		319C0E8126F333A700C6D38B /* EventsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsViewModel.swift; sourceTree = "<group>"; };
 		319C0E8326F33AD900C6D38B /* EventsMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsMainViewController.swift; sourceTree = "<group>"; };
 		319C0E8526F33BD000C6D38B /* ContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
@@ -230,7 +241,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				31927A7727464CC800EA96AC /* AppPreferencesClientLive in Frameworks */,
 				31CE9BF62701BF33005EA61A /* Kingfisher in Frameworks */,
+				31927A7527464CC800EA96AC /* AppPreferencesClient in Frameworks */,
 				313FB0B52719C438000AD9DA /* FirebaseCrashlytics in Frameworks */,
 				319C0E9626F3427C00C6D38B /* EventShortClient in Frameworks */,
 				319C0E9826F3427C00C6D38B /* EventShortClientLive in Frameworks */,
@@ -268,6 +281,7 @@
 		3145D22426B3F73F00F16787 = {
 			isa = PBXGroup;
 			children = (
+				31927A7327463DD500EA96AC /* AppPreferencesClient */,
 				3130FB1826FB7FE7007CD7C8 /* EventShortClient */,
 				3164BAC326F8630D00443CF0 /* NOICommunity.playground */,
 				3145D22F26B3F73F00F16787 /* NOICommunity */,
@@ -295,6 +309,7 @@
 				31C640A926FE1389004B71A2 /* Factories */,
 				31D9C78826FDFCC1001F2DBB /* Coordinator */,
 				31AA31F226F0B71800744A00 /* Extensions */,
+				31927A8227465B7600EA96AC /* AppPreferencesFeature */,
 				31CF8123270B3CD90077CB0D /* IntroFeature */,
 				319C0E8026F332FE00C6D38B /* EventsFeature */,
 				31D9C78726FDFC58001F2DBB /* OrientateFeature */,
@@ -346,6 +361,16 @@
 				3167681A27036A2F00A9DB87 /* PlaceCardContentView.xib */,
 			);
 			path = EatFeature;
+			sourceTree = "<group>";
+		};
+		31927A8227465B7600EA96AC /* AppPreferencesFeature */ = {
+			isa = PBXGroup;
+			children = (
+				31927A8327465BE500EA96AC /* LoadAppPreferencesViewModel.swift */,
+				31927A8527465D7500EA96AC /* LoadAppPreferencesMainViewController.swift */,
+				31927A8B274675B800EA96AC /* UpdateAppPreferencesViewModel.swift */,
+			);
+			path = AppPreferencesFeature;
 			sourceTree = "<group>";
 		};
 		319C0E8026F332FE00C6D38B /* EventsFeature */ = {
@@ -482,11 +507,12 @@
 		31D9C78826FDFCC1001F2DBB /* Coordinator */ = {
 			isa = PBXGroup;
 			children = (
+				31927A8027464E2800EA96AC /* AppCoordinator.swift */,
 				31C640B226FE148C004B71A2 /* BaseCoordinator.swift */,
 				31D9C78926FDFCD3001F2DBB /* BaseTabCoordinator.swift */,
 				31C640A126FE0BA9004B71A2 /* Coordinator.swift */,
-				31C640B026FE1449004B71A2 /* TabCoordinator.swift */,
 				31C640B426FE14ED004B71A2 /* MainCoordinator.swift */,
+				31C640B026FE1449004B71A2 /* TabCoordinator.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -517,6 +543,10 @@
 			buildRules = (
 			);
 			dependencies = (
+				31927A7927464CD700EA96AC /* PBXTargetDependency */,
+				31927A7B27464CD700EA96AC /* PBXTargetDependency */,
+				31927A7D27464CD700EA96AC /* PBXTargetDependency */,
+				31927A7F27464CD700EA96AC /* PBXTargetDependency */,
 			);
 			name = NOICommunity;
 			packageProductDependencies = (
@@ -524,6 +554,8 @@
 				319C0E9726F3427C00C6D38B /* EventShortClientLive */,
 				31CE9BF52701BF33005EA61A /* Kingfisher */,
 				313FB0B42719C438000AD9DA /* FirebaseCrashlytics */,
+				31927A7427464CC800EA96AC /* AppPreferencesClient */,
+				31927A7627464CC800EA96AC /* AppPreferencesClientLive */,
 			);
 			productName = NOICommunity;
 			productReference = 3145D22D26B3F73F00F16787 /* NOICommunity.app */;
@@ -682,8 +714,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				31927A8627465D7500EA96AC /* LoadAppPreferencesMainViewController.swift in Sources */,
 				31178FD626F9D6EB00BDCDAA /* DateIntervalFilter.swift in Sources */,
 				3136CC402706F75F00C27129 /* SourcePresentAnimator.swift in Sources */,
+				31927A8C274675B800EA96AC /* UpdateAppPreferencesViewModel.swift in Sources */,
 				31178FCE26F8D7CC00BDCDAA /* Localization.swift in Sources */,
 				31EE1A9227143AA1006A8EEF /* MapWebViewController.swift in Sources */,
 				31157CFE26FC5DEB00A43B33 /* EventsCalendarManager.swift in Sources */,
@@ -742,10 +776,12 @@
 				31C640C626FE1E43004B71A2 /* MeetMainViewController.swift in Sources */,
 				31C640C526FE1E43004B71A2 /* MeetCoordinator.swift in Sources */,
 				31AAC053270F2FFD00C26850 /* FooterView.swift in Sources */,
+				31927A8127464E2800EA96AC /* AppCoordinator.swift in Sources */,
 				31C6409F26FE0B73004B71A2 /* OrientateCoordinator.swift in Sources */,
 				31C28BFE2719BD7200312A62 /* LoadingViewController.swift in Sources */,
 				3187667526FB35C100782FA6 /* String+NotDefined.swift in Sources */,
 				319C0E8A26F33BD000C6D38B /* UIAlertController+Error.swift in Sources */,
+				31927A8427465BE500EA96AC /* LoadAppPreferencesViewModel.swift in Sources */,
 				312D29D8270451B600F4F4E7 /* ImageCardContentView.swift in Sources */,
 				31B4477F26F86FE5000999BA /* SegmentedControlBuilder.swift in Sources */,
 				319C0E8C26F33BD000C6D38B /* UIView+Subviews.swift in Sources */,
@@ -784,6 +820,22 @@
 			isa = PBXTargetDependency;
 			target = 3145D22C26B3F73F00F16787 /* NOICommunity */;
 			targetProxy = 3145D24F26B3F74000F16787 /* PBXContainerItemProxy */;
+		};
+		31927A7927464CD700EA96AC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 31927A7827464CD700EA96AC /* AppPreferencesClient */;
+		};
+		31927A7B27464CD700EA96AC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 31927A7A27464CD700EA96AC /* AppPreferencesClientLive */;
+		};
+		31927A7D27464CD700EA96AC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 31927A7C27464CD700EA96AC /* EventShortClient */;
+		};
+		31927A7F27464CD700EA96AC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 31927A7E27464CD700EA96AC /* EventShortClientLive */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1120,6 +1172,30 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 313FB0B32719C438000AD9DA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseCrashlytics;
+		};
+		31927A7427464CC800EA96AC /* AppPreferencesClient */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = AppPreferencesClient;
+		};
+		31927A7627464CC800EA96AC /* AppPreferencesClientLive */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = AppPreferencesClientLive;
+		};
+		31927A7827464CD700EA96AC /* AppPreferencesClient */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = AppPreferencesClient;
+		};
+		31927A7A27464CD700EA96AC /* AppPreferencesClientLive */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = AppPreferencesClientLive;
+		};
+		31927A7C27464CD700EA96AC /* EventShortClient */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = EventShortClient;
+		};
+		31927A7E27464CD700EA96AC /* EventShortClientLive */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = EventShortClientLive;
 		};
 		319C0E9526F3427C00C6D38B /* EventShortClient */ = {
 			isa = XCSwiftPackageProductDependency;
