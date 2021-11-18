@@ -17,7 +17,7 @@ class EventsViewModel {
     @Published var error: Error!
     @Published var eventResults: [Event]!
     
-    var refreshEventsRequestCancellable: AnyCancellable?
+    private var refreshEventsRequestCancellable: AnyCancellable?
     
     let eventShortClient: EventShortClient
     let maximumNumberOfEvents: Int

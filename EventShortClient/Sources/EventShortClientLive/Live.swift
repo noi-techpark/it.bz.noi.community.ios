@@ -14,37 +14,37 @@ import EventShortClient
 private let baseUrl = URL(string: "https://tourism.opendatahub.bz.it")!
 private let eventsJsonDecoder: JSONDecoder = {
     let jsonDecoder = JSONDecoder()
-
+    
     jsonDecoder.dateDecodingStrategy = .custom { decoder in
         let container = try decoder.singleValueContainer()
         let dateStr = try container.decode(String.self)
-
+        
         let dateFormatter = DateFormatter()
         dateFormatter.calendar = Calendar(identifier: .iso8601)
         dateFormatter.timeZone = TimeZone(identifier: "Europe/Rome")
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-
+        
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSZZZ"
         if let date = dateFormatter.date(from: dateStr) {
             return date
         }
-
+        
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS"
         if let date = dateFormatter.date(from: dateStr) {
             return date
         }
-
+        
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
         if let date = dateFormatter.date(from: dateStr) {
             return date
         }
-
+        
         throw DecodingError.dataCorruptedError(
             in: container,
             debugDescription: "Cannot decode date string \(dateStr)"
         )
     }
-
+    
     jsonDecoder.keyDecodingStrategy = .convertFromPascalCase
     return jsonDecoder
 }()
@@ -52,46 +52,48 @@ private let eventsJsonDecoder: JSONDecoder = {
 // MARK: - EventShortClient+Live
 
 extension EventShortClient {
-    public static let live = Self(
-        list: { request in
-            var urlComponents = URLComponents(
-                url: baseUrl,
-                resolvingAgainstBaseURL: false
-            )!
-            urlComponents.path = "/v1/EventShort"
-            if let request = request {
-                urlComponents.queryItems = request.asURLQueryItems()
+    public static func live(urlSession: URLSession = .shared) -> Self {
+        Self(
+            list: { request in
+                var urlComponents = URLComponents(
+                    url: baseUrl,
+                    resolvingAgainstBaseURL: false
+                )!
+                urlComponents.path = "/v1/EventShort"
+                if let request = request {
+                    urlComponents.queryItems = request.asURLQueryItems()
+                }
+                
+                return urlSession
+                    .dataTaskPublisher(for: urlComponents.url!)
+                    .map { data, _ in data }
+                    .decode(
+                        type: EventShortListResponse.self,
+                        decoder: eventsJsonDecoder
+                    )
+                    .eraseToAnyPublisher()
+            },
+            roomMapping: { language in
+                var urlComponents = URLComponents(
+                    url: baseUrl,
+                    resolvingAgainstBaseURL: false
+                )!
+                urlComponents.path = "/v1/EventShort/RoomMapping"
+                if let language = language {
+                    urlComponents.queryItems = [language.asURLQueryItem()]
+                }
+                
+                return URLSession.shared
+                    .dataTaskPublisher(for: urlComponents.url!)
+                    .map { data, _ in data }
+                    .decode(
+                        type: [String:String].self,
+                        decoder: eventsJsonDecoder
+                    )
+                    .eraseToAnyPublisher()
             }
-
-            return URLSession.shared
-                .dataTaskPublisher(for: urlComponents.url!)
-                .map { data, _ in data }
-                .decode(
-                    type: EventShortListResponse.self,
-                    decoder: eventsJsonDecoder
-                )
-                .eraseToAnyPublisher()
-        },
-        roomMapping: { language in
-            var urlComponents = URLComponents(
-                url: baseUrl,
-                resolvingAgainstBaseURL: false
-            )!
-            urlComponents.path = "/v1/EventShort/RoomMapping"
-            if let language = language {
-                urlComponents.queryItems = [language.asURLQueryItem()]
-            }
-
-            return URLSession.shared
-                .dataTaskPublisher(for: urlComponents.url!)
-                .map { data, _ in data }
-                .decode(
-                    type: [String:String].self,
-                    decoder: eventsJsonDecoder
-                )
-                .eraseToAnyPublisher()
-        }
-    )
+        )
+    }
 }
 
 // MARK: - EventShortListRequest+URLQueryItem
@@ -103,9 +105,9 @@ private extension EventShortListRequest {
         dateFormatter.timeZone = TimeZone(identifier: "Europe/Rome")!
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
-
+        
         var result: [URLQueryItem] = []
-
+        
         if let pageNumber = pageNumber {
             result.append(URLQueryItem(
                 name: "pagenumber",
@@ -205,7 +207,7 @@ private extension EventShortListRequest {
                 name: "removenullvalues",
                 value: removeNullValues ? "true" : "false"))
         }
-
+        
         return result.isEmpty ? nil : result
     }
 }
@@ -235,10 +237,10 @@ extension JSONDecoder.KeyDecodingStrategy {
             guard key.intValue == nil else {
                 return key
             }
-
+            
             let codingKeyType = type(of: key)
             let newStringValue = key.stringValue.firstCharLowercased()
-
+            
             return codingKeyType.init(stringValue: newStringValue)!
         }
     }

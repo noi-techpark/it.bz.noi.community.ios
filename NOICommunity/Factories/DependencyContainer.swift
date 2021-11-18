@@ -7,20 +7,34 @@
 
 import Foundation
 import EventShortClient
+import AppPreferencesClient
 
 // MARK: - DependencyContainer
 
 final class DependencyContainer {
     let eventShortClient: EventShortClient
+    let appPreferencesClient: AppPreferencesClient
 
-    init(eventShortClient: EventShortClient) {
+    init(
+        eventShortClient: EventShortClient,
+        appPreferencesClient: AppPreferencesClient
+    ) {
         self.eventShortClient = eventShortClient
+        self.appPreferencesClient = appPreferencesClient
     }
 }
 
 // MARK: ViewModelFactory
 
 extension DependencyContainer: ViewModelFactory {
+    func makeLoadAppPreferencesViewModel() -> LoadAppPreferencesViewModel {
+        LoadAppPreferencesViewModel(appPreferencesClient: appPreferencesClient)
+    }
+
+    func makeUpdateAppPreferencesViewModel() -> UpdateAppPreferencesViewModel {
+        UpdateAppPreferencesViewModel(appPreferencesClient: appPreferencesClient)
+    }
+
     func makeEventsViewModel() -> EventsViewModel {
         let supportedPreferredLanguage = Bundle.main.preferredLocalizations
             .lazy

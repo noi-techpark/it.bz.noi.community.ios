@@ -7,13 +7,17 @@
 
 import UIKit
 import EventShortClientLive
+import AppPreferencesClientLive
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
-    let dependencyContainer = DependencyContainer(eventShortClient: .live)
-    var mainCoordinator: MainCoordinator!
+    let dependencyContainer = DependencyContainer(
+        eventShortClient: .live(),
+        appPreferencesClient: .live()
+    )
+    var appCoordinator: AppCoordinator!
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
@@ -24,15 +28,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         let window = UIWindow(windowScene: windowScene)
         self.window = window
-#if RELEASE
-        let introVC = IntroViewController()
-        introVC.didFinishHandler = { [weak self] in
-            self?.showTabs()
-        }
-        window.rootViewController = introVC
-#else
-        showTabs()
-#endif
+        appCoordinator = AppCoordinator(
+            window: window,
+            dependencyContainer: self.dependencyContainer
+        )
+        appCoordinator.start()
         window.makeKeyAndVisible()
     }
 
@@ -65,18 +65,4 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
 
-}
-
-// MARK: Private APIs
-
-private extension SceneDelegate {
-    func showTabs() {
-        let tabBarController = TabBarController()
-        self.mainCoordinator = MainCoordinator(
-            tabBarController: tabBarController,
-            dependencyContainer: self.dependencyContainer
-        )
-        self.mainCoordinator.start(animated: false)
-        self.window?.rootViewController = tabBarController
-    }
 }
