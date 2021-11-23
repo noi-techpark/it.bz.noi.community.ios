@@ -1,10 +1,17 @@
-# it.bz.noi.community.ios
-NOI Community App for iOS
+# NOI Community App for iOS
 
-> TODO Describe what this App provides
+The NOI-Community App is your information and communication channel to keep in
+touch with the growing innovation district of NOI Techpark and its members. Are
+you looking for a specific company that is working here? Do you need to book a
+room for your next team meeting? Or do you simply want to know today's choice of
+dishes in the Community Bar? From now on, you can find all that in one
+application. More tools to come, so stay tuned!
 
-*Table of Contents*
-- [it.bz.noi.community.ios](#itbznoicommunityios)
+We have also an [App for
+Android](https://github.com/noi-techpark/it.bz.noi.community.android).
+
+**Table of Contents**
+- [NOI Community App for iOS](#noi-community-app-for-ios)
 	- [Getting started](#getting-started)
 		- [Prerequisites](#prerequisites)
 		- [Source code](#source-code)
@@ -14,7 +21,6 @@ NOI Community App for iOS
 	- [Information](#information)
 		- [Support](#support)
 		- [Contributing](#contributing)
-		- [Documentation](#documentation)
 		- [License](#license)
 
 ## Getting started
@@ -72,7 +78,12 @@ For some examples see [.github/workflows].
 
 ## Deployment
 
-> TODO A detailed description about how the application must be deployed.
+We deploy the application with Github Actions to a Test Track, if someone pushes
+to the `development` branch. See
+[.github/workflows/main.yml](.github/workflows/main.yml) and [Continuous
+Deployment for iOS
+Apps](https://github.com/noi-techpark/odh-docs/wiki/Continuous-Deployment-for-iOS-Apps)
+for details...
 
 ## Information
 
@@ -82,23 +93,11 @@ For support, please contact [help@opendatahub.bz.it](mailto:help@opendatahub.bz.
 
 ### Contributing
 
-If you'd like to contribute, please follow the following instructions:
-
-- Fork the repository.
-
-- Checkout a topic branch from the `development` branch.
-
-- Make sure the tests are passing.
-
-- Create a pull request against the `development` branch.
-
-### Documentation
-
-More documentation can be found at
-
-> TODO
+If you'd like to contribute, please follow our [Getting
+Started](https://github.com/noi-techpark/odh-docs/wiki/Contributor-Guidelines:-Getting-started)
+instructions.
 
 ### License
 
-The code in this project is licensed under the GNU GENERAL PUBLIC LICENSE 3.0 or later license.
-See the LICENSE file for more information.
+The code in this project is licensed under the GNU GENERAL PUBLIC LICENSE 3.0 or
+later license. See the LICENSE file for more information.
