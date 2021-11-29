@@ -111,6 +111,7 @@ public struct EventShortListRequest {
     public let rawFilter: String?
     public let rawSort: String?
     public let removeNullValues: Bool?
+    public let optimizeDates: Bool?
 
     public init(
         pageNumber: Int? = nil,
@@ -131,7 +132,8 @@ public struct EventShortListRequest {
         searchFilter: String? = nil,
         rawFilter: String? = nil,
         rawSort: String? = nil,
-        removeNullValues: Bool? = nil
+        removeNullValues: Bool? = nil,
+        optimizeDates: Bool? = nil
     ) {
         self.pageNumber = pageNumber
         self.pageSize = pageSize
@@ -152,7 +154,7 @@ public struct EventShortListRequest {
         self.rawFilter = rawFilter
         self.rawSort = rawSort
         self.removeNullValues = removeNullValues
-
+        self.optimizeDates = optimizeDates
     }
 }
 

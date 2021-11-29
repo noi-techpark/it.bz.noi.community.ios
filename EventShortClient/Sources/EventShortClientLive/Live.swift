@@ -207,6 +207,11 @@ private extension EventShortListRequest {
                 name: "removenullvalues",
                 value: removeNullValues ? "true" : "false"))
         }
+        if let optimizeDates = optimizeDates {
+            result.append(URLQueryItem(
+                name: "optimizedates",
+                value: optimizeDates ? "true" : "false"))
+        }
         
         return result.isEmpty ? nil : result
     }
