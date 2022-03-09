@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -37,19 +37,18 @@
                             <rect key="frame" x="0.0" y="25" width="297" height="17"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KkC-cE-if6">
-                                    <rect key="frame" x="0.0" y="0.0" width="229" height="17"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="253" height="17"/>
                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                     <color key="textColor" name="secondary_color"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="02J-0C-izf">
-                                    <rect key="frame" x="237" y="0.0" width="60" height="17"/>
+                                    <rect key="frame" x="261" y="0.0" width="36" height="17"/>
                                     <color key="backgroundColor" name="background_color"/>
+                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                     <color key="tintColor" name="primary_color"/>
-                                    <state key="normal" title="Button"/>
-                                    <buttonConfiguration key="configuration" style="plain" title="Menu">
-                                        <fontDescription key="titleFontDescription" style="UICTFontTextStyleBody"/>
-                                    </buttonConfiguration>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" title="Menu"/>
                                     <connections>
                                         <action selector="triggerActionWithSender:" destination="-1" eventType="touchUpInside" id="Q7D-Se-4bI"/>
                                     </connections>
