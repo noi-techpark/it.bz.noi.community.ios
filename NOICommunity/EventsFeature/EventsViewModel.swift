@@ -62,7 +62,8 @@ class EventsViewModel {
                 endDate: endDate,
                 eventLocation: .noi,
                 onlyActive: true,
-                removeNullValues: true
+                removeNullValues: true,
+                optimizeDates: true
             ))
         
         refreshEventsRequestCancellable = roomMappingPublisher
