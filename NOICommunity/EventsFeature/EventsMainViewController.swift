@@ -153,9 +153,8 @@ private extension EventsMainViewController {
 
                 let newDateIntervalFilter = DateIntervalFilter
                     .allCases[dateIntervalsControl.selectedSegmentIndex]
-                viewModel?.refreshEvents(
-                    dateIntervalFilter: newDateIntervalFilter
-                )
+                viewModel?.dateIntervalFilter = newDateIntervalFilter
+                viewModel?.refreshEvents()
 
                 if let dateIntervalsScrollView = dateIntervalsScrollView {
                     let convertRect: (UIView) -> CGRect = {

@@ -16,7 +16,8 @@ class EventsViewModel {
     @Published var isLoading = false
     @Published var error: Error!
     @Published var eventResults: [Event]!
-    
+    @Published var dateIntervalFilter: DateIntervalFilter = .all
+
     private var refreshEventsRequestCancellable: AnyCancellable?
     
     let eventShortClient: EventShortClient
@@ -40,7 +41,7 @@ class EventsViewModel {
         self.maximumNumberOfRelatedEvents = maximumNumberOfRelatedEvents
     }
     
-    func refreshEvents(dateIntervalFilter: DateIntervalFilter = .all) {
+    func refreshEvents() {
         let (startDate, endDate) = dateIntervalFilter.toStartEndDates()
         
         isLoading = true
