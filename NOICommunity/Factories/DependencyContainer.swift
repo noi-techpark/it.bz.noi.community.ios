@@ -8,49 +8,77 @@
 import Foundation
 import EventShortClient
 import AppPreferencesClient
+import EventShortTypesClient
 
 // MARK: - DependencyContainer
 
 final class DependencyContainer {
+
     let eventShortClient: EventShortClient
     let appPreferencesClient: AppPreferencesClient
+    let eventShortTypesClient: EventShortTypesClient
 
     init(
         eventShortClient: EventShortClient,
-        appPreferencesClient: AppPreferencesClient
+        appPreferencesClient: AppPreferencesClient,
+        eventShortTypesClient: EventShortTypesClient
     ) {
         self.eventShortClient = eventShortClient
         self.appPreferencesClient = appPreferencesClient
+        self.eventShortTypesClient = eventShortTypesClient
     }
+
 }
 
 // MARK: ViewModelFactory
 
 extension DependencyContainer: ViewModelFactory {
+
     func makeLoadAppPreferencesViewModel() -> LoadAppPreferencesViewModel {
-        LoadAppPreferencesViewModel(appPreferencesClient: appPreferencesClient)
+        .init(appPreferencesClient: appPreferencesClient)
     }
 
     func makeUpdateAppPreferencesViewModel() -> UpdateAppPreferencesViewModel {
-        UpdateAppPreferencesViewModel(appPreferencesClient: appPreferencesClient)
+        .init(appPreferencesClient: appPreferencesClient)
     }
 
-    func makeEventsViewModel() -> EventsViewModel {
+    func makeEventsViewModel(
+        showFiltersHandler: @escaping () -> Void
+    ) -> EventsViewModel {
         let supportedPreferredLanguage = Bundle.main.preferredLocalizations
             .lazy
             .compactMap(Language.init(rawValue:))
             .first
-        return EventsViewModel(
+        return .init(
             eventShortClient: eventShortClient,
-            language: supportedPreferredLanguage
+            language: supportedPreferredLanguage,
+            showFiltersHandler: showFiltersHandler
         )
     }
+
+    func makeEventFiltersViewModel(
+        showFilteredResultsHandler: @escaping () -> Void
+    ) -> EventFiltersViewModel {
+        .init(
+            eventShortTypes: eventShortTypesClient,
+            showFilteredResultsHandler: showFilteredResultsHandler
+        )
+    }
+
 }
 
 // MARK: ViewControllerFactory
 
 extension DependencyContainer: ViewControllerFactory {
+
     func makeEventListViewController() -> EventListViewController {
-        EventListViewController(items: [])
+        .init(items: [])
     }
+
+    func makeEventFiltersViewController(
+        viewModel: EventFiltersViewModel
+    ) -> EventFiltersViewController {
+        .init(viewModel: viewModel)
+    }
+
 }

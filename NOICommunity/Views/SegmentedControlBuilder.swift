@@ -10,20 +10,29 @@ import UIKit
 // MARK: - SegmentedControlFactory
 
 protocol SegmentedControlImageFactory {
+    
+    var edgeOffset: CGFloat { get }
+    
     func background(for state: UIControl.State) -> UIImage?
-
+    
     func divider(
         leftState: UIControl.State,
         rightState: UIControl.State
     ) -> UIImage?
+    
 }
 
 extension SegmentedControlImageFactory {
+    
+    var edgeOffset: CGFloat { return 0 }
+    
     func background(for state: UIControl.State) -> UIImage? { nil}
+    
     func divider(
         leftState: UIControl.State,
         rightState: UIControl.State
     ) -> UIImage? { nil }
+    
 }
 
 // MARK: - DefaultSegmentedControlImageFactory
@@ -33,6 +42,7 @@ struct DefaultSegmentedControlImageFactory: SegmentedControlImageFactory {}
 // MARK: - SegmentedControlBuilder
 
 struct SegmentedControlBuilder {
+    
     var `class`: AnyClass = UISegmentedControl.self
     var selectedStates: [UIControl.State] = [.selected, .highlighted]
     var font = UIFont.systemFont(ofSize: 14)
@@ -40,14 +50,14 @@ struct SegmentedControlBuilder {
     var tintColor = UIColor.white
     var selectedTintedColor = UIColor.white.withAlphaComponent(0.5)
     var apportionsSegmentWidthsByContent = true
-
+    
     private let imageFactory: SegmentedControlImageFactory
-
+    
     init(imageFactory: SegmentedControlImageFactory =
          DefaultSegmentedControlImageFactory()) {
         self.imageFactory = imageFactory
     }
-
+    
     func makeSegmentedControl(items: [String]) -> UISegmentedControl {
         let segmentedControl = make()
         items.reversed().forEach {
@@ -60,7 +70,7 @@ struct SegmentedControlBuilder {
         configureSegmentedControl(segmentedControl)
         return segmentedControl
     }
-
+    
     func makeSegmentedControl(items: [UIImage]) -> UISegmentedControl {
         let segmentedControl = make()
         items.reversed().forEach {
@@ -78,6 +88,7 @@ struct SegmentedControlBuilder {
 // MARK: Private APIs
 
 private extension SegmentedControlBuilder {
+    
     func make() -> UISegmentedControl {
         let segmentedControlClass = `class` as! UISegmentedControl.Type
         return segmentedControlClass.init()
@@ -85,14 +96,14 @@ private extension SegmentedControlBuilder {
     func background(for state: UIControl.State) -> UIImage? {
         imageFactory.background(for: state)
     }
-
+    
     func divider(
         leftState: UIControl.State,
         rightState: UIControl.State
     ) -> UIImage? {
         imageFactory.divider(leftState: leftState, rightState: rightState)
     }
-
+    
     func configureSegmentedControl(
         _ segmentedControl: UISegmentedControl
     ) {
@@ -100,7 +111,7 @@ private extension SegmentedControlBuilder {
             .apportionsSegmentWidthsByContent = apportionsSegmentWidthsByContent
         segmentedControl.tintColor = tintColor
         segmentedControl.selectedSegmentIndex = 0
-
+        
         segmentedControl.setTitleTextAttributes(
             [
                 .font : font,
@@ -108,7 +119,7 @@ private extension SegmentedControlBuilder {
             ],
             for: .normal
         )
-
+        
         selectedStates.forEach { state in
             segmentedControl.setTitleTextAttributes(
                 [
@@ -118,7 +129,7 @@ private extension SegmentedControlBuilder {
                 for: state
             )
         }
-
+        
         let controlStates: [UIControl.State] = [
             .normal,
             .selected,
@@ -132,7 +143,7 @@ private extension SegmentedControlBuilder {
                 for: state,
                 barMetrics: .default
             )
-
+            
             controlStates.forEach { state2 in
                 let image = divider(leftState: state, rightState: state2)
                 segmentedControl.setDividerImage(
@@ -143,79 +154,48 @@ private extension SegmentedControlBuilder {
                 )
             }
         }
-    }
-}
-
-// MARK: - UnderlineSegmentedControlImageFactory
-
-struct UnderlineSegmentedControlImageFactory: SegmentedControlImageFactory {
-    var size = CGSize(width: 1, height: 29)
-    var selectedStates: [UIControl.State] = [.selected, .highlighted]
-    var lineWidth: CGFloat = 1
-    var selectedLineWidth: CGFloat = 2
-    var lineColor = UIColor.white.withAlphaComponent(0.5)
-    var selectedLineColor = UIColor.white
-    var extraSpacing: CGFloat = 8
-
-    func background(for state: UIControl.State) -> UIImage? {
-        let (color, lineWidth) = colorAndLineWidth(for: state)
-        let rect = CGRect(
-            x: 0,
-            y: size.height - lineWidth,
-            width: size.width,
-            height: lineWidth
+        
+        [
+            UISegmentedControl.Segment.left,
+            UISegmentedControl.Segment.right
+        ]
+            .forEach { type in
+                let offset = positionAdjustment(forSegmentType: type)
+                segmentedControl.setContentPositionAdjustment(
+                    offset,
+                    forSegmentType: type,
+                    barMetrics: .default
+                )
+            }
+        
+        segmentedControl.addTarget(
+            SegmentedControlAnimationRemover.shared,
+            action: #selector(SegmentedControlAnimationRemover.removeAnimation(_:)),
+            for: .valueChanged
         )
-        let renderer = UIGraphicsImageRenderer(size: size)
-        return renderer.image { context in
-            color.setFill()
-            context.fill(rect)
-        }
     }
-
-    func divider(
-        leftState: UIControl.State,
-        rightState: UIControl.State
-    ) -> UIImage? {
-        let (leftColor, leftLineWidth) = colorAndLineWidth(for: leftState)
-        let (rightColor, rightLineWidth) = colorAndLineWidth(for: rightState)
-        let size = CGSize(width: extraSpacing, height: size.height)
-        let leftRect = CGRect(
-            x: 0,
-            y: size.height - leftLineWidth,
-            width: size.width / 2,
-            height: leftLineWidth
-        )
-        let rightRect = CGRect(
-            x: size.width / 2,
-            y: size.height - rightLineWidth,
-            width: size.width / 2,
-            height: rightLineWidth
-        )
-
-        let renderer = UIGraphicsImageRenderer(size: size)
-        return renderer.image { context in
-            leftColor.setFill()
-            context.fill(leftRect)
-
-            rightColor.setFill()
-            context.fill(rightRect)
-        }
-    }
-}
-
-// MARK: Private APIs
-
-private extension UnderlineSegmentedControlImageFactory {
-    func colorAndLineWidth(
-        for state: UIControl.State
-    ) -> (color: UIColor, lineWidth: CGFloat) {
-        switch state {
-        case .selected,
-                .highlighted,
-            [.selected, .highlighted]:
-            return (selectedLineColor, selectedLineWidth)
+    
+    func positionAdjustment(
+        forSegmentType type: UISegmentedControl.Segment
+    ) -> UIOffset {
+        switch type {
+        case .left:
+            return UIOffset(horizontal: imageFactory.edgeOffset, vertical: 0)
+        case .right:
+            return UIOffset(horizontal: -imageFactory.edgeOffset, vertical: 0)
         default:
-            return (lineColor, lineWidth)
+            return .zero
         }
     }
+    
+}
+
+private class SegmentedControlAnimationRemover {
+    
+    static var shared = SegmentedControlAnimationRemover()
+    
+    @objc func removeAnimation(_ control: UISegmentedControl) {
+        control.layer.sublayers?.forEach { $0.removeAllAnimations() }
+    }
+    
 }

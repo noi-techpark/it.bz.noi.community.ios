@@ -8,6 +8,7 @@
 import UIKit
 import EventShortClientLive
 import AppPreferencesClientLive
+import EventShortTypesClientLive
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -15,7 +16,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     let dependencyContainer = DependencyContainer(
         eventShortClient: .live(),
-        appPreferencesClient: .live()
+        appPreferencesClient: .live(),
+        eventShortTypesClient: .live()
     )
     var appCoordinator: AppCoordinator!
 

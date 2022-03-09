@@ -46,5 +46,20 @@ extension UIButton {
         return self
     }
 
+    @discardableResult func configureAsSecondariActionButton()  -> UIButton {
+        titleLabel?.adjustsFontForContentSizeCategory = true
+
+        titleLabel?.font = .preferredFont(
+            forTextStyle: .body,
+            weight: .semibold
+        )
+        titleLabel?.numberOfLines = 0
+        titleLabel?.textAlignment = .center
+
+        setTitleColor(.noiBackgroundColor, for: .normal)
+
+        return self
+    }
+
 }
 
