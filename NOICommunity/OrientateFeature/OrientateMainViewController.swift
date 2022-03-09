@@ -15,14 +15,15 @@ final class OrientateMainViewController: UIViewController {
 
     private var activityIndicator: UIActivityIndicatorView!
 
-    @IBOutlet private var contentContainer: UIView!
-
-    @IBOutlet private var actionsContainersView: FooterView!
-
     @IBOutlet private var bookRoomButton: UIButton! {
         didSet {
-            bookRoomButton.configureAsActionButton()
             bookRoomButton.setTitle(.localized("room_booking"), for: .normal)
+            bookRoomButton.setTitleColor(.noiPrimaryColor, for: .normal)
+            bookRoomButton.setTitleColor(
+                .noiPrimaryColor.withAlphaComponent(0.6),
+                for: .highlighted
+            )
+            bookRoomButton.titleLabel?.textAlignment = .center
         }
     }
 
@@ -70,7 +71,8 @@ private extension OrientateMainViewController {
             self?.setIsLoading(isLoading)
         }
         webVC.navigationItem.title = .localized("title_orientate")
-        embedChild(webVC, in: contentContainer)
+        embedChild(webVC)
+        view.sendSubviewToBack(webVC.view)
     }
 
     func setIsLoading(_ isLoading: Bool) {

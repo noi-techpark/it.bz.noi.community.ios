@@ -46,6 +46,7 @@
 		317615C726FDD0FE007FE10F /* MessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317615C626FDD0FE007FE10F /* MessageViewController.swift */; };
 		317615C926FDD369007FE10F /* UIFont+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317615C826FDD369007FE10F /* UIFont+Additions.swift */; };
 		317615CA26FDD637007FE10F /* MessageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 317615C526FDCFF7007FE10F /* MessageViewController.xib */; };
+		317F74FA27D8B5610084E619 /* CircleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317F74F927D8B5610084E619 /* CircleButton.swift */; };
 		3187667526FB35C100782FA6 /* String+NotDefined.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3187667426FB35C100782FA6 /* String+NotDefined.swift */; };
 		3187667726FB38D600782FA6 /* DateIntervalFormatter+Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3187667626FB38D600782FA6 /* DateIntervalFormatter+Factory.swift */; };
 		31927A7527464CC800EA96AC /* AppPreferencesClient in Frameworks */ = {isa = PBXBuildFile; productRef = 31927A7427464CC800EA96AC /* AppPreferencesClient */; };
@@ -80,7 +81,7 @@
 		31C28BFD2719BD7200312A62 /* LoadingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31C28BFB2719BD7200312A62 /* LoadingViewController.xib */; };
 		31C28BFE2719BD7200312A62 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C28BFC2719BD7200312A62 /* LoadingViewController.swift */; };
 		31C3629F270EFC5C00C92532 /* UIButton+Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C3629E270EFC5C00C92532 /* UIButton+Background.swift */; };
-		31C362A1270EFCC200C92532 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C362A0270EFCC200C92532 /* Button.swift */; };
+		31C362A1270EFCC200C92532 /* UIButton+Noi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C362A0270EFCC200C92532 /* UIButton+Noi.swift */; };
 		31C6409F26FE0B73004B71A2 /* OrientateCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C6409E26FE0B73004B71A2 /* OrientateCoordinator.swift */; };
 		31C640A026FE0B9D004B71A2 /* BaseTabCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D9C78926FDFCD3001F2DBB /* BaseTabCoordinator.swift */; };
 		31C640A226FE0BA9004B71A2 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C640A126FE0BA9004B71A2 /* Coordinator.swift */; };
@@ -177,6 +178,7 @@
 		317615C526FDCFF7007FE10F /* MessageViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MessageViewController.xib; sourceTree = "<group>"; };
 		317615C626FDD0FE007FE10F /* MessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewController.swift; sourceTree = "<group>"; };
 		317615C826FDD369007FE10F /* UIFont+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Additions.swift"; sourceTree = "<group>"; };
+		317F74F927D8B5610084E619 /* CircleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleButton.swift; sourceTree = "<group>"; };
 		3187667426FB35C100782FA6 /* String+NotDefined.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+NotDefined.swift"; sourceTree = "<group>"; };
 		3187667626FB38D600782FA6 /* DateIntervalFormatter+Factory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateIntervalFormatter+Factory.swift"; sourceTree = "<group>"; };
 		3187667826FB3A9300782FA6 /* EventDetailsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventDetailsViewController.xib; sourceTree = "<group>"; };
@@ -208,7 +210,7 @@
 		31C28BFB2719BD7200312A62 /* LoadingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadingViewController.xib; sourceTree = "<group>"; };
 		31C28BFC2719BD7200312A62 /* LoadingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
 		31C3629E270EFC5C00C92532 /* UIButton+Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Background.swift"; sourceTree = "<group>"; };
-		31C362A0270EFCC200C92532 /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
+		31C362A0270EFCC200C92532 /* UIButton+Noi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Noi.swift"; sourceTree = "<group>"; };
 		31C6409E26FE0B73004B71A2 /* OrientateCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrientateCoordinator.swift; sourceTree = "<group>"; };
 		31C640A126FE0BA9004B71A2 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		31C640A326FE0C64004B71A2 /* URL+KnowNOIURLs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+KnowNOIURLs.swift"; sourceTree = "<group>"; };
@@ -425,8 +427,8 @@
 				312D29D7270451B600F4F4E7 /* ImageCardContentView.swift */,
 				31AA31ED26F0A94E00744A00 /* IdentifiableCollectionViewCell.swift */,
 				3110CF5F26F0E89C003B7174 /* CircleView.swift */,
+				317F74F927D8B5610084E619 /* CircleButton.swift */,
 				31B4477E26F86FE4000999BA /* SegmentedControlBuilder.swift */,
-				31C362A0270EFCC200C92532 /* Button.swift */,
 				31AAC052270F2FFD00C26850 /* FooterView.swift */,
 			);
 			path = Views;
@@ -442,16 +444,17 @@
 				31157D1A26FCB26200A43B33 /* String+Localization.swift */,
 				3187667426FB35C100782FA6 /* String+NotDefined.swift */,
 				319C0E8826F33BD000C6D38B /* UIAlertController+Error.swift */,
+				31C3629E270EFC5C00C92532 /* UIButton+Background.swift */,
+				31C362A0270EFCC200C92532 /* UIButton+Noi.swift */,
 				31B3623D26F1E27A00031024 /* UIColor+NOI.swift */,
 				319C0E9926F3483600C6D38B /* UIControl+Combine.swift */,
 				317615C826FDD369007FE10F /* UIFont+Additions.swift */,
+				31D77E732733FFDD0054397C /* UIRefreshControlAdditions.swift */,
 				319C0E8626F33BD000C6D38B /* UIView+Subviews.swift */,
 				319C0E8726F33BD000C6D38B /* UIViewController+Children.swift */,
 				31157D1426FC83FE00A43B33 /* UIViewController+ShowCalenderError.swift */,
 				319C0E8926F33BD000C6D38B /* UIViewController+ShowError.swift */,
 				31C640A326FE0C64004B71A2 /* URL+KnowNOIURLs.swift */,
-				31C3629E270EFC5C00C92532 /* UIButton+Background.swift */,
-				31D77E732733FFDD0054397C /* UIRefreshControlAdditions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -753,9 +756,10 @@
 				317615C926FDD369007FE10F /* UIFont+Additions.swift in Sources */,
 				31C640A026FE0B9D004B71A2 /* BaseTabCoordinator.swift in Sources */,
 				31C640B126FE1449004B71A2 /* TabCoordinator.swift in Sources */,
+				317F74FA27D8B5610084E619 /* CircleButton.swift in Sources */,
 				31DA4A762705EA110098E395 /* MoreMainViewController.swift in Sources */,
 				31178FDC26FA26C500BDCDAA /* EventDetailsViewController.swift in Sources */,
-				31C362A1270EFCC200C92532 /* Button.swift in Sources */,
+				31C362A1270EFCC200C92532 /* UIButton+Noi.swift in Sources */,
 				31DA4A772705EA110098E395 /* MoreCoordinator.swift in Sources */,
 				31C28BF8271992F500312A62 /* FiltersBarView.swift in Sources */,
 				3145D23326B3F73F00F16787 /* SceneDelegate.swift in Sources */,
