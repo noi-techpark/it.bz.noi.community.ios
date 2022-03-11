@@ -41,6 +41,9 @@ class EventFiltersViewModel {
     }
 
     func refreshEventsFilters() {
+        guard !isLoading
+        else { return }
+        
         isLoading = true
         filtersResults = []
 
@@ -48,8 +51,6 @@ class EventFiltersViewModel {
             .receive(on: DispatchQueue.main)
             .sink(
                 receiveCompletion: { [weak self] completion in
-                    self?.isLoading = false
-
                     switch completion {
                     case .finished:
                         break
@@ -58,6 +59,7 @@ class EventFiltersViewModel {
                     }
                 },
                 receiveValue: { [weak self] in
+                    self?.isLoading = false
                     self?.filtersResults = $0
                 })
     }

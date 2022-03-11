@@ -22,6 +22,7 @@
 		31178FDC26FA26C500BDCDAA /* EventDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31178FDB26FA26C500BDCDAA /* EventDetailsViewController.swift */; };
 		31178FDE26FA2F7100BDCDAA /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31178FDD26FA2F7100BDCDAA /* TabBarController.swift */; };
 		31178FE026FA318800BDCDAA /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31178FDF26FA318800BDCDAA /* Collection.swift */; };
+		3122EA5127DB6FF7007E89E6 /* SwiftCache in Frameworks */ = {isa = PBXBuildFile; productRef = 3122EA5027DB6FF7007E89E6 /* SwiftCache */; };
 		312D29D8270451B600F4F4E7 /* ImageCardContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312D29D7270451B600F4F4E7 /* ImageCardContentView.swift */; };
 		3136CC402706F75F00C27129 /* SourcePresentAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3136CC3F2706F75F00C27129 /* SourcePresentAnimator.swift */; };
 		3136CC422706F8D200C27129 /* UIView+TransitionId.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3136CC412706F8D200C27129 /* UIView+TransitionId.swift */; };
@@ -264,6 +265,7 @@
 				3182F4AA27DB3841005ADDAF /* EventShortTypesClient in Frameworks */,
 				3182F4A427DB3841005ADDAF /* AppPreferencesClientLive in Frameworks */,
 				313FB0B52719C438000AD9DA /* FirebaseCrashlytics in Frameworks */,
+				3122EA5127DB6FF7007E89E6 /* SwiftCache in Frameworks */,
 				3182F4A827DB3841005ADDAF /* EventShortClientLive in Frameworks */,
 				3182F4AC27DB3841005ADDAF /* EventShortTypesClientLive in Frameworks */,
 			);
@@ -569,6 +571,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				3122EA5327DB6FFF007E89E6 /* PBXTargetDependency */,
 				3183304A27C7701F00337561 /* PBXTargetDependency */,
 				3183304C27C7701F00337561 /* PBXTargetDependency */,
 				31927A7927464CD700EA96AC /* PBXTargetDependency */,
@@ -586,6 +589,7 @@
 				3182F4A727DB3841005ADDAF /* EventShortClientLive */,
 				3182F4A927DB3841005ADDAF /* EventShortTypesClient */,
 				3182F4AB27DB3841005ADDAF /* EventShortTypesClientLive */,
+				3122EA5027DB6FF7007E89E6 /* SwiftCache */,
 			);
 			productName = NOICommunity;
 			productReference = 3145D22D26B3F73F00F16787 /* NOICommunity.app */;
@@ -849,6 +853,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		3122EA5327DB6FFF007E89E6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 3122EA5227DB6FFF007E89E6 /* SwiftCache */;
+		};
 		3145D24526B3F74000F16787 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 3145D22C26B3F73F00F16787 /* NOICommunity */;
@@ -1214,6 +1222,14 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		3122EA5027DB6FF7007E89E6 /* SwiftCache */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SwiftCache;
+		};
+		3122EA5227DB6FFF007E89E6 /* SwiftCache */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SwiftCache;
+		};
 		313FB0B42719C438000AD9DA /* FirebaseCrashlytics */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 313FB0B32719C438000AD9DA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;

@@ -8,17 +8,36 @@
 import UIKit
 import EventShortClientLive
 import AppPreferencesClientLive
+import EventShortTypesClient
 import EventShortTypesClientLive
+import SwiftCache
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
-    let dependencyContainer = DependencyContainer(
-        eventShortClient: .live(),
-        appPreferencesClient: .live(),
-        eventShortTypesClient: .live()
-    )
+    lazy var cache: Cache<EventShortTypesClient.CacheKey, [EventsFilter]> = Cache()
+
+    lazy var dependencyContainer: DependencyContainer = {
+        DependencyContainer(
+            eventShortClient: .live(),
+            appPreferencesClient: .live(),
+            eventShortTypesClient: {
+                if let fileURL = Bundle.main.url(
+                    forResource: "EventShortTypes",
+                    withExtension: "json"
+                ) {
+                    return .live(
+                        memoryCache: cache,
+                        diskCacheFileURL: fileURL
+                    )
+                } else {
+                    return .live()
+                }
+            }()
+        )
+    }()
+
     var appCoordinator: AppCoordinator!
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {

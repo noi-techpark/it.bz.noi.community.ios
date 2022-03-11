@@ -75,17 +75,11 @@ private extension EventFiltersViewController {
     func updateContent(isLoading: Bool) {
         if isLoading {
             embedChild(
-                LoadingViewController(style: .dark),
+                LoadingViewController(style: .light),
                 in: contentContainer
             )
         } else {
-            let previousLoadingVC = children
-                .lazy
-                .compactMap { $0 as? LoadingViewController }
-                .first
-            previousLoadingVC?.willMove(toParent: nil)
-            previousLoadingVC?.view.removeFromSuperview()
-            previousLoadingVC?.removeFromParent()
+            embedChild(resultsVC, in: contentContainer)
         }
     }
 
@@ -131,7 +125,6 @@ private extension EventFiltersViewController {
                 else { return }
 
                 self.resultsVC.items = results
-                self.embedChild(self.resultsVC, in: self.contentContainer)
             }
             .store(in: &subscriptions)
 
