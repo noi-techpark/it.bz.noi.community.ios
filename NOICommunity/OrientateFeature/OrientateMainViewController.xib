@@ -6,16 +6,12 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="OrientateMainViewController" customModule="NOICommunity" customModuleProvider="target">
             <connections>
-                <outlet property="actionsContainersView" destination="5AG-2G-jHF" id="F9f-Hr-JDa"/>
-                <outlet property="bookRoomButton" destination="DyO-jt-YjG" id="GVU-QF-XPb"/>
-                <outlet property="contentContainer" destination="5AG-2G-jHF" id="YZi-kS-Mdr"/>
+                <outlet property="bookRoomButton" destination="sk9-OR-DJ1" id="F5I-Wp-Q5a"/>
                 <outlet property="view" destination="uie-5P-Umu" id="UKq-cv-868"/>
             </connections>
         </placeholder>
@@ -24,54 +20,37 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xTe-k4-PFK" customClass="FooterView" customModule="NOICommunity" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="799" width="414" height="97"/>
-                    <subviews>
-                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacingType="standard" baselineRelativeArrangement="YES" translatesAutoresizingMaskIntoConstraints="NO" id="R2k-ek-ZPy">
-                            <rect key="frame" x="17" y="17" width="380" height="29"/>
-                            <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DyO-jt-YjG">
-                                    <rect key="frame" x="0.0" y="0.0" width="380" height="29"/>
-                                    <color key="backgroundColor" name="background_color"/>
-                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                    <color key="tintColor" name="primary_color"/>
-                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                    <state key="normal" title="Book a room"/>
-                                    <connections>
-                                        <action selector="bookRoomActionWithSender:" destination="-1" eventType="touchUpInside" id="Tot-RV-gYr"/>
-                                    </connections>
-                                </button>
-                            </subviews>
-                        </stackView>
-                    </subviews>
-                    <viewLayoutGuide key="safeArea" id="XO1-yV-Tyg"/>
-                    <color key="backgroundColor" name="tertiary_background_color"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="sk9-OR-DJ1" customClass="CircleButton" customModule="NOICommunity" customModuleProvider="target">
+                    <rect key="frame" x="328" y="776" width="69" height="69"/>
+                    <color key="backgroundColor" name="background_color"/>
                     <constraints>
-                        <constraint firstItem="XO1-yV-Tyg" firstAttribute="trailing" secondItem="R2k-ek-ZPy" secondAttribute="trailing" constant="17" id="GZc-on-2uX"/>
-                        <constraint firstItem="R2k-ek-ZPy" firstAttribute="leading" secondItem="XO1-yV-Tyg" secondAttribute="leading" constant="17" id="SRC-fH-ASW"/>
-                        <constraint firstItem="XO1-yV-Tyg" firstAttribute="bottom" secondItem="R2k-ek-ZPy" secondAttribute="bottom" constant="17" id="bZR-9c-5j4"/>
-                        <constraint firstItem="R2k-ek-ZPy" firstAttribute="top" secondItem="XO1-yV-Tyg" secondAttribute="top" constant="17" id="o4e-aD-NGa"/>
+                        <constraint firstAttribute="width" constant="69" id="7cq-31-scd"/>
+                        <constraint firstAttribute="width" secondItem="sk9-OR-DJ1" secondAttribute="height" multiplier="1:1" id="KsG-yd-zib"/>
                     </constraints>
-                </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5AG-2G-jHF">
-                    <rect key="frame" x="0.0" y="0.0" width="414" height="799"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                </view>
+                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                    <color key="tintColor" name="primary_color"/>
+                    <inset key="contentEdgeInsets" minX="16" minY="12" maxX="16" maxY="12"/>
+                    <inset key="titleEdgeInsets" minX="-14" minY="18" maxX="0.0" maxY="0.0"/>
+                    <inset key="imageEdgeInsets" minX="11.5" minY="-30" maxX="0.0" maxY="0.0"/>
+                    <state key="normal" title="Book a room" image="ic_calendar">
+                        <color key="titleColor" name="primary_color"/>
+                    </state>
+                    <connections>
+                        <action selector="bookRoomActionWithSender:" destination="-1" eventType="touchUpInside" id="dQX-jf-WOW"/>
+                    </connections>
+                </button>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="1mL-Bx-NjI"/>
             <color key="backgroundColor" name="secondary_background_color"/>
             <constraints>
-                <constraint firstItem="xTe-k4-PFK" firstAttribute="top" secondItem="5AG-2G-jHF" secondAttribute="bottom" id="Oif-qA-N2U"/>
-                <constraint firstItem="5AG-2G-jHF" firstAttribute="leading" secondItem="xTe-k4-PFK" secondAttribute="leading" id="PJc-rC-Mc4"/>
-                <constraint firstItem="5AG-2G-jHF" firstAttribute="leading" secondItem="uie-5P-Umu" secondAttribute="leading" id="Slw-PP-R5S"/>
-                <constraint firstAttribute="bottom" secondItem="xTe-k4-PFK" secondAttribute="bottom" id="eIj-Mr-fbp"/>
-                <constraint firstItem="5AG-2G-jHF" firstAttribute="top" secondItem="uie-5P-Umu" secondAttribute="top" id="efZ-oJ-0KL"/>
-                <constraint firstItem="5AG-2G-jHF" firstAttribute="centerX" secondItem="uie-5P-Umu" secondAttribute="centerX" id="gIS-sb-KUs"/>
-                <constraint firstItem="5AG-2G-jHF" firstAttribute="trailing" secondItem="xTe-k4-PFK" secondAttribute="trailing" id="rdo-Fg-0rc"/>
+                <constraint firstItem="1mL-Bx-NjI" firstAttribute="bottom" secondItem="sk9-OR-DJ1" secondAttribute="bottom" constant="17" id="7aP-pI-nms"/>
+                <constraint firstItem="1mL-Bx-NjI" firstAttribute="trailing" secondItem="sk9-OR-DJ1" secondAttribute="trailing" constant="17" id="vnF-Qd-nx4"/>
             </constraints>
             <point key="canvasLocation" x="138.40000000000001" y="122.78860569715144"/>
         </view>
     </objects>
     <resources>
+        <image name="ic_calendar" width="14" height="15"/>
         <namedColor name="background_color">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
@@ -81,11 +60,5 @@
         <namedColor name="secondary_background_color">
             <color red="0.94509803921568625" green="0.94509803921568625" blue="0.94509803921568625" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <namedColor name="tertiary_background_color">
-            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
     </resources>
 </document>
