@@ -139,7 +139,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		3101C76F27DB37C30079EFE2 /* NOICommunityLib */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = NOICommunityLib; path = NOICommunity/NOICommunityLib; sourceTree = "<group>"; };
+		3101C76F27DB37C30079EFE2 /* NOICommunityLib */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = NOICommunityLib; path = NOICommunityLib; sourceTree = "<group>"; };
 		3110CF5F26F0E89C003B7174 /* CircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
 		31157CFD26FC5DEB00A43B33 /* EventsCalendarManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventsCalendarManager.swift; sourceTree = "<group>"; };
 		31157CFF26FC648700A43B33 /* Event+CalendarEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Event+CalendarEvent.swift"; sourceTree = "<group>"; };
