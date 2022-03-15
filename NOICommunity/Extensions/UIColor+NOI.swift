@@ -19,4 +19,6 @@ extension UIColor {
 
     static var noiDisabled1Color = UIColor(named: "disabled1_color")!
     static var noiDisabled2Color = UIColor(named: "disabled2_color")!
+
+    static var noiInactiveColor = UIColor(named: "inactive_color")!
 }

@@ -19,6 +19,18 @@ extension UIListContentConfiguration {
         contentConfiguration.textProperties.adjustsFontForContentSizeCategory = true
         return contentConfiguration
     }
+
+    static func noiGroupedHeader() -> UIListContentConfiguration {
+        var contentConfiguration = UIListContentConfiguration.plainHeader()
+        contentConfiguration.textProperties.color = .noiSecondaryColor
+        contentConfiguration.textProperties.font = .preferredFont(
+            forTextStyle: .body,
+            weight: .semibold
+        )
+        contentConfiguration.textProperties.numberOfLines = 0
+        contentConfiguration.textProperties.adjustsFontForContentSizeCategory = true
+        return contentConfiguration
+    }
 }
 
 extension UICellAccessory {

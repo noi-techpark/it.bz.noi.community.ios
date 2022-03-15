@@ -8,6 +8,7 @@
 import UIKit
 
 class FooterView: UIView {
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
@@ -26,8 +27,10 @@ class FooterView: UIView {
 }
 
 private extension FooterView {
+
     func configure() {
         layer.shadowPath = UIBezierPath(rect: bounds).cgPath
+        layer.masksToBounds = false
         layer.shadowColor = UIColor.noiBackgroundColor.cgColor
         layer.shadowRadius = 5
         layer.shadowOffset = .zero

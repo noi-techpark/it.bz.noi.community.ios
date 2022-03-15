@@ -55,6 +55,7 @@ class LoadAppPreferencesMainViewController: UIViewController {
 // MARK: Private APIs
 
 private extension LoadAppPreferencesMainViewController {
+
     func updateContent(isLoading: Bool) {
         if isLoading {
             embedChild(LoadingViewController(style: .dark), in: view)

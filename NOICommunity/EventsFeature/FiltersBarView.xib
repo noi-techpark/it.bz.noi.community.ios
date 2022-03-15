@@ -5,14 +5,13 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
-        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FiltersBarView" customModule="NOICommunity" customModuleProvider="target">
             <connections>
                 <outlet property="contentView" destination="58z-I1-Rbh" id="jRs-nc-ksW"/>
+                <outlet property="filtersButton" destination="x5L-Ot-UP1" id="B61-qd-WL6"/>
                 <outlet property="scrollView" destination="caF-6A-pLP" id="jlF-g2-Q6Y"/>
             </connections>
         </placeholder>
@@ -21,44 +20,37 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="40"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="9y4-dz-1D9">
-                    <rect key="frame" x="17" y="0.0" width="397" height="40"/>
-                    <subviews>
-                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iSB-xm-H9b">
-                            <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
-                            <color key="backgroundColor" name="background_color"/>
-                            <constraints>
-                                <constraint firstAttribute="width" secondItem="iSB-xm-H9b" secondAttribute="height" multiplier="1:1" id="1xa-9e-H9R"/>
-                                <constraint firstAttribute="width" constant="40" id="abN-NS-6lT"/>
-                            </constraints>
-                            <color key="tintColor" name="primary_color"/>
-                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                            <state key="normal" image="ic_filter"/>
-                        </button>
-                        <scrollView verifyAmbiguity="off" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="caF-6A-pLP">
-                            <rect key="frame" x="0.0" y="0.0" width="397" height="40"/>
-                            <viewLayoutGuide key="contentLayoutGuide" id="gWf-MV-4Z9"/>
-                            <viewLayoutGuide key="frameLayoutGuide" id="aKd-08-1yV"/>
-                        </scrollView>
-                    </subviews>
-                    <viewLayoutGuide key="safeArea" id="07W-R1-SSg"/>
+                <scrollView verifyAmbiguity="off" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="caF-6A-pLP">
+                    <rect key="frame" x="56" y="0.0" width="358" height="40"/>
+                    <viewLayoutGuide key="contentLayoutGuide" id="gWf-MV-4Z9"/>
+                    <viewLayoutGuide key="frameLayoutGuide" id="aKd-08-1yV"/>
+                </scrollView>
+                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x5L-Ot-UP1">
+                    <rect key="frame" x="17" y="0.0" width="40" height="40"/>
+                    <color key="backgroundColor" name="background_color"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="40" id="Ae8-Gh-cAd"/>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="40" id="hEA-8p-VAW"/>
                     </constraints>
-                </stackView>
+                    <color key="tintColor" name="primary_color"/>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                    <state key="normal" image="ic_filter"/>
+                </button>
             </subviews>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="9y4-dz-1D9" secondAttribute="trailing" id="8JR-kY-hV1"/>
-                <constraint firstItem="9y4-dz-1D9" firstAttribute="leading" secondItem="58z-I1-Rbh" secondAttribute="leading" constant="17" id="9nc-yJ-dPe"/>
-                <constraint firstItem="9y4-dz-1D9" firstAttribute="top" secondItem="58z-I1-Rbh" secondAttribute="top" id="RZc-0s-uVU"/>
-                <constraint firstAttribute="bottom" secondItem="9y4-dz-1D9" secondAttribute="bottom" id="eWn-Z8-1yS"/>
+                <constraint firstItem="x5L-Ot-UP1" firstAttribute="top" secondItem="58z-I1-Rbh" secondAttribute="top" id="6MK-zF-xpF"/>
+                <constraint firstItem="caF-6A-pLP" firstAttribute="top" secondItem="58z-I1-Rbh" secondAttribute="top" id="Mg0-ty-oFW"/>
+                <constraint firstAttribute="trailing" secondItem="caF-6A-pLP" secondAttribute="trailing" id="QR4-Pb-5Dx"/>
+                <constraint firstItem="caF-6A-pLP" firstAttribute="leading" secondItem="x5L-Ot-UP1" secondAttribute="trailing" id="UZQ-YJ-hjf"/>
+                <constraint firstAttribute="bottom" secondItem="caF-6A-pLP" secondAttribute="bottom" id="eIj-Kc-Laa"/>
+                <constraint firstItem="x5L-Ot-UP1" firstAttribute="leading" secondItem="58z-I1-Rbh" secondAttribute="leading" constant="17" id="rwL-eI-sHu"/>
+                <constraint firstAttribute="bottom" secondItem="x5L-Ot-UP1" secondAttribute="bottom" id="vcz-Vx-Kim"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="12" y="-90"/>
+            <point key="canvasLocation" x="11.199999999999999" y="-90.854572713643179"/>
         </view>
     </objects>
     <resources>
-        <image name="ic_filter" width="24" height="20"/>
+        <image name="ic_filter" width="24" height="24"/>
         <namedColor name="background_color">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

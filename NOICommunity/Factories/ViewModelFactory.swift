@@ -8,7 +8,17 @@
 import Foundation
 
 protocol ViewModelFactory {
+
     func makeLoadAppPreferencesViewModel() -> LoadAppPreferencesViewModel
+
     func makeUpdateAppPreferencesViewModel() -> UpdateAppPreferencesViewModel
-    func makeEventsViewModel() -> EventsViewModel
+
+    func makeEventsViewModel(
+        showFiltersHandler: @escaping () -> Void
+    ) -> EventsViewModel
+
+    func makeEventFiltersViewModel(
+        showFilteredResultsHandler: @escaping () -> Void
+    ) -> EventFiltersViewModel
+    
 }

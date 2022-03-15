@@ -69,6 +69,10 @@ final class EventsMainViewController: UIViewController {
         filterBarView.dateIntervalsControl
     }
 
+    private var filtersButton: UIButton {
+        filterBarView.filtersButton
+    }
+
     private var dateIntervalsScrollView: UIScrollView {
         filterBarView.scrollView
     }
@@ -179,6 +183,12 @@ private extension EventsMainViewController {
             }
             .store(in: &subscriptions)
 
+        filtersButton.publisher(for: .primaryActionTriggered)
+            .sink { [weak viewModel] in
+                viewModel?.showFilters()
+            }
+            .store(in: &subscriptions)
+
         viewModel.$isLoading
             .dropFirst()
             .receive(on: DispatchQueue.main)
@@ -227,6 +237,31 @@ private extension EventsMainViewController {
                 case true?:
                     self.content = self.makeEmptyResultsViewController()
                 }
+            }
+            .store(in: &subscriptions)
+
+        viewModel.$activeFilters
+            .map(\.count)
+            .receive(on: DispatchQueue.main)
+            .sink { [unowned filtersButton] numberOfFilters in
+                let title: String? = {
+                    switch numberOfFilters {
+                    case 0:
+                        return nil
+                    default:
+                        return "(\(numberOfFilters))"
+                    }
+                }()
+                filtersButton.setInsets(
+                    forContentPadding: .init(
+                        top: 8,
+                        left: 8,
+                        bottom: 8,
+                        right: 8
+                    ),
+                    imageTitlePadding: title == nil ? 0 : 8
+                )
+                filtersButton.setTitle(title, for: .normal)
             }
             .store(in: &subscriptions)
     }

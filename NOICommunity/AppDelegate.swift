@@ -79,5 +79,7 @@ private extension AppDelegate {
 
         let refreshControlAppearanceInsideNavigationBar = UIRefreshControl.appearance(whenContainedInInstancesOf: [UINavigationBar.self])
         refreshControlAppearanceInsideNavigationBar.tintColor = .noiPrimaryColor
+
+        UISwitch.appearance().onTintColor = .noiSecondaryColor
     }
 }

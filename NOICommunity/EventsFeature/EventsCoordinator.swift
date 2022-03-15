@@ -5,8 +5,9 @@
 //  Created by Matteo Matassoni on 24/09/21.
 //
 
-import Foundation
 import UIKit
+import Foundation
+import Combine
 
 // MARK: - EventsCoordinator
 
@@ -15,13 +16,21 @@ final class EventsCoordinator: BaseCoordinator {
     private var mainVC: EventsMainViewController!
     private var eventsViewModel: EventsViewModel!
     private var navigationDelegate: EventsNavigationControllerDelegate!
+    private lazy var eventFiltersViewModel = dependencyContainer
+        .makeEventFiltersViewModel { [weak self] in
+            self?.closeFilters()
+        }
+    private var subscriptions: Set<AnyCancellable> = []
 
     override func start(animated: Bool) {
         navigationDelegate = EventsNavigationControllerDelegate(
             navigationController: navigationController
         )
         navigationController.delegate = navigationDelegate
-        eventsViewModel = dependencyContainer.makeEventsViewModel()
+        let eventsViewModel = dependencyContainer.makeEventsViewModel { [weak self] in
+            self?.goToFilters()
+        }
+        self.eventsViewModel = eventsViewModel
         mainVC = EventsMainViewController(viewModel: eventsViewModel)
         mainVC.didSelectHandler = { [weak self] collectionView, _, indexPath, event in
             self?.goToDetails(
@@ -32,6 +41,26 @@ final class EventsCoordinator: BaseCoordinator {
         }
         mainVC.navigationItem.title = .localized("title_today")
         navigationController.viewControllers = [mainVC]
+
+        eventFiltersViewModel.$activeFilters
+            .dropFirst()
+            .receive(on: DispatchQueue.main)
+            .sink { [unowned eventsViewModel] in
+                eventsViewModel.activeFilters = $0
+                eventsViewModel.refreshEvents()
+            }
+            .store(in: &subscriptions)
+
+        eventsViewModel.$eventResults
+            .map(\.?.count)
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [unowned eventFiltersViewModel] numberOfResults in
+                guard let numberOfResults = numberOfResults
+                else { return }
+
+                eventFiltersViewModel.numberOfResults = numberOfResults
+            })
+            .store(in: &subscriptions)
     }
 }
 
@@ -117,5 +146,20 @@ private extension EventsCoordinator {
         detailVC.navigationItem.title = event.title
         detailVC.navigationItem.largeTitleDisplayMode = .never
         navigationController.pushViewController(detailVC, animated: true)
+    }
+
+    func goToFilters() {
+        let filtersVC = dependencyContainer.makeEventFiltersViewController(
+            viewModel: eventFiltersViewModel
+        )
+        navigationController.present(
+            UINavigationController(rootViewController: filtersVC),
+            animated: true,
+            completion: nil
+        )
+    }
+
+    func closeFilters() {
+        navigationController.dismiss(animated: true, completion: nil)
     }
 }

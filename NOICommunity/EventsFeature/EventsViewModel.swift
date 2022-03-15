@@ -8,6 +8,7 @@
 import Foundation
 import Combine
 import EventShortClient
+import EventShortTypesClient
 
 // MARK: - EventsViewModel
 
@@ -17,13 +18,15 @@ class EventsViewModel {
     @Published var error: Error!
     @Published var eventResults: [Event]!
     @Published var dateIntervalFilter: DateIntervalFilter = .all
+    @Published var activeFilters: Set<EventsFilter> = []
 
     private var refreshEventsRequestCancellable: AnyCancellable?
     
     let eventShortClient: EventShortClient
+    let language: Language?
     let maximumNumberOfEvents: Int
     let maximumNumberOfRelatedEvents: Int
-    let language: Language?
+    let showFiltersHandler: () -> Void
     
     private var subscriptions: Set<AnyCancellable> = []
     
@@ -33,14 +36,16 @@ class EventsViewModel {
         eventShortClient: EventShortClient,
         language: Language?,
         maximumNumberOfEvents: Int = EventsFeatureConstants.maximumNumberOfEvents,
-        maximumNumberOfRelatedEvents: Int = EventsFeatureConstants.maximumNumberOfRelatedEvents
+        maximumNumberOfRelatedEvents: Int = EventsFeatureConstants.maximumNumberOfRelatedEvents,
+        showFiltersHandler: @escaping () -> Void
     ) {
         self.eventShortClient = eventShortClient
         self.language = language
         self.maximumNumberOfEvents = maximumNumberOfEvents
         self.maximumNumberOfRelatedEvents = maximumNumberOfRelatedEvents
+        self.showFiltersHandler = showFiltersHandler
     }
-    
+
     func refreshEvents() {
         let (startDate, endDate) = dateIntervalFilter.toStartEndDates()
         
@@ -62,6 +67,7 @@ class EventsViewModel {
                 endDate: endDate,
                 eventLocation: .noi,
                 onlyActive: true,
+                rawFilter: activeFilters.toQuery(),
                 removeNullValues: true,
                 optimizeDates: true
             ))
@@ -113,6 +119,11 @@ class EventsViewModel {
             .prefix(maximumNumberOfRelatedEvents)
         return Array(slice)
     }
+
+    func showFilters() {
+        showFiltersHandler()
+    }
+
 }
 
 // MARK: - DateIntervalFilter Additions
@@ -215,4 +226,54 @@ private extension Event {
             signupURL: eventShort.webAddress.flatMap(URL.init(string:))
         )
     }
+}
+
+// MARK: Query Helper
+
+private extension Collection where Element == EventsFilter {
+
+    func toQuery() -> String? {
+        let filterToQuery: (EventsFilter) -> String = {
+            // Eg. in(CustomTagging.[],"NOI Community")
+            // Eg. in(TechnologyFields.[],"Alpine")
+            #"in(\#($0.type.rawValue).[],"\#($0.key)")"#
+        }
+
+        let queryComponentsToQuery: ([String], String) -> String = { components, logicOperator in
+            let components = components.filter { !$0.isEmpty }
+            if components.isEmpty {
+                return ""
+            } else if components.count == 1 {
+                return components.first!
+            } else {
+                return logicOperator + "(" + components.joined(separator: ",") + ")"
+            }
+        }
+
+        let customTaggingQueryComponents = self
+            .filter { $0.type == .customTagging }
+            .map(filterToQuery)
+        let customTaggingQuery = queryComponentsToQuery(
+            customTaggingQueryComponents,
+            "or"
+        )
+
+        let technologyFieldsQueryComponents = self
+            .filter { $0.type == .technologyFields }
+            .map(filterToQuery)
+        let technologyFieldsQuery = queryComponentsToQuery(
+            technologyFieldsQueryComponents,
+            "or"
+        )
+
+        let result = queryComponentsToQuery(
+            [customTaggingQuery, technologyFieldsQuery],
+            "and"
+        )
+        guard !result.isEmpty
+        else { return nil }
+
+        return result
+    }
+
 }
