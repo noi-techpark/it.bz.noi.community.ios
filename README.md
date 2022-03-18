@@ -81,7 +81,7 @@ For some examples see [.github/workflows].
 ## Deployment
 
 We deploy the application with Github Actions to a Test Track, if someone pushes
-to the `development` branch. See
+to the `main` branch. See
 [.github/workflows/main.yml](.github/workflows/main.yml) and [Continuous
 Deployment for iOS
 Apps](https://github.com/noi-techpark/odh-docs/wiki/Continuous-Deployment-for-iOS-Apps)
