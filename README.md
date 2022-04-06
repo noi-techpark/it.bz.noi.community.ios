@@ -87,6 +87,15 @@ Deployment for iOS
 Apps](https://github.com/noi-techpark/odh-docs/wiki/Continuous-Deployment-for-iOS-Apps)
 for details...
 
+After the CD pipeline completes, we have a new release. This release will be send to all 
+internal testers automatically. Internal testers are mostly developers and are registered 
+in the App Store as such. To add new testers go to https://appstoreconnect.apple.com/apps/1577514901/testflight.
+External testers can just use a link that can be found under "TestFlight > External Testing".
+There is no need to add explicit users there.
+
+Please note, that external releases are not automatic, you need to click on the "Build +" button,
+and add the newest build there.
+
 ## Information
 
 ### Support
