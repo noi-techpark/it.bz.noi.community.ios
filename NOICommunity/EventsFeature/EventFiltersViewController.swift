@@ -16,7 +16,7 @@ class EventFiltersViewController: UIViewController {
 
     @IBOutlet private var resetActiveFiltersButton: UIButton! {
         didSet {
-            resetActiveFiltersButton.configureAsSecondariActionButton()
+            resetActiveFiltersButton.configureAsSecondaryActionButton()
             resetActiveFiltersButton.setTitle(
                 .localized("reset_filters_btn"),
                 for: .normal

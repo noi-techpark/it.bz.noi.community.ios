@@ -87,9 +87,25 @@ extension URL {
         forResource: "rockin beets_obstmarkt",
         withExtension: ".jpg"
     )!
+    
+    static let welcomeEventsImageURL = Bundle.welcome.url(
+        forResource: "NOI_App_Welcome_Events",
+        withExtension: ".jpg"
+    )!
+    
+    static let welcomeNewsImageURL = Bundle.welcome.url(
+        forResource: "NOI_App_Welcome_News",
+        withExtension: ".jpg"
+    )!
+    
+    static let welcomeMeetImageURL = Bundle.welcome.url(
+        forResource: "NOI_App_Welcome_Meet-V3",
+        withExtension: ".jpg"
+    )!
 }
 
 private extension Bundle {
+    
     static let restaurants: Bundle = {
         let restaurantsBundleURL = Bundle.main.url(
             forResource: "Restaurants",
@@ -97,4 +113,13 @@ private extension Bundle {
         )!
         return Bundle(url: restaurantsBundleURL)!
     }()
+    
+    static let welcome: Bundle = {
+        let welcomeBundleURL = Bundle.main.url(
+            forResource: "Welcome",
+            withExtension: "bundle"
+        )!
+        return Bundle(url: welcomeBundleURL)!
+    }()
+    
 }
