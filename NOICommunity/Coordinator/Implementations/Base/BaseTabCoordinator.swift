@@ -7,8 +7,9 @@
 
 import UIKit
 
-class BaseTabCoordinator: TabCoordinator {
-    var childCoordinators: [Coordinator] = []
+class BaseTabCoordinator: NSObject, TabCoordinatorType {
+    
+    var childCoordinators: [CoordinatorType] = []
 
     var tabBarController: UITabBarController
 
@@ -27,13 +28,4 @@ class BaseTabCoordinator: TabCoordinator {
         else { preconditionFailure("subclass should implement start function!") }
     }
 
-    /// This method should be called when a child coordinator have finished its job.
-    /// - Parameter child: child of the parent going to be terminated.
-    func sacrifice(child: Coordinator) {
-        guard let childPosition = childCoordinators
-                .firstIndex(where: { $0 === child })
-        else { return }
-
-        childCoordinators.remove(at: childPosition)
-    }
 }

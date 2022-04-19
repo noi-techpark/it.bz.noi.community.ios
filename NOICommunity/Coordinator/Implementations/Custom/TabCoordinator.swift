@@ -1,5 +1,5 @@
 //
-//  MainCoordinator.swift
+//  TabCoordinator.swift
 //  NOICommunity
 //
 //  Created by Matteo Matassoni on 24/09/21.
@@ -7,7 +7,8 @@
 
 import UIKit
 
-final class MainCoordinator: BaseTabCoordinator {
+final class TabCoordinator: BaseTabCoordinator {
+    
     override func start(animated: Bool) {
         let eventsNavController = NavigationController()
         eventsNavController.tabBarItem.title = .localized("tab_title_today")
@@ -17,7 +18,7 @@ final class MainCoordinator: BaseTabCoordinator {
             navigationController: eventsNavController,
             dependencyContainer: dependencyContainer
         )
-        eventsCoordinator.start(animated: false)
+        eventsCoordinator.start()
         childCoordinators.append(eventsCoordinator)
 
         let orientateNavController = NavigationController()
@@ -28,7 +29,7 @@ final class MainCoordinator: BaseTabCoordinator {
             navigationController: orientateNavController,
             dependencyContainer: dependencyContainer
         )
-        orientateCoordinator.start(animated: false)
+        orientateCoordinator.start()
         childCoordinators.append(orientateCoordinator)
 
         let meetNavController = NavigationController()
@@ -39,7 +40,7 @@ final class MainCoordinator: BaseTabCoordinator {
             navigationController: meetNavController,
             dependencyContainer: dependencyContainer
         )
-        meetCoordinator.start(animated: false)
+        meetCoordinator.start()
         childCoordinators.append(meetCoordinator)
 
         let eatNavController = NavigationController()
@@ -50,7 +51,7 @@ final class MainCoordinator: BaseTabCoordinator {
             navigationController: eatNavController,
             dependencyContainer: dependencyContainer
         )
-        eatCoordinator.start(animated: false)
+        eatCoordinator.start()
         childCoordinators.append(eatCoordinator)
 
         let moreNavController = NavigationController()
@@ -61,7 +62,7 @@ final class MainCoordinator: BaseTabCoordinator {
             navigationController: moreNavController,
             dependencyContainer: dependencyContainer
         )
-        moreCoordinator.start(animated: false)
+        moreCoordinator.start()
         childCoordinators.append(moreCoordinator)
 
         tabBarController.viewControllers = [

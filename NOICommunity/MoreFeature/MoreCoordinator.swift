@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class MoreCoordinator: BaseCoordinator {
+final class MoreCoordinator: BaseNavigationCoordinator {
 
     var mainVC: MoreMainViewController!
 

@@ -8,6 +8,7 @@
 import UIKit
 
 extension UIViewController {
+    
     func showError(_ error: Error) {
         let alert = UIAlertController(error: error, preferredStyle: .alert)
         let cancelAction = UIAlertAction(
@@ -18,4 +19,5 @@ extension UIViewController {
         alert.addAction(cancelAction)
         present(alert, animated: true, completion: nil)
     }
+    
 }

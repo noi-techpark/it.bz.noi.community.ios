@@ -11,17 +11,61 @@ import AppPreferencesClientLive
 import EventShortTypesClient
 import EventShortTypesClientLive
 import SwiftCache
+import AppAuth
+import AuthClientLive
+import KeychainAccess
+import AuthStateStorageClient
+
+private let authorizationEndpoint = URL(string: "https://auth.opendatahub.testingmachine.eu/auth/realms/noi/protocol/openid-connect/auth")!
+private let tokenEndpoint = URL(string: "https://auth.opendatahub.testingmachine.eu/auth/realms/noi/protocol/openid-connect/token")!
+private let userInfoEndpoint = URL(string: "https://auth.opendatahub.testingmachine.eu/auth/realms/noi/protocol/openid-connect/userinfo")!
+private let clientID = "it.bz.noi.community"
+private let clientSecret = ""
+private let redirectURI = URL(string: "noi-community://oauth2redirect/login-callback")!
+
+#if DEBUG
+private let accessGroupKey = "24PN5XJ85Y.it.dimension.noi-community"
+#else
+private let accessGroupKey = "5V2Q9SWB7H.it.bz.noi.community"
+#endif
+
+extension SceneDelegate: AuthContext {
+    
+    var presentationContext: () -> UIViewController {
+        { (self.window?.rootViewController)! }
+    }
+    
+}
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
-
+    
     var window: UIWindow?
-
+    
+    var currentAuthorizationFlow: OIDExternalUserAgentSession?
+    
     lazy var cache: Cache<EventShortTypesClient.CacheKey, [EventsFilter]> = Cache()
-
+    
     lazy var dependencyContainer: DependencyContainer = {
-        DependencyContainer(
-            eventShortClient: .live(),
+        let tokenStorage = KeychainAuthStateStorageClient(
+            keyChainAccessGroup: accessGroupKey
+        )
+        return DependencyContainer(
             appPreferencesClient: .live(),
+            isAutorizedClient: {
+                tokenStorage.state?.isAuthorized ?? false
+            },
+            authClient: .live(
+                client: OpenIDConfiguration(
+                    authorizationEndpoint: authorizationEndpoint,
+                    tokenEndpoint: tokenEndpoint,
+                    clientID: clientID,
+                    clientSecret: clientSecret,
+                    redirectURL: redirectURI
+                ),
+                context: self,
+                tokenStorage: tokenStorage
+            ),
+            eventShortClient: .live(),
             eventShortTypesClient: {
                 if let fileURL = Bundle.main.url(
                     forResource: "EventShortTypes",
@@ -37,53 +81,117 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             }()
         )
     }()
-
-    var appCoordinator: AppCoordinator!
-
-    func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+    
+    var rootCoordinator: RootCoordinator!
+    
+    func scene(
+        _ scene: UIScene,
+        willConnectTo session: UISceneSession,
+        options connectionOptions: UIScene.ConnectionOptions
+    ) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let windowScene = (scene as? UIWindowScene)
         else { return }
-
+        
         let window = UIWindow(windowScene: windowScene)
         self.window = window
-        appCoordinator = AppCoordinator(
+        rootCoordinator = RootCoordinator(
             window: window,
-            dependencyContainer: self.dependencyContainer
+            dependencyContainer: dependencyContainer
         )
-        appCoordinator.start()
+        rootCoordinator.start()
         window.makeKeyAndVisible()
     }
-
-    func sceneDidDisconnect(_ scene: UIScene) {
-        // Called as the scene is being released by the system.
-        // This occurs shortly after the scene enters the background, or when its session is discarded.
-        // Release any resources associated with this scene that can be re-created the next time the scene connects.
-        // The scene may re-connect later, as its session was not necessarily discarded (see `application:didDiscardSceneSessions` instead).
+    
+    func scene(
+        _ scene: UIScene,
+        openURLContexts URLContexts: Set<UIOpenURLContext>
+    ) {
+        guard let url = URLContexts.first?.url
+        else { return }
+        
+        
+        if let authorizationFlow = self.currentAuthorizationFlow,
+           authorizationFlow.resumeExternalUserAgentFlow(with: url) {
+            currentAuthorizationFlow = nil
+        }
     }
+    
+}
 
-    func sceneDidBecomeActive(_ scene: UIScene) {
-        // Called when the scene has moved from an inactive state to an active state.
-        // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
+// MARK: - Keychain
+
+private let authStateKey = "authState"
+
+// MARK: KeychainAuthStateStorageClient
+
+private class KeychainAuthStateStorageClient: AuthStateStorageClient  {
+    
+    private let keychain: Keychain
+    
+    init(keyChainAccessGroup accessGroup: String) {
+        keychain = Keychain(accessGroup: accessGroup)
     }
-
-    func sceneWillResignActive(_ scene: UIScene) {
-        // Called when the scene will move from an active state to an inactive state.
-        // This may occur due to temporary interruptions (ex. an incoming phone call).
+    
+    private var _state: OIDAuthState?
+    
+    var state: OIDAuthState? {
+        get {
+            if let memoryState = _state {
+                return memoryState
+            } else {
+                let keychainState = loadFromKeychain()
+                _state = keychainState
+                return keychainState
+            }
+        }
+        
+        set(newState) {
+            guard _state != newState
+            else { return }
+            
+            _state = newState
+            saveInKeychain(newState)
+        }
     }
+}
 
-    func sceneWillEnterForeground(_ scene: UIScene) {
-        // Called as the scene transitions from the background to the foreground.
-        // Use this method to undo the changes made on entering the background.
+private extension KeychainAuthStateStorageClient {
+    
+    func loadFromKeychain() -> OIDAuthState? {
+        var data: Data?
+        do {
+            data = try keychain.getData(authStateKey)
+        } catch {
+            print("loadAuthState did fail: \(error)")
+        }
+        
+        guard let nonOptData = data
+        else { return nil }
+        
+        do {
+            return try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(nonOptData) as? OIDAuthState
+        } catch {
+            print("loadAuthState did fail: \(error)")
+            return nil
+        }
     }
-
-    func sceneDidEnterBackground(_ scene: UIScene) {
-        // Called as the scene transitions from the foreground to the background.
-        // Use this method to save data, release shared resources, and store enough scene-specific state information
-        // to restore the scene back to its current state.
+    
+    func saveInKeychain(_ newState: OIDAuthState?) {
+        do {
+            let authStateData = try newState.map {
+                try NSKeyedArchiver.archivedData(withRootObject: $0, requiringSecureCoding: true)
+            }
+            if let nonOptAuthStateData = authStateData {
+                try keychain.set(nonOptAuthStateData, key: authStateKey)
+            } else {
+                try keychain.remove(authStateKey)
+            }
+        } catch {
+            print("saveAuthState did fail: \(error)")
+        }
     }
-
-
+    
 }

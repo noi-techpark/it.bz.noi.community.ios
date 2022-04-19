@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class EatCoordinator: BaseCoordinator {
+final class EatCoordinator: BaseNavigationCoordinator {
 
     var mainVC: EatMainViewController!
 

@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class OrientateCoordinator: BaseCoordinator {
+final class OrientateCoordinator: BaseNavigationCoordinator {
 
     var mainVC: OrientateMainViewController!
 

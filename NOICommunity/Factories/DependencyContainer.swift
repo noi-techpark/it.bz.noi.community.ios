@@ -6,42 +6,61 @@
 //
 
 import Foundation
-import EventShortClient
+import AppAuth
 import AppPreferencesClient
+import AuthStateStorageClient
+import AuthClient
+import EventShortClient
 import EventShortTypesClient
 
 // MARK: - DependencyContainer
 
 final class DependencyContainer {
-
-    let eventShortClient: EventShortClient
+    
     let appPreferencesClient: AppPreferencesClient
+    let isAutorizedClient: () -> Bool
+    let authClient: AuthClient
+    let eventShortClient: EventShortClient
     let eventShortTypesClient: EventShortTypesClient
-
+    
     init(
-        eventShortClient: EventShortClient,
         appPreferencesClient: AppPreferencesClient,
+        isAutorizedClient: @escaping () -> Bool,
+        authClient: AuthClient,
+        eventShortClient: EventShortClient,
         eventShortTypesClient: EventShortTypesClient
     ) {
-        self.eventShortClient = eventShortClient
         self.appPreferencesClient = appPreferencesClient
+        self.isAutorizedClient = isAutorizedClient
+        self.authClient = authClient
+        self.eventShortClient = eventShortClient
         self.eventShortTypesClient = eventShortTypesClient
     }
+    
+}
+// MARK: ClientFactory
 
+extension DependencyContainer: ClientFactory {
+    
+    func makeIsAutorizedClient() -> () -> Bool {
+        isAutorizedClient
+    }
+    
+    
+    func makeAppPreferencesClient() -> AppPreferencesClient {
+        appPreferencesClient
+    }
+    
+    func makeAuthClient() -> AuthClient {
+        authClient
+    }
+    
 }
 
 // MARK: ViewModelFactory
 
 extension DependencyContainer: ViewModelFactory {
-
-    func makeLoadAppPreferencesViewModel() -> LoadAppPreferencesViewModel {
-        .init(appPreferencesClient: appPreferencesClient)
-    }
-
-    func makeUpdateAppPreferencesViewModel() -> UpdateAppPreferencesViewModel {
-        .init(appPreferencesClient: appPreferencesClient)
-    }
-
+    
     func makeEventsViewModel(
         showFiltersHandler: @escaping () -> Void
     ) -> EventsViewModel {
@@ -55,7 +74,7 @@ extension DependencyContainer: ViewModelFactory {
             showFiltersHandler: showFiltersHandler
         )
     }
-
+    
     func makeEventFiltersViewModel(
         showFilteredResultsHandler: @escaping () -> Void
     ) -> EventFiltersViewModel {
@@ -64,21 +83,48 @@ extension DependencyContainer: ViewModelFactory {
             showFilteredResultsHandler: showFilteredResultsHandler
         )
     }
-
+    
+    func makeWelcomeViewModel() -> WelcomeViewModel {
+        WelcomeViewModel(with: [
+            .init(
+                backgroundImageURL: .welcomeNewsImageURL,
+                title: .localized("onboarding_news_title"),
+                description: .localized("onboarding_news_text")
+            ),
+            .init(
+                backgroundImageURL: .welcomeEventsImageURL,
+                title: .localized("onboarding_events_title"),
+                description: .localized("onboarding_events_text")
+            ),
+            .init(
+                backgroundImageURL: .welcomeMeetImageURL,
+                title: .localized("onboarding_meetup_title"),
+                description: .localized("onboarding_meetup_text")
+            )
+        ])
+    }
+    
 }
 
 // MARK: ViewControllerFactory
 
 extension DependencyContainer: ViewControllerFactory {
-
+    
     func makeEventListViewController() -> EventListViewController {
         .init(items: [])
     }
-
+    
     func makeEventFiltersViewController(
         viewModel: EventFiltersViewModel
     ) -> EventFiltersViewController {
         .init(viewModel: viewModel)
     }
+    
+    func makeWelcomeViewController(
+        viewModel: WelcomeViewModel
+    ) -> AuthWelcomeViewController {
+        .init(viewModel: viewModel)
+    }
 
+    
 }

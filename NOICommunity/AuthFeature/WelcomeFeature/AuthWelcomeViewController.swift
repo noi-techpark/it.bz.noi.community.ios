@@ -6,12 +6,15 @@
 //
 
 import UIKit
+import Combine
 
 // MARK: - AuthWelcomeViewController
 
 final class AuthWelcomeViewController: UIViewController {
     
-    private var viewModel: WelcomePagesViewModel
+    private var subscriptions: Set<AnyCancellable> = []
+    
+    private var viewModel: WelcomeViewModel
     
     private var pageToPageViewController: [Int: AuthWelcomePageViewController] = [:]
     
@@ -46,7 +49,7 @@ final class AuthWelcomeViewController: UIViewController {
         navigationOrientation: .horizontal
     )
     
-    init(viewModel: WelcomePagesViewModel) {
+    init(viewModel: WelcomeViewModel) {
         self.viewModel = viewModel
         super.init(nibName: "\(AuthWelcomeViewController.self)", bundle: nil)
     }
@@ -58,6 +61,8 @@ final class AuthWelcomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        configureBindings()
         
         pageControl.numberOfPages = viewModel.pages.count
         
@@ -90,6 +95,22 @@ final class AuthWelcomeViewController: UIViewController {
 // MARK: Private APIs
 
 private extension AuthWelcomeViewController {
+    
+    func configureBindings() {
+        loginButton
+            .publisher(for: .primaryActionTriggered)
+                .sink { [weak viewModel] in
+                    viewModel?.startLogin()
+                }
+                .store(in: &subscriptions)
+        
+        signUpButton
+            .publisher(for: .primaryActionTriggered)
+                .sink { [weak viewModel] in
+                    viewModel?.startSignUp()
+                }
+                .store(in: &subscriptions)
+    }
     
     func knownPagePosition(of viewController: UIViewController) -> Int? {
         pageToPageViewController.first { $0.value === viewController }?.key

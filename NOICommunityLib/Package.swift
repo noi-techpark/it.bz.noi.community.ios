@@ -10,82 +10,134 @@ let package = Package(
         // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(
             name: "SwiftCache",
-            targets: ["SwiftCache"]),
+            targets: ["SwiftCache"]
+        ),
         .library(
             name: "PascalJSONDecoder",
-            targets: ["PascalJSONDecoder"]),
+            targets: ["PascalJSONDecoder"]
+        ),
         .library(
             name: "DecodeEmptyRepresentable",
-            targets: ["DecodeEmptyRepresentable"]),
+            targets: ["DecodeEmptyRepresentable"]
+        ),
         .library(
             name: "EventShortTypesClient",
-            targets: ["EventShortTypesClient"]),
+            targets: ["EventShortTypesClient"]
+        ),
         .library(
             name: "EventShortTypesClientLive",
-            targets: ["EventShortTypesClientLive"]),
+            targets: ["EventShortTypesClientLive"]
+        ),
         .library(
             name: "AppPreferencesClient",
-            targets: ["AppPreferencesClient"]),
+            targets: ["AppPreferencesClient"]
+        ),
         .library(
             name: "AppPreferencesClientLive",
-            targets: ["AppPreferencesClientLive"]),
+            targets: ["AppPreferencesClientLive"]
+        ),
         .library(
             name: "EventShortClient",
-            targets: ["EventShortClient"]),
+            targets: ["EventShortClient"]
+        ),
         .library(
             name: "EventShortClientLive",
-            targets: ["EventShortClientLive"]),
+            targets: ["EventShortClientLive"]
+        ),
+        .library(
+            name: "AuthStateStorageClient",
+            targets: ["AuthStateStorageClient"]
+        ),
+        .library(
+            name: "AuthClient",
+            targets: ["AuthClient"]
+        ),
+        .library(
+            name: "AuthClientLive",
+            targets: ["AuthClientLive"]
+        )
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
-        // .package(url: /* package url */, from: "1.0.0"),
+        .package(
+            url: "https://github.com/openid/AppAuth-iOS.git",
+            .upToNextMajor(from: "1.3.0")
+        )
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
             name: "SwiftCache",
-            dependencies: []),
+            dependencies: []
+        ),
         .target(
             name: "PascalJSONDecoder",
-            dependencies: []),
+            dependencies: []
+        ),
         .target(
             name: "DecodeEmptyRepresentable",
-            dependencies: []),
+            dependencies: []
+        ),
         .target(
             name: "EventShortTypesClient",
-            dependencies: []),
+            dependencies: []
+        ),
         .testTarget(
             name: "EventShortTypesClientTests",
-            dependencies: ["EventShortTypesClient"]),
+            dependencies: ["EventShortTypesClient"]
+        ),
         .target(
             name: "EventShortTypesClientLive",
             dependencies: [
                 "PascalJSONDecoder",
                 "DecodeEmptyRepresentable",
                 "EventShortTypesClient"
-            ]),
+            ]
+        ),
         .target(
             name: "AppPreferencesClient",
-            dependencies: []),
+            dependencies: []
+        ),
         .testTarget(
             name: "AppPreferencesClientTests",
-            dependencies: ["AppPreferencesClient"]),
+            dependencies: ["AppPreferencesClient"]
+        ),
         .target(
             name: "AppPreferencesClientLive",
-            dependencies: ["AppPreferencesClient"]),
+            dependencies: ["AppPreferencesClient"]
+        ),
         .target(
             name: "EventShortClient",
-            dependencies: []),
+            dependencies: []
+        ),
         .testTarget(
             name: "EventShortClientTests",
-            dependencies: ["EventShortClient"]),
+            dependencies: ["EventShortClient"]
+        ),
         .target(
             name: "EventShortClientLive",
             dependencies: [
                 "PascalJSONDecoder",
                 "DecodeEmptyRepresentable",
                 "EventShortClient"
-            ]),
+            ]
+        ),
+        .target(
+            name: "AuthStateStorageClient",
+            dependencies: []
+        ),
+        .target(
+            name: "AuthClient",
+            dependencies: []
+        ),
+        .target(
+            name: "AuthClientLive",
+            dependencies: [
+                "AuthClient",
+                "AuthStateStorageClient",
+                .product(name: "AppAuth", package: "AppAuth-iOS")
+            ]
+        )
     ]
 )
