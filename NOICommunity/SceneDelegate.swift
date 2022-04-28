@@ -16,12 +16,10 @@ import AuthClientLive
 import KeychainAccess
 import AuthStateStorageClient
 
-private let authorizationEndpoint = URL(string: "https://auth.opendatahub.testingmachine.eu/auth/realms/noi/protocol/openid-connect/auth")!
-private let tokenEndpoint = URL(string: "https://auth.opendatahub.testingmachine.eu/auth/realms/noi/protocol/openid-connect/token")!
-private let userInfoEndpoint = URL(string: "https://auth.opendatahub.testingmachine.eu/auth/realms/noi/protocol/openid-connect/userinfo")!
-private let clientID = "it.bz.noi.community"
-private let clientSecret = ""
-private let redirectURI = URL(string: "noi-community://oauth2redirect/login-callback")!
+let issuer = URL(string: "https://auth.opendatahub.testingmachine.eu/auth/realms/noi/")!
+//let userInfoEndpoint = URL(string: "https://auth.opendatahub.testingmachine.eu/auth/realms/noi/protocol/openid-connect/userinfo")!
+let clientID = "it.bz.noi.community"
+let redirectURI = URL(string: "noi-community://oauth2redirect/login-callback")!
 
 #if DEBUG
 private let accessGroupKey = "24PN5XJ85Y.it.dimension.noi-community"
@@ -29,13 +27,7 @@ private let accessGroupKey = "24PN5XJ85Y.it.dimension.noi-community"
 private let accessGroupKey = "5V2Q9SWB7H.it.bz.noi.community"
 #endif
 
-extension SceneDelegate: AuthContext {
-    
-    var presentationContext: () -> UIViewController {
-        { (self.window?.rootViewController)! }
-    }
-    
-}
+// MARK: - SceneDelegate
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
@@ -55,11 +47,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 tokenStorage.state?.isAuthorized ?? false
             },
             authClient: .live(
-                client: OpenIDConfiguration(
-                    authorizationEndpoint: authorizationEndpoint,
-                    tokenEndpoint: tokenEndpoint,
+                client: .init(
+                    issuer: issuer,
                     clientID: clientID,
-                    clientSecret: clientSecret,
                     redirectURL: redirectURI
                 ),
                 context: self,
@@ -117,6 +107,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
            authorizationFlow.resumeExternalUserAgentFlow(with: url) {
             currentAuthorizationFlow = nil
         }
+    }
+    
+}
+
+// MARK: AuthContext
+
+extension SceneDelegate: AuthContext {
+    
+    var presentationContext: () -> UIViewController {
+        { (self.window?.rootViewController)! }
     }
     
 }

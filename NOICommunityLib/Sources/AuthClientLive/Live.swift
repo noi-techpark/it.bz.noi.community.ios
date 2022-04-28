@@ -25,23 +25,17 @@ enum AuthLiveError: Error {
 
 public struct OpenIDConfiguration {
     
-    var authorizationEndpoint: URL
-    var tokenEndpoint: URL
+    var issuer: URL
     var clientID: String
-    var clientSecret: String
     var redirectURL: URL
     
     public init(
-        authorizationEndpoint: URL,
-        tokenEndpoint: URL,
+        issuer: URL,
         clientID: String,
-        clientSecret: String,
         redirectURL: URL
     ) {
-        self.authorizationEndpoint = authorizationEndpoint
-        self.tokenEndpoint = tokenEndpoint
+        self.issuer = issuer
         self.clientID = clientID
-        self.clientSecret = clientSecret
         self.redirectURL = redirectURL
     }
 }
@@ -85,13 +79,12 @@ public extension AuthClient {
                     .catch { (error: Error) -> AnyPublisher<String, Error> in
                         debugPrint("Full login required")
                         
-                        let (newAuthSession, ssoPublisher) = Self.startSSO(
+                        return startSSO(
                             config: client,
                             from: context.presentationContext()
                         )
-                        authSession = newAuthSession
-                        
-                        return ssoPublisher.map { newAuthState in
+                        .map { (newSession, newAuthState) in
+                            authSession = newSession
                             authState = newAuthState
                             return newAuthState.refreshToken!
                         }
@@ -178,27 +171,23 @@ private extension AuthClient {
     }
     
     static func startSSO(
-        config: OpenIDConfiguration,
+        configuration: OIDServiceConfiguration,
+        clientID: String,
+        redirectURL: URL,
         from presentationContext: UIViewController
-    ) -> (
-        OIDExternalUserAgentSession,
-        AnyPublisher<OIDAuthState, Error>
-    ){
+    ) -> (OIDExternalUserAgentSession, AnyPublisher<OIDAuthState, Error>) {
         let subject = PassthroughSubject<OIDAuthState, Error>()
         let request = OIDAuthorizationRequest(
-            configuration: OIDServiceConfiguration(
-                authorizationEndpoint: config.authorizationEndpoint,
-                tokenEndpoint: config.tokenEndpoint
-            ),
-            clientId: config.clientID,
-            clientSecret: config.clientSecret,
+            configuration: configuration,
+            clientId: clientID,
+            clientSecret: nil,
             scopes: [OIDScopeOpenID, OIDScopeProfile, "roles"],
-            redirectURL: config.redirectURL,
+            redirectURL: redirectURL,
             responseType: OIDResponseTypeCode,
             additionalParameters: ["prompt": "login"]
         )
         
-        let authSession = OIDAuthState.authState(
+        let session = OIDAuthState.authState(
             byPresenting: request,
             presenting: presentationContext
         ) { authState, error in
@@ -212,10 +201,27 @@ private extension AuthClient {
             }
         }
         
-        return (
-            authSession,
-            subject.eraseToAnyPublisher()
-        )
+        return (session, subject.eraseToAnyPublisher())
+    }
+    
+    static func startSSO(
+        config: OpenIDConfiguration,
+        from presentationContext: UIViewController
+    ) -> AnyPublisher<(OIDExternalUserAgentSession, OIDAuthState), Error> {
+        discoverConfiguration(of: config.issuer)
+            .flatMap { (discoveredConfig: OIDServiceConfiguration) -> AnyPublisher<(OIDExternalUserAgentSession, OIDAuthState), Error> in
+                let (newSession, ssoPublisher) = startSSO(
+                    configuration: discoveredConfig,
+                    clientID: config.clientID,
+                    redirectURL: config.redirectURL,
+                    from: presentationContext
+                )
+                return Just(newSession)
+                    .setFailureType(to: Error.self)
+                    .zip(ssoPublisher)
+                    .eraseToAnyPublisher()
+            }
+            .eraseToAnyPublisher()
     }
     
     final class StateChangeDelegate<T: AuthStateStorageClient>: NSObject, OIDAuthStateChangeDelegate, OIDAuthStateErrorDelegate where T.AuthState == OIDAuthState {
