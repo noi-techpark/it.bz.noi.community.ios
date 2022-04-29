@@ -12,6 +12,7 @@ import AuthStateStorageClient
 import AuthClient
 import EventShortClient
 import EventShortTypesClient
+import SwiftCache
 
 // MARK: - DependencyContainer
 
@@ -23,6 +24,8 @@ final class DependencyContainer {
     let eventShortClient: EventShortClient
     let eventShortTypesClient: EventShortTypesClient
     
+    private lazy var userInfoCache = Cache<MyAccountViewModel.CacheKey, UserInfo>()
+
     init(
         appPreferencesClient: AppPreferencesClient,
         isAutorizedClient: @escaping () -> Bool,
@@ -85,7 +88,7 @@ extension DependencyContainer: ViewModelFactory {
     }
     
     func makeWelcomeViewModel() -> WelcomeViewModel {
-        WelcomeViewModel(with: [
+        .init(with: [
             .init(
                 backgroundImageURL: .welcomeNewsImageURL,
                 title: .localized("onboarding_news_title"),
@@ -102,6 +105,10 @@ extension DependencyContainer: ViewModelFactory {
                 description: .localized("onboarding_meetup_text")
             )
         ])
+    }
+    
+    func makeMyAccountViewModel() -> MyAccountViewModel {
+        .init(authClient: makeAuthClient(), cache: userInfoCache)
     }
     
 }
@@ -126,5 +133,10 @@ extension DependencyContainer: ViewControllerFactory {
         .init(viewModel: viewModel)
     }
 
+    func makeMyAccountViewController(
+        viewModel: MyAccountViewModel
+    ) -> MyAccountViewController {
+        .init(viewModel: viewModel)
+    }
     
 }

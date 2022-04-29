@@ -19,4 +19,6 @@ protocol ViewModelFactory {
     
     func makeWelcomeViewModel() -> WelcomeViewModel
     
+    func makeMyAccountViewModel() -> MyAccountViewModel
+    
 }

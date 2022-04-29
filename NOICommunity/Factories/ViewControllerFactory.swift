@@ -16,6 +16,11 @@ protocol ViewControllerFactory {
     ) -> EventFiltersViewController
     
     func makeWelcomeViewController(
-        viewModel: WelcomeViewModel
+viewModel: WelcomeViewModel
     ) -> AuthWelcomeViewController
+    
+    func makeMyAccountViewController(
+        viewModel: MyAccountViewModel
+    ) -> MyAccountViewController
+    
 }

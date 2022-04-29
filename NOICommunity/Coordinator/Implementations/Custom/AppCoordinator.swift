@@ -6,16 +6,29 @@
 //
 
 import Foundation
+import Combine
 import AuthStateStorageClient
+
+let logoutNotification = Notification.Name("logout")
 
 // MARK: - AppCoordinator
 
 final class AppCoordinator: BaseNavigationCoordinator {
     
+    private var subscriptions: Set<AnyCancellable> = []
+    
     private lazy var isAutorizedClient = dependencyContainer
         .makeIsAutorizedClient()
     
     override func start(animated: Bool) {
+        NotificationCenter
+            .default
+            .publisher(for: logoutNotification)
+            .sink { [weak self] _ in
+                self?.logout(animated: true)
+            }
+            .store(in: &subscriptions)
+        
         guard isAutorizedClient()
         else {
             showAuthCoordinator()
@@ -24,6 +37,7 @@ final class AppCoordinator: BaseNavigationCoordinator {
         
         showTabCoordinator()
     }
+    
 }
 
 // MARK: - AppCoordinator
@@ -59,6 +73,11 @@ private extension AppCoordinator {
             [tabBarController],
             animated: animated
         )
+    }
+    
+    func logout(animated: Bool) {
+        childCoordinators = []
+        showAuthCoordinator(animated: animated)
     }
     
 }

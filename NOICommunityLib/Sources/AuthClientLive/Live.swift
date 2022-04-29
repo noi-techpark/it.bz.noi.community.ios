@@ -9,8 +9,15 @@ import Foundation
 import Combine
 import UIKit
 import AppAuth
+import SwiftJWT
 import AuthClient
 import AuthStateStorageClient
+
+// MARK: - Roles
+
+private enum KnownRole: String {
+    case accessGranted = "ACCESS_GRANTED"
+}
 
 // MARK: - AuthLiveError
 
@@ -28,6 +35,10 @@ public struct OpenIDConfiguration {
     var issuer: URL
     var clientID: String
     var redirectURL: URL
+    
+    var logoutURL: URL {
+        redirectURL
+    }
     
     public init(
         issuer: URL,
@@ -53,7 +64,8 @@ public extension AuthClient {
     static func live<T: AuthStateStorageClient>(
         client: OpenIDConfiguration,
         context: AuthContext,
-        tokenStorage: T?
+        tokenStorage: T?,
+        urlSession: URLSession = .shared
     ) -> Self where T.AuthState == OIDAuthState {
         let stateChangeDelegate = StateChangeDelegate(tokenStorage: tokenStorage)
         
@@ -75,7 +87,7 @@ public extension AuthClient {
         
         return Self(
             accessToken: {
-                Self.performActionWithFreshToken(authState: authState)
+                performActionWithFreshToken(authState: authState)
                     .catch { (error: Error) -> AnyPublisher<String, Error> in
                         debugPrint("Full login required")
                         
@@ -83,10 +95,18 @@ public extension AuthClient {
                             config: client,
                             from: context.presentationContext()
                         )
-                        .map { (newSession, newAuthState) in
+                        .tryMap { (newSession, newAuthState) in
+                            let accessToken = newAuthState.lastTokenResponse!.accessToken!
+                            
+                            try verify(
+                                jwt: accessToken,
+                                roles: [KnownRole.accessGranted.rawValue],
+                                of: client.clientID
+                            )
+                            
                             authSession = newSession
                             authState = newAuthState
-                            return newAuthState.refreshToken!
+                            return accessToken
                         }
                         .eraseToAnyPublisher()
                     }
@@ -99,6 +119,42 @@ public extension AuthClient {
                         default:
                             return error
                         }
+                    }
+                    .eraseToAnyPublisher()
+            },
+            userInfo: {
+                performActionWithFreshToken(authState: authState)
+                    .flatMap { accessToken in
+                        userInfo(
+                            authState: authState,
+                            accessToken: accessToken,
+                            urlSession: urlSession
+                        )
+                        .eraseToAnyPublisher()
+                    }
+                    .eraseToAnyPublisher()
+            },
+            endSession: {
+                let (newSession, endSessionPublisher) = endSession(
+                    config: client,
+                    authState: authState,
+                    from: context.presentationContext()
+                )
+                authSession = newSession
+                return endSessionPublisher
+                    .mapError { error in
+                        switch error {
+                        case let userCanceledAuthorizationFlow as NSError
+                            where userCanceledAuthorizationFlow.domain == OIDGeneralErrorDomain &&
+                            userCanceledAuthorizationFlow.code == OIDErrorCode.userCanceledAuthorizationFlow.rawValue:
+                            return AuthError.userCanceledAuthorizationFlow
+                        default:
+                            return error
+                        }
+                    }
+                    .map {
+                        tokenStorage?.state = nil
+                        return $0
                     }
                     .eraseToAnyPublisher()
             }
@@ -177,6 +233,7 @@ private extension AuthClient {
         from presentationContext: UIViewController
     ) -> (OIDExternalUserAgentSession, AnyPublisher<OIDAuthState, Error>) {
         let subject = PassthroughSubject<OIDAuthState, Error>()
+        
         let request = OIDAuthorizationRequest(
             configuration: configuration,
             clientId: clientID,
@@ -222,6 +279,138 @@ private extension AuthClient {
                     .eraseToAnyPublisher()
             }
             .eraseToAnyPublisher()
+    }
+    
+    static func verify(
+        jwt: String,
+        roles: [String],
+        of clientID: String
+    ) throws {
+        struct MyClaims: Claims {
+            
+            let resourceAccess: [String:RolesContainer]
+            
+            private enum CodingKeys: String, CodingKey {
+                case resourceAccess = "resource_access"
+            }
+            
+            struct RolesContainer: Codable {
+                var roles: [String]
+            }
+        }
+        
+        let newJWT = try JWT<MyClaims>(jwtString: jwt)
+        let jwtRoles = Set(newJWT.claims.resourceAccess[clientID]?.roles ?? [])
+        let verifyRoles = Set(roles)
+        guard jwtRoles.intersection(verifyRoles) == verifyRoles
+        else { throw AuthError.invalidUserRole }
+    }
+    
+    static func userInfo(
+        userInfoEndpoint: URL,
+        accessToken: String,
+        urlSession: URLSession
+    ) -> AnyPublisher<UserInfo, Error> {
+        var urlRequest = URLRequest(url: userInfoEndpoint)
+        urlRequest.allHTTPHeaderFields = [
+            "Authorization": "Bearer \(accessToken)",
+            "Accept": "application/json"
+        ]
+        
+        return urlSession.dataTaskPublisher(for: urlRequest)
+            .map { $0.data }
+            .decode(type: UserInfo.self, decoder: JSONDecoder())
+            .eraseToAnyPublisher()
+    }
+    
+    static func userInfo(
+        authState: OIDAuthState?,
+        accessToken: String,
+        urlSession: URLSession
+    ) -> AnyPublisher<UserInfo, Error> {
+        guard let authState = authState
+        else {
+            return Fail(error: AuthLiveError.noPreviousAuthState)
+                .eraseToAnyPublisher()
+        }
+        
+        guard let userInfoEndpoint = authState.lastAuthorizationResponse.request.configuration.discoveryDocument?.userinfoEndpoint
+        else {
+            return Fail(error: AuthLiveError.shouldNeverHappen)
+                .eraseToAnyPublisher()
+        }
+        
+        return userInfo(
+            userInfoEndpoint: userInfoEndpoint,
+            accessToken: accessToken,
+            urlSession: urlSession
+        )
+    }
+    
+    static func endSession(
+        config: OpenIDConfiguration,
+        authState: OIDAuthState?,
+        from presentationContext: UIViewController
+    ) -> (OIDExternalUserAgentSession?, AnyPublisher<Void, Error>) {
+        guard let authState = authState,
+              let currentIdToken = authState.lastTokenResponse?.idToken
+        else {
+            return (
+                nil,
+                Fail(error: AuthLiveError.noPreviousAuthState)
+                    .eraseToAnyPublisher()
+            )
+        }
+        
+        guard let userAgent = OIDExternalUserAgentIOS(presenting: presentationContext)
+        else {
+            return (
+                nil,
+                Fail(error: AuthLiveError.shouldNeverHappen)
+                    .eraseToAnyPublisher()
+            )
+        }
+        
+        let logoutRequest: OIDEndSessionRequest
+        
+        if let state = authState.lastAuthorizationResponse.state {
+            logoutRequest = OIDEndSessionRequest(
+                configuration: .init(
+                    discoveryDocument: authState.lastAuthorizationResponse.request.configuration.discoveryDocument!
+                ),
+                idTokenHint: currentIdToken,
+                postLogoutRedirectURL: config.logoutURL,
+                state: state,
+                additionalParameters: nil
+            )
+        } else {
+            logoutRequest = OIDEndSessionRequest(
+                configuration: .init(
+                    discoveryDocument: authState.lastAuthorizationResponse.request.configuration.discoveryDocument!
+                ),
+                idTokenHint: currentIdToken,
+                postLogoutRedirectURL: config.logoutURL,
+                additionalParameters: nil
+            )
+        }
+        
+        let subject = PassthroughSubject<Void, Error>()
+        
+        let session = OIDAuthorizationService.present(
+            logoutRequest,
+            externalUserAgent: userAgent
+        ) { endSessionResponse, error in
+            switch (endSessionResponse, error) {
+            case (let endSessionResponse?, _):
+                subject.send()
+            case (_, let error?):
+                subject.send(completion: .failure(error))
+            case (nil, nil):
+                subject.send(completion: .failure(AuthLiveError.shouldNeverHappen))
+            }
+        }
+        
+        return (session, subject.eraseToAnyPublisher())
     }
     
     final class StateChangeDelegate<T: AuthStateStorageClient>: NSObject, OIDAuthStateChangeDelegate, OIDAuthStateErrorDelegate where T.AuthState == OIDAuthState {

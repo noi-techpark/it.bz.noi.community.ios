@@ -133,6 +133,7 @@ private class KeychainAuthStateStorageClient: AuthStateStorageClient  {
     
     init(keyChainAccessGroup accessGroup: String) {
         keychain = Keychain(accessGroup: accessGroup)
+        //saveInKeychain(nil)
     }
     
     private var _state: OIDAuthState?

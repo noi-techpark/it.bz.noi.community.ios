@@ -7,34 +7,6 @@
 
 import UIKit
 
-// MARK: - MoreViewModel
-
-final class MoreViewModel {
-    struct Entry: Hashable, CaseIterable {
-        static var allCases: [Entry] = [
-            .bookRoom,
-            .onboarding,
-            .feedbacks
-        ]
-
-        let localizedTitle: String
-        let url: URL?
-
-        static let bookRoom = Self(
-            localizedTitle: .localized("room_booking"),
-            url: .roomBooking
-        )
-        static let onboarding = Self(
-            localizedTitle: .localized("more_item_onboarding"),
-            url: .onboarding
-        )
-        static let feedbacks = Self(
-            localizedTitle: .localized("more_item_feedback"),
-            url: .feedbacks
-        )
-    }
-}
-
 // MARK: - MoreMainViewController
 
 final class MoreMainViewController: UICollectionViewController {

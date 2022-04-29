@@ -83,8 +83,7 @@ private extension AuthCoordinator {
     
     func handleAuthError(_ error: Error) {
         switch error {
-        case let userCanceledAuthorizationFlow as AuthError
-            where userCanceledAuthorizationFlow == .userCanceledAuthorizationFlow:
+        case AuthError.userCanceledAuthorizationFlow:
             break
         default:
             navigationController.showError(error)

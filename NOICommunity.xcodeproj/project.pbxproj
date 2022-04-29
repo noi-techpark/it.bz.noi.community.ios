@@ -49,6 +49,7 @@
 		3167681C27036A2F00A9DB87 /* PlaceCardContentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3167681A27036A2F00A9DB87 /* PlaceCardContentView.xib */; };
 		316ED05B270AFE140070D272 /* CurrentScrollOffsetProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 316ED05A270AFE140070D272 /* CurrentScrollOffsetProvider.swift */; };
 		316ED05D270B12CF0070D272 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 316ED05C270B12C60070D272 /* Colors.xcassets */; };
+		316F5615281C166B0075B09F /* MyAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 316F5614281C166B0075B09F /* MyAccountViewController.swift */; };
 		317615C726FDD0FE007FE10F /* MessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317615C626FDD0FE007FE10F /* MessageViewController.swift */; };
 		317615C926FDD369007FE10F /* UIFont+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317615C826FDD369007FE10F /* UIFont+Additions.swift */; };
 		317615CA26FDD637007FE10F /* MessageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 317615C526FDCFF7007FE10F /* MessageViewController.xib */; };
@@ -66,6 +67,8 @@
 		3182F4AC27DB3841005ADDAF /* EventShortTypesClientLive in Frameworks */ = {isa = PBXBuildFile; productRef = 3182F4AB27DB3841005ADDAF /* EventShortTypesClientLive */; };
 		3187667526FB35C100782FA6 /* String+NotDefined.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3187667426FB35C100782FA6 /* String+NotDefined.swift */; };
 		3187667726FB38D600782FA6 /* DateIntervalFormatter+Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3187667626FB38D600782FA6 /* DateIntervalFormatter+Factory.swift */; };
+		31892F2C281BC09F00DD89F7 /* MoreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31892F2B281BC09F00DD89F7 /* MoreViewModel.swift */; };
+		31892F2E281BC32800DD89F7 /* MyAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31892F2D281BC32800DD89F7 /* MyAccountViewModel.swift */; };
 		31927A8127464E2800EA96AC /* RootCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31927A8027464E2800EA96AC /* RootCoordinator.swift */; };
 		3197B093281A70990002FA08 /* BaseCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3197B092281A70990002FA08 /* BaseCoordinator.swift */; };
 		3197B095281A712B0002FA08 /* RootCoordinatorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3197B094281A712B0002FA08 /* RootCoordinatorType.swift */; };
@@ -207,6 +210,7 @@
 		3167681A27036A2F00A9DB87 /* PlaceCardContentView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlaceCardContentView.xib; sourceTree = "<group>"; };
 		316ED05A270AFE140070D272 /* CurrentScrollOffsetProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentScrollOffsetProvider.swift; sourceTree = "<group>"; };
 		316ED05C270B12C60070D272 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
+		316F5614281C166B0075B09F /* MyAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountViewController.swift; sourceTree = "<group>"; };
 		317615C526FDCFF7007FE10F /* MessageViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MessageViewController.xib; sourceTree = "<group>"; };
 		317615C626FDD0FE007FE10F /* MessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewController.swift; sourceTree = "<group>"; };
 		317615C826FDD369007FE10F /* UIFont+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Additions.swift"; sourceTree = "<group>"; };
@@ -217,6 +221,8 @@
 		3187667426FB35C100782FA6 /* String+NotDefined.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+NotDefined.swift"; sourceTree = "<group>"; };
 		3187667626FB38D600782FA6 /* DateIntervalFormatter+Factory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateIntervalFormatter+Factory.swift"; sourceTree = "<group>"; };
 		3187667826FB3A9300782FA6 /* EventDetailsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventDetailsViewController.xib; sourceTree = "<group>"; };
+		31892F2B281BC09F00DD89F7 /* MoreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreViewModel.swift; sourceTree = "<group>"; };
+		31892F2D281BC32800DD89F7 /* MyAccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountViewModel.swift; sourceTree = "<group>"; };
 		31927A8027464E2800EA96AC /* RootCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootCoordinator.swift; sourceTree = "<group>"; };
 		3197B092281A70990002FA08 /* BaseCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCoordinator.swift; sourceTree = "<group>"; };
 		3197B094281A712B0002FA08 /* RootCoordinatorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootCoordinatorType.swift; sourceTree = "<group>"; };
@@ -618,10 +624,13 @@
 		31DA4A732705EA110098E395 /* MoreFeature */ = {
 			isa = PBXGroup;
 			children = (
+				31892F2B281BC09F00DD89F7 /* MoreViewModel.swift */,
 				31DA4A742705EA110098E395 /* MoreMainViewController.swift */,
 				31DA4A752705EA110098E395 /* MoreCoordinator.swift */,
 				31CF8130270B472F0077CB0D /* VersionContentView.swift */,
 				31CF812E270B46470077CB0D /* VersionContentView.xib */,
+				31892F2D281BC32800DD89F7 /* MyAccountViewModel.swift */,
+				316F5614281C166B0075B09F /* MyAccountViewController.swift */,
 			);
 			path = MoreFeature;
 			sourceTree = "<group>";
@@ -859,6 +868,7 @@
 				31157CFE26FC5DEB00A43B33 /* EventsCalendarManager.swift in Sources */,
 				3167681727035D9500A9DB87 /* EatMainViewController.swift in Sources */,
 				31B3623E26F1E27A00031024 /* UIColor+NOI.swift in Sources */,
+				31892F2E281BC32800DD89F7 /* MyAccountViewModel.swift in Sources */,
 				3110CF6026F0E89C003B7174 /* CircleView.swift in Sources */,
 				31C640AB26FE1397004B71A2 /* DependencyContainer.swift in Sources */,
 				31157D1B26FCB26200A43B33 /* String+Localization.swift in Sources */,
@@ -895,6 +905,7 @@
 				31C640A026FE0B9D004B71A2 /* BaseTabCoordinator.swift in Sources */,
 				31A5F04F27D22ECA00FA20BC /* EventFiltersListViewController.swift in Sources */,
 				3153010528071D1200471153 /* AuthWelcomePageViewController.swift in Sources */,
+				316F5615281C166B0075B09F /* MyAccountViewController.swift in Sources */,
 				31C640B126FE1449004B71A2 /* TabCoordinatorType.swift in Sources */,
 				31A5F05527D25A9400FA20BC /* EventFiltersViewController.swift in Sources */,
 				317B6F9A28118950008D07C0 /* ClientFactory.swift in Sources */,
@@ -933,6 +944,7 @@
 				31E7872427D7419200C67188 /* UIButton+Insets.swift in Sources */,
 				31C28BFE2719BD7200312A62 /* LoadingViewController.swift in Sources */,
 				3187667526FB35C100782FA6 /* String+NotDefined.swift in Sources */,
+				31892F2C281BC09F00DD89F7 /* MoreViewModel.swift in Sources */,
 				319C0E8A26F33BD000C6D38B /* UIAlertController+Error.swift in Sources */,
 				3197B093281A70990002FA08 /* BaseCoordinator.swift in Sources */,
 				312D29D8270451B600F4F4E7 /* ImageCardContentView.swift in Sources */,

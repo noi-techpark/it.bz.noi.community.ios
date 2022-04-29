@@ -8,6 +8,7 @@
 import UIKit
 
 extension UIListContentConfiguration {
+    
     static func noiCell() -> UIListContentConfiguration {
         var contentConfiguration = UIListContentConfiguration.cell()
         contentConfiguration.textProperties.color = .noiSecondaryColor
@@ -17,6 +18,16 @@ extension UIListContentConfiguration {
         )
         contentConfiguration.textProperties.numberOfLines = 0
         contentConfiguration.textProperties.adjustsFontForContentSizeCategory = true
+        return contentConfiguration
+    }
+    
+    static func noiDestructiveCell() -> UIListContentConfiguration {
+        var contentConfiguration = UIListContentConfiguration.noiCell()
+        contentConfiguration.textProperties.color = .noiDestructiveColor
+        contentConfiguration.textProperties.font = .preferredFont(
+            forTextStyle: .body,
+            weight: .bold
+        )
         return contentConfiguration
     }
 
@@ -34,6 +45,7 @@ extension UIListContentConfiguration {
 }
 
 extension UICellAccessory {
+    
     static func noiDisclosureIndicator() -> UICellAccessory {
         let imageView = UIImageView(image: UIImage(named: "ic_arrow"))
         imageView.bounds = CGRect(x: 0, y: 0, width: 20, height: 15)
@@ -46,6 +58,20 @@ extension UICellAccessory {
         )
         return .customView(configuration: viewConfig)
     }
+    
+    static func noiLogoutIndicator() -> UICellAccessory {
+        let imageView = UIImageView(image: UIImage(named: "ic_exit_arrow"))
+        imageView.bounds = CGRect(x: 0, y: 0, width: 20, height: 15)
+        let viewConfig = CustomViewConfiguration(
+            customView: imageView,
+            placement: .leading(displayed: .whenNotEditing),
+            reservedLayoutWidth: nil,
+            tintColor: .noiDestructiveColor,
+            maintainsFixedSize: true
+        )
+        return .customView(configuration: viewConfig)
+    }
+    
 }
 
 extension UIBackgroundConfiguration {
