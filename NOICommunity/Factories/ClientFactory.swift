@@ -16,6 +16,8 @@ protocol ClientFactory {
     
     func makeIsAutorizedClient() -> () -> Bool
     
+    func makeHasAccessGrantedClient() -> () -> Bool
+    
     func makeAuthClient() -> AuthClient
     
 }

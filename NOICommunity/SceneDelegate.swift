@@ -6,20 +6,15 @@
 //
 
 import UIKit
+import AppAuth
+import SwiftJWT
 import EventShortClientLive
 import AppPreferencesClientLive
 import EventShortTypesClient
 import EventShortTypesClientLive
 import SwiftCache
-import AppAuth
 import AuthClientLive
-import KeychainAccess
 import AuthStateStorageClient
-
-let issuer = URL(string: "https://auth.opendatahub.testingmachine.eu/auth/realms/noi/")!
-//let userInfoEndpoint = URL(string: "https://auth.opendatahub.testingmachine.eu/auth/realms/noi/protocol/openid-connect/userinfo")!
-let clientID = "it.bz.noi.community"
-let redirectURI = URL(string: "noi-community://oauth2redirect/login-callback")!
 
 #if DEBUG
 private let accessGroupKey = "24PN5XJ85Y.it.dimension.noi-community"
@@ -44,13 +39,29 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         return DependencyContainer(
             appPreferencesClient: .live(),
             isAutorizedClient: {
-                tokenStorage.state?.isAuthorized ?? false
+                guard let authState = tokenStorage.state
+                else { return false }
+                
+                
+                return authState.isAuthorized
+            },
+            hasAccessGrantedClient: {
+                guard let authState = tokenStorage.state,
+                      let accessToken = authState.lastTokenResponse?.accessToken
+                else { return false }
+                
+                return self.verify(
+                    jwt: accessToken,
+                    roles: [AuthConstant.accessGrantedRole],
+                    of: AuthConstant.clientID
+                )
             },
             authClient: .live(
                 client: .init(
-                    issuer: issuer,
-                    clientID: clientID,
-                    redirectURL: redirectURI
+                    issuer: AuthConstant.issuerURL,
+                    clientID: AuthConstant.clientID,
+                    redirectURI: AuthConstant.redirectURI,
+                    endSessionURI: AuthConstant.endSessionURI
                 ),
                 context: self,
                 tokenStorage: tokenStorage
@@ -121,78 +132,37 @@ extension SceneDelegate: AuthContext {
     
 }
 
-// MARK: - Keychain
 
-private let authStateKey = "authState"
+// MARK: Private APIs
 
-// MARK: KeychainAuthStateStorageClient
-
-private class KeychainAuthStateStorageClient: AuthStateStorageClient  {
+private extension SceneDelegate {
     
-    private let keychain: Keychain
-    
-    init(keyChainAccessGroup accessGroup: String) {
-        keychain = Keychain(accessGroup: accessGroup)
-        //saveInKeychain(nil)
-    }
-    
-    private var _state: OIDAuthState?
-    
-    var state: OIDAuthState? {
-        get {
-            if let memoryState = _state {
-                return memoryState
-            } else {
-                let keychainState = loadFromKeychain()
-                _state = keychainState
-                return keychainState
-            }
-        }
-        
-        set(newState) {
-            guard _state != newState
-            else { return }
+    func verify(
+        jwt: String,
+        roles: [String],
+        of clientID: String
+    ) -> Bool {
+        struct MyClaims: Claims {
             
-            _state = newState
-            saveInKeychain(newState)
-        }
-    }
-}
-
-private extension KeychainAuthStateStorageClient {
-    
-    func loadFromKeychain() -> OIDAuthState? {
-        var data: Data?
-        do {
-            data = try keychain.getData(authStateKey)
-        } catch {
-            print("loadAuthState did fail: \(error)")
+            let resourceAccess: [String: RolesContainer]
+            
+            private enum CodingKeys: String, CodingKey {
+                case resourceAccess = "resource_access"
+            }
+            
+            struct RolesContainer: Codable {
+                var roles: [String]
+            }
         }
         
-        guard let nonOptData = data
-        else { return nil }
+        guard let newJWT = try? JWT<MyClaims>(jwtString: jwt)
+        else {
+            return false
+        }
         
-        do {
-            return try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(nonOptData) as? OIDAuthState
-        } catch {
-            print("loadAuthState did fail: \(error)")
-            return nil
-        }
-    }
-    
-    func saveInKeychain(_ newState: OIDAuthState?) {
-        do {
-            let authStateData = try newState.map {
-                try NSKeyedArchiver.archivedData(withRootObject: $0, requiringSecureCoding: true)
-            }
-            if let nonOptAuthStateData = authStateData {
-                try keychain.set(nonOptAuthStateData, key: authStateKey)
-            } else {
-                try keychain.remove(authStateKey)
-            }
-        } catch {
-            print("saveAuthState did fail: \(error)")
-        }
+        let jwtRoles = Set(newJWT.claims.resourceAccess[clientID]?.roles ?? [])
+        let verifyRoles = Set(roles)
+        return jwtRoles.intersection(verifyRoles) == verifyRoles
     }
     
 }

@@ -8,6 +8,7 @@
 import Foundation
 import Combine
 import AuthStateStorageClient
+import AuthClient
 
 let logoutNotification = Notification.Name("logout")
 
@@ -35,7 +36,9 @@ final class AppCoordinator: BaseNavigationCoordinator {
             return
         }
         
-        showTabCoordinator()
+        showLoadUserInfo(animated: false) { [weak self] in
+            self?.showAuthorizedContent(animated: true)
+        }
     }
     
 }
@@ -43,11 +46,6 @@ final class AppCoordinator: BaseNavigationCoordinator {
 // MARK: - AppCoordinator
 
 private extension AppCoordinator {
-    
-    func authCoordinatorDidFinish(_ authCoordinator: AuthCoordinator) {
-        sacrifice(child: authCoordinator)
-        showTabCoordinator(animated: true)
-    }
     
     func showAuthCoordinator(animated: Bool = false) {
         let authCoordinator = AuthCoordinator(
@@ -61,18 +59,82 @@ private extension AppCoordinator {
         authCoordinator.start(animated: animated)
     }
     
-    func showTabCoordinator(animated: Bool = false) {
-        let tabBarController = TabBarController()
-        let tabCoordinator = TabCoordinator(
-            tabBarController: tabBarController,
+    func showLoadUserInfo(
+        animated: Bool,
+        onSuccess successHandler: @escaping () -> Void
+    ) {
+        let loadUserInfoCoordinator = LoadUserInfoCoordinator(
+            navigationController: navigationController,
             dependencyContainer: dependencyContainer
         )
-        childCoordinators.append(tabCoordinator)
-        tabCoordinator.start()
-        navigationController.setViewControllers(
-            [tabBarController],
-            animated: animated
-        )
+        loadUserInfoCoordinator.didFinishHandler = { [weak self] in
+            self?.loadUserInfoCoordinatorDidFinish(
+                $0,
+                with: $1,
+                onSuccess: successHandler
+            )
+        }
+        childCoordinators.append(loadUserInfoCoordinator)
+        loadUserInfoCoordinator.start(animated: animated)
+    }
+    
+    func showAuthorizedContent(animated: Bool) {
+        func showAccessNotGrantedCoordinator(animated: Bool) {
+            let accessNotGrantedCoordinator = AccessNotGrantedCoordinator(
+                navigationController: navigationController,
+                dependencyContainer: dependencyContainer
+            )
+            childCoordinators.append(accessNotGrantedCoordinator)
+            accessNotGrantedCoordinator.start(animated: animated)
+        }
+        
+        func showTabCoordinator(animated: Bool = false) {
+            let tabBarController = TabBarController()
+            let tabCoordinator = TabCoordinator(
+                tabBarController: tabBarController,
+                dependencyContainer: dependencyContainer
+            )
+            childCoordinators.append(tabCoordinator)
+            tabCoordinator.start()
+            navigationController.setViewControllers(
+                [tabBarController],
+                animated: animated
+            )
+        }
+        
+        let hasAccessGrantedClient = dependencyContainer
+            .makeHasAccessGrantedClient()
+        if hasAccessGrantedClient() {
+            showTabCoordinator(animated: true)
+        } else {
+            showAccessNotGrantedCoordinator(animated: true)
+        }
+    }
+    
+    
+    func authCoordinatorDidFinish(
+        _ authCoordinator: AuthCoordinator
+    ) {
+        sacrifice(child: authCoordinator)
+        showLoadUserInfo(animated: false) { [weak self] in
+            self?.showAuthorizedContent(animated: true)
+        }
+    }
+    
+    func loadUserInfoCoordinatorDidFinish(
+        _ loadUserInfoCoordinator: LoadUserInfoCoordinator,
+        with result: Result<Void, Error>,
+        onSuccess successHandler: @escaping () -> Void
+    ) {
+        sacrifice(child: loadUserInfoCoordinator)
+        switch result {
+        case .success():
+            successHandler()
+        case .failure(AuthError.OAuthTokenInvalidGrant):
+            logout(animated: true)
+        case .failure(_):
+            successHandler()
+        }
     }
     
     func logout(animated: Bool) {

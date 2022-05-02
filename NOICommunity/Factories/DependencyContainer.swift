@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 import AppAuth
 import AppPreferencesClient
 import AuthStateStorageClient
@@ -20,24 +21,51 @@ final class DependencyContainer {
     
     let appPreferencesClient: AppPreferencesClient
     let isAutorizedClient: () -> Bool
+    let hasAccessGrantedClient: () -> Bool
     let authClient: AuthClient
     let eventShortClient: EventShortClient
     let eventShortTypesClient: EventShortTypesClient
     
-    private lazy var userInfoCache = Cache<MyAccountViewModel.CacheKey, UserInfo>()
+    private var _userInfoCache: Cache<MyAccountViewModel.CacheKey, UserInfo>?
+    private var userInfoCache: Cache<MyAccountViewModel.CacheKey, UserInfo>! {
+        get {
+            if let userInfoCache = _userInfoCache {
+                return userInfoCache
+            } else {
+                let userInfoCache = Cache<MyAccountViewModel.CacheKey, UserInfo>()
+                _userInfoCache = userInfoCache
+                return userInfoCache
+            }
+        }
+        set {
+            _userInfoCache = newValue
+        }
+    }
+    
+    private var subscriptions: Set<AnyCancellable> = []
 
     init(
         appPreferencesClient: AppPreferencesClient,
         isAutorizedClient: @escaping () -> Bool,
+        hasAccessGrantedClient: @escaping () -> Bool,
         authClient: AuthClient,
         eventShortClient: EventShortClient,
         eventShortTypesClient: EventShortTypesClient
     ) {
         self.appPreferencesClient = appPreferencesClient
         self.isAutorizedClient = isAutorizedClient
+        self.hasAccessGrantedClient = hasAccessGrantedClient
         self.authClient = authClient
         self.eventShortClient = eventShortClient
         self.eventShortTypesClient = eventShortTypesClient
+        
+        NotificationCenter
+            .default
+            .publisher(for: logoutNotification)
+            .sink { [weak self] _ in
+                self?.userInfoCache = nil
+            }
+            .store(in: &subscriptions)
     }
     
 }
@@ -56,6 +84,10 @@ extension DependencyContainer: ClientFactory {
     
     func makeAuthClient() -> AuthClient {
         authClient
+    }
+    
+    func makeHasAccessGrantedClient() -> () -> Bool {
+        hasAccessGrantedClient
     }
     
 }
@@ -136,6 +168,12 @@ extension DependencyContainer: ViewControllerFactory {
     func makeMyAccountViewController(
         viewModel: MyAccountViewModel
     ) -> MyAccountViewController {
+        .init(viewModel: viewModel)
+    }
+    
+    func makeAccessNotGrantedViewController(
+        viewModel: MyAccountViewModel
+    ) -> AccessNotGrantedViewController {
         .init(viewModel: viewModel)
     }
     

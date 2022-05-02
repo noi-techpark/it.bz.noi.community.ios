@@ -9,15 +9,8 @@ import Foundation
 import Combine
 import UIKit
 import AppAuth
-import SwiftJWT
 import AuthClient
 import AuthStateStorageClient
-
-// MARK: - Roles
-
-private enum KnownRole: String {
-    case accessGranted = "ACCESS_GRANTED"
-}
 
 // MARK: - AuthLiveError
 
@@ -34,20 +27,19 @@ public struct OpenIDConfiguration {
     
     var issuer: URL
     var clientID: String
-    var redirectURL: URL
-    
-    var logoutURL: URL {
-        redirectURL
-    }
+    var redirectURI: URL
+    var endSessionURI: URL
     
     public init(
         issuer: URL,
         clientID: String,
-        redirectURL: URL
+        redirectURI: URL,
+        endSessionURI: URL
     ) {
         self.issuer = issuer
         self.clientID = clientID
-        self.redirectURL = redirectURL
+        self.redirectURI = redirectURI
+        self.endSessionURI = endSessionURI
     }
 }
 
@@ -72,6 +64,7 @@ public extension AuthClient {
         var authState: OIDAuthState? = tokenStorage?.state {
             didSet {
                 authState?.stateChangeDelegate = stateChangeDelegate
+                tokenStorage?.state = authState
                 if let authState = authState {
                     authState.stateChangeDelegate?.didChange(authState)
                 }
@@ -95,30 +88,24 @@ public extension AuthClient {
                             config: client,
                             from: context.presentationContext()
                         )
-                        .tryMap { (newSession, newAuthState) in
+                        .map { (newSession, newAuthState) in
                             let accessToken = newAuthState.lastTokenResponse!.accessToken!
-                            
-                            try verify(
-                                jwt: accessToken,
-                                roles: [KnownRole.accessGranted.rawValue],
-                                of: client.clientID
-                            )
                             
                             authSession = newSession
                             authState = newAuthState
+                            
                             return accessToken
                         }
                         .eraseToAnyPublisher()
                     }
-                    .mapError { error in
-                        switch error {
-                        case let userCanceledAuthorizationFlow as NSError
-                            where userCanceledAuthorizationFlow.domain == OIDGeneralErrorDomain &&
-                            userCanceledAuthorizationFlow.code == OIDErrorCode.userCanceledAuthorizationFlow.rawValue:
-                            return AuthError.userCanceledAuthorizationFlow
-                        default:
-                            return error
-                        }
+                    .mapError(mapAppAuthError(_:))
+                    .mapError {
+                        guard case AuthError.OAuthTokenInvalidGrant = $0
+                        else { return $0 }
+                        
+                        authState = nil
+                        
+                        return $0
                     }
                     .eraseToAnyPublisher()
             },
@@ -132,6 +119,15 @@ public extension AuthClient {
                         )
                         .eraseToAnyPublisher()
                     }
+                    .mapError(mapAppAuthError(_:))
+                    .mapError {
+                        guard case AuthError.OAuthTokenInvalidGrant = $0
+                        else { return $0 }
+                        
+                        authState = nil
+                        
+                        return $0
+                    }
                     .eraseToAnyPublisher()
             },
             endSession: {
@@ -142,18 +138,9 @@ public extension AuthClient {
                 )
                 authSession = newSession
                 return endSessionPublisher
-                    .mapError { error in
-                        switch error {
-                        case let userCanceledAuthorizationFlow as NSError
-                            where userCanceledAuthorizationFlow.domain == OIDGeneralErrorDomain &&
-                            userCanceledAuthorizationFlow.code == OIDErrorCode.userCanceledAuthorizationFlow.rawValue:
-                            return AuthError.userCanceledAuthorizationFlow
-                        default:
-                            return error
-                        }
-                    }
+                    .mapError(mapAppAuthError(_:))
                     .map {
-                        tokenStorage?.state = nil
+                        authState = nil
                         return $0
                     }
                     .eraseToAnyPublisher()
@@ -229,7 +216,7 @@ private extension AuthClient {
     static func startSSO(
         configuration: OIDServiceConfiguration,
         clientID: String,
-        redirectURL: URL,
+        redirectURI: URL,
         from presentationContext: UIViewController
     ) -> (OIDExternalUserAgentSession, AnyPublisher<OIDAuthState, Error>) {
         let subject = PassthroughSubject<OIDAuthState, Error>()
@@ -239,7 +226,7 @@ private extension AuthClient {
             clientId: clientID,
             clientSecret: nil,
             scopes: [OIDScopeOpenID, OIDScopeProfile, "roles"],
-            redirectURL: redirectURL,
+            redirectURL: redirectURI,
             responseType: OIDResponseTypeCode,
             additionalParameters: ["prompt": "login"]
         )
@@ -270,7 +257,7 @@ private extension AuthClient {
                 let (newSession, ssoPublisher) = startSSO(
                     configuration: discoveredConfig,
                     clientID: config.clientID,
-                    redirectURL: config.redirectURL,
+                    redirectURI: config.redirectURI,
                     from: presentationContext
                 )
                 return Just(newSession)
@@ -279,31 +266,6 @@ private extension AuthClient {
                     .eraseToAnyPublisher()
             }
             .eraseToAnyPublisher()
-    }
-    
-    static func verify(
-        jwt: String,
-        roles: [String],
-        of clientID: String
-    ) throws {
-        struct MyClaims: Claims {
-            
-            let resourceAccess: [String:RolesContainer]
-            
-            private enum CodingKeys: String, CodingKey {
-                case resourceAccess = "resource_access"
-            }
-            
-            struct RolesContainer: Codable {
-                var roles: [String]
-            }
-        }
-        
-        let newJWT = try JWT<MyClaims>(jwtString: jwt)
-        let jwtRoles = Set(newJWT.claims.resourceAccess[clientID]?.roles ?? [])
-        let verifyRoles = Set(roles)
-        guard jwtRoles.intersection(verifyRoles) == verifyRoles
-        else { throw AuthError.invalidUserRole }
     }
     
     static func userInfo(
@@ -362,7 +324,9 @@ private extension AuthClient {
             )
         }
         
-        guard let userAgent = OIDExternalUserAgentIOS(presenting: presentationContext)
+        guard let userAgent = OIDExternalUserAgentIOS(
+            presenting: presentationContext
+        )
         else {
             return (
                 nil,
@@ -379,7 +343,7 @@ private extension AuthClient {
                     discoveryDocument: authState.lastAuthorizationResponse.request.configuration.discoveryDocument!
                 ),
                 idTokenHint: currentIdToken,
-                postLogoutRedirectURL: config.logoutURL,
+                postLogoutRedirectURL: config.endSessionURI,
                 state: state,
                 additionalParameters: nil
             )
@@ -389,7 +353,7 @@ private extension AuthClient {
                     discoveryDocument: authState.lastAuthorizationResponse.request.configuration.discoveryDocument!
                 ),
                 idTokenHint: currentIdToken,
-                postLogoutRedirectURL: config.logoutURL,
+                postLogoutRedirectURL: config.endSessionURI,
                 additionalParameters: nil
             )
         }
@@ -401,7 +365,7 @@ private extension AuthClient {
             externalUserAgent: userAgent
         ) { endSessionResponse, error in
             switch (endSessionResponse, error) {
-            case (let endSessionResponse?, _):
+            case (_?, _):
                 subject.send()
             case (_, let error?):
                 subject.send(completion: .failure(error))
@@ -430,6 +394,21 @@ private extension AuthClient {
             didEncounterAuthorizationError error: Error
         ) {
             debugPrint("\(#function) \(error.localizedDescription)")
+        }
+    }
+    
+    static func mapAppAuthError(_ error: Error) -> Error {
+        switch error {
+        case let userCanceledAuthorizationFlow as NSError
+            where userCanceledAuthorizationFlow.domain == OIDGeneralErrorDomain &&
+            userCanceledAuthorizationFlow.code == OIDErrorCode.userCanceledAuthorizationFlow.rawValue:
+            return AuthError.userCanceledAuthorizationFlow
+        case let OAuthTokenInvalidGrantError as NSError
+            where OAuthTokenInvalidGrantError.domain == OIDOAuthTokenErrorDomain &&
+            OAuthTokenInvalidGrantError.code == OIDErrorCodeOAuthToken.invalidGrant.rawValue:
+            return AuthError.OAuthTokenInvalidGrant
+        default:
+            return error
         }
     }
     

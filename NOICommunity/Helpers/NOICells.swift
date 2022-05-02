@@ -21,13 +21,15 @@ extension UIListContentConfiguration {
         return contentConfiguration
     }
     
-    static func noiDestructiveCell() -> UIListContentConfiguration {
-        var contentConfiguration = UIListContentConfiguration.noiCell()
-        contentConfiguration.textProperties.color = .noiDestructiveColor
+    static func noiValueCell() -> UIListContentConfiguration {
+        var contentConfiguration = UIListContentConfiguration.valueCell()
+        contentConfiguration.textProperties.color = .noiSecondaryColor
         contentConfiguration.textProperties.font = .preferredFont(
             forTextStyle: .body,
-            weight: .bold
+            weight: .semibold
         )
+        contentConfiguration.textProperties.numberOfLines = 0
+        contentConfiguration.textProperties.adjustsFontForContentSizeCategory = true
         return contentConfiguration
     }
 
@@ -66,7 +68,7 @@ extension UICellAccessory {
             customView: imageView,
             placement: .leading(displayed: .whenNotEditing),
             reservedLayoutWidth: nil,
-            tintColor: .noiDestructiveColor,
+            tintColor: .noiSecondaryColor,
             maintainsFixedSize: true
         )
         return .customView(configuration: viewConfig)

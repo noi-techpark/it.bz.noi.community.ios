@@ -17,10 +17,10 @@ class MyAccountViewModel {
     @Published var error: Error!
     
     @Published var userInfoIsLoading = false
-    @Published var userInfoResult: UserInfo?
+    @Published var userInfoResult: UserInfo!
     
     @Published var logoutIsLoading = false
-    @Published var logoutResult: Void?
+    @Published var logoutResult: Void!
     
     private var userInfoRequestCancellable: AnyCancellable?
     private var logoutRequestCancellable: AnyCancellable?
@@ -30,23 +30,27 @@ class MyAccountViewModel {
     enum CacheKey: Hashable {
         case userInfo
     }
-    private let cache: Cache<CacheKey, UserInfo>?
+    private var cache: Cache<CacheKey, UserInfo>?
     
     init(authClient: AuthClient, cache: Cache<CacheKey, UserInfo>? = nil) {
         self.authClient = authClient
         self.cache = cache
+        userInfoResult = cache?[.userInfo]
     }
     
-    func fetchUserInfo() {
-        userInfoIsLoading = true
-        
+    func fetchUserInfo(refresh: Bool = false) {
         let userInfoPublisher: AnyPublisher<UserInfo, Error>
-        
-        if let cachedUserInfo = cache?[.userInfo] {
-            userInfoPublisher = Just(cachedUserInfo)
+
+        if !refresh,
+           let availableUserInfo = cache?[.userInfo] {
+            userInfoIsLoading = false
+            
+            userInfoPublisher = Just(availableUserInfo)
                 .setFailureType(to: Error.self)
                 .eraseToAnyPublisher()
         } else {
+            userInfoIsLoading = true
+            
             userInfoPublisher = authClient.userInfo()
         }
         
@@ -67,8 +71,8 @@ class MyAccountViewModel {
                     guard let self = self
                     else { return }
                     
-                    self.cache?[.userInfo] = $0
                     self.userInfoResult = $0
+                    self.cache?[.userInfo] = $0
                 }
             )
     }

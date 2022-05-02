@@ -57,7 +57,7 @@ extension UserInfo: Hashable {
 
 public enum AuthError: Error, Hashable {
     case userCanceledAuthorizationFlow
-    case invalidUserRole
+    case OAuthTokenInvalidGrant
 }
 
 // MARK: - AuthClient

@@ -21,6 +21,4 @@ extension UIColor {
     static var noiDisabled2Color = UIColor(named: "disabled2_color")!
 
     static var noiInactiveColor = UIColor(named: "inactive_color")!
-    
-    static var noiDestructiveColor = UIColor(named: "destructive_color")!
 }

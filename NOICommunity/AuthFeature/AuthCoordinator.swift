@@ -14,6 +14,12 @@ import AuthClient
 let kAppAuthExampleAuthStateKey: String = "authState";
 
 
+// MARK: - AuthCoordinatorError
+
+enum AuthCoordinatorError: Error, Hashable {
+    case accessNotGranted
+}
+
 // MARK: - AuthCoordinator
 
 final class AuthCoordinator: BaseNavigationCoordinator {
@@ -28,23 +34,7 @@ final class AuthCoordinator: BaseNavigationCoordinator {
     private lazy var authClient = dependencyContainer.makeAuthClient()
     
     override func start(animated: Bool) {
-        welcomeViewModel = dependencyContainer.makeWelcomeViewModel()
-        welcomeViewModel.startLoginPublisher
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] in
-                self?.goToLogin()
-            }
-            .store(in: &subscriptions)
-        welcomeViewModel.startSignUpPublisher
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] in
-                self?.goToSignUp()
-            }
-            .store(in: &subscriptions)
-        
-        mainVC = dependencyContainer
-            .makeWelcomeViewController(viewModel: welcomeViewModel)
-        navigationController.setViewControllers([mainVC], animated: animated)
+        showWelcome(animated: animated)
     }
     
 }
@@ -65,7 +55,7 @@ private extension AuthCoordinator {
                 case .failure(let error):
                     self.handleAuthError(error)
                 }
-            } receiveValue: { [weak self] _ in
+            } receiveValue: { [weak self] accessToken in
                 guard let self = self
                 else { return }
                 
@@ -75,10 +65,28 @@ private extension AuthCoordinator {
     }
     
     func goToSignUp() {
-        let safariVC = SFSafariViewController(
-            url: URL(string: "https://auth.opendatahub.bz.it/auth/realms/noi/protocol/openid-connect/registrations?client_id=it.bz.noi.community&redirect_uri=https://noi.bz.it&response_type=code&scope=openid")!
-        )
+        let safariVC = SFSafariViewController(url: AuthConstant.signupURL)
         navigationController.present(safariVC, animated: true)
+    }
+    
+    func showWelcome(animated: Bool) {
+        welcomeViewModel = dependencyContainer.makeWelcomeViewModel()
+        welcomeViewModel.startLoginPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] in
+                self?.goToLogin()
+            }
+            .store(in: &subscriptions)
+        welcomeViewModel.startSignUpPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] in
+                self?.goToSignUp()
+            }
+            .store(in: &subscriptions)
+        
+        mainVC = dependencyContainer
+            .makeWelcomeViewController(viewModel: welcomeViewModel)
+        navigationController.setViewControllers([mainVC], animated: animated)
     }
     
     func handleAuthError(_ error: Error) {

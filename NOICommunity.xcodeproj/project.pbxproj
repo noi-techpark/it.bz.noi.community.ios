@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3106A2E5282132840029839A /* AuthConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3106A2E4282132840029839A /* AuthConstants.swift */; };
 		3110CF6026F0E89C003B7174 /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3110CF5F26F0E89C003B7174 /* CircleView.swift */; };
 		31157CFE26FC5DEB00A43B33 /* EventsCalendarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31157CFD26FC5DEB00A43B33 /* EventsCalendarManager.swift */; };
 		31157D0026FC648700A43B33 /* Event+CalendarEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31157CFF26FC648700A43B33 /* Event+CalendarEvent.swift */; };
@@ -65,6 +66,11 @@
 		3182F4A827DB3841005ADDAF /* EventShortClientLive in Frameworks */ = {isa = PBXBuildFile; productRef = 3182F4A727DB3841005ADDAF /* EventShortClientLive */; };
 		3182F4AA27DB3841005ADDAF /* EventShortTypesClient in Frameworks */ = {isa = PBXBuildFile; productRef = 3182F4A927DB3841005ADDAF /* EventShortTypesClient */; };
 		3182F4AC27DB3841005ADDAF /* EventShortTypesClientLive in Frameworks */ = {isa = PBXBuildFile; productRef = 3182F4AB27DB3841005ADDAF /* EventShortTypesClientLive */; };
+		3185AA10281FD77400767E31 /* AccessNotGrantedCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3185AA0F281FD77400767E31 /* AccessNotGrantedCoordinator.swift */; };
+		3185AA12281FDBED00767E31 /* LoadUserInfoCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3185AA11281FDBED00767E31 /* LoadUserInfoCoordinator.swift */; };
+		3185AA15281FEAE900767E31 /* AccessNotGrantedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3185AA14281FEAE900767E31 /* AccessNotGrantedViewController.swift */; };
+		3185AA172820005700767E31 /* KeychainAuthStateStorageClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3185AA162820005700767E31 /* KeychainAuthStateStorageClient.swift */; };
+		3185AA1A2820066A00767E31 /* SwiftJWT in Frameworks */ = {isa = PBXBuildFile; productRef = 3185AA192820066A00767E31 /* SwiftJWT */; };
 		3187667526FB35C100782FA6 /* String+NotDefined.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3187667426FB35C100782FA6 /* String+NotDefined.swift */; };
 		3187667726FB38D600782FA6 /* DateIntervalFormatter+Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3187667626FB38D600782FA6 /* DateIntervalFormatter+Factory.swift */; };
 		31892F2C281BC09F00DD89F7 /* MoreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31892F2B281BC09F00DD89F7 /* MoreViewModel.swift */; };
@@ -159,6 +165,7 @@
 
 /* Begin PBXFileReference section */
 		3101C76F27DB37C30079EFE2 /* NOICommunityLib */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = NOICommunityLib; sourceTree = "<group>"; };
+		3106A2E4282132840029839A /* AuthConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthConstants.swift; sourceTree = "<group>"; };
 		3110CF5F26F0E89C003B7174 /* CircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
 		31157CFD26FC5DEB00A43B33 /* EventsCalendarManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventsCalendarManager.swift; sourceTree = "<group>"; };
 		31157CFF26FC648700A43B33 /* Event+CalendarEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Event+CalendarEvent.swift"; sourceTree = "<group>"; };
@@ -218,6 +225,10 @@
 		317B6F9928118950008D07C0 /* ClientFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientFactory.swift; sourceTree = "<group>"; };
 		317B6FA328118C95008D07C0 /* DependencyRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyRepresentable.swift; sourceTree = "<group>"; };
 		317F74F927D8B5610084E619 /* CircleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleButton.swift; sourceTree = "<group>"; };
+		3185AA0F281FD77400767E31 /* AccessNotGrantedCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessNotGrantedCoordinator.swift; sourceTree = "<group>"; };
+		3185AA11281FDBED00767E31 /* LoadUserInfoCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadUserInfoCoordinator.swift; sourceTree = "<group>"; };
+		3185AA14281FEAE900767E31 /* AccessNotGrantedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessNotGrantedViewController.swift; sourceTree = "<group>"; };
+		3185AA162820005700767E31 /* KeychainAuthStateStorageClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainAuthStateStorageClient.swift; sourceTree = "<group>"; };
 		3187667426FB35C100782FA6 /* String+NotDefined.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+NotDefined.swift"; sourceTree = "<group>"; };
 		3187667626FB38D600782FA6 /* DateIntervalFormatter+Factory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateIntervalFormatter+Factory.swift"; sourceTree = "<group>"; };
 		3187667826FB3A9300782FA6 /* EventDetailsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventDetailsViewController.xib; sourceTree = "<group>"; };
@@ -309,6 +320,7 @@
 				3182F4A827DB3841005ADDAF /* EventShortClientLive in Frameworks */,
 				317B6F9C28118BD6008D07C0 /* AuthClient in Frameworks */,
 				3182F4AC27DB3841005ADDAF /* EventShortTypesClientLive in Frameworks */,
+				3185AA1A2820066A00767E31 /* SwiftJWT in Frameworks */,
 				317B6F9E28118BD6008D07C0 /* AuthClientLive in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -420,7 +432,11 @@
 			isa = PBXGroup;
 			children = (
 				31F0DBD2280F02DC00E782D5 /* AuthCoordinator.swift */,
+				3185AA11281FDBED00767E31 /* LoadUserInfoCoordinator.swift */,
 				3153010328071CFF00471153 /* WelcomeFeature */,
+				3185AA13281FEAAE00767E31 /* AccessNotGrantedCoordinator */,
+				3185AA162820005700767E31 /* KeychainAuthStateStorageClient.swift */,
+				3106A2E4282132840029839A /* AuthConstants.swift */,
 			);
 			path = AuthFeature;
 			sourceTree = "<group>";
@@ -448,6 +464,15 @@
 				3167681A27036A2F00A9DB87 /* PlaceCardContentView.xib */,
 			);
 			path = EatFeature;
+			sourceTree = "<group>";
+		};
+		3185AA13281FEAAE00767E31 /* AccessNotGrantedCoordinator */ = {
+			isa = PBXGroup;
+			children = (
+				3185AA0F281FD77400767E31 /* AccessNotGrantedCoordinator.swift */,
+				3185AA14281FEAE900767E31 /* AccessNotGrantedViewController.swift */,
+			);
+			path = AccessNotGrantedCoordinator;
 			sourceTree = "<group>";
 		};
 		3197B098281A72110002FA08 /* Base */ = {
@@ -696,6 +721,7 @@
 				317B6F9B28118BD6008D07C0 /* AuthClient */,
 				317B6F9D28118BD6008D07C0 /* AuthClientLive */,
 				31E058F12812F18800D1F7FE /* KeychainAccess */,
+				3185AA192820066A00767E31 /* SwiftJWT */,
 			);
 			productName = NOICommunity;
 			productReference = 3145D22D26B3F73F00F16787 /* NOICommunity.app */;
@@ -775,6 +801,7 @@
 				313FB0B32719C438000AD9DA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				31EF82572810517500EBE5F0 /* XCRemoteSwiftPackageReference "AppAuth-iOS" */,
 				31E058F02812F18800D1F7FE /* XCRemoteSwiftPackageReference "KeychainAccess" */,
+				3185AA182820066A00767E31 /* XCRemoteSwiftPackageReference "Swift-JWT" */,
 			);
 			productRefGroup = 3145D22E26B3F73F00F16787 /* Products */;
 			projectDirPath = "";
@@ -898,9 +925,11 @@
 				31FAEA7F28197EC200CDBC1B /* NavigationCoordinatorType.swift in Sources */,
 				31157D1926FCA1EB00A43B33 /* WebViewController.swift in Sources */,
 				312F5D272808250000C84598 /* AuthWelcomeViewController.swift in Sources */,
+				3185AA172820005700767E31 /* KeychainAuthStateStorageClient.swift in Sources */,
 				31157D1526FC83FE00A43B33 /* UIViewController+ShowCalenderError.swift in Sources */,
 				31CF8132270B49100077CB0D /* VersionContentView.swift in Sources */,
 				31C28BF62719709B00312A62 /* NOICells.swift in Sources */,
+				3185AA10281FD77400767E31 /* AccessNotGrantedCoordinator.swift in Sources */,
 				317615C926FDD369007FE10F /* UIFont+Additions.swift in Sources */,
 				31C640A026FE0B9D004B71A2 /* BaseTabCoordinator.swift in Sources */,
 				31A5F04F27D22ECA00FA20BC /* EventFiltersListViewController.swift in Sources */,
@@ -931,13 +960,16 @@
 				319C0E8B26F33BD000C6D38B /* UIViewController+ShowError.swift in Sources */,
 				31178FD826F9FD3800BDCDAA /* EventsFeatureConstants.swift in Sources */,
 				31AA31EA26F0A6D700744A00 /* EventListViewController.swift in Sources */,
+				3106A2E5282132840029839A /* AuthConstants.swift in Sources */,
 				315F4BE427035679001905AF /* EventCardContentConfiguration.SharedConfig.swift in Sources */,
+				3185AA12281FDBED00767E31 /* LoadUserInfoCoordinator.swift in Sources */,
 				31FAEA7D28197D9700CDBC1B /* AppCoordinator.swift in Sources */,
 				31157D0026FC648700A43B33 /* Event+CalendarEvent.swift in Sources */,
 				31C640C626FE1E43004B71A2 /* MeetMainViewController.swift in Sources */,
 				31C640C526FE1E43004B71A2 /* MeetCoordinator.swift in Sources */,
 				31AAC053270F2FFD00C26850 /* FooterView.swift in Sources */,
 				31E7872627D8918800C67188 /* UIImageAdditions.swift in Sources */,
+				3185AA15281FEAE900767E31 /* AccessNotGrantedViewController.swift in Sources */,
 				317B6FA428118C95008D07C0 /* DependencyRepresentable.swift in Sources */,
 				31927A8127464E2800EA96AC /* RootCoordinator.swift in Sources */,
 				31C6409F26FE0B73004B71A2 /* OrientateCoordinator.swift in Sources */,
@@ -1295,6 +1327,253 @@
 			};
 			name = Release;
 		};
+		3185AA1F28201A0000767E31 /* Debug TMA */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG TESTINGMACHINE_OAUTH";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = "Debug TMA";
+		};
+		3185AA2028201A0000767E31 /* Debug TMA */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = NOICommunity/NOICommunityDebug.entitlements;
+				CODE_SIGN_STYLE = Manual;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 24PN5XJ85Y;
+				INFOPLIST_FILE = NOICommunity/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "it.dimension.noi-community";
+				PRODUCT_NAME = "${TARGET_NAME}";
+				PROVISIONING_PROFILE_SPECIFIER = "Noi Community Dev";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = "Debug TMA";
+		};
+		3185AA2128201A0000767E31 /* Debug TMA */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5V2Q9SWB7H;
+				INFOPLIST_FILE = NOICommunityTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "it.bz.noi.community-test";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NOICommunity.app/NOICommunity";
+			};
+			name = "Debug TMA";
+		};
+		3185AA2228201A0000767E31 /* Debug TMA */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5V2Q9SWB7H;
+				INFOPLIST_FILE = NOICommunityUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "it.bz.noi.community-uitest";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = NOICommunity;
+			};
+			name = "Debug TMA";
+		};
+		3185AA2328201ABF00767E31 /* Release TMA */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = TESTINGMACHINE_OAUTH;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = "Release TMA";
+		};
+		3185AA2428201ABF00767E31 /* Release TMA */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = NOICommunity/NOICommunityRelease.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Distribution";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = 5V2Q9SWB7H;
+				INFOPLIST_FILE = NOICommunity/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = it.bz.noi.community;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				PROVISIONING_PROFILE_SPECIFIER = "a5e85966-b44d-4f43-b01d-babf8ce192c3";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = "Release TMA";
+		};
+		3185AA2528201ABF00767E31 /* Release TMA */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5V2Q9SWB7H;
+				INFOPLIST_FILE = NOICommunityTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "it.bz.noi.community-test";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NOICommunity.app/NOICommunity";
+			};
+			name = "Release TMA";
+		};
+		3185AA2628201ABF00767E31 /* Release TMA */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5V2Q9SWB7H;
+				INFOPLIST_FILE = NOICommunityUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "it.bz.noi.community-uitest";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = NOICommunity;
+			};
+			name = "Release TMA";
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1302,7 +1581,9 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3145D25526B3F74000F16787 /* Debug */,
+				3185AA1F28201A0000767E31 /* Debug TMA */,
 				3145D25626B3F74000F16787 /* Release */,
+				3185AA2328201ABF00767E31 /* Release TMA */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1311,7 +1592,9 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3145D25826B3F74000F16787 /* Debug */,
+				3185AA2028201A0000767E31 /* Debug TMA */,
 				3145D25926B3F74000F16787 /* Release */,
+				3185AA2428201ABF00767E31 /* Release TMA */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1320,7 +1603,9 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3145D25B26B3F74000F16787 /* Debug */,
+				3185AA2128201A0000767E31 /* Debug TMA */,
 				3145D25C26B3F74000F16787 /* Release */,
+				3185AA2528201ABF00767E31 /* Release TMA */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1329,7 +1614,9 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3145D25E26B3F74000F16787 /* Debug */,
+				3185AA2228201A0000767E31 /* Debug TMA */,
 				3145D25F26B3F74000F16787 /* Release */,
+				3185AA2628201ABF00767E31 /* Release TMA */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1343,6 +1630,14 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 8.0.0;
+			};
+		};
+		3185AA182820066A00767E31 /* XCRemoteSwiftPackageReference "Swift-JWT" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Kitura/Swift-JWT.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
 			};
 		};
 		31CE9BF42701BF33005EA61A /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
@@ -1432,6 +1727,11 @@
 		3183304B27C7701F00337561 /* EventShortTypesClientLive */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = EventShortTypesClientLive;
+		};
+		3185AA192820066A00767E31 /* SwiftJWT */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3185AA182820066A00767E31 /* XCRemoteSwiftPackageReference "Swift-JWT" */;
+			productName = SwiftJWT;
 		};
 		31927A7827464CD700EA96AC /* AppPreferencesClient */ = {
 			isa = XCSwiftPackageProductDependency;

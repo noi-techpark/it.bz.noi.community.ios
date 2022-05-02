@@ -56,10 +56,11 @@ final class MyAccountViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        collectionView.refreshControl = .init()
+        
         configureDataSource()
         configureBindings()
         
-        collectionView.refreshControl = UIRefreshControl()
         viewModel.fetchUserInfo()
     }
     
@@ -74,41 +75,71 @@ private extension MyAccountViewController {
         case logout
     }
     
+    func makeSnapshot(
+        fromUserInfo userInfo: UserInfo? = nil,
+        oldUserInfo: UserInfo? = nil
+    ) -> NSDiffableDataSourceSnapshot<Section, Entry> {
+        var snapshot = NSDiffableDataSourceSnapshot<Section, Entry>()
+        snapshot.appendSections([.logout])
+        snapshot.appendItems([.logoutAction])
+        switch (userInfo?.name, userInfo?.email) {
+        case (nil, nil):
+            snapshot.deleteSections([.main])
+        case (nil, _?):
+            snapshot.insertSections([.main], beforeSection: .logout)
+            snapshot.appendItems([.email], toSection: .main)
+        case (_?, nil):
+            snapshot.insertSections([.main], beforeSection: .logout)
+            snapshot.appendItems([.fullname], toSection: .main)
+        case (_?, _?):
+            snapshot.insertSections([.main], beforeSection: .logout)
+            snapshot.appendItems([.fullname], toSection: .main)
+            snapshot.appendItems([.email], toSection: .main)
+        }
+        var reconfigureItems: [Entry] = []
+        if oldUserInfo?.name != userInfo?.name {
+            reconfigureItems.append(.fullname)
+        }
+        if oldUserInfo?.email != userInfo?.email {
+            reconfigureItems.append(.email)
+        }
+        if !reconfigureItems.isEmpty {
+            if #available(iOS 15.0, *) {
+                snapshot.reconfigureItems(reconfigureItems)
+            } else {
+                snapshot.reloadItems(reconfigureItems)
+            }
+        }
+        return snapshot
+    }
+    
     func configureBindings() {
+        collectionView.refreshControl?
+            .publisher(for: .valueChanged)
+            .sink { [weak viewModel] in
+                viewModel?.fetchUserInfo(refresh: true)
+            }
+            .store(in: &subscriptions)
+        
         viewModel.$userInfoIsLoading
-            .dropFirst()
             .receive(on: DispatchQueue.main)
-            .sink { [weak collectionView] in
-                collectionView?.refreshControl?.isLoading = $0
+            .sink { [weak collectionView] isLoading in
+                collectionView?.refreshControl?.isLoading = isLoading
             }
             .store(in: &subscriptions)
         
         viewModel.$userInfoResult
-            .dropFirst()
             .receive(on: DispatchQueue.main)
             .sink { [weak self] userInfo in
                 guard let self = self
                 else { return }
                 
+                let oldUserInfo = self.userInfo
                 self.userInfo = userInfo
-                
-                var snapshot = self.dataSource.snapshot()
-                
-                switch (userInfo?.name, userInfo?.email) {
-                case (nil, nil):
-                    snapshot.deleteSections([.main])
-                case (nil, let email?):
-                    snapshot.insertSections([.main], beforeSection: .logout)
-                    snapshot.appendItems([.email], toSection: .main)
-                case (let name?, nil):
-                    snapshot.insertSections([.main], beforeSection: .logout)
-                    snapshot.appendItems([.fullname], toSection: .main)
-                case (let name?, let email?):
-                    snapshot.insertSections([.main], beforeSection: .logout)
-                    snapshot.appendItems([.fullname], toSection: .main)
-                    snapshot.appendItems([.email], toSection: .main)
-                }
-                
+                let snapshot = self.makeSnapshot(
+                    fromUserInfo: userInfo,
+                    oldUserInfo: oldUserInfo
+                )
                 self.dataSource.apply(snapshot, animatingDifferences: true)
             }
             .store(in: &subscriptions)
@@ -129,7 +160,6 @@ private extension MyAccountViewController {
             .store(in: &subscriptions)
         
         viewModel.$error
-            .dropFirst()
             .receive(on: DispatchQueue.main)
             .sink { [weak self] error in
                 guard let error = error
@@ -165,13 +195,15 @@ private extension MyAccountViewController {
             
             switch entry {
             case .fullname:
-                contentConfiguration = UIListContentConfiguration.noiCell()
-                contentConfiguration.text = self.userInfo!.name
+                contentConfiguration = UIListContentConfiguration.noiValueCell()
+                contentConfiguration.text = .localized("label_name")
+                contentConfiguration.secondaryText = self.viewModel.userInfoResult!.name
             case .email:
-                contentConfiguration = UIListContentConfiguration.noiCell()
-                contentConfiguration.text = self.userInfo!.email
+                contentConfiguration = UIListContentConfiguration.noiValueCell()
+                contentConfiguration.text = .localized("label_email")
+                contentConfiguration.secondaryText = self.viewModel.userInfoResult!.email
             case .logoutAction:
-                contentConfiguration = .noiDestructiveCell()
+                contentConfiguration = .noiCell()
                 contentConfiguration.text = .localized("btn_logout")
             }
             
@@ -200,9 +232,10 @@ private extension MyAccountViewController {
         }
         
         // initial data
-        var snapshot = NSDiffableDataSourceSnapshot<Section, Entry>()
-        snapshot.appendSections([.logout])
-        snapshot.appendItems([.logoutAction])
+        let snapshot = makeSnapshot(
+            fromUserInfo: viewModel.userInfoResult,
+            oldUserInfo: viewModel.userInfoResult
+        )
         dataSource.apply(snapshot, animatingDifferences: false)
     }
 }
