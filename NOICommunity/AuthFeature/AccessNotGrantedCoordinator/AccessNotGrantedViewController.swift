@@ -25,12 +25,12 @@ final class AccessNotGrantedViewController: ContainerViewController {
     
     @available(*, unavailable)
     required init?(coder: NSCoder) {
-        fatalError("\(#function) not implemented")
+        fatalError("\(#function) not available")
     }
     
     @available(*, unavailable)
     override init(content: UIViewController?) {
-        fatalError("\(#function) not implemented")
+        fatalError("\(#function) not available")
     }
     
     override func viewDidLoad() {
