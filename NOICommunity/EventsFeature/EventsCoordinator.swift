@@ -11,7 +11,7 @@ import Combine
 
 // MARK: - EventsCoordinator
 
-final class EventsCoordinator: BaseCoordinator {
+final class EventsCoordinator: BaseNavigationCoordinator {
 
     private var mainVC: EventsMainViewController!
     private var eventsViewModel: EventsViewModel!

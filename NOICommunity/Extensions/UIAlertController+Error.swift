@@ -8,6 +8,7 @@
 import UIKit
 
 extension UIAlertController {
+    
     convenience init(
         error: Error,
         preferredStyle: UIAlertController.Style
@@ -32,4 +33,5 @@ extension UIAlertController {
             preferredStyle: preferredStyle
         )
     }
+    
 }

@@ -8,6 +8,43 @@
 import UIKit
 
 extension UIButton {
+    
+    @discardableResult func withText(
+        _ text: String?,
+        state: UIControl.State = .normal
+    ) -> UIButton {
+        setTitle(text, for: state)
+        
+        return self
+    }
+    
+    @discardableResult func withDynamicType() -> UIButton {
+        titleLabel?.numberOfLines = 0
+        titleLabel?.adjustsFontForContentSizeCategory = true
+        
+        return self
+    }
+    
+    @discardableResult func withTextStyle(
+        _ textStyle: UIFont.TextStyle,
+        weight: UIFont.Weight = .regular
+    ) -> UIButton {
+        titleLabel?.font = .preferredFont(
+            forTextStyle: textStyle,
+            weight: weight
+        )
+        
+        return self
+    }
+    
+    @discardableResult func withTextAligment(
+        _ textAlignment: NSTextAlignment
+    ) -> UIButton {
+        titleLabel?.textAlignment = textAlignment
+        
+        return self
+    }
+    
     @discardableResult func configureAsRectangleButton(
         withBackgroundColor backgroundColor: UIColor,
         contentEdgeInsets: UIEdgeInsets = .zero
@@ -46,7 +83,7 @@ extension UIButton {
         return self
     }
 
-    @discardableResult func configureAsSecondariActionButton()  -> UIButton {
+    @discardableResult func configureAsSecondaryActionButton()  -> UIButton {
         titleLabel?.adjustsFontForContentSizeCategory = true
 
         titleLabel?.font = .preferredFont(

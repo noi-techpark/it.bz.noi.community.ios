@@ -6,42 +6,96 @@
 //
 
 import Foundation
-import EventShortClient
+import Combine
+import AppAuth
 import AppPreferencesClient
+import AuthStateStorageClient
+import AuthClient
+import EventShortClient
 import EventShortTypesClient
+import SwiftCache
 
 // MARK: - DependencyContainer
 
 final class DependencyContainer {
-
-    let eventShortClient: EventShortClient
+    
     let appPreferencesClient: AppPreferencesClient
+    let isAutorizedClient: () -> Bool
+    let hasAccessGrantedClient: () -> Bool
+    let authClient: AuthClient
+    let eventShortClient: EventShortClient
     let eventShortTypesClient: EventShortTypesClient
+    
+    private var _userInfoCache: Cache<MyAccountViewModel.CacheKey, UserInfo>?
+    private var userInfoCache: Cache<MyAccountViewModel.CacheKey, UserInfo>! {
+        get {
+            if let userInfoCache = _userInfoCache {
+                return userInfoCache
+            } else {
+                let userInfoCache = Cache<MyAccountViewModel.CacheKey, UserInfo>()
+                _userInfoCache = userInfoCache
+                return userInfoCache
+            }
+        }
+        set {
+            _userInfoCache = newValue
+        }
+    }
+    
+    private var subscriptions: Set<AnyCancellable> = []
 
     init(
-        eventShortClient: EventShortClient,
         appPreferencesClient: AppPreferencesClient,
+        isAutorizedClient: @escaping () -> Bool,
+        hasAccessGrantedClient: @escaping () -> Bool,
+        authClient: AuthClient,
+        eventShortClient: EventShortClient,
         eventShortTypesClient: EventShortTypesClient
     ) {
-        self.eventShortClient = eventShortClient
         self.appPreferencesClient = appPreferencesClient
+        self.isAutorizedClient = isAutorizedClient
+        self.hasAccessGrantedClient = hasAccessGrantedClient
+        self.authClient = authClient
+        self.eventShortClient = eventShortClient
         self.eventShortTypesClient = eventShortTypesClient
+        
+        NotificationCenter
+            .default
+            .publisher(for: logoutNotification)
+            .sink { [weak self] _ in
+                self?.userInfoCache = nil
+            }
+            .store(in: &subscriptions)
     }
+    
+}
+// MARK: ClientFactory
 
+extension DependencyContainer: ClientFactory {
+    
+    func makeIsAutorizedClient() -> () -> Bool {
+        isAutorizedClient
+    }
+    
+    
+    func makeAppPreferencesClient() -> AppPreferencesClient {
+        appPreferencesClient
+    }
+    
+    func makeAuthClient() -> AuthClient {
+        authClient
+    }
+    
+    func makeHasAccessGrantedClient() -> () -> Bool {
+        hasAccessGrantedClient
+    }
+    
 }
 
 // MARK: ViewModelFactory
 
 extension DependencyContainer: ViewModelFactory {
-
-    func makeLoadAppPreferencesViewModel() -> LoadAppPreferencesViewModel {
-        .init(appPreferencesClient: appPreferencesClient)
-    }
-
-    func makeUpdateAppPreferencesViewModel() -> UpdateAppPreferencesViewModel {
-        .init(appPreferencesClient: appPreferencesClient)
-    }
-
+    
     func makeEventsViewModel(
         showFiltersHandler: @escaping () -> Void
     ) -> EventsViewModel {
@@ -55,7 +109,7 @@ extension DependencyContainer: ViewModelFactory {
             showFiltersHandler: showFiltersHandler
         )
     }
-
+    
     func makeEventFiltersViewModel(
         showFilteredResultsHandler: @escaping () -> Void
     ) -> EventFiltersViewModel {
@@ -64,21 +118,63 @@ extension DependencyContainer: ViewModelFactory {
             showFilteredResultsHandler: showFilteredResultsHandler
         )
     }
-
+    
+    func makeWelcomeViewModel() -> WelcomeViewModel {
+        .init(with: [
+            .init(
+                backgroundImageURL: .welcomeNewsImageURL,
+                title: .localized("onboarding_news_title"),
+                description: .localized("onboarding_news_text")
+            ),
+            .init(
+                backgroundImageURL: .welcomeEventsImageURL,
+                title: .localized("onboarding_events_title"),
+                description: .localized("onboarding_events_text")
+            ),
+            .init(
+                backgroundImageURL: .welcomeMeetImageURL,
+                title: .localized("onboarding_meetup_title"),
+                description: .localized("onboarding_meetup_text")
+            )
+        ])
+    }
+    
+    func makeMyAccountViewModel() -> MyAccountViewModel {
+        .init(authClient: makeAuthClient(), cache: userInfoCache)
+    }
+    
 }
 
 // MARK: ViewControllerFactory
 
 extension DependencyContainer: ViewControllerFactory {
-
+    
     func makeEventListViewController() -> EventListViewController {
         .init(items: [])
     }
-
+    
     func makeEventFiltersViewController(
         viewModel: EventFiltersViewModel
     ) -> EventFiltersViewController {
         .init(viewModel: viewModel)
     }
+    
+    func makeWelcomeViewController(
+        viewModel: WelcomeViewModel
+    ) -> AuthWelcomeViewController {
+        .init(viewModel: viewModel)
+    }
 
+    func makeMyAccountViewController(
+        viewModel: MyAccountViewModel
+    ) -> MyAccountViewController {
+        .init(viewModel: viewModel)
+    }
+    
+    func makeAccessNotGrantedViewController(
+        viewModel: MyAccountViewModel
+    ) -> AccessNotGrantedViewController {
+        .init(viewModel: viewModel)
+    }
+    
 }

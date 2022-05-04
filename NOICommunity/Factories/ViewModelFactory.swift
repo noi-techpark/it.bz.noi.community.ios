@@ -9,10 +9,6 @@ import Foundation
 
 protocol ViewModelFactory {
 
-    func makeLoadAppPreferencesViewModel() -> LoadAppPreferencesViewModel
-
-    func makeUpdateAppPreferencesViewModel() -> UpdateAppPreferencesViewModel
-
     func makeEventsViewModel(
         showFiltersHandler: @escaping () -> Void
     ) -> EventsViewModel
@@ -20,5 +16,9 @@ protocol ViewModelFactory {
     func makeEventFiltersViewModel(
         showFilteredResultsHandler: @escaping () -> Void
     ) -> EventFiltersViewModel
+    
+    func makeWelcomeViewModel() -> WelcomeViewModel
+    
+    func makeMyAccountViewModel() -> MyAccountViewModel
     
 }

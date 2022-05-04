@@ -11,25 +11,18 @@ import Combine
 // MARK: - EventShortClient+Live
 
 public extension AppPreferencesClient {
+    
     static let alwaysShowIntro = Self(
         fetch: {
-            Just(AppPreferences(skipIntro: false))
-                .eraseToAnyPublisher()
+            AppPreferences(skipIntro: false)
         },
-        update: { _ in
-            return Just(())
-                .eraseToAnyPublisher()
-        }
+        update: { _ in }
     )
-
+    
     static let neverShowIntro = Self(
         fetch: {
-            Just(AppPreferences(skipIntro: true))
-                .eraseToAnyPublisher()
+            AppPreferences(skipIntro: true)
         },
-        update: { _ in
-            return Just(())
-                .eraseToAnyPublisher()
-        }
+        update: { _ in }
     )
 }

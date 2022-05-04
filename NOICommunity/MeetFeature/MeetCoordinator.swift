@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class MeetCoordinator: BaseCoordinator {
+final class MeetCoordinator: BaseNavigationCoordinator {
 
     var mainVC: MeetMainViewController!
 

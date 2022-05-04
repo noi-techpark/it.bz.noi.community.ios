@@ -6,22 +6,67 @@
 //
 
 import UIKit
+import AppAuth
+import SwiftJWT
 import EventShortClientLive
 import AppPreferencesClientLive
 import EventShortTypesClient
 import EventShortTypesClientLive
 import SwiftCache
+import AuthClientLive
+import AuthStateStorageClient
+
+#if DEBUG
+private let accessGroupKey = "24PN5XJ85Y.it.dimension.noi-community"
+#else
+private let accessGroupKey = "5V2Q9SWB7H.it.bz.noi.community"
+#endif
+
+// MARK: - SceneDelegate
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
-
+    
     var window: UIWindow?
-
+    
+    var currentAuthorizationFlow: OIDExternalUserAgentSession?
+    
     lazy var cache: Cache<EventShortTypesClient.CacheKey, [EventsFilter]> = Cache()
-
+    
     lazy var dependencyContainer: DependencyContainer = {
-        DependencyContainer(
-            eventShortClient: .live(),
+        let tokenStorage = KeychainAuthStateStorageClient(
+            keyChainAccessGroup: accessGroupKey
+        )
+        return DependencyContainer(
             appPreferencesClient: .live(),
+            isAutorizedClient: {
+                guard let authState = tokenStorage.state
+                else { return false }
+                
+                
+                return authState.isAuthorized
+            },
+            hasAccessGrantedClient: {
+                guard let authState = tokenStorage.state,
+                      let accessToken = authState.lastTokenResponse?.accessToken
+                else { return false }
+                
+                return self.verify(
+                    jwt: accessToken,
+                    roles: [AuthConstant.accessGrantedRole],
+                    of: AuthConstant.clientID
+                )
+            },
+            authClient: .live(
+                client: .init(
+                    issuer: AuthConstant.issuerURL,
+                    clientID: AuthConstant.clientID,
+                    redirectURI: AuthConstant.redirectURI,
+                    endSessionURI: AuthConstant.endSessionURI
+                ),
+                context: self,
+                tokenStorage: tokenStorage
+            ),
+            eventShortClient: .live(),
             eventShortTypesClient: {
                 if let fileURL = Bundle.main.url(
                     forResource: "EventShortTypes",
@@ -37,53 +82,87 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             }()
         )
     }()
-
-    var appCoordinator: AppCoordinator!
-
-    func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+    
+    var rootCoordinator: RootCoordinator!
+    
+    func scene(
+        _ scene: UIScene,
+        willConnectTo session: UISceneSession,
+        options connectionOptions: UIScene.ConnectionOptions
+    ) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let windowScene = (scene as? UIWindowScene)
         else { return }
-
+        
         let window = UIWindow(windowScene: windowScene)
         self.window = window
-        appCoordinator = AppCoordinator(
+        rootCoordinator = RootCoordinator(
             window: window,
-            dependencyContainer: self.dependencyContainer
+            dependencyContainer: dependencyContainer
         )
-        appCoordinator.start()
+        rootCoordinator.start()
         window.makeKeyAndVisible()
     }
-
-    func sceneDidDisconnect(_ scene: UIScene) {
-        // Called as the scene is being released by the system.
-        // This occurs shortly after the scene enters the background, or when its session is discarded.
-        // Release any resources associated with this scene that can be re-created the next time the scene connects.
-        // The scene may re-connect later, as its session was not necessarily discarded (see `application:didDiscardSceneSessions` instead).
+    
+    func scene(
+        _ scene: UIScene,
+        openURLContexts URLContexts: Set<UIOpenURLContext>
+    ) {
+        guard let url = URLContexts.first?.url
+        else { return }
+        
+        
+        if let authorizationFlow = self.currentAuthorizationFlow,
+           authorizationFlow.resumeExternalUserAgentFlow(with: url) {
+            currentAuthorizationFlow = nil
+        }
     }
+    
+}
 
-    func sceneDidBecomeActive(_ scene: UIScene) {
-        // Called when the scene has moved from an inactive state to an active state.
-        // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
+// MARK: AuthContext
+
+extension SceneDelegate: AuthContext {
+    
+    var presentationContext: () -> UIViewController {
+        { (self.window?.rootViewController)! }
     }
+    
+}
 
-    func sceneWillResignActive(_ scene: UIScene) {
-        // Called when the scene will move from an active state to an inactive state.
-        // This may occur due to temporary interruptions (ex. an incoming phone call).
+
+// MARK: Private APIs
+
+private extension SceneDelegate {
+    
+    func verify(
+        jwt: String,
+        roles: [String],
+        of clientID: String
+    ) -> Bool {
+        struct MyClaims: Claims {
+            
+            let resourceAccess: [String: RolesContainer]
+            
+            private enum CodingKeys: String, CodingKey {
+                case resourceAccess = "resource_access"
+            }
+            
+            struct RolesContainer: Codable {
+                var roles: [String]
+            }
+        }
+        
+        guard let newJWT = try? JWT<MyClaims>(jwtString: jwt)
+        else {
+            return false
+        }
+        
+        let jwtRoles = Set(newJWT.claims.resourceAccess[clientID]?.roles ?? [])
+        let verifyRoles = Set(roles)
+        return jwtRoles.intersection(verifyRoles) == verifyRoles
     }
-
-    func sceneWillEnterForeground(_ scene: UIScene) {
-        // Called as the scene transitions from the background to the foreground.
-        // Use this method to undo the changes made on entering the background.
-    }
-
-    func sceneDidEnterBackground(_ scene: UIScene) {
-        // Called as the scene transitions from the foreground to the background.
-        // Use this method to save data, release shared resources, and store enough scene-specific state information
-        // to restore the scene back to its current state.
-    }
-
-
+    
 }

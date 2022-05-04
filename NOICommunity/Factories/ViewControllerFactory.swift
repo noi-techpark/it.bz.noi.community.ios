@@ -8,9 +8,23 @@
 import Foundation
 
 protocol ViewControllerFactory {
-
+    
     func makeEventListViewController() -> EventListViewController
+    
     func makeEventFiltersViewController(
         viewModel: EventFiltersViewModel
     ) -> EventFiltersViewController
+    
+    func makeWelcomeViewController(
+        viewModel: WelcomeViewModel
+    ) -> AuthWelcomeViewController
+    
+    func makeMyAccountViewController(
+        viewModel: MyAccountViewModel
+    ) -> MyAccountViewController
+    
+    func makeAccessNotGrantedViewController(
+        viewModel: MyAccountViewModel
+    ) -> AccessNotGrantedViewController
+    
 }

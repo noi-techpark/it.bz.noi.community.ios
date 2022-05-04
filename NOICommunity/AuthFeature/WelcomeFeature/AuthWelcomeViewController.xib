@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AuthWelcomeViewController" customModule="NOICommunity" customModuleProvider="target">
+            <connections>
+                <outlet property="footerView" destination="Myg-RG-FqO" id="AnW-Do-OnF"/>
+                <outlet property="loginButton" destination="Vbf-nl-qua" id="Qmh-FD-0as"/>
+                <outlet property="pageControl" destination="3wm-sX-G2z" id="gU2-Iy-IvP"/>
+                <outlet property="pagesContainerView" destination="JNN-jq-OAA" id="Se8-SR-Zwe"/>
+                <outlet property="signUpButton" destination="ElR-z1-tS9" id="hbS-dR-WSv"/>
+                <outlet property="view" destination="iN0-l3-epB" id="u6D-Kg-j9T"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JNN-jq-OAA">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                    <color key="backgroundColor" name="background_color"/>
+                </view>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="Myg-RG-FqO">
+                    <rect key="frame" x="17" y="683" width="380" height="159"/>
+                    <subviews>
+                        <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="3wm-sX-G2z">
+                            <rect key="frame" x="0.0" y="0.0" width="380" height="26"/>
+                        </pageControl>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="9" translatesAutoresizingMaskIntoConstraints="NO" id="tor-wU-Xp3">
+                            <rect key="frame" x="0.0" y="50" width="380" height="109"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vbf-nl-qua">
+                                    <rect key="frame" x="0.0" y="0.0" width="380" height="50"/>
+                                    <color key="backgroundColor" name="tertiary_background_color"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="45W-0D-140"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                    <color key="tintColor" name="secondary_color"/>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" title="Login"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                            <integer key="value" value="2"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ElR-z1-tS9">
+                                    <rect key="frame" x="0.0" y="59" width="380" height="50"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="Irb-nr-NGO"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                    <color key="tintColor" name="primary_color"/>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" title="Signup"/>
+                                </button>
+                            </subviews>
+                        </stackView>
+                    </subviews>
+                </stackView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Myg-RG-FqO" secondAttribute="trailing" constant="17" id="9AI-kw-Cxc"/>
+                <constraint firstItem="Myg-RG-FqO" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="17" id="IjT-TQ-EY6"/>
+                <constraint firstItem="JNN-jq-OAA" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="LBW-sC-tas"/>
+                <constraint firstAttribute="bottom" secondItem="JNN-jq-OAA" secondAttribute="bottom" id="VbN-lE-msO"/>
+                <constraint firstItem="JNN-jq-OAA" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="X4M-xP-BJ7"/>
+                <constraint firstAttribute="trailing" secondItem="JNN-jq-OAA" secondAttribute="trailing" id="k01-7S-u5j"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="Myg-RG-FqO" secondAttribute="bottom" constant="20" id="oZj-VU-Ime"/>
+            </constraints>
+            <point key="canvasLocation" x="139" y="140"/>
+        </view>
+    </objects>
+    <resources>
+        <namedColor name="background_color">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="primary_color">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="secondary_color">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="tertiary_background_color">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
