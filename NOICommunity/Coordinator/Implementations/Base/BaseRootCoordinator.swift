@@ -7,25 +7,21 @@
 
 import UIKit
 
-class BaseRootCoordinator: NSObject, RootCoordinatorType {
-    
-    var childCoordinators: [CoordinatorType] = []
+class BaseRootCoordinator: BaseCoordinator, RootCoordinatorType {
 
     var window: UIWindow
-
-    var dependencyContainer: DependencyRepresentable
-
+    
+    @available(*, unavailable)
+    override init(dependencyContainer: DependencyRepresentable) {
+        fatalError("\(#function) not available")
+    }
+    
     init(
         window: UIWindow,
         dependencyContainer: DependencyRepresentable
     ) {
         self.window = window
-        self.dependencyContainer = dependencyContainer
-    }
-
-    func start(animated: Bool) {
-        guard type(of: self) != BaseRootCoordinator.self
-        else { preconditionFailure("subclass should implement start function!") }
+        super.init(dependencyContainer: dependencyContainer)
     }
 
 }
