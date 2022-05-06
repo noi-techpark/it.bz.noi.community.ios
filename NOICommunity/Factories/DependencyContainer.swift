@@ -14,6 +14,7 @@ import AuthClient
 import EventShortClient
 import EventShortTypesClient
 import SwiftCache
+import ArticlesClient
 
 // MARK: - DependencyContainer
 
@@ -25,6 +26,7 @@ final class DependencyContainer {
     let authClient: AuthClient
     let eventShortClient: EventShortClient
     let eventShortTypesClient: EventShortTypesClient
+    let artileClient: ArticlesClient
     
     private var _userInfoCache: Cache<MyAccountViewModel.CacheKey, UserInfo>?
     private var userInfoCache: Cache<MyAccountViewModel.CacheKey, UserInfo>! {
@@ -50,7 +52,8 @@ final class DependencyContainer {
         hasAccessGrantedClient: @escaping () -> Bool,
         authClient: AuthClient,
         eventShortClient: EventShortClient,
-        eventShortTypesClient: EventShortTypesClient
+        eventShortTypesClient: EventShortTypesClient,
+        articleClient: ArticlesClient
     ) {
         self.appPreferencesClient = appPreferencesClient
         self.isAutorizedClient = isAutorizedClient
@@ -58,6 +61,7 @@ final class DependencyContainer {
         self.authClient = authClient
         self.eventShortClient = eventShortClient
         self.eventShortTypesClient = eventShortTypesClient
+        self.artileClient = articleClient
         
         NotificationCenter
             .default
@@ -88,6 +92,10 @@ extension DependencyContainer: ClientFactory {
     
     func makeHasAccessGrantedClient() -> () -> Bool {
         hasAccessGrantedClient
+    }
+    
+    func makeArticlesClient() -> ArticlesClient {
+        artileClient
     }
     
 }
@@ -143,6 +151,18 @@ extension DependencyContainer: ViewModelFactory {
         .init(authClient: makeAuthClient(), cache: userInfoCache)
     }
     
+    func makeNewsListViewModel() -> NewsListViewModel {
+        .init(articlesClient: artileClient)
+    }
+    
+    func makeNewsDetailsViewModel(availableNews: Article?) -> NewsDetailsViewModel {
+        .init(
+            articlesClient: artileClient,
+            availableNews: availableNews,
+            language: nil
+        )
+    }
+    
 }
 
 // MARK: ViewControllerFactory
@@ -175,6 +195,19 @@ extension DependencyContainer: ViewControllerFactory {
         viewModel: MyAccountViewModel
     ) -> AccessNotGrantedViewController {
         .init(viewModel: viewModel)
+    }
+    
+    func makeNewsViewController(
+        viewModel: NewsListViewModel
+    ) -> NewsViewController {
+        .init(viewModel: viewModel)
+    }
+    
+    func makeNewsDetailsViewController(
+        newsId: String,
+        viewModel: NewsDetailsViewModel
+    ) -> NewsDetailsViewController {
+        .init(newsId: newsId, viewModel: viewModel)
     }
     
 }

@@ -10,6 +10,21 @@ import UIKit
 final class TabCoordinator: BaseTabCoordinator {
     
     override func start(animated: Bool) {
+        let todayTabBarController = TopTabBarController()
+        let todayNavController = NavigationController(
+            rootViewController: todayTabBarController
+        )
+        todayNavController.navigationBar.prefersLargeTitles = true
+        todayNavController.tabBarItem.title = .localized("tab_title_today")
+        todayNavController.tabBarItem.image = UIImage(named: "ic_today")
+        let todayCoordinator = TodayCoordinator(
+            navigationController: todayNavController,
+            topTabBarController: todayTabBarController,
+            dependencyContainer: dependencyContainer
+        )
+        todayCoordinator.start(animated: false)
+        childCoordinators.append(todayCoordinator)
+        
         let eventsNavController = NavigationController()
         eventsNavController.tabBarItem.title = .localized("tab_title_today")
         eventsNavController.tabBarItem.image = UIImage(named: "ic_today")
@@ -20,7 +35,7 @@ final class TabCoordinator: BaseTabCoordinator {
         )
         eventsCoordinator.start()
         childCoordinators.append(eventsCoordinator)
-
+        
         let orientateNavController = NavigationController()
         orientateNavController.tabBarItem.title = .localized("tab_title_orientate")
         orientateNavController.tabBarItem.image = UIImage(named: "ic_orientate")
@@ -31,7 +46,7 @@ final class TabCoordinator: BaseTabCoordinator {
         )
         orientateCoordinator.start()
         childCoordinators.append(orientateCoordinator)
-
+        
         let meetNavController = NavigationController()
         meetNavController.tabBarItem.title = .localized("tab_title_meet")
         meetNavController.tabBarItem.image = UIImage(named: "ic_meet")
@@ -42,7 +57,7 @@ final class TabCoordinator: BaseTabCoordinator {
         )
         meetCoordinator.start()
         childCoordinators.append(meetCoordinator)
-
+        
         let eatNavController = NavigationController()
         eatNavController.tabBarItem.title = .localized("tab_title_eat")
         eatNavController.tabBarItem.image = UIImage(named: "ic_eat")
@@ -53,7 +68,7 @@ final class TabCoordinator: BaseTabCoordinator {
         )
         eatCoordinator.start()
         childCoordinators.append(eatCoordinator)
-
+        
         let moreNavController = NavigationController()
         moreNavController.tabBarItem.title = .localized("tab_title_more")
         moreNavController.tabBarItem.image = UIImage(named: "ic_more")
@@ -64,9 +79,9 @@ final class TabCoordinator: BaseTabCoordinator {
         )
         moreCoordinator.start()
         childCoordinators.append(moreCoordinator)
-
+        
         tabBarController.viewControllers = [
-            eventsNavController,
+            todayNavController,
             orientateNavController,
             meetNavController,
             eatNavController,

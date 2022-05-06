@@ -27,4 +27,13 @@ protocol ViewControllerFactory {
         viewModel: MyAccountViewModel
     ) -> AccessNotGrantedViewController
     
+    func makeNewsViewController(
+        viewModel: NewsListViewModel
+    ) -> NewsViewController
+    
+    func makeNewsDetailsViewController(
+        newsId: String,
+        viewModel: NewsDetailsViewModel
+    ) -> NewsDetailsViewController
+    
 }

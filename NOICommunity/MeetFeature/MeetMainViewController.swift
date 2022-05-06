@@ -95,7 +95,7 @@ final class MeetMainViewController: UICollectionViewController {
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
+        .lightContent
     }
 }
 

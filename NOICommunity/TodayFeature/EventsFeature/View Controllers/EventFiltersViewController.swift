@@ -16,17 +16,17 @@ class EventFiltersViewController: UIViewController {
 
     @IBOutlet private var resetActiveFiltersButton: UIButton! {
         didSet {
-            resetActiveFiltersButton.configureAsSecondaryActionButton()
-            resetActiveFiltersButton.setTitle(
-                .localized("reset_filters_btn"),
-                for: .normal
-            )
+            resetActiveFiltersButton
+                .configureAsTertiaryActionButton()
+                .withMinimumHeight(44)
+                .withTitle(.localized("reset_filters_btn"))
         }
     }
 
     @IBOutlet private var showResultsButton: UIButton! {
         didSet {
-            showResultsButton.configureAsActionButton()
+            showResultsButton
+                .configureAsPrimaryActionButton()
         }
     }
 

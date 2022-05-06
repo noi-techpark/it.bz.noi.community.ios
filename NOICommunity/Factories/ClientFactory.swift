@@ -9,6 +9,7 @@ import Foundation
 import AppPreferencesClient
 import AuthStateStorageClient
 import AuthClient
+import ArticlesClient
 
 protocol ClientFactory {
     
@@ -19,5 +20,7 @@ protocol ClientFactory {
     func makeHasAccessGrantedClient() -> () -> Bool
     
     func makeAuthClient() -> AuthClient
+    
+    func makeArticlesClient() -> ArticlesClient
     
 }

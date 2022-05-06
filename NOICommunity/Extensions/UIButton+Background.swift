@@ -8,10 +8,28 @@
 import UIKit
 
 extension UIButton {
-
-    func setBackgroundColor(_ color: UIColor?, for state: UIControl.State) {
-        let backgroundImageOrNil = color
+    
+    func setBackgroundColor(
+        _ backgroundColor: UIColor?,
+        for state: UIControl.State
+    ) {
+        let backgroundImageOrNil = backgroundColor
             .flatMap { UIImage.image(withColor: $0) }
-        self.setBackgroundImage(backgroundImageOrNil, for: state)
+        setBackgroundImage(backgroundImageOrNil, for: state)
     }
+    
+    func setBackgroundColor(
+        _ backgroundColor: UIColor,
+        strokeColor: UIColor?,
+        lineWidth: CGFloat,
+        for state: UIControl.State
+    ) {
+        let backgroundImage = UIImage.image(
+            withBackgroundColor: backgroundColor,
+            strokeColor: strokeColor,
+            lineWidth: lineWidth
+        )
+        setBackgroundImage(backgroundImage, for: state)
+    }
+    
 }

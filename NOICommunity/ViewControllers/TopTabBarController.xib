@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TopTabBarController" customModule="NOICommunity" customModuleProvider="target">
+            <connections>
+                <outlet property="contentView" destination="ygu-Ok-n5T" id="awd-2w-7qN"/>
+                <outlet property="topTabBarContainerView" destination="5b8-wE-2zS" id="DtR-oG-l9b"/>
+                <outlet property="view" destination="iN0-l3-epB" id="ZSn-VJ-mRU"/>
+                <outletCollection property="topTabBarHidden" destination="Tlj-cO-pos" collectionClass="NSMutableArray" id="ePc-fA-jya"/>
+                <outletCollection property="topTabBarNotHidden" destination="jtH-hA-REx" collectionClass="NSMutableArray" id="1Jo-r8-AFQ"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5b8-wE-2zS" userLabel="Top Tab Bar Container View">
+                    <rect key="frame" x="0.0" y="43" width="414" height="58"/>
+                    <color key="backgroundColor" name="background_color"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="58" id="FaJ-FK-RX6"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ygu-Ok-n5T" userLabel="Content View">
+                    <rect key="frame" x="0.0" y="101" width="414" height="795"/>
+                    <color key="backgroundColor" name="tertiary_background_color"/>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="ygu-Ok-n5T" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="70g-Y3-rf2"/>
+                <constraint firstItem="ygu-Ok-n5T" firstAttribute="top" secondItem="5b8-wE-2zS" secondAttribute="bottom" id="PiB-Sl-pWe"/>
+                <constraint firstAttribute="bottom" secondItem="ygu-Ok-n5T" secondAttribute="bottom" id="Qsx-Wq-Tsl"/>
+                <constraint firstItem="ygu-Ok-n5T" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="R2j-7W-VRm"/>
+                <constraint firstItem="5b8-wE-2zS" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="top" id="Tlj-cO-pos"/>
+                <constraint firstItem="5b8-wE-2zS" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="Txm-1V-91B"/>
+                <constraint firstItem="5b8-wE-2zS" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="-1" id="jtH-hA-REx"/>
+                <constraint firstItem="5b8-wE-2zS" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="q55-WM-j1R"/>
+            </constraints>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="Tlj-cO-pos"/>
+                </mask>
+            </variation>
+            <point key="canvasLocation" x="139" y="123"/>
+        </view>
+    </objects>
+    <resources>
+        <namedColor name="background_color">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="tertiary_background_color">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

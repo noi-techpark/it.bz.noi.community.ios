@@ -35,7 +35,7 @@ final class RootCoordinator: BaseRootCoordinator {
 private extension RootCoordinator {
     
     func startAppCoordinator() {
-        let navigationController = UINavigationController()
+        let navigationController = NavigationController()
         navigationController.navigationBar.isHidden = true
         appCoordinator = AppCoordinator(
             navigationController: navigationController,

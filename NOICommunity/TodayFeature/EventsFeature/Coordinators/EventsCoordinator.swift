@@ -13,6 +13,10 @@ import Combine
 
 final class EventsCoordinator: BaseNavigationCoordinator {
 
+    override var rootViewController: UIViewController {
+        mainVC
+    }
+    
     private var mainVC: EventsMainViewController!
     private var eventsViewModel: EventsViewModel!
     private var navigationDelegate: EventsNavigationControllerDelegate!
@@ -39,8 +43,7 @@ final class EventsCoordinator: BaseNavigationCoordinator {
                 transitionIndexPath: indexPath
             )
         }
-        mainVC.navigationItem.title = .localized("title_today")
-        navigationController.viewControllers = [mainVC]
+        mainVC.tabBarItem.title = .localized("events_top_tab")
 
         eventFiltersViewModel.$activeFilters
             .dropFirst()
@@ -153,7 +156,7 @@ private extension EventsCoordinator {
             viewModel: eventFiltersViewModel
         )
         navigationController.present(
-            UINavigationController(rootViewController: filtersVC),
+            NavigationController(rootViewController: filtersVC),
             animated: true,
             completion: nil
         )

@@ -10,9 +10,9 @@ import Foundation
 // MARK: - JSONDecoder.KeyDecodingStrategy+PascalCase
 
 public extension JSONDecoder.KeyDecodingStrategy {
-
+    
     static var convertFromPascalCase: JSONDecoder.KeyDecodingStrategy {
-        return .custom { keys -> CodingKey in
+        .custom { keys -> CodingKey in
             // keys array is never empty
             let key = keys.last!
             // Do not change the key for an array
@@ -20,11 +20,12 @@ public extension JSONDecoder.KeyDecodingStrategy {
                 return key
             }
             
-            let codingKeyType = type(of: key)
-            let newStringValue = key.stringValue.firstCharLowercased()
+            let stringValue = key.stringValue
+            let newStringValue = stringValue.firstCharLowercased()
             
+            let codingKeyType = type(of: key)
             return codingKeyType.init(stringValue: newStringValue)!
         }
     }
-
+    
 }

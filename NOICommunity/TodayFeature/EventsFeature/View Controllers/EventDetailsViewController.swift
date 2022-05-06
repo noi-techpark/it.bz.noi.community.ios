@@ -96,31 +96,25 @@ class EventDetailsViewController: UIViewController {
     
     @IBOutlet private var locateEventButton: UIButton! {
         didSet {
-            locateEventButton.configureAsActionButton()
-            locateEventButton.setTitle(
-                .localized("btn_find_on_maps"),
-                for: .normal
-            )
+            locateEventButton
+                .configureAsPrimaryActionButton()
+                .withTitle(.localized("btn_find_on_maps"))
         }
     }
     
     @IBOutlet private var addToCalendarButton: UIButton! {
         didSet {
-            addToCalendarButton.configureAsActionButton()
-            addToCalendarButton.setTitle(
-                .localized("btn_add_to_calendar"),
-                for: .normal
-            )
+            addToCalendarButton
+                .configureAsPrimaryActionButton()
+                .withTitle(.localized("btn_add_to_calendar"))
         }
     }
 
     @IBOutlet private var signupButton: UIButton! {
         didSet {
-            signupButton.configureAsActionButton()
-            signupButton.setTitle(
-                .localized("btn_sign_up"),
-                for: .normal
-            )
+            signupButton
+                .configureAsPrimaryActionButton()
+                .withTitle(.localized("btn_sign_up"))
         }
     }
     
@@ -150,7 +144,7 @@ class EventDetailsViewController: UIViewController {
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
+        .lightContent
     }
     
     override func preferredContentSizeDidChange(forChildContentContainer container: UIContentContainer) {

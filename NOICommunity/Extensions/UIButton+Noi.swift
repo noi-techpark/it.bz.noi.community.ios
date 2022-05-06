@@ -9,11 +9,20 @@ import UIKit
 
 extension UIButton {
     
-    @discardableResult func withText(
-        _ text: String?,
+    @discardableResult func withTitle(
+        _ title: String?,
         state: UIControl.State = .normal
     ) -> UIButton {
-        setTitle(text, for: state)
+        setTitle(title, for: state)
+        
+        return self
+    }
+    
+    @discardableResult func withTitleColor(
+        _ color: UIColor?,
+        state: UIControl.State = .normal
+    ) -> UIButton {
+        setTitleColor(color, for: state)
         
         return self
     }
@@ -49,54 +58,94 @@ extension UIButton {
         withBackgroundColor backgroundColor: UIColor,
         contentEdgeInsets: UIEdgeInsets = .zero
     ) -> UIButton {
-        titleLabel?.adjustsFontForContentSizeCategory = true
         setBackgroundColor(backgroundColor, for: .normal)
+        
         self.contentEdgeInsets = contentEdgeInsets
+        
         return self
     }
-
-    @discardableResult func configureAsActionButton(
-        minHeight: CGFloat = 50
-    )  -> UIButton {
-        configureAsRectangleButton(
-            withBackgroundColor: .noiBackgroundColor,
-            contentEdgeInsets: .init(top: 12, left: 12, bottom: 12, right: 12)
+    
+    @discardableResult func configureAsRectangleButton(
+        withBackgroundColor backgroundColor: UIColor,
+        strokeColor: UIColor?,
+        lineWidth: CGFloat,
+        contentEdgeInsets: UIEdgeInsets = .zero
+    ) -> UIButton {
+        setBackgroundColor(
+            backgroundColor,
+            strokeColor: strokeColor,
+            lineWidth: lineWidth,
+            for: .normal
         )
-
+        
+        self.contentEdgeInsets = contentEdgeInsets
+        
+        return self
+    }
+    
+    @discardableResult func withMinimumHeight(
+        _ minHeight: CGFloat = 50
+    ) -> UIButton {
         let id = "button-height-constraint"
-        if !constraints.contains(where: { $0.identifier == id }) {
-            let heightConstraint = heightAnchor
+        
+        var minHeightConstraint: NSLayoutConstraint! = constraints
+            .first { $0.identifier == id }
+        if minHeightConstraint == nil {
+            minHeightConstraint = heightAnchor
                 .constraint(greaterThanOrEqualToConstant: minHeight)
-            heightConstraint.identifier = id
-            heightConstraint.isActive = true
+            minHeightConstraint.identifier = id
         }
-
-        titleLabel?.font = .preferredFont(
-            forTextStyle: .body,
-            weight: .semibold
-        )
-        titleLabel?.numberOfLines = 0
-        titleLabel?.textAlignment = .center
-
-        setTitleColor(.noiPrimaryColor, for: .normal)
-
+        minHeightConstraint.constant = minHeight
+        minHeightConstraint.isActive = true
+        
         return self
     }
-
+    
+    @discardableResult func configureAsFooterButton()  -> UIButton {
+        self
+            .withMinimumHeight(50)
+            .withTextAligment(.center)
+            .withDynamicType()
+            .withTextStyle(.body, weight: .semibold)
+    }
+    
+    @discardableResult func configureAsPrimaryActionButton()  -> UIButton {
+        self
+            .configureAsFooterButton()
+            .configureAsRectangleButton(
+                withBackgroundColor: .noiBackgroundColor,
+                contentEdgeInsets: .init(
+                    top: 12,
+                    left: 12,
+                    bottom: 12,
+                    right: 12
+                )
+            )
+            .withTitleColor(.noiPrimaryColor)
+    }
+    
     @discardableResult func configureAsSecondaryActionButton()  -> UIButton {
-        titleLabel?.adjustsFontForContentSizeCategory = true
-
-        titleLabel?.font = .preferredFont(
-            forTextStyle: .body,
-            weight: .semibold
-        )
-        titleLabel?.numberOfLines = 0
-        titleLabel?.textAlignment = .center
-
-        setTitleColor(.noiBackgroundColor, for: .normal)
-
-        return self
+        self
+            .configureAsFooterButton()
+            .configureAsRectangleButton(
+                withBackgroundColor: .clear,
+                strokeColor: .noiSecondaryColor,
+                lineWidth: 1,
+                contentEdgeInsets: .init(
+                    top: 12,
+                    left: 12,
+                    bottom: 12,
+                    right: 12
+                )
+            )
+            .withTitleColor(.noiSecondaryColor)
     }
-
+    
+    @discardableResult func configureAsTertiaryActionButton()  -> UIButton {
+        self
+            .configureAsFooterButton()
+            .withTitleColor(.noiBackgroundColor)
+    }
+    
 }
 

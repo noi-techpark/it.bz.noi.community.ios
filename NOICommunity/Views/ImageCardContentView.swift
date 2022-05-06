@@ -83,7 +83,7 @@ struct ImageContentConfiguration: UIContentConfiguration, Hashable {
 extension ImageContentConfiguration {
     struct ImageProperties: Hashable {
         /// The maximum number of lines for the text.
-        var contentMode: UIView.ContentMode = .scaleToFill
+        var contentMode: UIView.ContentMode = .scaleAspectFill
     }
 }
 
