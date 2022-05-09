@@ -9,15 +9,20 @@ import UIKit
 
 extension UIViewController {
     
-    func showError(_ error: Error) {
+    func showError(
+        _ error: Error,
+        presentationCompletion: (() -> Void)? = nil,
+        dismissCompletion: (() -> Void)? = nil
+    ) {
         let alert = UIAlertController(error: error, preferredStyle: .alert)
         let cancelAction = UIAlertAction(
             title: .localized("alert_ok"),
-            style: .cancel,
-            handler: nil
-        )
+            style: .cancel
+        ) { _ in
+            dismissCompletion?()
+        }
         alert.addAction(cancelAction)
-        present(alert, animated: true, completion: nil)
+        present(alert, animated: true, completion: presentationCompletion)
     }
     
 }
