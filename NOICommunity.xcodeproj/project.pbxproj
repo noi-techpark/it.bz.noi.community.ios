@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3106A2E5282132840029839A /* AuthConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3106A2E4282132840029839A /* AuthConstants.swift */; };
 		3110CF6026F0E89C003B7174 /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3110CF5F26F0E89C003B7174 /* CircleView.swift */; };
+		311350E9282E5BD300AC9BC9 /* Photos.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 311350E8282E5BD300AC9BC9 /* Photos.xcassets */; };
 		31157CFE26FC5DEB00A43B33 /* EventsCalendarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31157CFD26FC5DEB00A43B33 /* EventsCalendarManager.swift */; };
 		31157D0026FC648700A43B33 /* Event+CalendarEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31157CFF26FC648700A43B33 /* Event+CalendarEvent.swift */; };
 		31157D0526FC66FB00A43B33 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 31157D0726FC66FB00A43B33 /* InfoPlist.strings */; };
@@ -33,7 +34,6 @@
 		313FB0B52719C438000AD9DA /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 313FB0B42719C438000AD9DA /* FirebaseCrashlytics */; };
 		313FB0B72719C518000AD9DA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 313FB0B62719C518000AD9DA /* GoogleService-Info.plist */; };
 		313FB0B92719CFA9000AD9DA /* EventsMainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 319C0EA226F4A43C00C6D38B /* EventsMainViewController.xib */; };
-		31409C9E2809A0E30024BCB0 /* Welcome.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 31409C9D2809A0E30024BCB0 /* Welcome.bundle */; };
 		314263A5271F048800DA4429 /* AppFeatureSwitches.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314263A4271F048800DA4429 /* AppFeatureSwitches.swift */; };
 		3145D23126B3F73F00F16787 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3145D23026B3F73F00F16787 /* AppDelegate.swift */; };
 		3145D23326B3F73F00F16787 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3145D23226B3F73F00F16787 /* SceneDelegate.swift */; };
@@ -124,7 +124,6 @@
 		31C640B726FE17F6004B71A2 /* EventsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C640B626FE17F6004B71A2 /* EventsCoordinator.swift */; };
 		31C640C526FE1E43004B71A2 /* MeetCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C640C226FE1E43004B71A2 /* MeetCoordinator.swift */; };
 		31C640C626FE1E43004B71A2 /* MeetMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C640C326FE1E43004B71A2 /* MeetMainViewController.swift */; };
-		31C8B7F927059001007A37EE /* Restaurants.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 31C8B7F827059001007A37EE /* Restaurants.bundle */; };
 		31CE9BF62701BF33005EA61A /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 31CE9BF52701BF33005EA61A /* Kingfisher */; };
 		31CF8127270B3CD90077CB0D /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CF8124270B3CD90077CB0D /* IntroViewController.swift */; };
 		31CF8128270B3CD90077CB0D /* NOI_begins-with-you_Animation_black_short.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 31CF8125270B3CD90077CB0D /* NOI_begins-with-you_Animation_black_short.mp4 */; };
@@ -167,6 +166,7 @@
 		3101C76F27DB37C30079EFE2 /* NOICommunityLib */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = NOICommunityLib; sourceTree = "<group>"; };
 		3106A2E4282132840029839A /* AuthConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthConstants.swift; sourceTree = "<group>"; };
 		3110CF5F26F0E89C003B7174 /* CircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
+		311350E8282E5BD300AC9BC9 /* Photos.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Photos.xcassets; sourceTree = "<group>"; };
 		31157CFD26FC5DEB00A43B33 /* EventsCalendarManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventsCalendarManager.swift; sourceTree = "<group>"; };
 		31157CFF26FC648700A43B33 /* Event+CalendarEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Event+CalendarEvent.swift"; sourceTree = "<group>"; };
 		31157D0626FC66FB00A43B33 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -192,7 +192,6 @@
 		3136CC412706F8D200C27129 /* UIView+TransitionId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+TransitionId.swift"; sourceTree = "<group>"; };
 		3136CC432707093B00C27129 /* SourceDismissAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceDismissAnimator.swift; sourceTree = "<group>"; };
 		313FB0B62719C518000AD9DA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		31409C9D2809A0E30024BCB0 /* Welcome.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Welcome.bundle; sourceTree = "<group>"; };
 		314263A4271F048800DA4429 /* AppFeatureSwitches.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFeatureSwitches.swift; sourceTree = "<group>"; };
 		3145D22D26B3F73F00F16787 /* NOICommunity.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NOICommunity.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3145D23026B3F73F00F16787 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -281,7 +280,6 @@
 		31C640B626FE17F6004B71A2 /* EventsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsCoordinator.swift; sourceTree = "<group>"; };
 		31C640C226FE1E43004B71A2 /* MeetCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeetCoordinator.swift; sourceTree = "<group>"; };
 		31C640C326FE1E43004B71A2 /* MeetMainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeetMainViewController.swift; sourceTree = "<group>"; };
-		31C8B7F827059001007A37EE /* Restaurants.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Restaurants.bundle; sourceTree = "<group>"; };
 		31CF8124270B3CD90077CB0D /* IntroViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntroViewController.swift; sourceTree = "<group>"; };
 		31CF8125270B3CD90077CB0D /* NOI_begins-with-you_Animation_black_short.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NOI_begins-with-you_Animation_black_short.mp4"; sourceTree = "<group>"; };
 		31CF812C270B3E340077CB0D /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -399,6 +397,7 @@
 				314263A4271F048800DA4429 /* AppFeatureSwitches.swift */,
 				31CF812C270B3E340077CB0D /* LaunchScreen.storyboard */,
 				3145D23926B3F74000F16787 /* Images.xcassets */,
+				311350E8282E5BD300AC9BC9 /* Photos.xcassets */,
 				31E058F42812F2A700D1F7FE /* NOICommunityRelease.entitlements */,
 				31E058F32812F29500D1F7FE /* NOICommunityDebug.entitlements */,
 				31B6741F27C79E520044A285 /* EventShortTypes.json */,
@@ -444,7 +443,6 @@
 		3153010328071CFF00471153 /* WelcomeFeature */ = {
 			isa = PBXGroup;
 			children = (
-				31409C9D2809A0E30024BCB0 /* Welcome.bundle */,
 				3153010428071D1200471153 /* AuthWelcomePageViewController.swift */,
 				3153010628071D5500471153 /* AuthWelcomePageViewController.xib */,
 				312F5D262808250000C84598 /* AuthWelcomeViewController.swift */,
@@ -457,7 +455,6 @@
 		3167681427035D9500A9DB87 /* EatFeature */ = {
 			isa = PBXGroup;
 			children = (
-				31C8B7F827059001007A37EE /* Restaurants.bundle */,
 				3167681627035D9500A9DB87 /* EatCoordinator.swift */,
 				3167681527035D9500A9DB87 /* EatMainViewController.swift */,
 				3167681927036A2F00A9DB87 /* PlaceCardContentView.swift */,
@@ -823,7 +820,6 @@
 				3167681C27036A2F00A9DB87 /* PlaceCardContentView.xib in Resources */,
 				31C640A826FE0CF8004B71A2 /* OrientateMainViewController.xib in Resources */,
 				313FB0B72719C518000AD9DA /* GoogleService-Info.plist in Resources */,
-				31409C9E2809A0E30024BCB0 /* Welcome.bundle in Resources */,
 				31C2261D270F59750098A70E /* EventDetailsViewController.xib in Resources */,
 				316ED05D270B12CF0070D272 /* Colors.xcassets in Resources */,
 				31CF8133270B49100077CB0D /* VersionContentView.xib in Resources */,
@@ -836,7 +832,7 @@
 				31C2261C270F596E0098A70E /* EventCardContentView.xib in Resources */,
 				317615CA26FDD637007FE10F /* MessageViewController.xib in Resources */,
 				31157D0526FC66FB00A43B33 /* InfoPlist.strings in Resources */,
-				31C8B7F927059001007A37EE /* Restaurants.bundle in Resources */,
+				311350E9282E5BD300AC9BC9 /* Photos.xcassets in Resources */,
 				31CF8128270B3CD90077CB0D /* NOI_begins-with-you_Animation_black_short.mp4 in Resources */,
 				31157D0C26FC70A500A43B33 /* Localizable.strings in Resources */,
 				31E7872027D64F2300C67188 /* EventFiltersViewController.xib in Resources */,

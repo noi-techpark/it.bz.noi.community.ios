@@ -197,7 +197,7 @@ private extension AuthWelcomePageViewController {
     
     func configure(with page: WelcomePage) {
         loadViewIfNeeded()
-        backgroundImageView.kf.setImage(with: page.backgroundImageURL)
+        backgroundImageView.image = UIImage(named: page.backgroundImageName)
         textLabel.text = page.title
         detailedTextLabel.text = page.description
     }
