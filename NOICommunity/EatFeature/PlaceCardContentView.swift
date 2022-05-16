@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Kingfisher
 
 // MARK: - PlaceCardContentView
 
@@ -34,9 +33,7 @@ class PlaceCardContentView: UIView, UIContentView {
 
     private var actionHandler: (() -> Void)?
 
-    private var dataSource: UICollectionViewDiffableDataSource<Section, URL>! = nil
-
-    private var imagePrefetcher: ImagePrefetcher?
+    private var dataSource: UICollectionViewDiffableDataSource<Section, String>! = nil
 
     init(configuration: PlaceCardContentConfiguration) {
         super.init(frame: .zero)
@@ -99,9 +96,9 @@ private extension PlaceCardContentView {
         )
         actionHandler = configuration.actionHandler
 
-        var snapshot = NSDiffableDataSourceSnapshot<Section, URL>()
+        var snapshot = NSDiffableDataSourceSnapshot<Section, String>()
         snapshot.appendSections([.main])
-        snapshot.appendItems(configuration.imagesURLs)
+        snapshot.appendItems(configuration.imagesNames)
         dataSource.apply(snapshot, animatingDifferences: true)
     }
 
@@ -138,25 +135,14 @@ private extension PlaceCardContentView {
     }
 
     func configureDataSource() {
-        let cellRegistration = UICollectionView.CellRegistration<IdentifiableCollectionViewCell<URL>, URL> { cell, _, imageURL in
-            cell.id = imageURL
+        let cellRegistration = UICollectionView.CellRegistration<IdentifiableCollectionViewCell<String>, String> { cell, _, imageName in
+            cell.id = imageName
             var contentConfiguration = ImageContentConfiguration()
-            contentConfiguration.image = UIImage(named: "placeholder_noi_events")
+            contentConfiguration.image = UIImage(named: imageName)
             var imageProperties = ImageContentConfiguration.ImageProperties()
             imageProperties.contentMode = .scaleAspectFill
             contentConfiguration.imageProperties = imageProperties
             cell.contentConfiguration = contentConfiguration
-
-            KingfisherManager.shared.retrieveImage(with: imageURL) { result in
-                guard
-                    cell.id == imageURL,
-                    case let .success(imageInfo) = result,
-                    var contentConfiguration = cell.contentConfiguration as? ImageContentConfiguration
-                else { return }
-
-                contentConfiguration.image = imageInfo.image
-                cell.contentConfiguration = contentConfiguration
-            }
         }
 
         dataSource = .init(
@@ -176,7 +162,7 @@ private extension PlaceCardContentView {
 struct PlaceCardContentConfiguration: UIContentConfiguration {
 
     /// The urls of images to display.
-    var imagesURLs: [URL] = []
+    var imagesNames: [String] = []
 
     /// The primary text.
     var text: String?

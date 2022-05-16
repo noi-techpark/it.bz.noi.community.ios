@@ -25,12 +25,12 @@ final class AccessNotGrantedViewController: ContainerViewController {
     
     @available(*, unavailable)
     required init?(coder: NSCoder) {
-        fatalError("\(#function) not implemented")
+        fatalError("\(#function) not available")
     }
     
     @available(*, unavailable)
     override init(content: UIViewController?) {
-        fatalError("\(#function) not implemented")
+        fatalError("\(#function) not available")
     }
     
     override func viewDidLoad() {
@@ -46,14 +46,24 @@ final class AccessNotGrantedViewController: ContainerViewController {
 
 private extension AccessNotGrantedViewController {
     
-    func makeAvailableContent(userInfo: UserInfo) -> UIViewController {
-        MessageViewController(
-            text: .localized("label_access_not_granted"),
-            detailedText: .localizedStringWithFormat(
+    func makeAvailableContent(
+        userInfo userInfoOrNil: UserInfo?
+    ) -> UIViewController {
+        let detailedText: String
+        
+        if let userInfo = userInfoOrNil {
+            detailedText = .localizedStringWithFormat(
                 .localized("access_not_granted_format"),
                 userInfo.name ?? "N/D",
                 userInfo.email ?? "N/D"
-            ),
+            )
+        } else {
+            detailedText = .localized("access_not_granted_msg")
+        }
+        
+        return MessageViewController(
+            text: .localized("label_access_not_granted"),
+            detailedText: detailedText,
             actionTitle: .localized("btn_logout"),
             actionHandler: { [weak self] in
                 self?.viewModel.logout()
@@ -66,6 +76,10 @@ private extension AccessNotGrantedViewController {
             .sink { [weak self] isLoading in
                 if isLoading {
                     self?.content = LoadingViewController(style: .light)
+                } else {
+                    self?.content = self?.makeAvailableContent(
+                        userInfo: self?.viewModel.userInfoResult
+                    )
                 }
             }
             .store(in: &subscriptions)
@@ -73,10 +87,7 @@ private extension AccessNotGrantedViewController {
         viewModel.$userInfoResult
             .receive(on: DispatchQueue.main)
             .sink { [weak self] userInfo in
-                guard let self = self
-                else { return }
-
-                self.content = self.makeAvailableContent(userInfo: userInfo!)
+                self?.content = self?.makeAvailableContent(userInfo: userInfo)
             }
             .store(in: &subscriptions)
         

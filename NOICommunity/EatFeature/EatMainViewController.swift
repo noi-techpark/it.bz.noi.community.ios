@@ -20,40 +20,40 @@ final class EatViewModel {
         let name: String
         let openeningText: String
         let menuURL: URL
-        let imageURLs: [URL]
+        let imagesNames: [String]
 
         static let noisteria = Self(
             name: .localized("noisteria_name"),
             openeningText: .localized("noisteria_openings"),
             menuURL: .noisteriaMenu,
-            imageURLs: [
-                .noisteriaaußenImageURL,
-                .noisteriaBarImageURL,
-                .noisteriaInnenImageURL,
-                .noisteriaInnen2ImageURL,
-                .noisteriaSaladImageURL
+            imagesNames: [
+                "noisteria_außen",
+                "noisteria_bar",
+                "noisteria_innen",
+                "noisteria_innen2",
+                "noisteria_salad"
             ]
         )
         static let noiCommunityBar = Self(
             name: .localized("community_bar_name"),
             openeningText: .localized("community_bar_openings"),
             menuURL: .noiBarMenu,
-            imageURLs:[
-                .rockinBeetsAsparagiLasagneImageURL,
-                .rockinBeetsMealPrepImageURL,
-                .rockinBeetsMealsImageURL,
-                .rockinBeetsObstmarktImageURL
+            imagesNames:[
+                "rockin beets_asparagi_lasagne",
+                "rockin beets_meal prep",
+                "rockin beets_meals",
+                "rockin beets_obstmarkt"
             ]
         )
         static let alumix = Self(
             name: .localized("alumix_name"),
             openeningText: .localized("alumix_openings"),
             menuURL: .alumixMenu,
-            imageURLs: [
-                .alumixImageURL,
-                .alumixFritturaImageURL,
-                .alumixPizzaImageURL,
-                .alumixSalagardenImageURL
+            imagesNames: [
+                "alumix",
+                "alumix_frittura",
+                "alumix_pizza",
+                "alumix_sala-garden"
             ]
 
         )
@@ -75,14 +75,14 @@ final class EatMainViewController: UICollectionViewController {
 
     @available(*, unavailable)
     required init?(coder: NSCoder) {
-        fatalError("\(#function) not implemented")
+        fatalError("\(#function) not available")
     }
 
     @available(*, unavailable)
     override init(
         collectionViewLayout layout: UICollectionViewLayout
     ) {
-        fatalError("\(#function) not implemented")
+        fatalError("\(#function) not available")
     }
 
     @available(*, unavailable)
@@ -90,7 +90,7 @@ final class EatMainViewController: UICollectionViewController {
         nibName nibNameOrNil: String?,
         bundle nibBundleOrNil: Bundle?
     ) {
-        fatalError("\(#function) not implemented")
+        fatalError("\(#function) not available")
     }
 
     override func viewDidLoad() {
@@ -157,7 +157,7 @@ private extension EatMainViewController {
             contentConfiguration.actionHandler = { [weak self] in
                 self?.showMenuHandler?(entry)
             }
-            contentConfiguration.imagesURLs = entry.imageURLs
+            contentConfiguration.imagesNames = entry.imagesNames
             cell.contentConfiguration = contentConfiguration
             cell.backgroundConfiguration = UIBackgroundConfiguration.clear()
         }

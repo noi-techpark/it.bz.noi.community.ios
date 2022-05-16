@@ -7,25 +7,21 @@
 
 import UIKit
 
-class BaseNavigationCoordinator: NSObject, NavigationCoordinatorType {
-    
-    var childCoordinators: [CoordinatorType] = []
+class BaseNavigationCoordinator: BaseCoordinator, NavigationCoordinatorType {
 
     var navigationController: UINavigationController
 
-    var dependencyContainer: DependencyRepresentable
-
+    @available(*, unavailable)
+    override init(dependencyContainer: DependencyRepresentable) {
+        fatalError("\(#function) not available")
+    }
+    
     init(
         navigationController: UINavigationController,
         dependencyContainer: DependencyRepresentable
     ) {
         self.navigationController = navigationController
-        self.dependencyContainer = dependencyContainer
-    }
-
-    func start(animated: Bool) {
-        guard type(of: self) != BaseNavigationCoordinator.self
-        else { preconditionFailure("subclass should implement start function!") }
+        super.init(dependencyContainer: dependencyContainer)
     }
 
 }

@@ -47,14 +47,14 @@ class EventListViewController: UICollectionViewController {
     
     @available(*, unavailable)
     required init?(coder: NSCoder) {
-        fatalError("\(#function) not implemented")
+        fatalError("\(#function) not available")
     }
     
     @available(*, unavailable)
     override init(
         collectionViewLayout layout: UICollectionViewLayout
     ) {
-        fatalError("\(#function) not implemented")
+        fatalError("\(#function) not available")
     }
     
     @available(*, unavailable)
@@ -62,12 +62,12 @@ class EventListViewController: UICollectionViewController {
         nibName nibNameOrNil: String?,
         bundle nibBundleOrNil: Bundle?
     ) {
-        fatalError("\(#function) not implemented")
+        fatalError("\(#function) not available")
     }
     
     @available(*, unavailable)
     init() {
-        fatalError("\(#function) not implemented")
+        fatalError("\(#function) not available")
     }
     
     override func viewDidLoad() {

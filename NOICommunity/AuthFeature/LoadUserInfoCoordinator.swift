@@ -49,9 +49,7 @@ private extension LoadUserInfoCoordinator {
             }
             .store(in: &subscriptions)
         
-        myAccountViewModel
-            .$error
-            .dropFirst()
+        myAccountViewModel.$error
             .receive(on: DispatchQueue.main)
             .sink { [weak self] error in
                 guard let self = self

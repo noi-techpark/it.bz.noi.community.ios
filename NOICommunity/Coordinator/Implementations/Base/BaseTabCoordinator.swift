@@ -7,25 +7,21 @@
 
 import UIKit
 
-class BaseTabCoordinator: NSObject, TabCoordinatorType {
-    
-    var childCoordinators: [CoordinatorType] = []
+class BaseTabCoordinator: BaseCoordinator, TabCoordinatorType {
 
     var tabBarController: UITabBarController
 
-    var dependencyContainer: DependencyRepresentable
-
+    @available(*, unavailable)
+    override init(dependencyContainer: DependencyRepresentable) {
+        fatalError("\(#function) not available")
+    }
+    
     init(
         tabBarController: UITabBarController,
         dependencyContainer: DependencyRepresentable
     ) {
         self.tabBarController = tabBarController
-        self.dependencyContainer = dependencyContainer
-    }
-
-    func start(animated: Bool) {
-        guard type(of: self) != BaseTabCoordinator.self
-        else { preconditionFailure("subclass should implement start function!") }
+        super.init(dependencyContainer: dependencyContainer)
     }
 
 }

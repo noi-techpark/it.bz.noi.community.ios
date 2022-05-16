@@ -6,12 +6,13 @@
 //
 
 import Foundation
+import UIKit
 import Combine
 
 // MARK: - WelcomePage
 
 struct WelcomePage: Hashable {
-    let backgroundImageURL: URL
+    let backgroundImageName: String
     let title: String
     let description: String
 }

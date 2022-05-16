@@ -122,17 +122,17 @@ extension DependencyContainer: ViewModelFactory {
     func makeWelcomeViewModel() -> WelcomeViewModel {
         .init(with: [
             .init(
-                backgroundImageURL: .welcomeNewsImageURL,
+                backgroundImageName: "welcome_news",
                 title: .localized("onboarding_news_title"),
                 description: .localized("onboarding_news_text")
             ),
             .init(
-                backgroundImageURL: .welcomeEventsImageURL,
+                backgroundImageName: "noisteria_außen",
                 title: .localized("onboarding_events_title"),
                 description: .localized("onboarding_events_text")
             ),
             .init(
-                backgroundImageURL: .welcomeMeetImageURL,
+                backgroundImageName: "welcome_meet",
                 title: .localized("onboarding_meetup_title"),
                 description: .localized("onboarding_meetup_text")
             )

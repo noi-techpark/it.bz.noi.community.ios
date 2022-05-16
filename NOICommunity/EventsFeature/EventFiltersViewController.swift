@@ -43,7 +43,7 @@ class EventFiltersViewController: UIViewController {
 
     @available(*, unavailable)
     required init?(coder: NSCoder) {
-        fatalError("\(#function) not implemented")
+        fatalError("\(#function) not available")
     }
 
     @available(*, unavailable)
@@ -51,12 +51,12 @@ class EventFiltersViewController: UIViewController {
         nibName nibNameOrNil: String?,
         bundle nibBundleOrNil: Bundle?
     ) {
-        fatalError("\(#function) not implemented")
+        fatalError("\(#function) not available")
     }
 
     @available(*, unavailable)
     init() {
-        fatalError("\(#function) not implemented")
+        fatalError("\(#function) not available")
     }
 
     override func viewDidLoad() {
