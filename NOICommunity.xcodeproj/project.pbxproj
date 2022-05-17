@@ -118,6 +118,7 @@
 		31AA31F126F0B40800744A00 /* EventCardContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31AA31F026F0B40800744A00 /* EventCardContentView.swift */; };
 		31AAC053270F2FFD00C26850 /* FooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31AAC052270F2FFD00C26850 /* FooterView.swift */; };
 		31B3623E26F1E27A00031024 /* UIColor+NOI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B3623D26F1E27A00031024 /* UIColor+NOI.swift */; };
+		31B37E1E2833AFF700C26E6B /* MessageViewController+Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B37E1D2833AFF700C26E6B /* MessageViewController+Error.swift */; };
 		31B4477F26F86FE5000999BA /* SegmentedControlBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B4477E26F86FE4000999BA /* SegmentedControlBuilder.swift */; };
 		31B6742027C79E520044A285 /* EventShortTypes.json in Resources */ = {isa = PBXBuildFile; fileRef = 31B6741F27C79E520044A285 /* EventShortTypes.json */; };
 		31C14C2327DA3597009AF69D /* UIScrollView+ScrollToView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C14C2227DA3597009AF69D /* UIScrollView+ScrollToView.swift */; };
@@ -299,6 +300,7 @@
 		31AA31F026F0B40800744A00 /* EventCardContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCardContentView.swift; sourceTree = "<group>"; };
 		31AAC052270F2FFD00C26850 /* FooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterView.swift; sourceTree = "<group>"; };
 		31B3623D26F1E27A00031024 /* UIColor+NOI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+NOI.swift"; sourceTree = "<group>"; };
+		31B37E1D2833AFF700C26E6B /* MessageViewController+Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MessageViewController+Error.swift"; sourceTree = "<group>"; };
 		31B4477E26F86FE4000999BA /* SegmentedControlBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControlBuilder.swift; sourceTree = "<group>"; };
 		31B6741F27C79E520044A285 /* EventShortTypes.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = EventShortTypes.json; sourceTree = "<group>"; };
 		31C14C2227DA3597009AF69D /* UIScrollView+ScrollToView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+ScrollToView.swift"; sourceTree = "<group>"; };
@@ -703,6 +705,7 @@
 				31178FDF26FA318800BDCDAA /* Collection.swift */,
 				3187667626FB38D600782FA6 /* DateIntervalFormatter+Factory.swift */,
 				31157CFF26FC648700A43B33 /* Event+CalendarEvent.swift */,
+				31B37E1D2833AFF700C26E6B /* MessageViewController+Error.swift */,
 				31D07BD9282E40E800AA7D99 /* NSAttributedString+UpdateFonts.swift */,
 				31157D1A26FCB26200A43B33 /* String+Localization.swift */,
 				3187667426FB35C100782FA6 /* String+NotDefined.swift */,
@@ -1119,6 +1122,7 @@
 				31FAEA7D28197D9700CDBC1B /* AppCoordinator.swift in Sources */,
 				31157D0026FC648700A43B33 /* Event+CalendarEvent.swift in Sources */,
 				3102F45A282C03D300687CF7 /* NewsDetailsViewModel.swift in Sources */,
+				31B37E1E2833AFF700C26E6B /* MessageViewController+Error.swift in Sources */,
 				31C640C626FE1E43004B71A2 /* MeetMainViewController.swift in Sources */,
 				31C640C526FE1E43004B71A2 /* MeetCoordinator.swift in Sources */,
 				31AAC053270F2FFD00C26850 /* FooterView.swift in Sources */,
