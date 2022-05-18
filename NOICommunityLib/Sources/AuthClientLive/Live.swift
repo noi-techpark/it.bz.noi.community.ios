@@ -72,19 +72,13 @@ public extension AuthClient {
             }
         }
         
-        var authSession: OIDExternalUserAgentSession? {
-            didSet {
-                debugPrint("Acquired new auth session: \(String(describing: authSession))")
-            }
-        }
+        var authSession: OIDExternalUserAgentSession?
         
         return Self(
             accessToken: {
                 performActionWithFreshToken(authState: authState)
                     .catch { (error: Error) -> AnyPublisher<String, Error> in
-                        debugPrint("Full login required")
-                        
-                        return startSSO(
+                        startSSO(
                             config: client,
                             from: context.presentationContext()
                         )
@@ -162,7 +156,6 @@ private extension AuthClient {
             else {
                 return promise(.failure(AuthLiveError.noPreviousAuthState))
             }
-            debugPrint("using existing authState")
             
             authState.performAction { accessToken, idToken, error in
                 let result: Result<String, Error>
@@ -174,13 +167,6 @@ private extension AuthClient {
                     result = .failure(error)
                 case (nil, nil):
                     result = .failure(AuthLiveError.shouldNeverHappen)
-                }
-                
-                switch result {
-                case .success:
-                    debugPrint("accessToken acquired")
-                case .failure(let error):
-                    debugPrint("accessToken not acquired due: \(error.localizedDescription)")
                 }
                 
                 promise(result)
@@ -393,7 +379,7 @@ private extension AuthClient {
             _ state: OIDAuthState,
             didEncounterAuthorizationError error: Error
         ) {
-            debugPrint("\(#function) \(error.localizedDescription)")
+            print("\(#function) \(error.localizedDescription)")
         }
     }
     
