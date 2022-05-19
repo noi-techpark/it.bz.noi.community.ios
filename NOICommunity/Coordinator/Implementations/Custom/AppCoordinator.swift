@@ -7,6 +7,9 @@
 
 import Foundation
 import Combine
+import SafariServices
+import MessageUI
+import ArticlesClient
 import AuthStateStorageClient
 import AuthClient
 
@@ -20,6 +23,10 @@ final class AppCoordinator: BaseNavigationCoordinator {
     
     private lazy var isAutorizedClient = dependencyContainer
         .makeIsAutorizedClient()
+    
+    private var pendingDeepLinkIntent: DeepLinkIntent?
+    
+    private weak var tabCoordinator: TabCoordinator!
     
     override func start(animated: Bool) {
         NotificationCenter
@@ -41,9 +48,23 @@ final class AppCoordinator: BaseNavigationCoordinator {
         }
     }
     
+    func handle(deepLinkIntent: DeepLinkIntent) {
+        // Handle deep linking only when the app tabs are visible
+        guard tabCoordinator != nil
+        else {
+            pendingDeepLinkIntent = deepLinkIntent
+            return
+        }
+        
+        switch deepLinkIntent {
+        case .showNews(let newsId):
+            showNewsDetails(newsId: newsId, sender: deepLinkIntent)
+        }
+    }
+    
 }
 
-// MARK: - AppCoordinator
+// MARK: Private APIs
 
 private extension AppCoordinator {
     
@@ -95,11 +116,17 @@ private extension AppCoordinator {
                 dependencyContainer: dependencyContainer
             )
             childCoordinators.append(tabCoordinator)
+            self.tabCoordinator = tabCoordinator
             tabCoordinator.start()
             navigationController.setViewControllers(
                 [tabBarController],
                 animated: animated
             )
+            
+            if let pendingDeepLinkIntent = self.pendingDeepLinkIntent {
+                handle(deepLinkIntent: pendingDeepLinkIntent)
+                self.pendingDeepLinkIntent = nil
+            }
         }
         
         let hasAccessGrantedClient = dependencyContainer
@@ -142,4 +169,95 @@ private extension AppCoordinator {
         showAuthCoordinator(animated: animated)
     }
     
+    func showNewsExternalLink(of news: Article, sender: Any?) {
+        let author = localizedValue(from: news.languageToAuthor)
+        let safariVC = SFSafariViewController(url: author!.externalURL!)
+        navigationController.presentedViewController?.present(
+            safariVC,
+            animated: true
+        )
+    }
+    
+    func showNewsAskAQuestion(for news: Article, sender: Any?) {
+        let author = localizedValue(from: news.languageToAuthor)
+        navigationController.presentedViewController?.mailTo(
+            author!.email!,
+            delegate: self,
+            completion: nil
+        )
+    }
+    
+    func showNewsDetails(newsId: String, sender: Any?) {
+        func configureBindings(
+            viewModel: NewsDetailsViewModel,
+            detailsViewController: NewsDetailsViewController
+        ) {
+            viewModel.showExternalLinkPublisher
+                .sink { [weak self] (news, sender) in
+                    self?.showNewsExternalLink(of: news, sender: sender)
+                }
+                .store(in: &subscriptions)
+            viewModel.showAskAQuestionPublisher
+                .sink { [weak self] (news, sender) in
+                    self?.showNewsAskAQuestion(for: news, sender: sender)
+                }
+                .store(in: &subscriptions)
+            viewModel.$result
+                .sink { [weak detailsViewController] news in
+                    guard let news = news
+                    else { return }
+                    
+                    detailsViewController?.navigationItem.title = localizedValue(
+                        from: news.languageToDetails
+                    )?
+                        .title
+                }
+                .store(in: &subscriptions)
+        }
+        
+        let viewModel = dependencyContainer.makeNewsDetailsViewModel(
+            availableNews: nil
+        )
+        
+        let detailsVC = dependencyContainer.makeNewsDetailsViewController(
+            newsId: newsId,
+            viewModel: viewModel
+        )
+        
+        configureBindings(
+            viewModel: viewModel,
+            detailsViewController: detailsVC
+        )
+        
+        detailsVC.navigationItem.title = nil
+        detailsVC.navigationItem.largeTitleDisplayMode = .never
+        detailsVC.navigationItem.leftBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .done,
+            target: self,
+            action: #selector(closeModal(sender:))
+        )
+        
+        navigationController.present(
+            NavigationController(rootViewController: detailsVC),
+            animated: true
+        )
+    }
+    
+    @objc func closeModal(sender: Any?) {
+        navigationController.dismiss(animated: true)
+    }
+    
+}
+
+// MARK: MFMailComposeViewControllerDelegate
+
+extension AppCoordinator: MFMailComposeViewControllerDelegate {
+    
+    func mailComposeController(
+        _ controller: MFMailComposeViewController,
+        didFinishWith _: MFMailComposeResult,
+        error _: Error?
+    ) {
+        controller.dismiss(animated: true, completion: nil)
+    }
 }

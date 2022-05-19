@@ -46,12 +46,12 @@ private extension NewsCoordinator {
             availableNews: news
         )
         viewModel.showExternalLinkPublisher
-            .sink { [weak self] (article, sender) in
+            .sink { [weak self] (news, sender) in
                 self?.showExternalLink(of: news, sender: sender)
             }
             .store(in: &subscriptions)
-        viewModel.showaskAQuestionPublisher
-            .sink { [weak self] (article, sender) in
+        viewModel.showAskAQuestionPublisher
+            .sink { [weak self] (news, sender) in
                 self?.showAskAQuestion(for: news, sender: sender)
             }
             .store(in: &subscriptions)

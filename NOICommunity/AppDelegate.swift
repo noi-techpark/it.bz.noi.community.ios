@@ -13,12 +13,114 @@ import FirebaseMessaging
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+    // MARK: UIApplication Lifecycle
+    
+    func application(
+        _ application: UIApplication,
+        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
+    ) -> Bool {
         // Override point for customization after application launch.
+        
+        configureCrashReport()
+        
+        configurePushNotifications(application: application)
+        
+        configureAppearances()
+        
+        handle(launchOptions: launchOptions)
+        
+        return true
+    }
+    
+    // MARK: UISceneSession Lifecycle
+    
+    func application(
+        _ application: UIApplication,
+        configurationForConnecting connectingSceneSession: UISceneSession,
+        options: UIScene.ConnectionOptions
+    ) -> UISceneConfiguration {
+        // Called when a new scene session is being created.
+        // Use this method to select a configuration to create the new scene with.
+        UISceneConfiguration(
+            name: "Default Configuration",
+            sessionRole: connectingSceneSession.role
+        )
+    }
+    
+    // MARK: Remote Notification Registration's Callbacks
+    
+    func application(
+        _ application: UIApplication,
+        didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data
+    ) {
+        // FCM stuff
+        Messaging.messaging().apnsToken = deviceToken
+    }
+    
+    func application(
+        _ application: UIApplication,
+        didFailToRegisterForRemoteNotificationsWithError error: Error
+    ) {
+        print("\(#function) error: \(error.localizedDescription)")
+    }
+}
+
+// MARK: UNUserNotificationCenterDelegate
+
+extension AppDelegate: UNUserNotificationCenterDelegate {
+    
+    func userNotificationCenter(
+        _ center: UNUserNotificationCenter,
+        willPresent notification: UNNotification,
+        withCompletionHandler completionHandler: @escaping (
+            UNNotificationPresentationOptions
+        ) -> Void
+    ) {
+        handleWillPresent(
+            notificationPayload: notification.request.content.userInfo
+        )
+        
+        completionHandler([.sound, .banner, .list])
+    }
+    
+    func userNotificationCenter(
+        _ center: UNUserNotificationCenter,
+        didReceive response: UNNotificationResponse,
+        withCompletionHandler completionHandler: @escaping () -> Void
+    ) {
+        handle(
+            notificationPayload: response.notification.request.content.userInfo
+        )
+        
+        completionHandler()
+    }
+    
+}
+
+// MARK: MessagingDelegate
+
+extension AppDelegate: MessagingDelegate {
+    
+    func messaging(
+        _ messaging: Messaging,
+        didReceiveRegistrationToken fcmToken: String?
+    ) {
+        updateFCMTopicsSubscriptions()
+    }
+    
+}
+
+// MARK: Private APIs
+
+private extension AppDelegate {
+    
+    func configureCrashReport() {
         if AppFeatureSwitches.isCrashlyticsEnabled {
             FirebaseApp.configure()
         }
-        
+    }
+    
+    func configurePushNotifications(application: UIApplication) {
         let userNotificationCenter = UNUserNotificationCenter.current()
         userNotificationCenter.delegate = self
         
@@ -31,44 +133,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FirebaseApp.configure()
         Messaging.messaging().delegate = self
-        
-        configureAppearances()
-        
-        return true
     }
     
-    // MARK: UISceneSession Lifecycle
-    
-    func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
-        // Called when a new scene session is being created.
-        // Use this method to select a configuration to create the new scene with.
-        return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
-    }
-    
-    func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {
-        // Called when the user discards a scene session.
-        // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
-        // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
-    }
-    
-    func application(
-        _ application: UIApplication,
-        didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data
-    ) {
-        Messaging.messaging().apnsToken = deviceToken
-    }
-    
-    func application(
-        _ application: UIApplication,
-        didFailToRegisterForRemoteNotificationsWithError error: Error
-    ) {
-        
-    }
-}
-
-// MARK: Private APIs
-
-private extension AppDelegate {
     func configureAppearances() {
         let navBarAppearance = UINavigationBarAppearance()
         navBarAppearance.configureWithOpaqueBackground()
@@ -112,63 +178,44 @@ private extension AppDelegate {
         
         UISwitch.appearance().onTintColor = .noiSecondaryColor
     }
-}
-
-// MARK: UNUserNotificationCenterDelegate
-
-extension AppDelegate: UNUserNotificationCenterDelegate {
     
-    func userNotificationCenter(
-        _ center: UNUserNotificationCenter,
-        willPresent notification: UNNotification,
-        withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-            let userInfo = notification.request.content.userInfo
-            
-            let data = try? JSONSerialization.data(withJSONObject: userInfo)
-            let jsonString = String(data: data!, encoding: .utf8)
-            
-            Messaging.messaging().appDidReceiveMessage(userInfo)
-            
-            // Change this to your preferred presentation option
-            completionHandler([.sound, .banner, .list])
+    func handle(launchOptions: [UIApplication.LaunchOptionsKey: Any]?) {
+        if let notificationPayload = launchOptions?[.remoteNotification] as? [AnyHashable : Any] {
+            handle(notificationPayload: notificationPayload)
         }
-    
-    func userNotificationCenter(
-        _ center: UNUserNotificationCenter,
-        didReceive response: UNNotificationResponse,
-        withCompletionHandler completionHandler: @escaping () -> Void
-    ) {
-        let userInfo = response.notification.request.content.userInfo
-        
-        Messaging.messaging().appDidReceiveMessage(userInfo)
-        
-        completionHandler()
     }
     
-}
-
-// MARK: MessagingDelegate
-
-extension AppDelegate: MessagingDelegate {
-    
-    func messaging(
-        _ messaging: Messaging,
-        didReceiveRegistrationToken fcmToken: String?
-    ) {
-        print("Firebase registration token: \(String(describing: fcmToken))")
+    func handle(notificationPayload: [AnyHashable: Any]) {
+        // FCM stuff
+        Messaging.messaging().appDidReceiveMessage(notificationPayload)
         
-        let dataDict: [String: String] = ["token": fcmToken ?? ""]
-        NotificationCenter.default.post(
-            name: Notification.Name("FCMToken"),
-            object: nil,
-            userInfo: dataDict
+        // App stuff
+        guard let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
+        else { return }
+        
+        sceneDelegate.rootCoordinator.handle(
+            notificationPayload: notificationPayload
         )
-        // TODO: If necessary send token to application server.
-        // Note: This callback is fired at each app startup and whenever a new token is generated.
+    }
+    
+    func handleWillPresent(notificationPayload: [AnyHashable: Any]) {
+        // FCM stuff
+        Messaging.messaging().appDidReceiveMessage(notificationPayload)
         
+        // App stuff
+        guard let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
+        else { return }
+        
+        sceneDelegate.rootCoordinator.handleWillPresent(
+            notificationPayload: notificationPayload
+        )
+    }
+    
+    func updateFCMTopicsSubscriptions() {
         let preferredNewsTopic = Bundle.main.preferredNoiNewsTopic
         let allNewsTopics = NoiNewsTopic.allCases
         
+        // Unsubscribe user from all news topic except the preferred one
         allNewsTopics
             .filter { $0 != preferredNewsTopic}
             .forEach { newsTopic in
@@ -178,6 +225,8 @@ extension AppDelegate: MessagingDelegate {
                     }
                 }
             }
+        
+        // Subscribe user to the preferred news topic
         Messaging.messaging().subscribe(toTopic: preferredNewsTopic.rawValue) { errorOrNil in
             if let error = errorOrNil {
                 print("\(preferredNewsTopic) subscription failed with error: \(error.localizedDescription)")
