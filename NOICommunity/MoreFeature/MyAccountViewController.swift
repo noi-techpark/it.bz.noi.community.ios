@@ -11,37 +11,40 @@ import AuthClient
 
 // MARK: - MyAccountViewController
 
-final class MyAccountViewController: UICollectionViewController {
-    
-    enum Entry: Int {
-        case fullname
-        case email
-        case logoutAction
-    }
-    
-    private var dataSource: UICollectionViewDiffableDataSource<Section, Entry>! = nil
+final class MyAccountViewController: UIViewController {
     
     let viewModel: MyAccountViewModel
     
+    private lazy var contentVC = CollectionViewController(viewModel: viewModel)
+    
     private var subscriptions: Set<AnyCancellable> = []
     
-    private var userInfo: UserInfo?
+    @IBOutlet private var footerView: UIView!
+    
+    @IBOutlet private var logoutButton: UIButton! {
+        didSet {
+            logoutButton
+                .configureAsCalloutFooterAction()
+                .withTitle(.localized("btn_logout"))
+        }
+    }
+    
+    @IBOutlet private var deleteAccountButton: UIButton! {
+        didSet {
+            deleteAccountButton
+                .configureAsCalloutFooterAction()
+                .withTitle(.localized("btn_delete_account"))
+        }
+    }
     
     init(viewModel: MyAccountViewModel) {
         self.viewModel = viewModel
         
-        super.init(collectionViewLayout: Self.createLayout())
+        super.init(nibName: "\(MyAccountViewController.self)", bundle: nil)
     }
     
     @available(*, unavailable)
     required init?(coder: NSCoder) {
-        fatalError("\(#function) not available")
-    }
-    
-    @available(*, unavailable)
-    override init(
-        collectionViewLayout layout: UICollectionViewLayout
-    ) {
         fatalError("\(#function) not available")
     }
     
@@ -56,12 +59,23 @@ final class MyAccountViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        collectionView.refreshControl = .init()
-        
-        configureDataSource()
         configureBindings()
+        embedChild(contentVC)
+        view.bringSubviewToFront(footerView)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
         
-        viewModel.fetchUserInfo()
+        let collectionView = contentVC.collectionView!
+        var contentInset = collectionView.contentInset
+        contentInset.bottom = footerView.frame.height
+        collectionView.contentInset = contentInset
+        collectionView.scrollIndicatorInsets = collectionView.contentInset
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        .lightContent
     }
     
 }
@@ -70,47 +84,135 @@ final class MyAccountViewController: UICollectionViewController {
 
 private extension MyAccountViewController {
     
-    enum Section: Hashable {
-        case main
-        case logout
+    func configureBindings() {
+        logoutButton.publisher(for: .primaryActionTriggered)
+            .sink { [weak viewModel] in
+                viewModel?.logout()
+            }
+            .store(in: &subscriptions)
+        
+        deleteAccountButton.publisher(for: .primaryActionTriggered)
+            .sink { [weak viewModel] in
+                viewModel?.requestAccountDeletion()
+            }
+            .store(in: &subscriptions)
     }
     
-    func makeSnapshot(
+}
+
+// MARK: - MyAccountViewController.CollectionViewController
+
+private extension MyAccountViewController {
+    
+    final class CollectionViewController: UICollectionViewController {
+        
+        private var dataSource: UICollectionViewDiffableDataSource<Section, Entry>! = nil
+        
+        let viewModel: MyAccountViewModel
+        
+        private var subscriptions: Set<AnyCancellable> = []
+        
+        private var userInfo: UserInfo?
+        
+        init(viewModel: MyAccountViewModel) {
+            self.viewModel = viewModel
+            
+            super.init(collectionViewLayout: Self.createLayout())
+        }
+        
+        @available(*, unavailable)
+        required init?(coder: NSCoder) {
+            fatalError("\(#function) not available")
+        }
+        
+        @available(*, unavailable)
+        override init(
+            collectionViewLayout layout: UICollectionViewLayout
+        ) {
+            fatalError("\(#function) not available")
+        }
+        
+        @available(*, unavailable)
+        override init(
+            nibName nibNameOrNil: String?,
+            bundle nibBundleOrNil: Bundle?
+        ) {
+            fatalError("\(#function) not available")
+        }
+        
+        override func viewDidLoad() {
+            super.viewDidLoad()
+            
+            collectionView.refreshControl = .init()
+            
+            configureDataSource()
+            configureBindings()
+            
+            viewModel.fetchUserInfo()
+        }
+        
+    }
+}
+
+// MARK: Private APIs
+
+private extension MyAccountViewController.CollectionViewController {
+    
+    enum Section: Hashable {
+        case main
+    }
+    
+    enum Entry: Int {
+        case email
+    }
+    
+    static func makeSnapshot(
         fromUserInfo userInfo: UserInfo? = nil,
         oldUserInfo: UserInfo? = nil
     ) -> NSDiffableDataSourceSnapshot<Section, Entry> {
         var snapshot = NSDiffableDataSourceSnapshot<Section, Entry>()
-        snapshot.appendSections([.logout])
-        snapshot.appendItems([.logoutAction])
+        
         switch (userInfo?.name, userInfo?.email) {
         case (nil, nil):
-            snapshot.deleteSections([.main])
-        case (nil, _?):
-            snapshot.insertSections([.main], beforeSection: .logout)
-            snapshot.appendItems([.email], toSection: .main)
+            break
         case (_?, nil):
-            snapshot.insertSections([.main], beforeSection: .logout)
-            snapshot.appendItems([.fullname], toSection: .main)
-        case (_?, _?):
-            snapshot.insertSections([.main], beforeSection: .logout)
-            snapshot.appendItems([.fullname], toSection: .main)
+            snapshot.appendSections([.main])
+        case (_, _?):
+            snapshot.appendSections([.main])
             snapshot.appendItems([.email], toSection: .main)
         }
-        var reconfigureItems: [Entry] = []
-        if oldUserInfo?.name != userInfo?.name {
-            reconfigureItems.append(.fullname)
-        }
-        if oldUserInfo?.email != userInfo?.email {
-            reconfigureItems.append(.email)
-        }
-        if !reconfigureItems.isEmpty {
-            if #available(iOS 15.0, *) {
-                snapshot.reconfigureItems(reconfigureItems)
-            } else {
-                snapshot.reloadItems(reconfigureItems)
+        
+        if oldUserInfo?.fullname != userInfo?.fullname {
+            snapshot.reloadSections([.main])
+        } else {
+            var reconfigureItems: [Entry] = []
+            
+            if oldUserInfo?.email != userInfo?.email {
+                reconfigureItems.append(.email)
+            }
+            
+            if !reconfigureItems.isEmpty {
+                if #available(iOS 15.0, *) {
+                    snapshot.reconfigureItems(reconfigureItems)
+                } else {
+                    snapshot.reloadItems(reconfigureItems)
+                }
             }
         }
+        
         return snapshot
+    }
+    
+    func update(
+        oldUserInfo: UserInfo?,
+        newUserInfo: UserInfo?,
+        animated: Bool
+    ) {
+        let snapshot = Self.makeSnapshot(
+            fromUserInfo: userInfo,
+            oldUserInfo: oldUserInfo
+        )
+        dataSource.apply(snapshot, animatingDifferences: animated)
     }
     
     func configureBindings() {
@@ -136,11 +238,11 @@ private extension MyAccountViewController {
                 
                 let oldUserInfo = self.userInfo
                 self.userInfo = userInfo
-                let snapshot = self.makeSnapshot(
-                    fromUserInfo: userInfo,
-                    oldUserInfo: oldUserInfo
+                self.update(
+                    oldUserInfo: oldUserInfo,
+                    newUserInfo: userInfo,
+                    animated: self.viewIfLoaded?.window != nil
                 )
-                self.dataSource.apply(snapshot, animatingDifferences: true)
             }
             .store(in: &subscriptions)
         
@@ -184,41 +286,26 @@ private extension MyAccountViewController {
     
     static func createLayout() -> UICollectionViewLayout {
         var config = UICollectionLayoutListConfiguration(appearance: .grouped)
-        config.backgroundColor = .noiSecondaryBackgroundColor
+        config.backgroundColor = .noiTertiaryBackgroundColor
+        config.headerMode = .supplementary
+        config.showsSeparators = false
         return UICollectionViewCompositionalLayout.list(using: config)
     }
     
     func configureDataSource() {
         let cellRegistration = UICollectionView.CellRegistration
         <UICollectionViewListCell, Entry> { cell, _, entry in
-            var contentConfiguration: UIListContentConfiguration
-            
             switch entry {
-            case .fullname:
-                contentConfiguration = UIListContentConfiguration.noiValueCell()
-                contentConfiguration.text = .localized("label_name")
-                contentConfiguration.secondaryText = self.viewModel.userInfoResult!.name
             case .email:
-                contentConfiguration = UIListContentConfiguration.noiValueCell()
+                var contentConfiguration = UIListContentConfiguration.noiDetailsSubtitleCell()
+                
                 contentConfiguration.text = .localized("label_email")
-                contentConfiguration.secondaryText = self.viewModel.userInfoResult!.email
-            case .logoutAction:
-                contentConfiguration = .noiCell()
-                contentConfiguration.text = .localized("btn_logout")
+                contentConfiguration.secondaryText = self.userInfo!.email
+                cell.contentConfiguration = contentConfiguration
+                
+                cell.backgroundConfiguration = .noiListPlainCell(for: cell)
+                
             }
-            
-            cell.contentConfiguration = contentConfiguration
-            
-            cell.backgroundConfiguration = .noiListPlainCell(for: cell)
-            
-            switch entry {
-            case .fullname,
-                    .email:
-                cell.accessories = []
-            case .logoutAction:
-                cell.accessories = [.noiLogoutIndicator()]
-            }
-            
         }
         
         dataSource = .init(
@@ -231,59 +318,90 @@ private extension MyAccountViewController {
             )
         }
         
+        let headerRegistration = UICollectionView
+            .SupplementaryRegistration<UICollectionViewCell>(
+                elementKind: UICollectionView.elementKindSectionHeader
+            ) { cell, kind, indexPath in
+                var contentConfiguration = PersonDetailHeaderContentConfiguration()
+                
+                let userInfo = self.viewModel.userInfoResult!
+                
+                contentConfiguration.image = #imageLiteral(resourceName: "General-Profile")
+                contentConfiguration.company = nil
+                
+                var components = PersonNameComponents()
+                components.familyName = userInfo.familyName?
+                    .trimmingCharacters(in: .whitespacesAndNewlines)
+                components.givenName = userInfo.givenName?
+                    .trimmingCharacters(in: .whitespacesAndNewlines)
+                
+                contentConfiguration.fullname = PersonNameComponentsFormatter.localizedString(
+                    from: components,
+                    style: .default
+                )
+                contentConfiguration.avatarText = PersonNameComponentsFormatter.localizedString(
+                    from: components,
+                    style: .abbreviated
+                )
+                
+                cell.contentConfiguration = contentConfiguration
+            }
+        
+        dataSource.supplementaryViewProvider = { collectionView, kind, indexPath in
+            switch kind {
+            case UICollectionView.elementKindSectionHeader:
+                return collectionView.dequeueConfiguredReusableSupplementary(
+                    using: headerRegistration,
+                    for: indexPath
+                )
+            default:
+                return nil
+            }
+        }
+        
         // initial data
-        let snapshot = makeSnapshot(
-            fromUserInfo: viewModel.userInfoResult,
-            oldUserInfo: viewModel.userInfoResult
+        update(
+            oldUserInfo: userInfo,
+            newUserInfo: viewModel.userInfoResult,
+            animated: false
         )
-        dataSource.apply(snapshot, animatingDifferences: false)
     }
 }
 
-// MARK: UICollectionViewDelegate
+// MARK: - UserInfo Helpers
 
-extension MyAccountViewController {
+private extension UserInfo {
     
-    override func collectionView(
-        _ collectionView: UICollectionView,
-        shouldHighlightItemAt indexPath: IndexPath
-    ) -> Bool {
-        let entry = dataSource.itemIdentifier(for: indexPath)!
-        switch entry {
-        case .fullname,
-                .email:
-            return false
-        case .logoutAction:
-            return true
+    var fullname: String? {
+        if let name = name {
+            return name
         }
+        
+        if givenName != nil || familyName != nil {
+            return [givenName, familyName]
+                .compactMap { $0 }
+                .joined(separator: " ")
+        }
+        
+        return nil
     }
     
-    override func collectionView(
-        _ collectionView: UICollectionView,
-        shouldSelectItemAt indexPath: IndexPath
-    ) -> Bool {
-        let entry = dataSource.itemIdentifier(for: indexPath)!
-        switch entry {
-        case .fullname,
-                .email:
-            return false
-        case .logoutAction:
-            return true
-        }
-    }
+}
+
+// MARK: - UIButton Helpers
+
+private extension UIButton {
     
-    override func collectionView(
-        _ collectionView: UICollectionView,
-        didSelectItemAt indexPath: IndexPath
-    ) {
-        let selectedEntry = dataSource.itemIdentifier(for: indexPath)!
-        switch selectedEntry {
-        case .fullname,
-                .email:
-            break
-        case .logoutAction:
-            viewModel.logout()
-        }
+    func configureAsCalloutFooterAction() -> UIButton {
+        self
+            .withDynamicType(numberOfLines: 1)
+            .withTextStyle(.callout, weight: .semibold)
+            .withTitleColor(.noiSecondaryColor)
+            .withTitleColor(
+                .noiSecondaryColor.withAlphaComponent(0.6),
+                state: .highlighted
+            )
+            .withTintColor(.noiSecondaryColor)
     }
     
 }

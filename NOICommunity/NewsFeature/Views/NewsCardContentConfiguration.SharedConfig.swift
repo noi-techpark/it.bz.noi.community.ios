@@ -33,7 +33,7 @@ extension NewsCardContentConfiguration {
         contentConfiguration.badgeText = item.isImportant
         ? .localized("important_tag")
         : nil
-        var badgeTextProprieties = TextProperties()
+        var badgeTextProprieties = ContentConfiguration.TextProperties()
         badgeTextProprieties.transform = .uppercase
         contentConfiguration.badgeTextProprieties = badgeTextProprieties
         

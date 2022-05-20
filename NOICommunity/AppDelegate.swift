@@ -165,10 +165,17 @@ private extension AppDelegate {
             UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
         }
         
+        UIRefreshControl.appearance().tintColor = .noiSecondaryColor
+        
         let refreshControlAppearanceInsideNavigationBar = UIRefreshControl.appearance(whenContainedInInstancesOf: [UINavigationBar.self])
         refreshControlAppearanceInsideNavigationBar.tintColor = .noiPrimaryColor
         
         UISwitch.appearance().onTintColor = .noiSecondaryColor
+        
+        UISearchBar.appearance().setSearchFieldBackgroundImage(
+            #imageLiteral(resourceName: "searchbar_searchFieldImage"),
+            for: .normal
+        )
     }
     
     func handle(launchOptions: [UIApplication.LaunchOptionsKey: Any]?) {

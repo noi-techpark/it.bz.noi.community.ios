@@ -54,7 +54,7 @@ final class MessageViewController: UIViewController {
     
     private let message: Message
 
-    @IBOutlet private var scrollView: UIScrollView?
+    @IBOutlet private(set) var scrollView: UIScrollView?
     @IBOutlet private var imageView: UIImageView?
     @IBOutlet private var textLabel: UILabel? {
         didSet {

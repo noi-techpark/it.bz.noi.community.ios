@@ -1,6 +1,6 @@
 //
-//  File.swift
-//  
+//  Endpoints.swift
+//  ArticlesClientLive
 //
 //  Created by Matteo Matassoni on 11/05/22.
 //

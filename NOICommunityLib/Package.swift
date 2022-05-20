@@ -75,6 +75,14 @@ let package = Package(
         .library(
             name: "ArticlesClientLive",
             targets: ["ArticlesClientLive"]
+        ),
+        .library(
+            name: "PeopleClient",
+            targets: ["PeopleClient"]
+        ),
+        .library(
+            name: "PeopleClientLive",
+            targets: ["PeopleClientLive"]
         )
     ],
     dependencies: [
@@ -189,6 +197,19 @@ let package = Package(
                 "DecodeEmptyRepresentable",
                 "EndpointWithQueryBuilder",
                 "ArticlesClient",
+            ]
+        ),
+        .target(
+            name: "PeopleClient",
+            dependencies: []
+        ),
+        .target(
+            name: "PeopleClientLive",
+            dependencies: [
+                "PascalJSONDecoder",
+                "DecodeEmptyRepresentable",
+                "EndpointWithQueryBuilder",
+                "PeopleClient",
             ]
         )
     ]

@@ -9,6 +9,7 @@ import Foundation
 import Combine
 
 extension EventShortClient {
+    
     public static let empty = Self(
         list: { _ in
             Just(EventShortListResponse(
@@ -61,4 +62,5 @@ extension EventShortClient {
                 .eraseToAnyPublisher()
         }
     )
+    
 }

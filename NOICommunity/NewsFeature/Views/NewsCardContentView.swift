@@ -151,7 +151,7 @@ struct NewsCardContentConfiguration: UIContentConfiguration, Hashable {
     var authorAttributedText: NSAttributedString?
     
     /// Properties for configuring the author text.
-    var authorTextProprieties = TextProperties()
+    var authorTextProprieties = ContentConfiguration.TextProperties()
     
     /// The published date text.
     var publishedDateText: String?
@@ -160,7 +160,7 @@ struct NewsCardContentConfiguration: UIContentConfiguration, Hashable {
     var publishedDateAttributedText: NSAttributedString?
     
     /// Properties for configuring the published date text.
-    var publishedDateTextProprieties = TextProperties()
+    var publishedDateTextProprieties = ContentConfiguration.TextProperties()
     
     /// The primary badge's text.
     var badgeText: String?
@@ -169,7 +169,7 @@ struct NewsCardContentConfiguration: UIContentConfiguration, Hashable {
     var badgeAttributedText: NSAttributedString?
     
     /// Properties for configuring the badge text.
-    var badgeTextProprieties = TextProperties()
+    var badgeTextProprieties = ContentConfiguration.TextProperties()
     
     /// The title text.
     var titleText: String?
@@ -178,7 +178,7 @@ struct NewsCardContentConfiguration: UIContentConfiguration, Hashable {
     var titleAttributedText: NSAttributedString?
     
     /// Properties for configuring the title text.
-    var titleTextProprieties = TextProperties()
+    var titleTextProprieties = ContentConfiguration.TextProperties()
     
     /// The abstract text.
     var abstractText: String?
@@ -187,7 +187,7 @@ struct NewsCardContentConfiguration: UIContentConfiguration, Hashable {
     var abstractAttributedText: NSAttributedString?
     
     /// Properties for configuring the abstract text.
-    var abstractTextProprieties = TextProperties()
+    var abstractTextProprieties = ContentConfiguration.TextProperties()
     
     func makeContentView() -> UIView & UIContentView {
         return NewsCardContentView(configuration: self)
@@ -196,91 +196,4 @@ struct NewsCardContentConfiguration: UIContentConfiguration, Hashable {
     func updated(for state: UIConfigurationState) -> Self {
         return self
     }
-}
-
-extension NewsCardContentConfiguration {
-    struct TextProperties: Hashable {
-        /// The maximum number of lines for the text.
-        var numberOfLines: Int = 0
-        
-        /// The transform to apply to the text.
-        var transform: UIListContentConfiguration.TextProperties.TextTransform = .none
-    }
-}
-
-// MARK: - UILabel+setAttributedText
-
-private extension UILabel {
-    
-    func setText(
-        _ textInfos: (NSAttributedString?, String?),
-        textProperties: NewsCardContentConfiguration.TextProperties
-    ) {
-        let (attributedTextOrNil, textOrNil) = textInfos
-        
-        if var attributedText = attributedTextOrNil {
-            switch textProperties.transform {
-            case .none:
-                break
-            case .capitalized:
-                attributedText = attributedText.capitalized()
-            case .lowercase:
-                attributedText = attributedText.lowercased()
-            case .uppercase:
-                attributedText = attributedText.uppercased()
-            @unknown default:
-                break
-            }
-            
-            self.attributedText = attributedText
-        } else if var text = textOrNil {
-            switch textProperties.transform {
-            case .none:
-                break
-            case .capitalized:
-                text = text.capitalized
-            case .lowercase:
-                text = text.lowercased()
-            case .uppercase:
-                text = text.uppercased()
-            @unknown default:
-                break
-            }
-            
-            self.text = text
-        }
-        
-        numberOfLines = textProperties.numberOfLines
-    }
-    
-}
-
-extension NSAttributedString {
-    
-    func capitalized() -> NSAttributedString {
-        transform { $0.capitalized }
-    }
-    
-    func uppercased() -> NSAttributedString {
-        transform { $0.uppercased() }
-    }
-    
-    func lowercased() -> NSAttributedString {
-        transform { $0.lowercased()}
-    }
-    
-    private func transform(_ block: (String) -> String) -> NSAttributedString {
-        let result = NSMutableAttributedString(attributedString: self)
-        
-        self.enumerateAttributes(
-            in: NSRange(location: 0, length: length),
-            options: [.longestEffectiveRangeNotRequired]
-        ) { _, range, _ in
-            let currentText = (string as NSString).substring(with: range)
-            result.replaceCharacters(in: range, with: block(currentText))
-        }
-        
-        return result
-    }
-    
 }

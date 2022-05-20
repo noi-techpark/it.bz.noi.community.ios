@@ -58,6 +58,8 @@ class MyAccountViewModel {
     
     private let authClient: AuthClient
     
+    var requestAccountDeletionHandler: (() -> Void)?
+    
     enum CacheKey: Hashable {
         case userInfo
     }
@@ -140,6 +142,10 @@ class MyAccountViewModel {
                         .post(name: logoutNotification, object: self)
                 }
             )
+    }
+    
+    func requestAccountDeletion() {
+        requestAccountDeletionHandler?()
     }
     
 }

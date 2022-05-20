@@ -128,6 +128,11 @@
             <point key="canvasLocation" x="137.68115942028987" y="64.620535714285708"/>
         </view>
     </objects>
+    <designables>
+        <designable name="6ND-WY-x3u">
+            <size key="intrinsicContentSize" width="44" height="17"/>
+        </designable>
+    </designables>
     <resources>
         <namedColor name="accent_color">
             <color red="0.95686274509803926" green="0.81960784313725488" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
