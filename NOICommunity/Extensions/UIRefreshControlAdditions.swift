@@ -12,6 +12,9 @@ extension UIRefreshControl {
     var isLoading: Bool {
         get { isRefreshing }
         set(newIsLoading) {
+            guard newIsLoading != isLoading
+            else { return }
+            
             if newIsLoading {
                 beginRefreshing(forced: true)
             } else {
