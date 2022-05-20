@@ -20,8 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
         // Override point for customization after application launch.
-        
-        configureCrashReport()
+        FirebaseApp.configure()
         
         configurePushNotifications(application: application)
         
@@ -114,12 +113,6 @@ extension AppDelegate: MessagingDelegate {
 
 private extension AppDelegate {
     
-    func configureCrashReport() {
-        if AppFeatureSwitches.isCrashlyticsEnabled {
-            FirebaseApp.configure()
-        }
-    }
-    
     func configurePushNotifications(application: UIApplication) {
         let userNotificationCenter = UNUserNotificationCenter.current()
         userNotificationCenter.delegate = self
@@ -131,7 +124,6 @@ private extension AppDelegate {
         )
         application.registerForRemoteNotifications()
         
-        FirebaseApp.configure()
         Messaging.messaging().delegate = self
     }
     
