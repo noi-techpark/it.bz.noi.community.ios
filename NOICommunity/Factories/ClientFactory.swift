@@ -10,6 +10,7 @@ import AppPreferencesClient
 import AuthStateStorageClient
 import AuthClient
 import ArticlesClient
+import PeopleClient
 
 protocol ClientFactory {
     
@@ -22,5 +23,7 @@ protocol ClientFactory {
     func makeAuthClient() -> AuthClient
     
     func makeArticlesClient() -> ArticlesClient
+    
+    func makePeopleClient() -> PeopleClient
     
 }

@@ -127,12 +127,10 @@ private extension EventsMainViewController {
         return resultsViewController
     }
 
-    func makeEmptyResultsViewController() -> MessageViewController {
-        let emptyResultsVC = MessageViewController(
-            text: .localized("label_events_empty_state_title"),
+    func makeEmptyResultsViewController() -> UIViewController {
+        UIViewController.emptyViewController(
             detailedText: .localized("label_events_empty_state_subtitle")
         )
-        return emptyResultsVC
     }
 
     func makeLoadingViewController() -> LoadingViewController {

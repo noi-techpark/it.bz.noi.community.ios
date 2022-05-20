@@ -35,9 +35,10 @@ extension UIButton {
         return self
     }
     
-    @discardableResult func withDynamicType() -> UIButton {
-        titleLabel?.numberOfLines = 0
+    @discardableResult func withDynamicType(numberOfLines: Int = 0) -> UIButton {
+        titleLabel?.numberOfLines = numberOfLines
         titleLabel?.adjustsFontForContentSizeCategory = true
+        adjustsImageSizeForAccessibilityContentSizeCategory = true
         
         return self
     }
@@ -64,11 +65,13 @@ extension UIButton {
     
     @discardableResult func configureAsRectangleButton(
         withBackgroundColor backgroundColor: UIColor,
-        contentEdgeInsets: UIEdgeInsets = .zero
+        contentEdgeInsets: UIEdgeInsets? = nil
     ) -> UIButton {
         setBackgroundColor(backgroundColor, for: .normal)
         
-        self.contentEdgeInsets = contentEdgeInsets
+        if let contentEdgeInsets = contentEdgeInsets {
+            self.contentEdgeInsets = contentEdgeInsets
+        }
         
         return self
     }
@@ -77,7 +80,7 @@ extension UIButton {
         withBackgroundColor backgroundColor: UIColor,
         strokeColor: UIColor?,
         lineWidth: CGFloat,
-        contentEdgeInsets: UIEdgeInsets = .zero
+        contentEdgeInsets: UIEdgeInsets? = nil
     ) -> UIButton {
         setBackgroundColor(
             backgroundColor,
@@ -86,15 +89,17 @@ extension UIButton {
             for: .normal
         )
         
-        self.contentEdgeInsets = contentEdgeInsets
+        if let contentEdgeInsets = contentEdgeInsets {
+            self.contentEdgeInsets = contentEdgeInsets
+        }
         
         return self
     }
     
     @discardableResult func withMinimumHeight(
-        _ minHeight: CGFloat = 50
+        _ minHeight: CGFloat
     ) -> UIButton {
-        let id = "button-height-constraint"
+        let id = "button-minimum-height-constraint"
         
         var minHeightConstraint: NSLayoutConstraint! = constraints
             .first { $0.identifier == id }
@@ -109,11 +114,32 @@ extension UIButton {
         return self
     }
     
-    @discardableResult func configureAsFooterButton()  -> UIButton {
+    @discardableResult func withMaximumHeight(
+        _ maxHeight: CGFloat
+    ) -> UIButton {
+        let id = "button-maximum-height-constraint"
+        
+        var minHeightConstraint: NSLayoutConstraint! = constraints
+            .first { $0.identifier == id }
+        if minHeightConstraint == nil {
+            minHeightConstraint = heightAnchor
+                .constraint(lessThanOrEqualToConstant: maxHeight)
+            minHeightConstraint.identifier = id
+        }
+        minHeightConstraint.constant = maxHeight
+        minHeightConstraint.isActive = true
+        
+        return self
+    }
+    
+    @discardableResult func configureAsFooterButton(
+        numberOfLines: Int = 0
+    )  -> UIButton {
         self
             .withMinimumHeight(50)
+            .withMaximumHeight(150)
             .withTextAligment(.center)
-            .withDynamicType()
+            .withDynamicType(numberOfLines: numberOfLines)
             .withTextStyle(.body, weight: .semibold)
     }
     
@@ -133,19 +159,17 @@ extension UIButton {
             .withTintColor(.noiPrimaryColor)
     }
     
-    @discardableResult func configureAsSecondaryActionButton()  -> UIButton {
+    @discardableResult func configureAsSecondaryActionButton(
+        numberOfLines: Int = 0,
+        contentEdgeInsets: UIEdgeInsets? = nil
+    )  -> UIButton {
         self
-            .configureAsFooterButton()
+            .configureAsFooterButton(numberOfLines: numberOfLines)
             .configureAsRectangleButton(
                 withBackgroundColor: .clear,
                 strokeColor: .noiSecondaryColor,
                 lineWidth: 1,
-                contentEdgeInsets: .init(
-                    top: 12,
-                    left: 12,
-                    bottom: 12,
-                    right: 12
-                )
+                contentEdgeInsets: contentEdgeInsets
             )
             .withTitleColor(.noiSecondaryColor)
             .withTintColor(.noiSecondaryColor)

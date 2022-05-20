@@ -15,6 +15,7 @@ import EventShortClient
 import EventShortTypesClient
 import SwiftCache
 import ArticlesClient
+import PeopleClient
 
 // MARK: - DependencyContainer
 
@@ -27,6 +28,7 @@ final class DependencyContainer {
     let eventShortClient: EventShortClient
     let eventShortTypesClient: EventShortTypesClient
     let artileClient: ArticlesClient
+    let peopleClient: PeopleClient
     
     private var _userInfoCache: Cache<MyAccountViewModel.CacheKey, UserInfo>?
     private var userInfoCache: Cache<MyAccountViewModel.CacheKey, UserInfo>! {
@@ -53,7 +55,8 @@ final class DependencyContainer {
         authClient: AuthClient,
         eventShortClient: EventShortClient,
         eventShortTypesClient: EventShortTypesClient,
-        articleClient: ArticlesClient
+        articleClient: ArticlesClient,
+        peopleClient: PeopleClient
     ) {
         self.appPreferencesClient = appPreferencesClient
         self.isAutorizedClient = isAutorizedClient
@@ -62,6 +65,7 @@ final class DependencyContainer {
         self.eventShortClient = eventShortClient
         self.eventShortTypesClient = eventShortTypesClient
         self.artileClient = articleClient
+        self.peopleClient = peopleClient
         
         NotificationCenter
             .default
@@ -96,6 +100,10 @@ extension DependencyContainer: ClientFactory {
     
     func makeArticlesClient() -> ArticlesClient {
         artileClient
+    }
+    
+    func makePeopleClient() -> PeopleClient {
+        peopleClient
     }
     
 }
@@ -152,15 +160,19 @@ extension DependencyContainer: ViewModelFactory {
     }
     
     func makeNewsListViewModel() -> NewsListViewModel {
-        .init(articlesClient: artileClient)
+        .init(articlesClient: makeArticlesClient())
     }
     
     func makeNewsDetailsViewModel(availableNews: Article?) -> NewsDetailsViewModel {
         .init(
-            articlesClient: artileClient,
+            articlesClient: makeArticlesClient(),
             availableNews: availableNews,
             language: nil
         )
+    }
+    
+    func makePeopleViewModel() -> PeopleViewModel {
+        .init(authClient: makeAuthClient(), peopleClient: makePeopleClient())
     }
     
 }
@@ -208,6 +220,25 @@ extension DependencyContainer: ViewControllerFactory {
         viewModel: NewsDetailsViewModel
     ) -> NewsDetailsViewController {
         .init(newsId: newsId, viewModel: viewModel)
+    }
+    
+    func makeMeetMainViewController(
+        viewModel: PeopleViewModel
+    ) -> MeetMainViewController {
+        .init(viewModel: viewModel)
+    }
+    
+    func makePersonDetailsViewController(
+        person: Person,
+        company: Company?
+    ) -> PersonDetailsViewController {
+        .init(person: person, company: company)
+    }
+    
+    func makeCompaniesFiltersViewController(
+        viewModel: PeopleViewModel
+    ) -> CompaniesFiltersViewController {
+        .init(peopleViewModel: viewModel)
     }
     
 }

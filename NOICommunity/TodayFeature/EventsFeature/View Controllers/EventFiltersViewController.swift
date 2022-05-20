@@ -144,7 +144,8 @@ private extension EventFiltersViewController {
                         .localized("show_results_btn_format"),
                         numberOfResults
                     ),
-                    for: .normal)
+                    for: .normal
+                )
             }
             .store(in: &subscriptions)
 

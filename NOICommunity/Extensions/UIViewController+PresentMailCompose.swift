@@ -27,10 +27,10 @@ struct EmailParameters {
     /// `validateEmail`'s default implementation is `defaultValidateEmail`.
     init?(
         toEmails: [String],
-        ccEmails: [String],
-        bccEmails: [String],
-        subject: String?,
-        body: String?,
+        ccEmails: [String] = [],
+        bccEmails: [String] = [],
+        subject: String? = nil,
+        body: String? = nil,
         validateEmail: (String) -> Bool = defaultValidateEmail
     ) {
         func parseEmails(_ emails: [String]) -> [String] {
@@ -199,6 +199,12 @@ extension UIViewController {
         let mailComposeViewController = MFMailComposeViewController()
         mailComposeViewController.mailComposeDelegate = delegate
         mailComposeViewController.setToRecipients(parameters.toEmails)
+        if let subject = parameters.subject {
+            mailComposeViewController.setSubject(subject)
+        }
+        if let body = parameters.body {
+            mailComposeViewController.setMessageBody(body, isHTML: false)
+        }
         present(
             mailComposeViewController,
             animated: true,

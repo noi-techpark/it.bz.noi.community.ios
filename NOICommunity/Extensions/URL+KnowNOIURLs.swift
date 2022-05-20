@@ -10,11 +10,6 @@ import Foundation
 extension URL {
     static let map = URL(string: .localized("url_map"))!
     static let roomBooking = URL(string: .localized("url_room_booking"))!
-    static let companies = URL(string: .localized("url_companies"))!
-    static let startups = URL(string: .localized("url_startups"))!
-    static let university = URL(string: .localized("url_university"))!
-    static let research = URL(string: .localized("url_research"))!
-    static let institutions = URL(string: .localized("url_institutions"))!
     static let lab = URL(string: .localized("url_lab"))!
     static let aboutUs = URL(string: .localized("url_about_us"))!
     static let onboarding = URL(string: .localized("url_onboarding"))!

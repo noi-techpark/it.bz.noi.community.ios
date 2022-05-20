@@ -16,6 +16,7 @@ import SwiftCache
 import AuthClientLive
 import AuthStateStorageClient
 import ArticlesClientLive
+import PeopleClientLive
 
 #if DEBUG
 private let accessGroupKey = "24PN5XJ85Y.it.dimension.noi-community"
@@ -81,7 +82,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                     return .live()
                 }
             }(),
-            articleClient: .live()
+            articleClient: .live(),
+            peopleClient: .live(baseURL: MeetConstant.clientBaseURL)
         )
     }()
     

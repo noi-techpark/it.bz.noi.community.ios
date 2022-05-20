@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PersonDetailsViewController" customModule="NOICommunity" customModuleProvider="target">
+            <connections>
+                <outlet property="findButton" destination="nmd-7C-w2K" id="4rn-0r-Tlu"/>
+                <outlet property="footerView" destination="YEh-XZ-Raz" id="uc5-uD-Nfl"/>
+                <outlet property="mailButton" destination="7tB-bB-s8D" id="MHk-Qm-OeB"/>
+                <outlet property="phoneButton" destination="CHV-p6-puJ" id="rbX-H5-2rA"/>
+                <outlet property="view" destination="G8k-qh-TaL" id="ASt-9X-jWq"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="G8k-qh-TaL">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YEh-XZ-Raz" customClass="FooterView" customModule="NOICommunity" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="806" width="414" height="90"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="chI-cP-wqv">
+                            <rect key="frame" x="17" y="17" width="380" height="22"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7tB-bB-s8D">
+                                    <rect key="frame" x="0.0" y="0.0" width="120" height="22"/>
+                                    <color key="tintColor" name="secondary_color"/>
+                                    <inset key="contentEdgeInsets" minX="8" minY="0.0" maxX="16" maxY="0.0"/>
+                                    <inset key="titleEdgeInsets" minX="8" minY="0.0" maxX="-8" maxY="0.0"/>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" title="Mail" image="ic_mail">
+                                        <color key="titleColor" name="label_on_badge_background_color"/>
+                                    </state>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CHV-p6-puJ">
+                                    <rect key="frame" x="130" y="0.0" width="120" height="22"/>
+                                    <color key="tintColor" name="secondary_color"/>
+                                    <inset key="contentEdgeInsets" minX="8" minY="0.0" maxX="16" maxY="0.0"/>
+                                    <inset key="titleEdgeInsets" minX="8" minY="0.0" maxX="-8" maxY="0.0"/>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" title="Call" image="ic_phone">
+                                        <color key="titleColor" name="label_on_badge_background_color"/>
+                                    </state>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nmd-7C-w2K">
+                                    <rect key="frame" x="260" y="0.0" width="120" height="22"/>
+                                    <color key="tintColor" name="secondary_color"/>
+                                    <inset key="contentEdgeInsets" minX="8" minY="0.0" maxX="16" maxY="0.0"/>
+                                    <inset key="titleEdgeInsets" minX="8" minY="0.0" maxX="-8" maxY="0.0"/>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" title="Find" image="ic_find">
+                                        <color key="titleColor" name="label_on_badge_background_color"/>
+                                    </state>
+                                </button>
+                            </subviews>
+                        </stackView>
+                    </subviews>
+                    <viewLayoutGuide key="safeArea" id="bg6-tX-2X0"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstItem="chI-cP-wqv" firstAttribute="top" secondItem="bg6-tX-2X0" secondAttribute="top" constant="17" id="BZ3-Y8-aix"/>
+                        <constraint firstItem="bg6-tX-2X0" firstAttribute="bottom" secondItem="chI-cP-wqv" secondAttribute="bottom" constant="17" id="S9h-At-YaA"/>
+                        <constraint firstItem="bg6-tX-2X0" firstAttribute="trailing" secondItem="chI-cP-wqv" secondAttribute="trailing" constant="17" id="VCp-xS-fxg"/>
+                        <constraint firstItem="chI-cP-wqv" firstAttribute="leading" secondItem="bg6-tX-2X0" secondAttribute="leading" constant="17" id="xfZ-go-kpq"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="8G1-M6-q93"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="YEh-XZ-Raz" firstAttribute="leading" secondItem="G8k-qh-TaL" secondAttribute="leading" id="izu-0c-V0W"/>
+                <constraint firstAttribute="bottom" secondItem="YEh-XZ-Raz" secondAttribute="bottom" id="o6D-7Z-o2m"/>
+                <constraint firstAttribute="trailing" secondItem="YEh-XZ-Raz" secondAttribute="trailing" id="skk-yk-NfF"/>
+            </constraints>
+            <point key="canvasLocation" x="-260.86956521739131" y="-292.63392857142856"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="ic_find" width="16" height="18"/>
+        <image name="ic_mail" width="19" height="14"/>
+        <image name="ic_phone" width="19" height="19"/>
+        <namedColor name="label_on_badge_background_color">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="secondary_color">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

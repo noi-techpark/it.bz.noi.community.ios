@@ -20,7 +20,7 @@ class NewsViewController: UICollectionViewController {
     
     private var subscriptions: Set<AnyCancellable> = []
     
-    var refreshControl: UIRefreshControl? {
+    private var refreshControl: UIRefreshControl? {
         get { collectionView.refreshControl }
         set { collectionView.refreshControl = newValue }
     }
@@ -193,7 +193,11 @@ private extension NewsViewController {
                 if isLoading {
                     collectionView?.scrollTo(direction: .top)
                 }
-                refreshControl?.setIsLoading(isLoading, scrollToTop: true)
+                refreshControl?.setIsLoading(
+                    isLoading,
+                    forced: true,
+                    scrollToTop: true
+                )
             })
             .store(in: &subscriptions)
         

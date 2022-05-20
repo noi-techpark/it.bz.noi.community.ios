@@ -104,10 +104,10 @@ private extension EventFiltersListViewController {
 
     func configureDataSource() {
         let cellRegistration = UICollectionView
-            .CellRegistration<UICollectionViewListCell, EventsFilter.Id> { [unowned self] cell, _, id in
+            .CellRegistration<UICollectionViewListCell, EventsFilter.Id> { cell, _, id in
                 let item = self.dict[id]!
 
-                var contentConfiguration = UIListContentConfiguration.cell()
+                var contentConfiguration = UIListContentConfiguration.noiCell()
                 contentConfiguration.text = localizedValue(
                     from: item.typeDesc,
                     defaultValue: item.key
@@ -117,7 +117,7 @@ private extension EventFiltersListViewController {
                 cell.backgroundConfiguration = .noiListPlainCell(for: cell)
 
                 let `switch` = UISwitch()
-                `switch`.isOn = onItemsIds.contains(id)
+                `switch`.isOn = self.onItemsIds.contains(id)
                 `switch`.addAction(
                     .init(handler: { [weak self] action in
                         let `switch` = action.sender as! UISwitch
@@ -157,6 +157,7 @@ private extension EventFiltersListViewController {
                 item: item
             )
         }
+        
         dataSource.supplementaryViewProvider = { collectionView, kind, indexPath in
             collectionView.dequeueConfiguredReusableSupplementary(
                 using: headerRegistration,
@@ -247,7 +248,7 @@ private extension EventFiltersListViewController {
 
 }
 
-// MARK: Foo
+// MARK: UICollectionViewListCell Configure Helper
 
 private extension UICollectionViewListCell {
 

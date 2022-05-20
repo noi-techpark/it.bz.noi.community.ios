@@ -28,4 +28,6 @@ protocol ViewModelFactory {
         availableNews: Article?
     ) -> NewsDetailsViewModel
     
+    func makePeopleViewModel() -> PeopleViewModel
+    
 }

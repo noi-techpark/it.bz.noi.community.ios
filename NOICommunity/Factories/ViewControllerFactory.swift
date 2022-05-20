@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import PeopleClient
 
 protocol ViewControllerFactory {
     
@@ -35,5 +36,18 @@ protocol ViewControllerFactory {
         newsId: String,
         viewModel: NewsDetailsViewModel
     ) -> NewsDetailsViewController
+    
+    func makeMeetMainViewController(
+        viewModel: PeopleViewModel
+    ) -> MeetMainViewController
+    
+    func makePersonDetailsViewController(
+        person: Person,
+        company: Company?
+    ) -> PersonDetailsViewController
+    
+    func makeCompaniesFiltersViewController(
+        viewModel: PeopleViewModel
+    ) -> CompaniesFiltersViewController
     
 }

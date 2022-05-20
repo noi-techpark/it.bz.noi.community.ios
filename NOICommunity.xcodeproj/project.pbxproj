@@ -35,11 +35,21 @@
 		31178FDE26FA2F7100BDCDAA /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31178FDD26FA2F7100BDCDAA /* TabBarController.swift */; };
 		31178FE026FA318800BDCDAA /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31178FDF26FA318800BDCDAA /* Collection.swift */; };
 		311E0EC62825157800404DCE /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 311E0EC52825157800404DCE /* FirebaseMessaging */; };
+		3121AFDE2858B43A00248CDF /* MeetMainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3121AFDD2858B43A00248CDF /* MeetMainViewController.xib */; };
 		3122EA5127DB6FF7007E89E6 /* SwiftCache in Frameworks */ = {isa = PBXBuildFile; productRef = 3122EA5027DB6FF7007E89E6 /* SwiftCache */; };
 		312BBB5B2832658600AF84F0 /* UIViewController+PresentMailCompose.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312BBB5A2832658600AF84F0 /* UIViewController+PresentMailCompose.swift */; };
 		312D29D8270451B600F4F4E7 /* ImageCardContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312D29D7270451B600F4F4E7 /* ImageCardContentView.swift */; };
 		312F5D272808250000C84598 /* AuthWelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312F5D262808250000C84598 /* AuthWelcomeViewController.swift */; };
 		312F5D292808252900C84598 /* WelcomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312F5D282808252900C84598 /* WelcomeViewModel.swift */; };
+		313010C12844CEF500AF6520 /* UIImage+Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313010C02844CEF500AF6520 /* UIImage+Animation.swift */; };
+		313010C72844F5A500AF6520 /* PersonDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 313010C62844F5A500AF6520 /* PersonDetailsViewController.xib */; };
+		313010C928450A5B00AF6520 /* UIApplication+URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313010C828450A5B00AF6520 /* UIApplication+URL.swift */; };
+		313010CB2845F99900AF6520 /* UIViewController+DirectionActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313010CA2845F99900AF6520 /* UIViewController+DirectionActionSheet.swift */; };
+		313010CD2846102000AF6520 /* MyAccountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 313010CC284609D000AF6520 /* MyAccountViewController.xib */; };
+		313010CF28463F1000AF6520 /* ContentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313010CE28463F1000AF6520 /* ContentConfiguration.swift */; };
+		313010D42846640400AF6520 /* MeetFilterBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 313010D32846640400AF6520 /* MeetFilterBarView.xib */; };
+		3132EF39283D29DA0016DF7F /* PersonCardContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3132EF38283D04470016DF7F /* PersonCardContentView.swift */; };
+		3132EF3A283D29E00016DF7F /* PersonCardContentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3132EF36283D04470016DF7F /* PersonCardContentView.xib */; };
 		3136CC402706F75F00C27129 /* SourcePresentAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3136CC3F2706F75F00C27129 /* SourcePresentAnimator.swift */; };
 		3136CC422706F8D200C27129 /* UIView+TransitionId.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3136CC412706F8D200C27129 /* UIView+TransitionId.swift */; };
 		3136CC442707093B00C27129 /* SourceDismissAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3136CC432707093B00C27129 /* SourceDismissAnimator.swift */; };
@@ -50,6 +60,12 @@
 		3145D23326B3F73F00F16787 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3145D23226B3F73F00F16787 /* SceneDelegate.swift */; };
 		3145D23A26B3F74000F16787 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3145D23926B3F74000F16787 /* Images.xcassets */; };
 		3145D25326B3F74000F16787 /* UILaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3145D25226B3F74000F16787 /* UILaunchTests.swift */; };
+		314EB4A1270DDDF60067FACA /* EventsCoordinator.NavigationControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314EB4A0270DDDF60067FACA /* EventsCoordinator.NavigationControllerDelegate.swift */; };
+		3152755D28473D1C00D5C8A1 /* MeetFilterBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3152755C28473D1C00D5C8A1 /* MeetFilterBarView.swift */; };
+		3152755F28476D4B00D5C8A1 /* CompanyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3152755E28476D4B00D5C8A1 /* CompanyViewModel.swift */; };
+		3152756328479E2700D5C8A1 /* CompaniesFiltersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3152756228479E2700D5C8A1 /* CompaniesFiltersViewController.swift */; };
+		315275652847A00700D5C8A1 /* CompanyId.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315275642847A00700D5C8A1 /* CompanyId.swift */; };
+		315275672847A01000D5C8A1 /* PersonId.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315275662847A01000D5C8A1 /* PersonId.swift */; };
 		3153010528071D1200471153 /* AuthWelcomePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3153010428071D1200471153 /* AuthWelcomePageViewController.swift */; };
 		3153010728071D5500471153 /* AuthWelcomePageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3153010628071D5500471153 /* AuthWelcomePageViewController.xib */; };
 		315F4BE427035679001905AF /* EventCardContentConfiguration.SharedConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315F4BE327035679001905AF /* EventCardContentConfiguration.SharedConfig.swift */; };
@@ -64,10 +80,16 @@
 		317615C926FDD369007FE10F /* UIFont+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317615C826FDD369007FE10F /* UIFont+Additions.swift */; };
 		317615CA26FDD637007FE10F /* MessageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 317615C526FDCFF7007FE10F /* MessageViewController.xib */; };
 		31796C7C2809B489000542F6 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31796C7B2809B489000542F6 /* GradientView.swift */; };
+		317A5D71284E0EA300750412 /* CompaniesFiltersViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 317A5D70284E0E8600750412 /* CompaniesFiltersViewController.xib */; };
 		317B6F9A28118950008D07C0 /* ClientFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317B6F9928118950008D07C0 /* ClientFactory.swift */; };
 		317B6F9C28118BD6008D07C0 /* AuthClient in Frameworks */ = {isa = PBXBuildFile; productRef = 317B6F9B28118BD6008D07C0 /* AuthClient */; };
 		317B6F9E28118BD6008D07C0 /* AuthClientLive in Frameworks */ = {isa = PBXBuildFile; productRef = 317B6F9D28118BD6008D07C0 /* AuthClientLive */; };
 		317B6FA428118C95008D07C0 /* DependencyRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317B6FA328118C95008D07C0 /* DependencyRepresentable.swift */; };
+		317D5C772841208400531432 /* PersonDetailHeaderContentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 317D5C762841208400531432 /* PersonDetailHeaderContentView.xib */; };
+		317D5C79284120C000531432 /* PersonDetailHeaderContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317D5C78284120C000531432 /* PersonDetailHeaderContentView.swift */; };
+		317EC887283BB75900F30B95 /* PeopleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317EC886283BB75900F30B95 /* PeopleViewModel.swift */; };
+		317EC889283BB83E00F30B95 /* PeopleClient in Frameworks */ = {isa = PBXBuildFile; productRef = 317EC888283BB83E00F30B95 /* PeopleClient */; };
+		317EC88B283BB83E00F30B95 /* PeopleClientLive in Frameworks */ = {isa = PBXBuildFile; productRef = 317EC88A283BB83E00F30B95 /* PeopleClientLive */; };
 		317F74FA27D8B5610084E619 /* CircleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317F74F927D8B5610084E619 /* CircleButton.swift */; };
 		3182A177282CEFB7005439B4 /* NewsCardContentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3182A176282CE550005439B4 /* NewsCardContentView.xib */; };
 		3182A178282CEFB7005439B4 /* NewsCardContentConfiguration.SharedConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3182A175282CE550005439B4 /* NewsCardContentConfiguration.SharedConfig.swift */; };
@@ -121,6 +143,9 @@
 		31B37E1E2833AFF700C26E6B /* MessageViewController+Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B37E1D2833AFF700C26E6B /* MessageViewController+Error.swift */; };
 		31B4477F26F86FE5000999BA /* SegmentedControlBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B4477E26F86FE4000999BA /* SegmentedControlBuilder.swift */; };
 		31B6742027C79E520044A285 /* EventShortTypes.json in Resources */ = {isa = PBXBuildFile; fileRef = 31B6741F27C79E520044A285 /* EventShortTypes.json */; };
+		31BFAB35283FB49A00EF274D /* MeetConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BFAB34283FB49800EF274D /* MeetConstant.swift */; };
+		31BFAB39283FB8EC00EF274D /* PersonDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BFAB38283FB8EC00EF274D /* PersonDetailsViewController.swift */; };
+		31BFAB3B283FC88A00EF274D /* CALayer+XibConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BFAB3A283FC88A00EF274D /* CALayer+XibConfiguration.swift */; };
 		31C14C2327DA3597009AF69D /* UIScrollView+ScrollToView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C14C2227DA3597009AF69D /* UIScrollView+ScrollToView.swift */; };
 		31C2261C270F596E0098A70E /* EventCardContentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 315F4BE127034C00001905AF /* EventCardContentView.xib */; };
 		31C2261D270F59750098A70E /* EventDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3187667826FB3A9300782FA6 /* EventDetailsViewController.xib */; };
@@ -165,6 +190,7 @@
 		31EBA3742807FAD9001AAE8F /* AuthWelcomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31EBA3732807FAD9001AAE8F /* AuthWelcomeViewController.xib */; };
 		31EE1A9227143AA1006A8EEF /* MapWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EE1A9127143AA1006A8EEF /* MapWebViewController.swift */; };
 		31EF82592810517600EBE5F0 /* AppAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 31EF82582810517600EBE5F0 /* AppAuth */; };
+		31EFE4AB28575B0F00B496DB /* UIViewController+EmptyState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EFE4AA28575B0F00B496DB /* UIViewController+EmptyState.swift */; };
 		31F0DBD3280F0D3D00E782D5 /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F0DBD2280F02DC00E782D5 /* AuthCoordinator.swift */; };
 		31FAEA7D28197D9700CDBC1B /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FAEA7C28197D9700CDBC1B /* AppCoordinator.swift */; };
 		31FAEA7F28197EC200CDBC1B /* NavigationCoordinatorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FAEA7E28197EC200CDBC1B /* NavigationCoordinatorType.swift */; };
@@ -219,10 +245,20 @@
 		31178FDB26FA26C500BDCDAA /* EventDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailsViewController.swift; sourceTree = "<group>"; };
 		31178FDD26FA2F7100BDCDAA /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		31178FDF26FA318800BDCDAA /* Collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
+		3121AFDD2858B43A00248CDF /* MeetMainViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MeetMainViewController.xib; sourceTree = "<group>"; };
 		312BBB5A2832658600AF84F0 /* UIViewController+PresentMailCompose.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+PresentMailCompose.swift"; sourceTree = "<group>"; };
 		312D29D7270451B600F4F4E7 /* ImageCardContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCardContentView.swift; sourceTree = "<group>"; };
 		312F5D262808250000C84598 /* AuthWelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthWelcomeViewController.swift; sourceTree = "<group>"; };
 		312F5D282808252900C84598 /* WelcomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewModel.swift; sourceTree = "<group>"; };
+		313010C02844CEF500AF6520 /* UIImage+Animation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Animation.swift"; sourceTree = "<group>"; };
+		313010C62844F5A500AF6520 /* PersonDetailsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PersonDetailsViewController.xib; sourceTree = "<group>"; };
+		313010C828450A5B00AF6520 /* UIApplication+URL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+URL.swift"; sourceTree = "<group>"; };
+		313010CA2845F99900AF6520 /* UIViewController+DirectionActionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+DirectionActionSheet.swift"; sourceTree = "<group>"; };
+		313010CC284609D000AF6520 /* MyAccountViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyAccountViewController.xib; sourceTree = "<group>"; };
+		313010CE28463F1000AF6520 /* ContentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentConfiguration.swift; sourceTree = "<group>"; };
+		313010D32846640400AF6520 /* MeetFilterBarView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MeetFilterBarView.xib; sourceTree = "<group>"; };
+		3132EF36283D04470016DF7F /* PersonCardContentView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PersonCardContentView.xib; sourceTree = "<group>"; };
+		3132EF38283D04470016DF7F /* PersonCardContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonCardContentView.swift; sourceTree = "<group>"; };
 		3136CC3F2706F75F00C27129 /* SourcePresentAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourcePresentAnimator.swift; sourceTree = "<group>"; };
 		3136CC412706F8D200C27129 /* UIView+TransitionId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+TransitionId.swift"; sourceTree = "<group>"; };
 		3136CC432707093B00C27129 /* SourceDismissAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceDismissAnimator.swift; sourceTree = "<group>"; };
@@ -239,6 +275,11 @@
 		3145D25226B3F74000F16787 /* UILaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILaunchTests.swift; sourceTree = "<group>"; };
 		3145D25426B3F74000F16787 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		314EB4A0270DDDF60067FACA /* EventsCoordinator.NavigationControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsCoordinator.NavigationControllerDelegate.swift; sourceTree = "<group>"; };
+		3152755C28473D1C00D5C8A1 /* MeetFilterBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetFilterBarView.swift; sourceTree = "<group>"; };
+		3152755E28476D4B00D5C8A1 /* CompanyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyViewModel.swift; sourceTree = "<group>"; };
+		3152756228479E2700D5C8A1 /* CompaniesFiltersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompaniesFiltersViewController.swift; sourceTree = "<group>"; };
+		315275642847A00700D5C8A1 /* CompanyId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyId.swift; sourceTree = "<group>"; };
+		315275662847A01000D5C8A1 /* PersonId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonId.swift; sourceTree = "<group>"; };
 		3153010428071D1200471153 /* AuthWelcomePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthWelcomePageViewController.swift; sourceTree = "<group>"; };
 		3153010628071D5500471153 /* AuthWelcomePageViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AuthWelcomePageViewController.xib; sourceTree = "<group>"; };
 		315F4BE127034C00001905AF /* EventCardContentView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EventCardContentView.xib; sourceTree = "<group>"; };
@@ -255,8 +296,12 @@
 		317615C626FDD0FE007FE10F /* MessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewController.swift; sourceTree = "<group>"; };
 		317615C826FDD369007FE10F /* UIFont+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Additions.swift"; sourceTree = "<group>"; };
 		31796C7B2809B489000542F6 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
+		317A5D70284E0E8600750412 /* CompaniesFiltersViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CompaniesFiltersViewController.xib; sourceTree = "<group>"; };
 		317B6F9928118950008D07C0 /* ClientFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientFactory.swift; sourceTree = "<group>"; };
 		317B6FA328118C95008D07C0 /* DependencyRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyRepresentable.swift; sourceTree = "<group>"; };
+		317D5C762841208400531432 /* PersonDetailHeaderContentView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PersonDetailHeaderContentView.xib; sourceTree = "<group>"; };
+		317D5C78284120C000531432 /* PersonDetailHeaderContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonDetailHeaderContentView.swift; sourceTree = "<group>"; };
+		317EC886283BB75900F30B95 /* PeopleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleViewModel.swift; sourceTree = "<group>"; };
 		317F74F927D8B5610084E619 /* CircleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleButton.swift; sourceTree = "<group>"; };
 		3182A174282CE550005439B4 /* NewsCardContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsCardContentView.swift; sourceTree = "<group>"; };
 		3182A175282CE550005439B4 /* NewsCardContentConfiguration.SharedConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsCardContentConfiguration.SharedConfig.swift; sourceTree = "<group>"; };
@@ -304,6 +349,9 @@
 		31B37E1D2833AFF700C26E6B /* MessageViewController+Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MessageViewController+Error.swift"; sourceTree = "<group>"; };
 		31B4477E26F86FE4000999BA /* SegmentedControlBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControlBuilder.swift; sourceTree = "<group>"; };
 		31B6741F27C79E520044A285 /* EventShortTypes.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = EventShortTypes.json; sourceTree = "<group>"; };
+		31BFAB34283FB49800EF274D /* MeetConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetConstant.swift; sourceTree = "<group>"; };
+		31BFAB38283FB8EC00EF274D /* PersonDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonDetailsViewController.swift; sourceTree = "<group>"; };
+		31BFAB3A283FC88A00EF274D /* CALayer+XibConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+XibConfiguration.swift"; sourceTree = "<group>"; };
 		31C14C2227DA3597009AF69D /* UIScrollView+ScrollToView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+ScrollToView.swift"; sourceTree = "<group>"; };
 		31C28BF52719709B00312A62 /* NOICells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NOICells.swift; sourceTree = "<group>"; };
 		31C28BF7271992F500312A62 /* FiltersBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersBarView.swift; sourceTree = "<group>"; };
@@ -345,6 +393,7 @@
 		31E7872527D8918800C67188 /* UIImageAdditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageAdditions.swift; sourceTree = "<group>"; };
 		31EBA3732807FAD9001AAE8F /* AuthWelcomeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AuthWelcomeViewController.xib; sourceTree = "<group>"; };
 		31EE1A9127143AA1006A8EEF /* MapWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapWebViewController.swift; sourceTree = "<group>"; };
+		31EFE4AA28575B0F00B496DB /* UIViewController+EmptyState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+EmptyState.swift"; sourceTree = "<group>"; };
 		31F0DBD2280F02DC00E782D5 /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
 		31FAEA7C28197D9700CDBC1B /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		31FAEA7E28197EC200CDBC1B /* NavigationCoordinatorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationCoordinatorType.swift; sourceTree = "<group>"; };
@@ -355,6 +404,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				317EC88B283BB83E00F30B95 /* PeopleClientLive in Frameworks */,
 				31EF82592810517600EBE5F0 /* AppAuth in Frameworks */,
 				31CE9BF62701BF33005EA61A /* Kingfisher in Frameworks */,
 				3182F4A227DB3841005ADDAF /* AppPreferencesClient in Frameworks */,
@@ -371,6 +421,7 @@
 				311E0EC62825157800404DCE /* FirebaseMessaging in Frameworks */,
 				3185AA1A2820066A00767E31 /* SwiftJWT in Frameworks */,
 				317B6F9E28118BD6008D07C0 /* AuthClientLive in Frameworks */,
+				317EC889283BB83E00F30B95 /* PeopleClient in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -473,6 +524,51 @@
 				3182A175282CE550005439B4 /* NewsCardContentConfiguration.SharedConfig.swift */,
 				3182A174282CE550005439B4 /* NewsCardContentView.swift */,
 				3182A176282CE550005439B4 /* NewsCardContentView.xib */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		3132EF30283CB5320016DF7F /* Coordinators */ = {
+			isa = PBXGroup;
+			children = (
+				31C640C226FE1E43004B71A2 /* MeetCoordinator.swift */,
+			);
+			path = Coordinators;
+			sourceTree = "<group>";
+		};
+		3132EF31283CB53A0016DF7F /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				3152756228479E2700D5C8A1 /* CompaniesFiltersViewController.swift */,
+				317A5D70284E0E8600750412 /* CompaniesFiltersViewController.xib */,
+				31C640C326FE1E43004B71A2 /* MeetMainViewController.swift */,
+				3121AFDD2858B43A00248CDF /* MeetMainViewController.xib */,
+				31BFAB38283FB8EC00EF274D /* PersonDetailsViewController.swift */,
+				313010C62844F5A500AF6520 /* PersonDetailsViewController.xib */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		3132EF32283CB5440016DF7F /* View Models */ = {
+			isa = PBXGroup;
+			children = (
+				315275642847A00700D5C8A1 /* CompanyId.swift */,
+				3152755E28476D4B00D5C8A1 /* CompanyViewModel.swift */,
+				317EC886283BB75900F30B95 /* PeopleViewModel.swift */,
+				315275662847A01000D5C8A1 /* PersonId.swift */,
+			);
+			path = "View Models";
+			sourceTree = "<group>";
+		};
+		3132EF35283D04290016DF7F /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				3152755C28473D1C00D5C8A1 /* MeetFilterBarView.swift */,
+				313010D32846640400AF6520 /* MeetFilterBarView.xib */,
+				3132EF38283D04470016DF7F /* PersonCardContentView.swift */,
+				3132EF36283D04470016DF7F /* PersonCardContentView.xib */,
+				317D5C78284120C000531432 /* PersonDetailHeaderContentView.swift */,
+				317D5C762841208400531432 /* PersonDetailHeaderContentView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -696,6 +792,7 @@
 				31B4477E26F86FE4000999BA /* SegmentedControlBuilder.swift */,
 				31AAC052270F2FFD00C26850 /* FooterView.swift */,
 				31796C7B2809B489000542F6 /* GradientView.swift */,
+				313010CE28463F1000AF6520 /* ContentConfiguration.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -703,6 +800,7 @@
 		31AA31F226F0B71800744A00 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				31BFAB3A283FC88A00EF274D /* CALayer+XibConfiguration.swift */,
 				319C0E9F26F4790300C6D38B /* CalendarAdditions.swift */,
 				31178FDF26FA318800BDCDAA /* Collection.swift */,
 				3187667626FB38D600782FA6 /* DateIntervalFormatter+Factory.swift */,
@@ -712,20 +810,24 @@
 				31157D1A26FCB26200A43B33 /* String+Localization.swift */,
 				3187667426FB35C100782FA6 /* String+NotDefined.swift */,
 				319C0E8826F33BD000C6D38B /* UIAlertController+Error.swift */,
+				313010C828450A5B00AF6520 /* UIApplication+URL.swift */,
 				31C3629E270EFC5C00C92532 /* UIButton+Background.swift */,
 				31E7872327D7419200C67188 /* UIButton+Insets.swift */,
 				31C362A0270EFCC200C92532 /* UIButton+Noi.swift */,
 				31B3623D26F1E27A00031024 /* UIColor+NOI.swift */,
 				319C0E9926F3483600C6D38B /* UIControl+Combine.swift */,
 				317615C826FDD369007FE10F /* UIFont+Additions.swift */,
+				313010C02844CEF500AF6520 /* UIImage+Animation.swift */,
 				31E7872527D8918800C67188 /* UIImageAdditions.swift */,
 				31D77E732733FFDD0054397C /* UIRefreshControlAdditions.swift */,
 				31C14C2227DA3597009AF69D /* UIScrollView+ScrollToView.swift */,
 				319C0E8626F33BD000C6D38B /* UIView+Subviews.swift */,
 				319C0E8726F33BD000C6D38B /* UIViewController+Children.swift */,
+				313010CA2845F99900AF6520 /* UIViewController+DirectionActionSheet.swift */,
 				312BBB5A2832658600AF84F0 /* UIViewController+PresentMailCompose.swift */,
 				31157D1426FC83FE00A43B33 /* UIViewController+ShowCalenderError.swift */,
 				319C0E8926F33BD000C6D38B /* UIViewController+ShowError.swift */,
+				31EFE4AA28575B0F00B496DB /* UIViewController+EmptyState.swift */,
 				31C640A326FE0C64004B71A2 /* URL+KnowNOIURLs.swift */,
 			);
 			path = Extensions;
@@ -756,8 +858,11 @@
 		31C640C126FE1E43004B71A2 /* MeetFeature */ = {
 			isa = PBXGroup;
 			children = (
-				31C640C226FE1E43004B71A2 /* MeetCoordinator.swift */,
-				31C640C326FE1E43004B71A2 /* MeetMainViewController.swift */,
+				31BFAB34283FB49800EF274D /* MeetConstant.swift */,
+				3132EF30283CB5320016DF7F /* Coordinators */,
+				3132EF35283D04290016DF7F /* Views */,
+				3132EF31283CB53A0016DF7F /* View Controllers */,
+				3132EF32283CB5440016DF7F /* View Models */,
 			);
 			path = MeetFeature;
 			sourceTree = "<group>";
@@ -801,13 +906,14 @@
 		31DA4A732705EA110098E395 /* MoreFeature */ = {
 			isa = PBXGroup;
 			children = (
-				31892F2B281BC09F00DD89F7 /* MoreViewModel.swift */,
-				31DA4A742705EA110098E395 /* MoreMainViewController.swift */,
 				31DA4A752705EA110098E395 /* MoreCoordinator.swift */,
+				31DA4A742705EA110098E395 /* MoreMainViewController.swift */,
+				31892F2B281BC09F00DD89F7 /* MoreViewModel.swift */,
+				316F5614281C166B0075B09F /* MyAccountViewController.swift */,
+				313010CC284609D000AF6520 /* MyAccountViewController.xib */,
+				31892F2D281BC32800DD89F7 /* MyAccountViewModel.swift */,
 				31CF8130270B472F0077CB0D /* VersionContentView.swift */,
 				31CF812E270B46470077CB0D /* VersionContentView.xib */,
-				31892F2D281BC32800DD89F7 /* MyAccountViewModel.swift */,
-				316F5614281C166B0075B09F /* MyAccountViewController.swift */,
 			);
 			path = MoreFeature;
 			sourceTree = "<group>";
@@ -868,6 +974,8 @@
 				311E0EC52825157800404DCE /* FirebaseMessaging */,
 				319C4652282BB32400946AC7 /* ArticlesClient */,
 				319C4654282BB32400946AC7 /* ArticlesClientLive */,
+				317EC888283BB83E00F30B95 /* PeopleClient */,
+				317EC88A283BB83E00F30B95 /* PeopleClientLive */,
 			);
 			productName = NOICommunity;
 			productReference = 3145D22D26B3F73F00F16787 /* NOICommunity.app */;
@@ -968,12 +1076,18 @@
 				31B6742027C79E520044A285 /* EventShortTypes.json in Resources */,
 				3167681C27036A2F00A9DB87 /* PlaceCardContentView.xib in Resources */,
 				31C640A826FE0CF8004B71A2 /* OrientateMainViewController.xib in Resources */,
+				317D5C772841208400531432 /* PersonDetailHeaderContentView.xib in Resources */,
 				313FB0B72719C518000AD9DA /* GoogleService-Info.plist in Resources */,
 				31C2261D270F59750098A70E /* EventDetailsViewController.xib in Resources */,
 				316ED05D270B12CF0070D272 /* Colors.xcassets in Resources */,
 				31CF8133270B49100077CB0D /* VersionContentView.xib in Resources */,
+				313010D42846640400AF6520 /* MeetFilterBarView.xib in Resources */,
+				313010C72844F5A500AF6520 /* PersonDetailsViewController.xib in Resources */,
+				3121AFDE2858B43A00248CDF /* MeetMainViewController.xib in Resources */,
 				31C28BFA2719931400312A62 /* FiltersBarView.xib in Resources */,
+				313010CD2846102000AF6520 /* MyAccountViewController.xib in Resources */,
 				31EBA3742807FAD9001AAE8F /* AuthWelcomeViewController.xib in Resources */,
+				3132EF3A283D29E00016DF7F /* PersonCardContentView.xib in Resources */,
 				3153010728071D5500471153 /* AuthWelcomePageViewController.xib in Resources */,
 				313FB0B92719CFA9000AD9DA /* EventsMainViewController.xib in Resources */,
 				3182A1BF282D5159005439B4 /* NewsDetailsViewController.xib in Resources */,
@@ -983,6 +1097,7 @@
 				317615CA26FDD637007FE10F /* MessageViewController.xib in Resources */,
 				3182A177282CEFB7005439B4 /* NewsCardContentView.xib in Resources */,
 				31157D0526FC66FB00A43B33 /* InfoPlist.strings in Resources */,
+				317A5D71284E0EA300750412 /* CompaniesFiltersViewController.xib in Resources */,
 				311350E9282E5BD300AC9BC9 /* Photos.xcassets in Resources */,
 				3101FC52283390F900A3416F /* TopTabBarController.xib in Resources */,
 				31CF8128270B3CD90077CB0D /* NOI_begins-with-you_Animation_black_short.mp4 in Resources */,
@@ -1041,6 +1156,7 @@
 				31178FCE26F8D7CC00BDCDAA /* Localization.swift in Sources */,
 				31EE1A9227143AA1006A8EEF /* MapWebViewController.swift in Sources */,
 				31157CFE26FC5DEB00A43B33 /* EventsCalendarManager.swift in Sources */,
+				3132EF39283D29DA0016DF7F /* PersonCardContentView.swift in Sources */,
 				3167681727035D9500A9DB87 /* EatMainViewController.swift in Sources */,
 				31B3623E26F1E27A00031024 /* UIColor+NOI.swift in Sources */,
 				31892F2E281BC32800DD89F7 /* MyAccountViewModel.swift in Sources */,
@@ -1053,6 +1169,7 @@
 				319C0E8226F333A700C6D38B /* EventsViewModel.swift in Sources */,
 				31C640AD26FE13CC004B71A2 /* ViewModelFactory.swift in Sources */,
 				31C640B326FE148C004B71A2 /* BaseNavigationCoordinator.swift in Sources */,
+				3152755D28473D1C00D5C8A1 /* MeetFilterBarView.swift in Sources */,
 				31178FE026FA318800BDCDAA /* Collection.swift in Sources */,
 				3197B097281A71B80002FA08 /* BaseRootCoordinator.swift in Sources */,
 				31AA31F126F0B40800744A00 /* EventCardContentView.swift in Sources */,
@@ -1061,8 +1178,10 @@
 				314263A5271F048800DA4429 /* AppFeatureSwitches.swift in Sources */,
 				3145D23126B3F73F00F16787 /* AppDelegate.swift in Sources */,
 				3167681827035D9500A9DB87 /* EatCoordinator.swift in Sources */,
+				317D5C79284120C000531432 /* PersonDetailHeaderContentView.swift in Sources */,
 				31C8F52B282522150009BCB7 /* NoiNewsTopic.swift in Sources */,
 				31178FDA26FA16A200BDCDAA /* NavigationController.swift in Sources */,
+				31BFAB35283FB49A00EF274D /* MeetConstant.swift in Sources */,
 				3136CC422706F8D200C27129 /* UIView+TransitionId.swift in Sources */,
 				3182A1BE282D5159005439B4 /* NewsDetailsViewController.swift in Sources */,
 				319C0EA026F4790300C6D38B /* CalendarAdditions.swift in Sources */,
@@ -1081,9 +1200,12 @@
 				31D07BDA282E40E800AA7D99 /* NSAttributedString+UpdateFonts.swift in Sources */,
 				31C28BF62719709B00312A62 /* NOICells.swift in Sources */,
 				3185AA10281FD77400767E31 /* AccessNotGrantedCoordinator.swift in Sources */,
+				313010C928450A5B00AF6520 /* UIApplication+URL.swift in Sources */,
+				3152756328479E2700D5C8A1 /* CompaniesFiltersViewController.swift in Sources */,
 				317615C926FDD369007FE10F /* UIFont+Additions.swift in Sources */,
 				3182A1BB282D476D005439B4 /* RoundedLabel.swift in Sources */,
 				31C640A026FE0B9D004B71A2 /* BaseTabCoordinator.swift in Sources */,
+				31BFAB3B283FC88A00EF274D /* CALayer+XibConfiguration.swift in Sources */,
 				31A5F04F27D22ECA00FA20BC /* EventFiltersListViewController.swift in Sources */,
 				3153010528071D1200471153 /* AuthWelcomePageViewController.swift in Sources */,
 				316F5615281C166B0075B09F /* MyAccountViewController.swift in Sources */,
@@ -1094,6 +1216,7 @@
 				311350E7282E4F0A00AC9BC9 /* GalleryCollectionViewController.swift in Sources */,
 				31178FDC26FA26C500BDCDAA /* EventDetailsViewController.swift in Sources */,
 				31C362A1270EFCC200C92532 /* UIButton+Noi.swift in Sources */,
+				31BFAB39283FB8EC00EF274D /* PersonDetailsViewController.swift in Sources */,
 				31A5F05127D257B700FA20BC /* EventFiltersViewModel.swift in Sources */,
 				317F74FA27D8B5610084E619 /* CircleButton.swift in Sources */,
 				31DA4A772705EA110098E395 /* MoreCoordinator.swift in Sources */,
@@ -1105,6 +1228,8 @@
 				3187667726FB38D600782FA6 /* DateIntervalFormatter+Factory.swift in Sources */,
 				3102F45F282C06B700687CF7 /* NewsViewController.swift in Sources */,
 				319C0E8D26F33BD000C6D38B /* ContainerViewController.swift in Sources */,
+				314EB4A1270DDDF60067FACA /* EventsCoordinator.NavigationControllerDelegate.swift in Sources */,
+				315275652847A00700D5C8A1 /* CompanyId.swift in Sources */,
 				3197B095281A712B0002FA08 /* RootCoordinatorType.swift in Sources */,
 				319C0E9A26F3483600C6D38B /* UIControl+Combine.swift in Sources */,
 				3101FC552833917200A3416F /* TopTabBarControlImageFactory.swift in Sources */,
@@ -1125,14 +1250,18 @@
 				31157D0026FC648700A43B33 /* Event+CalendarEvent.swift in Sources */,
 				3102F45A282C03D300687CF7 /* NewsDetailsViewModel.swift in Sources */,
 				31B37E1E2833AFF700C26E6B /* MessageViewController+Error.swift in Sources */,
+				315275672847A01000D5C8A1 /* PersonId.swift in Sources */,
 				31C640C626FE1E43004B71A2 /* MeetMainViewController.swift in Sources */,
 				31C640C526FE1E43004B71A2 /* MeetCoordinator.swift in Sources */,
 				31AAC053270F2FFD00C26850 /* FooterView.swift in Sources */,
+				313010CB2845F99900AF6520 /* UIViewController+DirectionActionSheet.swift in Sources */,
 				31E7872627D8918800C67188 /* UIImageAdditions.swift in Sources */,
+				313010CF28463F1000AF6520 /* ContentConfiguration.swift in Sources */,
 				3185AA15281FEAE900767E31 /* AccessNotGrantedViewController.swift in Sources */,
 				317B6FA428118C95008D07C0 /* DependencyRepresentable.swift in Sources */,
 				31927A8127464E2800EA96AC /* RootCoordinator.swift in Sources */,
 				31C6409F26FE0B73004B71A2 /* OrientateCoordinator.swift in Sources */,
+				3152755F28476D4B00D5C8A1 /* CompanyViewModel.swift in Sources */,
 				31E7872427D7419200C67188 /* UIButton+Insets.swift in Sources */,
 				3182A179282CEFB7005439B4 /* NewsCardContentView.swift in Sources */,
 				31C28BFE2719BD7200312A62 /* LoadingViewController.swift in Sources */,
@@ -1150,7 +1279,10 @@
 				316ED05B270AFE140070D272 /* CurrentScrollOffsetProvider.swift in Sources */,
 				3101FC57283391B200A3416F /* TopTabCoordinatorType.swift in Sources */,
 				31C640B726FE17F6004B71A2 /* EventsCoordinator.swift in Sources */,
+				31EFE4AB28575B0F00B496DB /* UIViewController+EmptyState.swift in Sources */,
 				31796C7C2809B489000542F6 /* GradientView.swift in Sources */,
+				317EC887283BB75900F30B95 /* PeopleViewModel.swift in Sources */,
+				313010C12844CEF500AF6520 /* UIImage+Animation.swift in Sources */,
 				3101FC59283391D700A3416F /* BaseTopTabBarCoordinator.swift in Sources */,
 				31C640AF26FE13D3004B71A2 /* ViewControllerFactory.swift in Sources */,
 			);
@@ -1815,6 +1947,14 @@
 		317B6F9D28118BD6008D07C0 /* AuthClientLive */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = AuthClientLive;
+		};
+		317EC888283BB83E00F30B95 /* PeopleClient */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = PeopleClient;
+		};
+		317EC88A283BB83E00F30B95 /* PeopleClientLive */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = PeopleClientLive;
 		};
 		3182F4A127DB3841005ADDAF /* AppPreferencesClient */ = {
 			isa = XCSwiftPackageProductDependency;
