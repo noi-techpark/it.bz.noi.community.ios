@@ -35,7 +35,10 @@ class NavigationController: UINavigationController {
     }
 
     override var childForStatusBarStyle: UIViewController? {
-        visibleViewController
+        guard !(visibleViewController is UIAlertController)
+        else { return viewControllers.last }
+        
+        return visibleViewController
     }
 }
 
