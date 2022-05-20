@@ -8,6 +8,10 @@
 import UIKit
 import AppPreferencesClient
 
+// MARK: - Refresh News List Notification
+
+let refreshNewsListNotification = Notification.Name("refreshNewsList")
+
 // MARK: - RootCoordinator
 
 final class RootCoordinator: BaseRootCoordinator {
@@ -95,7 +99,9 @@ private extension RootCoordinator {
     }
     
     func refreshNewsList() {
-        
+        NotificationCenter
+            .default
+            .post(name: refreshNewsListNotification, object: self)
     }
     
 }

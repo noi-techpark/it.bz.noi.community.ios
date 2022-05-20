@@ -13,11 +13,29 @@ extension UIRefreshControl {
         get { isRefreshing }
         set(newIsLoading) {
             if newIsLoading {
-                beginRefreshing()
+                beginRefreshing(forced: true)
             } else {
                 endRefreshing()
             }
         }
+    }
+    
+    func beginRefreshing(forced: Bool) {
+        guard !isRefreshing
+        else { return }
+        
+        guard forced
+        else {
+            beginRefreshing()
+            return
+        }
+        
+        if let scrollView = superview as? UIScrollView {
+            var newContentOffset = scrollView.contentOffset
+            newContentOffset.y -= frame.height
+            scrollView.setContentOffset(newContentOffset, animated: true)
+        }
+        beginRefreshing()
     }
     
 }
