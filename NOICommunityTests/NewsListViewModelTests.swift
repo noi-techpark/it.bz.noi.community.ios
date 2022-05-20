@@ -17,7 +17,7 @@ class NewsListViewModelTests: XCTestCase {
     
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        viewModel = .init(articlesClient: .live(), language: nil)
+        viewModel = .init(articlesClient: .live())
     }
     
     override func tearDownWithError() throws {
@@ -25,10 +25,10 @@ class NewsListViewModelTests: XCTestCase {
     }
     
     func testExample() throws {
-        let newsPublisher = viewModel.$news
+        let newsPublisher = viewModel.$newsIds
             .collectNext(1)
         
-        var result: [[Article]] = []
+        var result: [[String]] = []
         
         viewModel.fetchNews()
         result += try awaitPublisher(newsPublisher)

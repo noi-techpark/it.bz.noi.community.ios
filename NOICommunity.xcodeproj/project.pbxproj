@@ -48,7 +48,7 @@
 		3145D23126B3F73F00F16787 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3145D23026B3F73F00F16787 /* AppDelegate.swift */; };
 		3145D23326B3F73F00F16787 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3145D23226B3F73F00F16787 /* SceneDelegate.swift */; };
 		3145D23A26B3F74000F16787 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3145D23926B3F74000F16787 /* Images.xcassets */; };
-		3145D25326B3F74000F16787 /* NOICommunityUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3145D25226B3F74000F16787 /* NOICommunityUITests.swift */; };
+		3145D25326B3F74000F16787 /* UILaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3145D25226B3F74000F16787 /* UILaunchTests.swift */; };
 		314EB4A1270DDDF60067FACA /* EventsCoordinator.NavigationControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314EB4A0270DDDF60067FACA /* EventsCoordinator.NavigationControllerDelegate.swift */; };
 		3153010528071D1200471153 /* AuthWelcomePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3153010428071D1200471153 /* AuthWelcomePageViewController.swift */; };
 		3153010728071D5500471153 /* AuthWelcomePageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3153010628071D5500471153 /* AuthWelcomePageViewController.xib */; };
@@ -236,7 +236,7 @@
 		3145D24326B3F74000F16787 /* NOICommunityTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NOICommunityTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3145D24926B3F74000F16787 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3145D24E26B3F74000F16787 /* NOICommunityUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NOICommunityUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		3145D25226B3F74000F16787 /* NOICommunityUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NOICommunityUITests.swift; sourceTree = "<group>"; };
+		3145D25226B3F74000F16787 /* UILaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILaunchTests.swift; sourceTree = "<group>"; };
 		3145D25426B3F74000F16787 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		314EB4A0270DDDF60067FACA /* EventsCoordinator.NavigationControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsCoordinator.NavigationControllerDelegate.swift; sourceTree = "<group>"; };
 		3153010428071D1200471153 /* AuthWelcomePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthWelcomePageViewController.swift; sourceTree = "<group>"; };
@@ -561,7 +561,7 @@
 		3145D25126B3F74000F16787 /* NOICommunityUITests */ = {
 			isa = PBXGroup;
 			children = (
-				3145D25226B3F74000F16787 /* NOICommunityUITests.swift */,
+				3145D25226B3F74000F16787 /* UILaunchTests.swift */,
 				3145D25426B3F74000F16787 /* Info.plist */,
 			);
 			path = NOICommunityUITests;
@@ -1168,7 +1168,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3145D25326B3F74000F16787 /* NOICommunityUITests.swift in Sources */,
+				3145D25326B3F74000F16787 /* UILaunchTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1379,7 +1379,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5V2Q9SWB7H;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = NOICommunityTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1401,7 +1401,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5V2Q9SWB7H;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = NOICommunityTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1422,7 +1422,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5V2Q9SWB7H;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = NOICommunityUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1442,7 +1442,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5V2Q9SWB7H;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = NOICommunityUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1547,7 +1547,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5V2Q9SWB7H;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = NOICommunityTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1568,7 +1568,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5V2Q9SWB7H;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = NOICommunityUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1668,7 +1668,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5V2Q9SWB7H;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = NOICommunityTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1689,7 +1689,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5V2Q9SWB7H;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = NOICommunityUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
