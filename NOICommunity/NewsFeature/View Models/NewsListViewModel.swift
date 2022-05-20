@@ -60,18 +60,29 @@ final class NewsListViewModel {
             pageNumber = nextPage!
         }
         
+        let currentNewsIds: [String]
         if refresh {
-            newsIds = []
+            currentNewsIds = []
+        } else {
+            currentNewsIds = newsIds
         }
         
         isLoadingFirstPage = pageNumber == firstPage
         isLoading = true
         
-        fetchRequestCancellable = articlesClient.list(
+        var articlesListPublisher = articlesClient.list(
             Date(),
             pageSize,
             pageNumber
         )
+        
+        if refresh {
+            articlesListPublisher = articlesListPublisher
+                .delay(for: 0.3, scheduler: RunLoop.main)
+                .eraseToAnyPublisher()
+        }
+        
+        fetchRequestCancellable = articlesListPublisher
         .receive(on: DispatchQueue.main)
         .sink(
             receiveCompletion: { [weak self] completion in
@@ -95,12 +106,7 @@ final class NewsListViewModel {
                 else { return }
                 
                 newItems.forEach { self.idToNews[$0.id] = $0 }
-                
-                var resultNewsIds = newItems.map(\.id)
-                if !refresh {
-                    resultNewsIds = Array(resultNewsIds.dropFirst())
-                }
-                self.newsIds += resultNewsIds
+                self.newsIds = currentNewsIds + newItems.map(\.id)
             })
     }
     

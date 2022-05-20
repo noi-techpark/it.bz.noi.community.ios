@@ -12,18 +12,11 @@ extension UIRefreshControl {
     var isLoading: Bool {
         get { isRefreshing }
         set(newIsLoading) {
-            guard newIsLoading != isLoading
-            else { return }
-            
-            if newIsLoading {
-                beginRefreshing(forced: true)
-            } else {
-                endRefreshing()
-            }
+            setIsLoading(newIsLoading, scrollToTop: false)
         }
     }
     
-    func beginRefreshing(forced: Bool) {
+    func beginRefreshing(forced: Bool, scrollToTop: Bool) {
         guard !isRefreshing
         else { return }
         
@@ -35,10 +28,24 @@ extension UIRefreshControl {
         
         if let scrollView = superview as? UIScrollView {
             var newContentOffset = scrollView.contentOffset
+            if scrollToTop {
+                newContentOffset = scrollView.contentOffset(for: .top)
+            }
             newContentOffset.y -= frame.height
             scrollView.setContentOffset(newContentOffset, animated: true)
         }
         beginRefreshing()
+    }
+    
+    func setIsLoading(_ isLoading: Bool, scrollToTop: Bool) {
+        guard self.isLoading != isLoading
+        else { return }
+        
+        if isLoading {
+            beginRefreshing(forced: true, scrollToTop: scrollToTop)
+        } else {
+            endRefreshing()
+        }
     }
     
 }
