@@ -10,14 +10,14 @@ import Combine
 
 public struct ArticlesClient {
     
-    public var list: (Int?, Int?, Language?) -> AnyPublisher<ArticleListResponse, Error>
+    public var list: (Date, Int?, Int?) -> AnyPublisher<ArticleListResponse, Error>
     
     public typealias ArticleId = String
-    public var detail: (String, Language?) -> AnyPublisher<Article, Error>
+    public var detail: (String) -> AnyPublisher<Article, Error>
     
     public init(
-        list: @escaping (Int?, Int?, Language?) -> AnyPublisher<ArticleListResponse, Error>,
-        detail: @escaping (String, Language?) -> AnyPublisher<Article, Error>
+        list: @escaping (Date, Int?, Int?) -> AnyPublisher<ArticleListResponse, Error>,
+        detail: @escaping (String) -> AnyPublisher<Article, Error>
     ) {
         self.list = list
         self.detail = detail

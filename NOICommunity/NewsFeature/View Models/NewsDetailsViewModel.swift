@@ -43,7 +43,7 @@ final class NewsDetailsViewModel {
     func refreshNewsDetails(newsId: String) {
         isLoading = true
         
-        fetchRequestCancellable = articlesClient.detail(newsId, language)
+        fetchRequestCancellable = articlesClient.detail(newsId)
         .receive(on: DispatchQueue.main)
         .sink(
             receiveCompletion: { [weak self] completion in

@@ -58,21 +58,16 @@ extension ArticlesClient {
     
     public static func live(urlSession: URLSession = .shared) -> Self {
         Self(
-            list: { pageSize, pageNumber, language in
+            list: { startDate, pageSize, pageNumber in
                 let urlRequest = Endpoint.articleList(
+                    startDate: startDate,
                     pageSize: pageSize,
-                    pageNumber: pageNumber,
-                    language: language
+                    pageNumber: pageNumber
                 ).makeRequest(withBaseURL: baseURL)
                 
                 return urlSession
                     .dataTaskPublisher(for: urlRequest)
-                    .map { data, _ in
-                        if let bodyOutput = String(data: data, encoding: .utf8) {
-                            print("response: \(bodyOutput)")
-                        }
-                        return data
-                    }
+                    .map { data, _ in data }
                     .decode(
                         type: MyArticleListResponse.self,
                         decoder: articlesJsonDecoder
@@ -80,8 +75,8 @@ extension ArticlesClient {
                     .map(ArticleListResponse.init(from:))
                     .eraseToAnyPublisher()
             },
-            detail: { id, language in
-                let urlRequest = Endpoint.article(id: id, language: language)
+            detail: { id in
+                let urlRequest = Endpoint.article(id: id)
                     .makeRequest(withBaseURL: baseURL)
                 
                 return urlSession

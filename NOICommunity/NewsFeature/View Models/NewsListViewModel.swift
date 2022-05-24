@@ -65,9 +65,9 @@ final class NewsListViewModel {
         isLoading = true
         
         fetchRequestCancellable = articlesClient.list(
+            Date(),
             pageSize,
-            pageNumber,
-            nil
+            pageNumber
         )
         .receive(on: DispatchQueue.main)
         .sink(
