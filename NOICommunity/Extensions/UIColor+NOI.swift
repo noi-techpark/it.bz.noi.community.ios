@@ -22,4 +22,6 @@ extension UIColor {
 
     static var noiInactiveColor = UIColor(named: "inactive_color")!
     static var noiInactive2Color = UIColor(named: "inactive2_color")!
+    
+    static var noiPlaceholderImageColor = UIColor(named: "placeholder_image_color")!
 }

@@ -255,7 +255,10 @@ private extension NewsDetailsViewController {
         if news.imageGallery.isNilOrEmpty {
             galleryContainerView.removeFromSuperview()
         } else {
-            let galleryVC = GalleryCollectionViewController(imageSize: CGSize(width: 170, height: 210))
+            let galleryVC = GalleryCollectionViewController(
+                imageSize: CGSize(width: 170, height: 210),
+                placeholderImage: .image(withColor: .noiPlaceholderImageColor)
+            )
             galleryVC.imageURLs = news.imageGallery?.compactMap(\.url) ?? []
             embedChild(galleryVC, in: galleryContainerView)
         }
