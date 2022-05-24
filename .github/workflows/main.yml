@@ -88,7 +88,7 @@ jobs:
             -destination "generic/platform=iOS,name=Any iOS Device" \
             OTHER_CODE_SIGN_FLAGS="--keychain ~/Library/Keychains/build.keychain" \
             CODE_SIGN_STYLE=Manual \
-            PROVISIONING_PROFILE='a5e85966-b44d-4f43-b01d-babf8ce192c3' \
+            PROVISIONING_PROFILE='8217a111-ad20-4a6f-a664-5c1e5714d6fa' \
             CODE_SIGN_IDENTITY="Apple Distribution"
 
       - name: Export .ipa

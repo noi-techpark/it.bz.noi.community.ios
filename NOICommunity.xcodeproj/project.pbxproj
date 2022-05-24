@@ -1357,7 +1357,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = NOICommunity/NOICommunityRelease.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 5V2Q9SWB7H;
 				INFOPLIST_FILE = NOICommunity/Info.plist;
@@ -1367,7 +1367,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = it.bz.noi.community;
 				PRODUCT_NAME = "${TARGET_NAME}";
-				PROVISIONING_PROFILE_SPECIFIER = "a5e85966-b44d-4f43-b01d-babf8ce192c3";
+				PROVISIONING_PROFILE_SPECIFIER = it.bz.noi.community;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1646,7 +1646,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = NOICommunity/NOICommunityRelease.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 5V2Q9SWB7H;
 				INFOPLIST_FILE = NOICommunity/Info.plist;
@@ -1656,7 +1656,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = it.bz.noi.community;
 				PRODUCT_NAME = "${TARGET_NAME}";
-				PROVISIONING_PROFILE_SPECIFIER = "a5e85966-b44d-4f43-b01d-babf8ce192c3";
+				PROVISIONING_PROFILE_SPECIFIER = it.bz.noi.community;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
