@@ -27,7 +27,7 @@ final class AuthWelcomeViewController: UIViewController {
     @IBOutlet var loginButton: UIButton! {
         didSet {
             loginButton
-                .withText(.localized("btn_login"))
+                .withTitle(.localized("btn_login"))
                 .withDynamicType()
                 .withTextStyle(.title3, weight: .semibold)
                 .withTextAligment(.center)
@@ -37,7 +37,7 @@ final class AuthWelcomeViewController: UIViewController {
     @IBOutlet var signUpButton: UIButton! {
         didSet {
             signUpButton
-                .withText(.localized("btn_signup"))
+                .withTitle(.localized("btn_signup"))
                 .withDynamicType()
                 .withTextStyle(.title3, weight: .semibold)
                 .withTextAligment(.center)
@@ -56,7 +56,7 @@ final class AuthWelcomeViewController: UIViewController {
     
     @available(*, unavailable)
     required init?(coder: NSCoder) {
-        fatalError("\(#function) has not been implemented")
+        fatalError("\(#function) not available")
     }
     
     override func viewDidLoad() {

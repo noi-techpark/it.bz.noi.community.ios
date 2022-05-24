@@ -44,7 +44,7 @@ final class OrientateMainViewController: UIViewController {
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
+        .lightContent
     }
 }
 

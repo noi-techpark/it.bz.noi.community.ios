@@ -149,7 +149,7 @@ private extension EventListViewController {
             } else {
                 section.orthogonalScrollingBehavior = .none
                 section.contentInsets = NSDirectionalEdgeInsets(
-                    top: 20,
+                    top: 0,
                     leading: 17,
                     bottom: 20,
                     trailing: 17

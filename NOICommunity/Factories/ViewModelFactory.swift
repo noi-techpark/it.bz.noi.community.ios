@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import ArticlesClient
 
 protocol ViewModelFactory {
 
@@ -20,5 +21,11 @@ protocol ViewModelFactory {
     func makeWelcomeViewModel() -> WelcomeViewModel
     
     func makeMyAccountViewModel() -> MyAccountViewModel
+    
+    func makeNewsListViewModel() -> NewsListViewModel
+    
+    func makeNewsDetailsViewModel(
+        availableNews: Article?
+    ) -> NewsDetailsViewModel
     
 }

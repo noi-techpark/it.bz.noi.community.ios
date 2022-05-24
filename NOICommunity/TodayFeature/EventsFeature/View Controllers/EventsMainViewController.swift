@@ -214,10 +214,11 @@ private extension EventsMainViewController {
         viewModel.$error
             .dropFirst()
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] error in
-                if let error = error {
-                    self?.showError(error)
-                }
+            .sink { [weak self] in
+                guard let error = $0
+                else { return }
+                
+                self?.content = MessageViewController(error: error)
             }
             .store(in: &subscriptions)
 

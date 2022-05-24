@@ -24,4 +24,9 @@ class BaseTabCoordinator: BaseCoordinator, TabCoordinatorType {
         super.init(dependencyContainer: dependencyContainer)
     }
 
+    override func start(animated: Bool) {
+        guard type(of: self) != BaseTabCoordinator.self
+        else { preconditionFailure("subclass should implement start function!") }
+    }
+    
 }

@@ -77,7 +77,7 @@ extension UICellAccessory {
 }
 
 extension UIBackgroundConfiguration {
-    static func noiListPlainCell(for cell: UICollectionViewListCell) -> UIBackgroundConfiguration {
+    static func noiListPlainCell(for cell: UICollectionViewCell) -> UIBackgroundConfiguration {
         var backgroundConfiguration = UIBackgroundConfiguration.listPlainCell()
         backgroundConfiguration.backgroundColorTransformer = UIConfigurationColorTransformer { [weak cell] color in
             switch cell?.configurationState {

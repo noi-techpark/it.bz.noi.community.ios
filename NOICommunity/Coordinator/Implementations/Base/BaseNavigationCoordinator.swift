@@ -10,6 +10,10 @@ import UIKit
 class BaseNavigationCoordinator: BaseCoordinator, NavigationCoordinatorType {
 
     var navigationController: UINavigationController
+    
+    var rootViewController: UIViewController? {
+        navigationController.viewControllers.first
+    }
 
     @available(*, unavailable)
     override init(dependencyContainer: DependencyRepresentable) {
@@ -22,6 +26,11 @@ class BaseNavigationCoordinator: BaseCoordinator, NavigationCoordinatorType {
     ) {
         self.navigationController = navigationController
         super.init(dependencyContainer: dependencyContainer)
+    }
+    
+    override func start(animated: Bool) {
+        guard type(of: self) != BaseNavigationCoordinator.self
+        else { preconditionFailure("subclass should implement start function!") }
     }
 
 }

@@ -12,11 +12,18 @@ func localizedValue<T>(
     defaultValue: T,
     bundle: Bundle = .main
 ) -> T {
+    localizedValue(from: localizedDict) ?? defaultValue
+}
+
+func localizedValue<T>(
+    from localizedDict: [String:T],
+    bundle: Bundle = .main
+) -> T? {
     let preferredLanguages = bundle.preferredLocalizations
     for language in preferredLanguages {
         if let localizedValue = localizedDict[language] {
             return localizedValue
         }
     }
-    return defaultValue
+    return nil
 }

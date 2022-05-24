@@ -13,6 +13,18 @@ let package = Package(
             targets: ["SwiftCache"]
         ),
         .library(
+            name: "ArrayBuilder",
+            targets: ["ArrayBuilder"]
+        ),
+        .library(
+            name: "Endpoint",
+            targets: ["Endpoint"]
+        ),
+        .library(
+            name: "EndpointWithQueryBuilder",
+            targets: ["EndpointWithQueryBuilder"]
+        ),
+        .library(
             name: "PascalJSONDecoder",
             targets: ["PascalJSONDecoder"]
         ),
@@ -55,6 +67,14 @@ let package = Package(
         .library(
             name: "AuthClientLive",
             targets: ["AuthClientLive"]
+        ),
+        .library(
+            name: "ArticlesClient",
+            targets: ["ArticlesClient"]
+        ),
+        .library(
+            name: "ArticlesClientLive",
+            targets: ["ArticlesClientLive"]
         )
     ],
     dependencies: [
@@ -70,6 +90,25 @@ let package = Package(
         .target(
             name: "SwiftCache",
             dependencies: []
+        ),
+        .target(
+            name: "ArrayBuilder",
+            dependencies: []
+        ),
+        .testTarget(
+            name: "ArrayBuilderTests",
+            dependencies: ["ArrayBuilder"]
+        ),
+        .target(
+            name: "Endpoint",
+            dependencies: []
+        ),
+        .target(
+            name: "EndpointWithQueryBuilder",
+            dependencies: [
+                "Endpoint",
+                "ArrayBuilder"
+            ]
         ),
         .target(
             name: "PascalJSONDecoder",
@@ -137,6 +176,19 @@ let package = Package(
                 "AuthClient",
                 "AuthStateStorageClient",
                 .product(name: "AppAuth", package: "AppAuth-iOS")
+            ]
+        ),
+        .target(
+            name: "ArticlesClient",
+            dependencies: []
+        ),
+        .target(
+            name: "ArticlesClientLive",
+            dependencies: [
+                "PascalJSONDecoder",
+                "DecodeEmptyRepresentable",
+                "EndpointWithQueryBuilder",
+                "ArticlesClient",
             ]
         )
     ]

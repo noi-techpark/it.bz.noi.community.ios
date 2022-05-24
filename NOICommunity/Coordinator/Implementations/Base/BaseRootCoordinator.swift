@@ -23,5 +23,10 @@ class BaseRootCoordinator: BaseCoordinator, RootCoordinatorType {
         self.window = window
         super.init(dependencyContainer: dependencyContainer)
     }
+    
+    override func start(animated: Bool) {
+        guard type(of: self) != BaseRootCoordinator.self
+        else { preconditionFailure("subclass should implement start function!") }
+    }
 
 }

@@ -21,10 +21,10 @@ struct WelcomePage: Hashable {
 
 final class WelcomeViewModel {
     
-    private let loginSubject = PassthroughSubject<Void, Never>()
+    private let loginSubject: PassthroughSubject<Void, Never> = .init()
     lazy var startLoginPublisher = loginSubject.eraseToAnyPublisher()
     
-    private let signUpSubject = PassthroughSubject<Void, Never>()
+    private let signUpSubject: PassthroughSubject<Void, Never> = .init()
     lazy var startSignUpPublisher = signUpSubject.eraseToAnyPublisher()
         
     private(set) var pages: [WelcomePage]
