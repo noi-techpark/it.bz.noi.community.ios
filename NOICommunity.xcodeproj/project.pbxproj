@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3101CEDD283E08E700180F8B /* NewsListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319C4658282BBB6100946AC7 /* NewsListViewModelTests.swift */; };
 		3101FC52283390F900A3416F /* TopTabBarController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3101FC50283390F900A3416F /* TopTabBarController.xib */; };
 		3101FC53283390F900A3416F /* TopTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3101FC51283390F900A3416F /* TopTabBarController.swift */; };
 		3101FC552833917200A3416F /* TopTabBarControlImageFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3101FC542833917200A3416F /* TopTabBarControlImageFactory.swift */; };
@@ -105,7 +106,6 @@
 		319C0EA026F4790300C6D38B /* CalendarAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319C0E9F26F4790300C6D38B /* CalendarAdditions.swift */; };
 		319C4653282BB32400946AC7 /* ArticlesClient in Frameworks */ = {isa = PBXBuildFile; productRef = 319C4652282BB32400946AC7 /* ArticlesClient */; };
 		319C4655282BB32400946AC7 /* ArticlesClientLive in Frameworks */ = {isa = PBXBuildFile; productRef = 319C4654282BB32400946AC7 /* ArticlesClientLive */; };
-		319C4659282BBB6100946AC7 /* NewsListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319C4658282BBB6100946AC7 /* NewsListViewModelTests.swift */; };
 		319C465A282BBD8000946AC7 /* NewsListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319C4657282BB80F00946AC7 /* NewsListViewModel.swift */; };
 		319C465C282BBE5100946AC7 /* XCTestCase+awaitPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319C465B282BBE5100946AC7 /* XCTestCase+awaitPublisher.swift */; };
 		319C465E282BCC5D00946AC7 /* collectNext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319C465D282BCC5D00946AC7 /* collectNext.swift */; };
@@ -1158,9 +1158,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3101CEDD283E08E700180F8B /* NewsListViewModelTests.swift in Sources */,
 				319C465E282BCC5D00946AC7 /* collectNext.swift in Sources */,
 				319C465C282BBE5100946AC7 /* XCTestCase+awaitPublisher.swift in Sources */,
-				319C4659282BBB6100946AC7 /* NewsListViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -32,7 +32,12 @@ private let articlesJsonDecoder: JSONDecoder = {
             return date
         }
         
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS"
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSZZZ"
+        if let date = dateFormatter.date(from: dateStr) {
+            return date
+        }
+        
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
         if let date = dateFormatter.date(from: dateStr) {
             return date
         }
@@ -67,7 +72,7 @@ extension ArticlesClient {
                 
                 return urlSession
                     .dataTaskPublisher(for: urlRequest)
-                    .map { data, _ in data }
+                    .map { data, response in data }
                     .decode(
                         type: MyArticleListResponse.self,
                         decoder: articlesJsonDecoder
@@ -81,7 +86,7 @@ extension ArticlesClient {
                 
                 return urlSession
                     .dataTaskPublisher(for: urlRequest)
-                    .map { data, _ in data }
+                    .map { data, response in data }
                     .decode(
                         type: Article.self,
                         decoder: articlesJsonDecoder
