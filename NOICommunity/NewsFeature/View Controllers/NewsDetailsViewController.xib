@@ -16,6 +16,7 @@
                 <outlet property="actionsStackView" destination="iRJ-Gk-uPj" id="hyJ-18-T2B"/>
                 <outlet property="askQuestionButton" destination="pMF-vZ-agv" id="OUj-tu-Eom"/>
                 <outlet property="authorLabel" destination="cLR-jb-Ayu" id="ru0-Xn-rxz"/>
+                <outlet property="containerView" destination="IO1-oc-lYG" id="qXY-PK-l1P"/>
                 <outlet property="externalLinkButton" destination="fN8-rE-grj" id="FYz-Sj-ZNm"/>
                 <outlet property="footerView" destination="Bjl-uL-b7y" id="hBe-fA-qtC"/>
                 <outlet property="galleryContainerView" destination="gWF-hB-LMc" id="3KG-OZ-MDF"/>

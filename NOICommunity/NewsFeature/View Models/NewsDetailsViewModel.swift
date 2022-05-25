@@ -25,7 +25,7 @@ final class NewsDetailsViewModel {
         .eraseToAnyPublisher()
     
     private var showAskAQuestionSubject: PassthroughSubject<(Article, Any?), Never> = .init()
-    lazy var showaskAQuestionPublisher = showAskAQuestionSubject
+    lazy var showAskAQuestionPublisher = showAskAQuestionSubject
         .eraseToAnyPublisher()
     
     private var fetchRequestCancellable: AnyCancellable?

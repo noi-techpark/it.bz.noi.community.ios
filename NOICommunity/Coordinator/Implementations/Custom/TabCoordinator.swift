@@ -88,4 +88,5 @@ final class TabCoordinator: BaseTabCoordinator {
             moreNavController
         ]
     }
+
 }

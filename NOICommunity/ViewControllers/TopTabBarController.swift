@@ -129,7 +129,7 @@ private extension TopTabBarController {
         topTabBar.translatesAutoresizingMaskIntoConstraints = false
         let constraints = [
             topTabBar.topAnchor
-                .constraint(equalTo: topTabBarContainerView.topAnchor),
+                .constraint(equalTo: topTabBarContainerView.topAnchor, constant: 1),
             topTabBar.leadingAnchor
                 .constraint(equalTo: topTabBarContainerView.leadingAnchor, constant: 17),
             topTabBar.trailingAnchor

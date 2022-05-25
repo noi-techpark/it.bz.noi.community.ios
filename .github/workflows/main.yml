@@ -18,10 +18,8 @@ jobs:
       - name: Force XCode 13.0.0
         run: sudo xcode-select -switch /Applications/Xcode_13.0.app
 
-      - name: Inject GoogleService-Info.plist
-        env:
-          GOOGLE_SERVICE_INFO_PLIST: ${{ secrets.GOOGLE_SERVICE_INFO_PLIST }}
-        run: echo "$GOOGLE_SERVICE_INFO_PLIST" > NOICommunity/GoogleService-Info.plist
+      - name: Mock GoogleService-Info.plist
+        run: mv NOICommunity/GoogleService-Info_mock.plist NOICommunity/GoogleService-Info.plist
 
       - name: Resolve package dependencies
         run: xcodebuild -resolvePackageDependencies

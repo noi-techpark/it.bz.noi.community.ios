@@ -91,6 +91,7 @@
 		3187667726FB38D600782FA6 /* DateIntervalFormatter+Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3187667626FB38D600782FA6 /* DateIntervalFormatter+Factory.swift */; };
 		31892F2C281BC09F00DD89F7 /* MoreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31892F2B281BC09F00DD89F7 /* MoreViewModel.swift */; };
 		31892F2E281BC32800DD89F7 /* MyAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31892F2D281BC32800DD89F7 /* MyAccountViewModel.swift */; };
+		318DA63428354F2D00E5819E /* DeepLinking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318DA63328354F2D00E5819E /* DeepLinking.swift */; };
 		31927A8127464E2800EA96AC /* RootCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31927A8027464E2800EA96AC /* RootCoordinator.swift */; };
 		3197B093281A70990002FA08 /* BaseCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3197B092281A70990002FA08 /* BaseCoordinator.swift */; };
 		3197B095281A712B0002FA08 /* RootCoordinatorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3197B094281A712B0002FA08 /* RootCoordinatorType.swift */; };
@@ -273,6 +274,7 @@
 		3187667826FB3A9300782FA6 /* EventDetailsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventDetailsViewController.xib; sourceTree = "<group>"; };
 		31892F2B281BC09F00DD89F7 /* MoreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreViewModel.swift; sourceTree = "<group>"; };
 		31892F2D281BC32800DD89F7 /* MyAccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountViewModel.swift; sourceTree = "<group>"; };
+		318DA63328354F2D00E5819E /* DeepLinking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLinking.swift; sourceTree = "<group>"; };
 		31927A8027464E2800EA96AC /* RootCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootCoordinator.swift; sourceTree = "<group>"; };
 		3197B092281A70990002FA08 /* BaseCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCoordinator.swift; sourceTree = "<group>"; };
 		3197B094281A712B0002FA08 /* RootCoordinatorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootCoordinatorType.swift; sourceTree = "<group>"; };
@@ -531,6 +533,7 @@
 				31AA31EC26F0A94400744A00 /* Views */,
 				3145D23E26B3F74000F16787 /* Info.plist */,
 				3145D23026B3F73F00F16787 /* AppDelegate.swift */,
+				318DA63328354F2D00E5819E /* DeepLinking.swift */,
 				3145D23226B3F73F00F16787 /* SceneDelegate.swift */,
 				314263A4271F048800DA4429 /* AppFeatureSwitches.swift */,
 				31CF812C270B3E340077CB0D /* LaunchScreen.storyboard */,
@@ -1113,6 +1116,7 @@
 				319C465A282BBD8000946AC7 /* NewsListViewModel.swift in Sources */,
 				3167681B27036A2F00A9DB87 /* PlaceCardContentView.swift in Sources */,
 				319C0E8B26F33BD000C6D38B /* UIViewController+ShowError.swift in Sources */,
+				318DA63428354F2D00E5819E /* DeepLinking.swift in Sources */,
 				31178FD826F9FD3800BDCDAA /* EventsFeatureConstants.swift in Sources */,
 				31AA31EA26F0A6D700744A00 /* EventListViewController.swift in Sources */,
 				3182A178282CEFB7005439B4 /* NewsCardContentConfiguration.SharedConfig.swift in Sources */,

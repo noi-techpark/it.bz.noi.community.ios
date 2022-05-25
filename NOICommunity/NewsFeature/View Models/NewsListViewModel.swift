@@ -30,10 +30,11 @@ final class NewsListViewModel {
     @Published private(set) var newsIds: [String] = []
     private var idToNews: [String: Article] = [:]
     
+    private var refreshCancellable: AnyCancellable?
     private var fetchRequestCancellable: AnyCancellable?
     
     var showDetailsHandler: ((Article, Any?) -> Void)!
-            
+    
     init(
         articlesClient: ArticlesClient,
         pageSize: Int = 10,
@@ -43,6 +44,8 @@ final class NewsListViewModel {
         self.pageSize = pageSize
         self.firstPage = firstPage
         self.nextPage = firstPage
+        
+        configureBindings()
     }
     
     func fetchNews(refresh: Bool = false) {
@@ -57,18 +60,29 @@ final class NewsListViewModel {
             pageNumber = nextPage!
         }
         
+        let currentNewsIds: [String]
         if refresh {
-            newsIds = []
+            currentNewsIds = []
+        } else {
+            currentNewsIds = newsIds
         }
         
         isLoadingFirstPage = pageNumber == firstPage
         isLoading = true
         
-        fetchRequestCancellable = articlesClient.list(
+        var articlesListPublisher = articlesClient.list(
             Date(),
             pageSize,
             pageNumber
         )
+        
+        if refresh {
+            articlesListPublisher = articlesListPublisher
+                .delay(for: 0.3, scheduler: RunLoop.main)
+                .eraseToAnyPublisher()
+        }
+        
+        fetchRequestCancellable = articlesListPublisher
         .receive(on: DispatchQueue.main)
         .sink(
             receiveCompletion: { [weak self] completion in
@@ -90,9 +104,9 @@ final class NewsListViewModel {
                 
                 guard let newItems = pagination.items
                 else { return }
-                                
+                
                 newItems.forEach { self.idToNews[$0.id] = $0 }
-                self.newsIds += newItems.map(\.id)
+                self.newsIds = currentNewsIds + newItems.map(\.id)
             })
     }
     
@@ -105,6 +119,21 @@ final class NewsListViewModel {
     
     func showNewsDetails(of newsId: String, sender: Any?) {
         showDetailsHandler(news(withId: newsId), sender)
+    }
+    
+}
+
+// MARK: Private APIs
+
+private extension NewsListViewModel {
+    
+    func configureBindings() {
+        refreshCancellable = NotificationCenter
+            .default
+            .publisher(for: refreshNewsListNotification)
+            .sink { [weak self] _ in
+                self?.fetchNews(refresh: true)
+            }
     }
     
 }

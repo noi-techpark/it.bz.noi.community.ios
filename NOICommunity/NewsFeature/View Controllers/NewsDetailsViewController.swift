@@ -28,6 +28,8 @@ class NewsDetailsViewController: UIViewController {
     
     @IBOutlet private var scrollView: UIScrollView!
     
+    @IBOutlet private var containerView: UIView!
+    
     @IBOutlet private var imageView: UIImageView!
     
     @IBOutlet private var authorLabel: UILabel! {
@@ -199,13 +201,9 @@ private extension NewsDetailsViewController {
             .store(in: &subscriptions)
         
         viewModel.$result
-            .dropFirst()
             .receive(on: DispatchQueue.main)
             .sink { [weak self] in
-                guard let news = $0
-                else { return }
-                
-                self?.updateUI(news: news)
+                self?.updateUI(news: $0)
             }
             .store(in: &subscriptions)
         
@@ -220,7 +218,13 @@ private extension NewsDetailsViewController {
             .store(in: &subscriptions)
     }
     
-    func updateUI(news: Article) {
+    func updateUI(news: Article?) {
+        guard let news = news else {
+            containerView.isHidden = true
+            footerView.isHidden = true
+            return
+        }
+
         let author = localizedValue(from: news.languageToAuthor)
         
         imageView.kf.setImage(with: author?.logoURL)
@@ -269,6 +273,9 @@ private extension NewsDetailsViewController {
             
             galleryTextStackView.removeFromSuperview()
         }
+        
+        containerView.isHidden = false
+        footerView.isHidden = false
     }
     
     func preferredContentSizeCategoryDidChange(previousPreferredContentSizeCategory: UIContentSizeCategory?) {
