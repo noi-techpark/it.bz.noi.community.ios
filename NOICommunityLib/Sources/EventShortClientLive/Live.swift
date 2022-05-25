@@ -31,7 +31,12 @@ private let eventsJsonDecoder: JSONDecoder = {
             return date
         }
         
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS"
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSZZZ"
+        if let date = dateFormatter.date(from: dateStr) {
+            return date
+        }
+        
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
         if let date = dateFormatter.date(from: dateStr) {
             return date
         }
