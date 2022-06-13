@@ -27,6 +27,14 @@ extension UIButton {
         return self
     }
     
+    @discardableResult func withTintColor(
+        _ tintColor: UIColor?
+    ) -> UIButton {
+        self.tintColor = tintColor
+        
+        return self
+    }
+    
     @discardableResult func withDynamicType() -> UIButton {
         titleLabel?.numberOfLines = 0
         titleLabel?.adjustsFontForContentSizeCategory = true
@@ -122,6 +130,7 @@ extension UIButton {
                 )
             )
             .withTitleColor(.noiPrimaryColor)
+            .withTintColor(.noiPrimaryColor)
     }
     
     @discardableResult func configureAsSecondaryActionButton()  -> UIButton {
@@ -139,6 +148,7 @@ extension UIButton {
                 )
             )
             .withTitleColor(.noiSecondaryColor)
+            .withTintColor(.noiSecondaryColor)
     }
     
     @discardableResult func configureAsTertiaryActionButton()  -> UIButton {
