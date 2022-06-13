@@ -19,7 +19,7 @@ final class EventsCoordinator: BaseNavigationCoordinator {
     
     private var mainVC: EventsMainViewController!
     private var eventsViewModel: EventsViewModel!
-    private var navigationDelegate: EventsNavigationControllerDelegate!
+    //private var navigationDelegate: EventsNavigationControllerDelegate!
     private lazy var eventFiltersViewModel = dependencyContainer
         .makeEventFiltersViewModel { [weak self] in
             self?.closeFilters()
@@ -27,10 +27,10 @@ final class EventsCoordinator: BaseNavigationCoordinator {
     private var subscriptions: Set<AnyCancellable> = []
 
     override func start(animated: Bool) {
-        navigationDelegate = EventsNavigationControllerDelegate(
-            navigationController: navigationController
-        )
-        navigationController.delegate = navigationDelegate
+//        navigationDelegate = EventsNavigationControllerDelegate(
+//            navigationController: navigationController
+//        )
+//        navigationController.delegate = navigationDelegate
         let eventsViewModel = dependencyContainer.makeEventsViewModel { [weak self] in
             self?.goToFilters()
         }
@@ -112,24 +112,24 @@ private extension EventsCoordinator {
         transitionCollectionView: UICollectionView? = nil,
         transitionIndexPath: IndexPath? = nil
     ) {
-        let transitionId = "event_\(event.id)"
-        if
-            let transitionCollectionView = transitionCollectionView,
-            let transitionIndexPath = transitionIndexPath {
-            let transitionInfo = EventsNavigationControllerDelegate.TransitionInfo(
-                id: transitionId,
-                collectionView: transitionCollectionView,
-                indexPath: transitionIndexPath,
-                event: event
-            )
-            navigationDelegate.transitionInfos.append(transitionInfo)
-        }
+//        let transitionId = "event_\(event.id)"
+//        if
+//            let transitionCollectionView = transitionCollectionView,
+//            let transitionIndexPath = transitionIndexPath {
+//            let transitionInfo = EventsNavigationControllerDelegate.TransitionInfo(
+//                id: transitionId,
+//                collectionView: transitionCollectionView,
+//                indexPath: transitionIndexPath,
+//                event: event
+//            )
+//            navigationDelegate.transitionInfos.append(transitionInfo)
+//        }
 
         let detailVC = EventDetailsViewController(
             for: event,
                relatedEvents: eventsViewModel.relatedEvent(of: event)
         )
-        detailVC.cardView.transitionId = transitionId
+        //detailVC.cardView.transitionId = transitionId
         detailVC.addToCalendarActionHandler = { [weak self] in
             self?.addEventToCalendar($0)
         }
