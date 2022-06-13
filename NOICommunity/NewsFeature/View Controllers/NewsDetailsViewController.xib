@@ -150,24 +150,26 @@
                     <viewLayoutGuide key="frameLayoutGuide" id="U8b-Y6-DQr"/>
                 </scrollView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bjl-uL-b7y" customClass="FooterView" customModule="NOICommunity" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="760" width="414" height="136"/>
+                    <rect key="frame" x="0.0" y="774" width="414" height="122"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="iRJ-Gk-uPj">
-                            <rect key="frame" x="17" y="17" width="380" height="68"/>
+                            <rect key="frame" x="17" y="17" width="380" height="54"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fN8-rE-grj">
-                                    <rect key="frame" x="0.0" y="0.0" width="380" height="29"/>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fN8-rE-grj">
+                                    <rect key="frame" x="0.0" y="0.0" width="380" height="22"/>
                                     <color key="backgroundColor" name="background_color"/>
-                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                     <color key="tintColor" name="primary_color"/>
+                                    <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="20" maxY="0.0"/>
+                                    <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="-10" maxY="0.0"/>
                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                    <state key="normal" title="External link"/>
+                                    <state key="normal" title="External link" image="ic_external_link"/>
                                 </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pMF-vZ-agv">
-                                    <rect key="frame" x="0.0" y="39" width="380" height="29"/>
-                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pMF-vZ-agv">
+                                    <rect key="frame" x="0.0" y="32" width="380" height="22"/>
+                                    <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="20" maxY="0.0"/>
+                                    <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="-10" maxY="0.0"/>
                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                    <state key="normal" title="Ask a question">
+                                    <state key="normal" title="Ask a question" image="ic_mail">
                                         <color key="titleColor" name="label_on_badge_background_color"/>
                                     </state>
                                 </button>
@@ -198,6 +200,8 @@
         </view>
     </objects>
     <resources>
+        <image name="ic_external_link" width="15" height="15"/>
+        <image name="ic_mail" width="19" height="14"/>
         <namedColor name="background_color">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
