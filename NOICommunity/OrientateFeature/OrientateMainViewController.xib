@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -32,7 +32,7 @@
                     <inset key="contentEdgeInsets" minX="16" minY="12" maxX="16" maxY="12"/>
                     <inset key="titleEdgeInsets" minX="-14" minY="18" maxX="0.0" maxY="0.0"/>
                     <inset key="imageEdgeInsets" minX="11.5" minY="-30" maxX="0.0" maxY="0.0"/>
-                    <state key="normal" title="Book a room" image="ic_calendar">
+                    <state key="normal" title="Book a room" image="ic_calendar_done">
                         <color key="titleColor" name="primary_color"/>
                     </state>
                     <connections>
@@ -49,8 +49,13 @@
             <point key="canvasLocation" x="138.40000000000001" y="122.78860569715144"/>
         </view>
     </objects>
+    <designables>
+        <designable name="sk9-OR-DJ1">
+            <size key="intrinsicContentSize" width="226" height="152"/>
+        </designable>
+    </designables>
     <resources>
-        <image name="ic_calendar" width="14" height="15"/>
+        <image name="ic_calendar_done" width="128" height="128"/>
         <namedColor name="background_color">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

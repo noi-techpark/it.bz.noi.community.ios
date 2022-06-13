@@ -97,7 +97,7 @@ class EventDetailsViewController: UIViewController {
     @IBOutlet private var locateEventButton: UIButton! {
         didSet {
             locateEventButton
-                .configureAsPrimaryActionButton()
+                .configureAsSecondaryActionButton()
                 .withTitle(.localized("btn_find_on_maps"))
         }
     }
