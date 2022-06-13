@@ -10,7 +10,12 @@ import WebKit
 
 class WebViewController: UIViewController {
 
-    var webView: WKWebView!
+    lazy var webView: WKWebView = { webView in
+        webView.navigationDelegate = self
+        webView.allowsBackForwardNavigationGestures = true
+        webView.backgroundColor = .noiSecondaryBackgroundColor
+        return webView
+    }(WKWebView())
 
     var url: URL? {
         didSet {
@@ -25,21 +30,18 @@ class WebViewController: UIViewController {
 
     var isLoadingHandler: ((Bool) -> Void)?
 
-    private var activityIndicator: UIActivityIndicatorView!
-
-    override func loadView() {
-        webView = { webView in
-            webView.navigationDelegate = self
-            webView.allowsBackForwardNavigationGestures = true
-            return webView
-        }(WKWebView())
-        view = webView
-    }
+    private lazy var activityIndicator: UIActivityIndicatorView = { activityIndicator in
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.style = .medium
+        activityIndicator.sizeToFit()
+        activityIndicator.color = .noiPrimaryColor
+        return activityIndicator
+    }(UIActivityIndicatorView())
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .noiSecondaryBackgroundColor
+        view.backgroundColor = webView.backgroundColor
         configureViewHierarchy()
         updateUI(for: url)
     }
@@ -75,16 +77,30 @@ extension WebViewController: WKNavigationDelegate {
 // MARK: Private APIs
 
 private extension WebViewController {
+    
     func configureViewHierarchy() {
-        activityIndicator = { activityIndicator in
-            activityIndicator.hidesWhenStopped = true
-            activityIndicator.style = .medium
-            return activityIndicator
-        }(UIActivityIndicatorView())
-
-        activityIndicator.sizeToFit()
-        activityIndicator.color = .noiPrimaryColor
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: activityIndicator)
+        view.addSubview(webView)
+        
+        webView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            webView.topAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.topAnchor
+            ),
+            webView.bottomAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.bottomAnchor
+            ),
+            webView.leadingAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.leadingAnchor
+            ),
+            webView.trailingAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.trailingAnchor
+            )
+        ])
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            customView: activityIndicator
+        )
     }
 
     func updateUI(for url: URL?) {
@@ -103,4 +119,5 @@ private extension WebViewController {
             activityIndicator.stopAnimating()
         }
     }
+    
 }
