@@ -12,10 +12,10 @@ extension UIListContentConfiguration {
     static func noiCell() -> UIListContentConfiguration {
         var contentConfiguration = UIListContentConfiguration.cell()
         contentConfiguration.directionalLayoutMargins = NSDirectionalEdgeInsets(
-            top: 0,
+            top: 11,
             leading: 17,
-            bottom: 0,
-            trailing: 0
+            bottom: 11,
+            trailing: 17
         )
         contentConfiguration.textProperties.color = .noiSecondaryColor
         contentConfiguration.textProperties.font = .preferredFont(
@@ -30,10 +30,10 @@ extension UIListContentConfiguration {
     static func noiValueCell() -> UIListContentConfiguration {
         var contentConfiguration = UIListContentConfiguration.valueCell()
         contentConfiguration.directionalLayoutMargins = NSDirectionalEdgeInsets(
-            top: 0,
+            top: 11,
             leading: 17,
-            bottom: 0,
-            trailing: 0
+            bottom: 11,
+            trailing: 17
         )
         contentConfiguration.textProperties.color = .noiSecondaryColor
         contentConfiguration.textProperties.font = .preferredFont(
@@ -48,10 +48,10 @@ extension UIListContentConfiguration {
     static func noiDetailsSubtitleCell() -> UIListContentConfiguration {
         var contentConfiguration = UIListContentConfiguration.subtitleCell()
         contentConfiguration.directionalLayoutMargins = NSDirectionalEdgeInsets(
-            top: 0,
+            top: 11,
             leading: 17,
-            bottom: 0,
-            trailing: 0
+            bottom: 11,
+            trailing: 17
         )
         
         contentConfiguration.textProperties.color = .noiSecondaryColor
@@ -75,10 +75,10 @@ extension UIListContentConfiguration {
     static func noiGroupedHeader() -> UIListContentConfiguration {
         var contentConfiguration = UIListContentConfiguration.plainHeader()
         contentConfiguration.directionalLayoutMargins = NSDirectionalEdgeInsets(
-            top: 0,
+            top: 11,
             leading: 17,
-            bottom: 0,
-            trailing: 0
+            bottom: 11,
+            trailing: 17
         )
         
         contentConfiguration.textProperties.color = .noiSecondaryColor

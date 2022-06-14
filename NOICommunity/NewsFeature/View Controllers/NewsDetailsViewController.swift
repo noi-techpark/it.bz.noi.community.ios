@@ -89,6 +89,11 @@ class NewsDetailsViewController: UIViewController {
         }
     }
     
+    private lazy var galleryVC = GalleryCollectionViewController(
+        imageSize: CGSize(width: 170, height: 210),
+        placeholderImage: .image(withColor: .noiPlaceholderImageColor)
+    )
+    
     init(newsId: String, viewModel: NewsDetailsViewModel) {
         self.newsId = newsId
         self.viewModel = viewModel
@@ -111,7 +116,7 @@ class NewsDetailsViewController: UIViewController {
         configureBindings()
         
         refreshControl = .init()
-                
+        
         if let news = viewModel.result {
             updateUI(news: news)
         } else {
@@ -212,7 +217,7 @@ private extension NewsDetailsViewController {
             .sink { [weak self] error in
                 guard let error = error
                 else { return }
-                    
+                
                 self?.showError(error)
             }
             .store(in: &subscriptions)
@@ -224,7 +229,7 @@ private extension NewsDetailsViewController {
             footerView.isHidden = true
             return
         }
-
+        
         let author = localizedValue(from: news.languageToAuthor)
         
         imageView.kf.setImage(with: author?.logoURL)
@@ -250,7 +255,7 @@ private extension NewsDetailsViewController {
         
         textView.attributedText = details?.attributedText()?
             .updatedFonts2(usingTextStyle: .body)
-                
+        
         
         if details?.text == nil {
             textView.removeFromSuperview()
@@ -259,12 +264,10 @@ private extension NewsDetailsViewController {
         if news.imageGallery.isNilOrEmpty {
             galleryContainerView.removeFromSuperview()
         } else {
-            let galleryVC = GalleryCollectionViewController(
-                imageSize: CGSize(width: 170, height: 210),
-                placeholderImage: .image(withColor: .noiPlaceholderImageColor)
-            )
             galleryVC.imageURLs = news.imageGallery?.compactMap(\.url) ?? []
-            embedChild(galleryVC, in: galleryContainerView)
+            if galleryVC.parent != self {
+                embedChild(galleryVC, in: galleryContainerView)
+            }
         }
         
         if galleryTextStackView.subviews.isEmpty {
