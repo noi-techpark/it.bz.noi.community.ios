@@ -73,13 +73,13 @@ jobs:
           BUILD_NUMBER=$(date "+%Y%m%d%H%M%S")
           /usr/libexec/PlistBuddy -c "Set :CFBundleVersion $BUILD_NUMBER" NOICommunity/Info.plist
 
-      # Set configuration to "Release", if you want to use the production Keycloak server
+      # Set -configuration to "Release", if you want to use the production Keycloak server
       # and to "Release TMA" for the testingmachine-authentication Keycloak server
       - name: Archive the project
         run: |
           set -eo pipefail
           xcodebuild clean archive \
-            -configuration "Release TMA" \
+            -configuration "Release" \
             -scheme NOICommunity \
             -sdk iphoneos \
             -archivePath "$PWD/build/NOICommunity.xcarchive" \
