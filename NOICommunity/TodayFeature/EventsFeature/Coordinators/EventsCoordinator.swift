@@ -155,6 +155,13 @@ private extension EventsCoordinator {
         let filtersVC = dependencyContainer.makeEventFiltersViewController(
             viewModel: eventFiltersViewModel
         )
+        filtersVC.modalPresentationStyle = .fullScreen
+        filtersVC.navigationItem.leftBarButtonItem = UIBarButtonItem(
+            image: UIImage(systemName: "xmark.circle.fill"),
+            style: .plain,
+            target: self,
+            action: #selector(closeFilters)
+        )
         navigationController.present(
             NavigationController(rootViewController: filtersVC),
             animated: true,
@@ -162,7 +169,7 @@ private extension EventsCoordinator {
         )
     }
 
-    func closeFilters() {
+    @objc func closeFilters() {
         navigationController.dismiss(animated: true, completion: nil)
     }
 }

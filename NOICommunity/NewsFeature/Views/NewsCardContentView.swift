@@ -15,27 +15,13 @@ class NewsCardContentView: UIView, UIContentView {
     
     @IBOutlet var imageView: UIImageView!
     
-    @IBOutlet var authorLabel: UILabel! {
-        didSet {
-            authorLabel.font = .preferredFont(
-                forTextStyle: .body,
-                weight: .semibold
-            )
-        }
-    }
+    @IBOutlet var authorLabel: UILabel!
     
     @IBOutlet var publishedDateLabel: UILabel!
     
     @IBOutlet var badgeLabel: UILabel!
     
-    @IBOutlet var titleLabel: UILabel! {
-        didSet {
-            titleLabel.font = .preferredFont(
-                forTextStyle: .body,
-                weight: .semibold
-            )
-        }
-    }
+    @IBOutlet var titleLabel: UILabel!
     
     @IBOutlet var abstractLabel: UILabel!
     

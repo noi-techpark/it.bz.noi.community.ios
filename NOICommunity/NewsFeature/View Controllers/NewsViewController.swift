@@ -142,8 +142,15 @@ private extension NewsViewController {
             
             cell.backgroundConfiguration = UIBackgroundConfiguration.noiListPlainCell(for: cell)
             
-            let contentConfiguration = NewsCardContentConfiguration
+            var contentConfiguration = NewsCardContentConfiguration
                 .makeContentConfiguration(for: item)
+            
+            contentConfiguration.authorTextProprieties.font = .NOI.footnoteSemibold
+            contentConfiguration.publishedDateTextProprieties.font = .NOI.bodyRegular
+            contentConfiguration.titleTextProprieties.font = .NOI.footnoteSemibold
+            contentConfiguration.abstractTextProprieties.font = .NOI.bodyRegular
+            contentConfiguration.badgeTextProprieties.font = .NOI.caption1Semibold
+            
             cell.contentConfiguration = contentConfiguration
             
             if let author = localizedValue(from: item.languageToAuthor),

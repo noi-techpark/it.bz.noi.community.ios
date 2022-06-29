@@ -10,11 +10,25 @@ import UIKit
 enum ContentConfiguration {
     
     struct TextProperties: Hashable {
+        
         /// The maximum number of lines for the text.
-        var numberOfLines: Int = 0
+        var numberOfLines: Int
         
         /// The transform to apply to the text.
-        var transform: UIListContentConfiguration.TextProperties.TextTransform = .none
+        var transform: UIListContentConfiguration.TextProperties.TextTransform
+        
+        /// The font for the text
+        var font: UIFont
+        
+        init(
+            numberOfLines: Int = 0,
+            transform: UIListContentConfiguration.TextProperties.TextTransform = .none,
+            font: UIFont = .preferredFont(forTextStyle: .body)
+        ) {
+            self.numberOfLines = numberOfLines
+            self.transform = transform
+            self.font = font
+        }
     }
 }
 
@@ -63,6 +77,7 @@ extension UILabel {
         }
         
         numberOfLines = textProperties.numberOfLines
+        font = textProperties.font
     }
     
 }

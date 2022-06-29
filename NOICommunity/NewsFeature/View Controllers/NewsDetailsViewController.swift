@@ -34,25 +34,27 @@ class NewsDetailsViewController: UIViewController {
     
     @IBOutlet private var authorLabel: UILabel! {
         didSet {
-            authorLabel.font = .preferredFont(
-                forTextStyle: .body,
-                weight: .semibold
-            )
+            authorLabel.font = .NOI.footnoteSemibold
         }
     }
     
-    @IBOutlet private var publishedDateLabel: UILabel!
+    @IBOutlet private var publishedDateLabel: UILabel! {
+        didSet {
+            publishedDateLabel.font = .NOI.bodyRegular
+        }
+    }
     
     @IBOutlet private var titleLabel: UILabel! {
         didSet {
-            titleLabel.font = .preferredFont(
-                forTextStyle: .body,
-                weight: .semibold
-            )
+            titleLabel.font = .NOI.footnoteSemibold
         }
     }
     
-    @IBOutlet private var abstractLabel: UILabel!
+    @IBOutlet private var abstractLabel: UILabel! {
+        didSet {
+            abstractLabel.font = .NOI.bodyRegular
+        }
+    }
     
     @IBOutlet private var textView: UITextView! {
         didSet {
@@ -254,7 +256,7 @@ private extension NewsDetailsViewController {
         abstractLabel.text = details?.abstract
         
         textView.attributedText = details?.attributedText()?
-            .updatedFonts2(usingTextStyle: .body)
+            .updatedFonts(usingTextStyle: .body)
         
         
         if details?.text == nil {
@@ -282,7 +284,7 @@ private extension NewsDetailsViewController {
     }
     
     func preferredContentSizeCategoryDidChange(previousPreferredContentSizeCategory: UIContentSizeCategory?) {
-        textView.attributedText = textView.attributedText?.updatedFonts2(usingTextStyle: .body)
+        textView.attributedText = textView.attributedText?.updatedFonts(usingTextStyle: .body)
     }
     
 }
@@ -299,6 +301,46 @@ private extension Article.Details {
             options: [.documentType: NSAttributedString.DocumentType.html],
             documentAttributes: nil
         )
+    }
+    
+}
+
+private extension NSAttributedString {
+
+    func updatedFonts(usingTextStyle textStyle: UIFont.TextStyle) -> NSAttributedString {
+        let mSelf = NSMutableAttributedString(attributedString: self)
+        enumerateAttribute(
+            .font,
+            in: NSMakeRange(0, length),
+            options: [.longestEffectiveRangeNotRequired]
+        ) { value, range, stop in
+            guard let userFont = value as? UIFont
+            else { return }
+
+            let userFontDescriptor = userFont.fontDescriptor
+            guard let customFontDescriptor = userFontDescriptor
+                .withFamily("Source Sans Pro")
+                .withSymbolicTraits(userFontDescriptor.symbolicTraits)
+            else {
+                fatalError("""
+                Failed to load the "Source Sans Pro" family.
+                Make sure the family font files is included in the project and the font name is spelled correctly.
+                """
+                )
+            }
+            let customFont = UIFont(
+                descriptor: customFontDescriptor,
+                size: 17
+            )
+            let dynamicFont = UIFontMetrics(forTextStyle: textStyle)
+                .scaledFont(for: customFont)
+            mSelf.addAttribute(
+                .font,
+                value: dynamicFont,
+                range: range
+            )
+        }
+        return NSAttributedString(attributedString: mSelf)
     }
     
 }

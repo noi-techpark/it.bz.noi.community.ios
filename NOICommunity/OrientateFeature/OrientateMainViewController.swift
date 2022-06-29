@@ -24,6 +24,8 @@ final class OrientateMainViewController: UIViewController {
                 for: .highlighted
             )
             bookRoomButton.titleLabel?.textAlignment = .center
+            bookRoomButton.titleLabel?.lineBreakMode = .byWordWrapping
+            bookRoomButton.titleLabel?.font = .NOI.caption2Regular
         }
     }
 

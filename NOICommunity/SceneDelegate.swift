@@ -107,6 +107,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             dependencyContainer: dependencyContainer
         )
         rootCoordinator.start()
+        
         window.makeKeyAndVisible()
     }
     

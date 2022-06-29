@@ -232,10 +232,12 @@ private extension AppCoordinator {
         detailsVC.navigationItem.title = nil
         detailsVC.navigationItem.largeTitleDisplayMode = .never
         detailsVC.navigationItem.leftBarButtonItem = UIBarButtonItem(
-            barButtonSystemItem: .done,
+            image: UIImage(systemName: "xmark.circle.fill"),
+            style: .plain,
             target: self,
             action: #selector(closeModal(sender:))
         )
+        detailsVC.modalPresentationStyle = .fullScreen
         
         navigationController.present(
             NavigationController(rootViewController: detailsVC),

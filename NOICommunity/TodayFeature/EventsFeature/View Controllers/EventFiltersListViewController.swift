@@ -107,7 +107,7 @@ private extension EventFiltersListViewController {
             .CellRegistration<UICollectionViewListCell, EventsFilter.Id> { cell, _, id in
                 let item = self.dict[id]!
 
-                var contentConfiguration = UIListContentConfiguration.noiCell()
+                var contentConfiguration = UIListContentConfiguration.noiCell2()
                 contentConfiguration.text = localizedValue(
                     from: item.typeDesc,
                     defaultValue: item.key

@@ -89,7 +89,7 @@ private extension PlaceCardContentView {
         // Update action button
         actionButton.titleLabel?.setText(
             (configuration.actionAttributedText, configuration.actionText),
-            textProperties: .init()
+            textProperties: configuration.actionTextProprieties
         )
         actionHandler = configuration.actionHandler
         
@@ -168,7 +168,9 @@ struct PlaceCardContentConfiguration: UIContentConfiguration {
     var attributedText: NSAttributedString?
     
     /// Properties for configuring the primary text.
-    var textProprieties = ContentConfiguration.TextProperties()
+    var textProprieties = ContentConfiguration.TextProperties(
+        font: .NOI.title2Semibold
+    )
     
     /// The secondary text.
     var secondaryText: String?
@@ -177,13 +179,20 @@ struct PlaceCardContentConfiguration: UIContentConfiguration {
     var secondaryAttributedText: NSAttributedString?
     
     /// Properties for configuring the secondary text.
-    var secondaryTextProprieties = ContentConfiguration.TextProperties()
+    var secondaryTextProprieties = ContentConfiguration.TextProperties(
+        font: .NOI.bodyRegular
+    )
     
     /// The action text.
     var actionText: String?
     
     /// An attributed variant of the action text.
     var actionAttributedText: NSAttributedString?
+    
+    /// Properties for configuring the action text.
+    var actionTextProprieties = ContentConfiguration.TextProperties(
+        font: .NOI.bodySemibold
+    )
     
     /// The action handler callback.
     var actionHandler: (() -> Void)?

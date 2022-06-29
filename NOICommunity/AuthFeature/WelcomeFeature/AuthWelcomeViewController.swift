@@ -29,7 +29,7 @@ final class AuthWelcomeViewController: UIViewController {
             loginButton
                 .withTitle(.localized("btn_login"))
                 .withDynamicType()
-                .withTextStyle(.title3, weight: .semibold)
+                .withFont(.NOI.bodySemibold)
                 .withTextAligment(.center)
         }
     }
@@ -39,7 +39,7 @@ final class AuthWelcomeViewController: UIViewController {
             signUpButton
                 .withTitle(.localized("btn_signup"))
                 .withDynamicType()
-                .withTextStyle(.title3, weight: .semibold)
+                .withFont(.NOI.bodySemibold)
                 .withTextAligment(.center)
         }
     }
