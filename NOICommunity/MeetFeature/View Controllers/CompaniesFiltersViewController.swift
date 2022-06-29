@@ -261,7 +261,7 @@ private extension CompaniesFiltersViewController.CollectionViewController {
         let cellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, CompanyId> { cell, _, companyId in
             let company = self.companyViewModel.company(withId: companyId)
             
-            var contentConfiguration = UIListContentConfiguration.noiCell()
+            var contentConfiguration = UIListContentConfiguration.noiCell2()
             
             contentConfiguration.text = company?.name
             cell.contentConfiguration = contentConfiguration

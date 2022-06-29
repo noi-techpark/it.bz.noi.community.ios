@@ -15,23 +15,21 @@ class PersonCardContentView: UIView, UIContentView {
     
     @IBOutlet var avatarPlaceHolderLabel: UILabel! {
         didSet {
-            avatarPlaceHolderLabel.font = .preferredFont(
-                forTextStyle: .title3,
-                weight: .semibold
-            )
+            avatarPlaceHolderLabel.font = .NOI.bodySemibold
         }
     }
     
     @IBOutlet var fullnameLabel: UILabel! {
         didSet {
-            fullnameLabel.font = .preferredFont(
-                forTextStyle: .body,
-                weight: .semibold
-            )
+            fullnameLabel.font = .NOI.footnoteSemibold
         }
     }
     
-    @IBOutlet var companyLabel: UILabel!
+    @IBOutlet var companyLabel: UILabel! {
+        didSet {
+            companyLabel.font = .NOI.bodyRegular
+        }
+    }
     
     private var currentConfiguration: PersonCardContentConfiguration!
     var configuration: UIContentConfiguration {

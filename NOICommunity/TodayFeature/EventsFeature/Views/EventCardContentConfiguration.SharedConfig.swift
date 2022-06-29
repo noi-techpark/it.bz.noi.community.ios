@@ -29,13 +29,23 @@ extension EventCardContentConfiguration {
         }()
 
         var contentConfiguration = EventCardContentConfiguration()
+        
         contentConfiguration.text = item.title ?? .notDefined
+        contentConfiguration.textProprieties.font = .NOI.title1Semibold
+        
         contentConfiguration.leadingSecondaryText = item.venue ?? .notDefined
+        contentConfiguration.leadingSecondaryTextProprieties.font = .NOI.bodyRegular
+        
         contentConfiguration.trailingSecondaryText = timeIntervalFormatter
             .string(from: timeInterval) ?? .notDefined
+        contentConfiguration.trailingSecondaryTextProprieties.font = .NOI.bodyRegular
+        
         contentConfiguration.badgeText = dayMonthIntervalFormatter
             .string(from: dateInterval) ?? .notDefined
+        contentConfiguration.badgeTextProprieties.font = .NOI.caption1Bold
+        
         contentConfiguration.image = UIImage(named: "placeholder_noi_events")
+        
         return contentConfiguration
     }
     
@@ -50,6 +60,7 @@ extension EventCardContentConfiguration {
                timeIntervalFormatter: timeIntervalFormatter
         )
         contentConfiguration.tertiaryText = event.organizer ?? .notDefined
+        contentConfiguration.tertiaryTextProprieties.font = .NOI.bodyRegular
         return contentConfiguration
     }
 }

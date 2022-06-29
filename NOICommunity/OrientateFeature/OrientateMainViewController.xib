@@ -8,6 +8,11 @@
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="SourceSansPro-Regular.ttf">
+            <string>SourceSansPro-Regular</string>
+        </array>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="OrientateMainViewController" customModule="NOICommunity" customModuleProvider="target">
             <connections>
@@ -27,11 +32,11 @@
                         <constraint firstAttribute="width" constant="69" id="7cq-31-scd"/>
                         <constraint firstAttribute="width" secondItem="sk9-OR-DJ1" secondAttribute="height" multiplier="1:1" id="KsG-yd-zib"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                    <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
                     <color key="tintColor" name="primary_color"/>
-                    <inset key="contentEdgeInsets" minX="16" minY="12" maxX="16" maxY="12"/>
+                    <inset key="contentEdgeInsets" minX="0.0" minY="12" maxX="0.0" maxY="14"/>
                     <inset key="titleEdgeInsets" minX="-14" minY="18" maxX="0.0" maxY="0.0"/>
-                    <inset key="imageEdgeInsets" minX="11.5" minY="-30" maxX="0.0" maxY="0.0"/>
+                    <inset key="imageEdgeInsets" minX="28" minY="-34" maxX="0.0" maxY="0.0"/>
                     <state key="normal" title="Book a room" image="ic_calendar_done">
                         <color key="titleColor" name="primary_color"/>
                     </state>
@@ -51,11 +56,11 @@
     </objects>
     <designables>
         <designable name="sk9-OR-DJ1">
-            <size key="intrinsicContentSize" width="226" height="152"/>
+            <size key="intrinsicContentSize" width="89" height="44"/>
         </designable>
     </designables>
     <resources>
-        <image name="ic_calendar_done" width="128" height="128"/>
+        <image name="ic_calendar_done" width="14" height="15"/>
         <namedColor name="background_color">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

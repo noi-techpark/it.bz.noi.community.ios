@@ -87,6 +87,13 @@ private extension MeetCoordinator {
         let filtersVC = dependencyContainer.makeCompaniesFiltersViewController(
             viewModel: peopleViewModel
         )
+        filtersVC.navigationItem.leftBarButtonItem = UIBarButtonItem(
+            image: UIImage(systemName: "xmark.circle.fill"),
+            style: .plain,
+            target: self,
+            action: #selector(closeFilters)
+        )
+        filtersVC.modalPresentationStyle = .fullScreen
         navigationController.present(
             NavigationController(rootViewController: filtersVC),
             animated: true,
@@ -94,7 +101,7 @@ private extension MeetCoordinator {
         )
     }
     
-    func closeFilters() {
+    @objc func closeFilters() {
         navigationController.dismiss(animated: true, completion: nil)
     }
     

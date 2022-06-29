@@ -144,6 +144,7 @@ private extension MyAccountViewController {
             super.viewDidLoad()
             
             collectionView.refreshControl = .init()
+            collectionView.allowsSelection = false
             
             configureDataSource()
             configureBindings()
@@ -395,7 +396,7 @@ private extension UIButton {
     func configureAsCalloutFooterAction() -> UIButton {
         self
             .withDynamicType(numberOfLines: 1)
-            .withTextStyle(.callout, weight: .semibold)
+            .withFont(.NOI.caption1Semibold)
             .withTitleColor(.noiSecondaryColor)
             .withTitleColor(
                 .noiSecondaryColor.withAlphaComponent(0.6),

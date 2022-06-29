@@ -61,6 +61,20 @@
 		3145D23A26B3F74000F16787 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3145D23926B3F74000F16787 /* Images.xcassets */; };
 		3145D25326B3F74000F16787 /* UILaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3145D25226B3F74000F16787 /* UILaunchTests.swift */; };
 		314EB4A1270DDDF60067FACA /* EventsCoordinator.NavigationControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314EB4A0270DDDF60067FACA /* EventsCoordinator.NavigationControllerDelegate.swift */; };
+		31515A0D286C5A9300642907 /* UIFont+NOI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31515A0C286C5A9300642907 /* UIFont+NOI.swift */; };
+		31515A1C286C868600642907 /* SourceSansPro-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 31515A0F286C868600642907 /* SourceSansPro-BlackItalic.ttf */; };
+		31515A1D286C868600642907 /* SourceSansPro-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 31515A10286C868600642907 /* SourceSansPro-SemiBoldItalic.ttf */; };
+		31515A1E286C868600642907 /* SourceSansPro-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 31515A11286C868600642907 /* SourceSansPro-Regular.ttf */; };
+		31515A1F286C868600642907 /* SourceSansPro-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 31515A12286C868600642907 /* SourceSansPro-Bold.ttf */; };
+		31515A20286C868600642907 /* SourceSansPro-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 31515A13286C868600642907 /* SourceSansPro-LightItalic.ttf */; };
+		31515A21286C868600642907 /* SourceSansPro-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 31515A14286C868600642907 /* SourceSansPro-Light.ttf */; };
+		31515A22286C868600642907 /* SourceSansPro-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 31515A15286C868600642907 /* SourceSansPro-Black.ttf */; };
+		31515A23286C868600642907 /* OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = 31515A16286C868600642907 /* OFL.txt */; };
+		31515A24286C868600642907 /* SourceSansPro-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 31515A17286C868600642907 /* SourceSansPro-ExtraLight.ttf */; };
+		31515A25286C868600642907 /* SourceSansPro-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 31515A18286C868600642907 /* SourceSansPro-BoldItalic.ttf */; };
+		31515A26286C868600642907 /* SourceSansPro-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 31515A19286C868600642907 /* SourceSansPro-SemiBold.ttf */; };
+		31515A27286C868600642907 /* SourceSansPro-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 31515A1A286C868600642907 /* SourceSansPro-ExtraLightItalic.ttf */; };
+		31515A28286C868600642907 /* SourceSansPro-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 31515A1B286C868600642907 /* SourceSansPro-Italic.ttf */; };
 		3152755D28473D1C00D5C8A1 /* MeetFilterBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3152755C28473D1C00D5C8A1 /* MeetFilterBarView.swift */; };
 		3152755F28476D4B00D5C8A1 /* CompanyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3152755E28476D4B00D5C8A1 /* CompanyViewModel.swift */; };
 		3152756328479E2700D5C8A1 /* CompaniesFiltersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3152756228479E2700D5C8A1 /* CompaniesFiltersViewController.swift */; };
@@ -77,7 +91,6 @@
 		316ED05D270B12CF0070D272 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 316ED05C270B12C60070D272 /* Colors.xcassets */; };
 		316F5615281C166B0075B09F /* MyAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 316F5614281C166B0075B09F /* MyAccountViewController.swift */; };
 		317615C726FDD0FE007FE10F /* MessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317615C626FDD0FE007FE10F /* MessageViewController.swift */; };
-		317615C926FDD369007FE10F /* UIFont+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317615C826FDD369007FE10F /* UIFont+Additions.swift */; };
 		317615CA26FDD637007FE10F /* MessageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 317615C526FDCFF7007FE10F /* MessageViewController.xib */; };
 		31796C7C2809B489000542F6 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31796C7B2809B489000542F6 /* GradientView.swift */; };
 		317A5D71284E0EA300750412 /* CompaniesFiltersViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 317A5D70284E0E8600750412 /* CompaniesFiltersViewController.xib */; };
@@ -179,7 +192,6 @@
 		31CF8132270B49100077CB0D /* VersionContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CF8130270B472F0077CB0D /* VersionContentView.swift */; };
 		31CF8133270B49100077CB0D /* VersionContentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31CF812E270B46470077CB0D /* VersionContentView.xib */; };
 		31D07BD8282E35AA00AA7D99 /* NewsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D07BD7282E35AA00AA7D99 /* NewsCoordinator.swift */; };
-		31D07BDA282E40E800AA7D99 /* NSAttributedString+UpdateFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D07BD9282E40E800AA7D99 /* NSAttributedString+UpdateFonts.swift */; };
 		31D77E742733FFDD0054397C /* UIRefreshControlAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D77E732733FFDD0054397C /* UIRefreshControlAdditions.swift */; };
 		31DA4A762705EA110098E395 /* MoreMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31DA4A742705EA110098E395 /* MoreMainViewController.swift */; };
 		31DA4A772705EA110098E395 /* MoreCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31DA4A752705EA110098E395 /* MoreCoordinator.swift */; };
@@ -275,6 +287,20 @@
 		3145D25226B3F74000F16787 /* UILaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILaunchTests.swift; sourceTree = "<group>"; };
 		3145D25426B3F74000F16787 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		314EB4A0270DDDF60067FACA /* EventsCoordinator.NavigationControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsCoordinator.NavigationControllerDelegate.swift; sourceTree = "<group>"; };
+		31515A0C286C5A9300642907 /* UIFont+NOI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+NOI.swift"; sourceTree = "<group>"; };
+		31515A0F286C868600642907 /* SourceSansPro-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-BlackItalic.ttf"; sourceTree = "<group>"; };
+		31515A10286C868600642907 /* SourceSansPro-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
+		31515A11286C868600642907 /* SourceSansPro-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-Regular.ttf"; sourceTree = "<group>"; };
+		31515A12286C868600642907 /* SourceSansPro-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-Bold.ttf"; sourceTree = "<group>"; };
+		31515A13286C868600642907 /* SourceSansPro-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-LightItalic.ttf"; sourceTree = "<group>"; };
+		31515A14286C868600642907 /* SourceSansPro-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-Light.ttf"; sourceTree = "<group>"; };
+		31515A15286C868600642907 /* SourceSansPro-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-Black.ttf"; sourceTree = "<group>"; };
+		31515A16286C868600642907 /* OFL.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = OFL.txt; sourceTree = "<group>"; };
+		31515A17286C868600642907 /* SourceSansPro-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-ExtraLight.ttf"; sourceTree = "<group>"; };
+		31515A18286C868600642907 /* SourceSansPro-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-BoldItalic.ttf"; sourceTree = "<group>"; };
+		31515A19286C868600642907 /* SourceSansPro-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-SemiBold.ttf"; sourceTree = "<group>"; };
+		31515A1A286C868600642907 /* SourceSansPro-ExtraLightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-ExtraLightItalic.ttf"; sourceTree = "<group>"; };
+		31515A1B286C868600642907 /* SourceSansPro-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-Italic.ttf"; sourceTree = "<group>"; };
 		3152755C28473D1C00D5C8A1 /* MeetFilterBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetFilterBarView.swift; sourceTree = "<group>"; };
 		3152755E28476D4B00D5C8A1 /* CompanyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyViewModel.swift; sourceTree = "<group>"; };
 		3152756228479E2700D5C8A1 /* CompaniesFiltersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompaniesFiltersViewController.swift; sourceTree = "<group>"; };
@@ -294,7 +320,6 @@
 		316F5614281C166B0075B09F /* MyAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountViewController.swift; sourceTree = "<group>"; };
 		317615C526FDCFF7007FE10F /* MessageViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MessageViewController.xib; sourceTree = "<group>"; };
 		317615C626FDD0FE007FE10F /* MessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewController.swift; sourceTree = "<group>"; };
-		317615C826FDD369007FE10F /* UIFont+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Additions.swift"; sourceTree = "<group>"; };
 		31796C7B2809B489000542F6 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		317A5D70284E0E8600750412 /* CompaniesFiltersViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CompaniesFiltersViewController.xib; sourceTree = "<group>"; };
 		317B6F9928118950008D07C0 /* ClientFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientFactory.swift; sourceTree = "<group>"; };
@@ -381,7 +406,6 @@
 		31CF812E270B46470077CB0D /* VersionContentView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VersionContentView.xib; sourceTree = "<group>"; };
 		31CF8130270B472F0077CB0D /* VersionContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionContentView.swift; sourceTree = "<group>"; };
 		31D07BD7282E35AA00AA7D99 /* NewsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsCoordinator.swift; sourceTree = "<group>"; };
-		31D07BD9282E40E800AA7D99 /* NSAttributedString+UpdateFonts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSAttributedString+UpdateFonts.swift"; sourceTree = "<group>"; };
 		31D77E732733FFDD0054397C /* UIRefreshControlAdditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIRefreshControlAdditions.swift; sourceTree = "<group>"; };
 		31D9C78926FDFCD3001F2DBB /* BaseTabCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTabCoordinator.swift; sourceTree = "<group>"; };
 		31DA4A742705EA110098E395 /* MoreMainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoreMainViewController.swift; sourceTree = "<group>"; };
@@ -626,6 +650,7 @@
 				31B3623A26F1D62700031024 /* Helpers */,
 				319C0E8F26F33BE200C6D38B /* ViewControllers */,
 				31AA31EC26F0A94400744A00 /* Views */,
+				31515A07286C563800642907 /* Fonts */,
 				3145D23E26B3F74000F16787 /* Info.plist */,
 				3145D23026B3F73F00F16787 /* AppDelegate.swift */,
 				318DA63328354F2D00E5819E /* DeepLinking.swift */,
@@ -663,6 +688,35 @@
 				3145D25426B3F74000F16787 /* Info.plist */,
 			);
 			path = NOICommunityUITests;
+			sourceTree = "<group>";
+		};
+		31515A07286C563800642907 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				31515A0E286C868600642907 /* Source_Sans_Pro */,
+				31515A0C286C5A9300642907 /* UIFont+NOI.swift */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		31515A0E286C868600642907 /* Source_Sans_Pro */ = {
+			isa = PBXGroup;
+			children = (
+				31515A0F286C868600642907 /* SourceSansPro-BlackItalic.ttf */,
+				31515A10286C868600642907 /* SourceSansPro-SemiBoldItalic.ttf */,
+				31515A11286C868600642907 /* SourceSansPro-Regular.ttf */,
+				31515A12286C868600642907 /* SourceSansPro-Bold.ttf */,
+				31515A13286C868600642907 /* SourceSansPro-LightItalic.ttf */,
+				31515A14286C868600642907 /* SourceSansPro-Light.ttf */,
+				31515A15286C868600642907 /* SourceSansPro-Black.ttf */,
+				31515A16286C868600642907 /* OFL.txt */,
+				31515A17286C868600642907 /* SourceSansPro-ExtraLight.ttf */,
+				31515A18286C868600642907 /* SourceSansPro-BoldItalic.ttf */,
+				31515A19286C868600642907 /* SourceSansPro-SemiBold.ttf */,
+				31515A1A286C868600642907 /* SourceSansPro-ExtraLightItalic.ttf */,
+				31515A1B286C868600642907 /* SourceSansPro-Italic.ttf */,
+			);
+			path = Source_Sans_Pro;
 			sourceTree = "<group>";
 		};
 		3153010228071CF500471153 /* AuthFeature */ = {
@@ -806,7 +860,6 @@
 				3187667626FB38D600782FA6 /* DateIntervalFormatter+Factory.swift */,
 				31157CFF26FC648700A43B33 /* Event+CalendarEvent.swift */,
 				31B37E1D2833AFF700C26E6B /* MessageViewController+Error.swift */,
-				31D07BD9282E40E800AA7D99 /* NSAttributedString+UpdateFonts.swift */,
 				31157D1A26FCB26200A43B33 /* String+Localization.swift */,
 				3187667426FB35C100782FA6 /* String+NotDefined.swift */,
 				319C0E8826F33BD000C6D38B /* UIAlertController+Error.swift */,
@@ -816,7 +869,6 @@
 				31C362A0270EFCC200C92532 /* UIButton+Noi.swift */,
 				31B3623D26F1E27A00031024 /* UIColor+NOI.swift */,
 				319C0E9926F3483600C6D38B /* UIControl+Combine.swift */,
-				317615C826FDD369007FE10F /* UIFont+Additions.swift */,
 				313010C02844CEF500AF6520 /* UIImage+Animation.swift */,
 				31E7872527D8918800C67188 /* UIImageAdditions.swift */,
 				31D77E732733FFDD0054397C /* UIRefreshControlAdditions.swift */,
@@ -1073,28 +1125,41 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				31515A24286C868600642907 /* SourceSansPro-ExtraLight.ttf in Resources */,
 				31B6742027C79E520044A285 /* EventShortTypes.json in Resources */,
+				31515A1D286C868600642907 /* SourceSansPro-SemiBoldItalic.ttf in Resources */,
 				3167681C27036A2F00A9DB87 /* PlaceCardContentView.xib in Resources */,
 				31C640A826FE0CF8004B71A2 /* OrientateMainViewController.xib in Resources */,
 				317D5C772841208400531432 /* PersonDetailHeaderContentView.xib in Resources */,
 				313FB0B72719C518000AD9DA /* GoogleService-Info.plist in Resources */,
+				31515A22286C868600642907 /* SourceSansPro-Black.ttf in Resources */,
 				31C2261D270F59750098A70E /* EventDetailsViewController.xib in Resources */,
 				316ED05D270B12CF0070D272 /* Colors.xcassets in Resources */,
 				31CF8133270B49100077CB0D /* VersionContentView.xib in Resources */,
 				313010D42846640400AF6520 /* MeetFilterBarView.xib in Resources */,
 				313010C72844F5A500AF6520 /* PersonDetailsViewController.xib in Resources */,
+				31515A25286C868600642907 /* SourceSansPro-BoldItalic.ttf in Resources */,
+				31515A20286C868600642907 /* SourceSansPro-LightItalic.ttf in Resources */,
 				3121AFDE2858B43A00248CDF /* MeetMainViewController.xib in Resources */,
+				31515A1F286C868600642907 /* SourceSansPro-Bold.ttf in Resources */,
 				31C28BFA2719931400312A62 /* FiltersBarView.xib in Resources */,
 				313010CD2846102000AF6520 /* MyAccountViewController.xib in Resources */,
 				31EBA3742807FAD9001AAE8F /* AuthWelcomeViewController.xib in Resources */,
 				3132EF3A283D29E00016DF7F /* PersonCardContentView.xib in Resources */,
 				3153010728071D5500471153 /* AuthWelcomePageViewController.xib in Resources */,
+				31515A1E286C868600642907 /* SourceSansPro-Regular.ttf in Resources */,
+				31515A23286C868600642907 /* OFL.txt in Resources */,
+				31515A1C286C868600642907 /* SourceSansPro-BlackItalic.ttf in Resources */,
+				31515A21286C868600642907 /* SourceSansPro-Light.ttf in Resources */,
 				313FB0B92719CFA9000AD9DA /* EventsMainViewController.xib in Resources */,
+				31515A27286C868600642907 /* SourceSansPro-ExtraLightItalic.ttf in Resources */,
+				31515A26286C868600642907 /* SourceSansPro-SemiBold.ttf in Resources */,
 				3182A1BF282D5159005439B4 /* NewsDetailsViewController.xib in Resources */,
 				31CF812D270B3E340077CB0D /* LaunchScreen.storyboard in Resources */,
 				31C28BFD2719BD7200312A62 /* LoadingViewController.xib in Resources */,
 				31C2261C270F596E0098A70E /* EventCardContentView.xib in Resources */,
 				317615CA26FDD637007FE10F /* MessageViewController.xib in Resources */,
+				31515A28286C868600642907 /* SourceSansPro-Italic.ttf in Resources */,
 				3182A177282CEFB7005439B4 /* NewsCardContentView.xib in Resources */,
 				31157D0526FC66FB00A43B33 /* InfoPlist.strings in Resources */,
 				317A5D71284E0EA300750412 /* CompaniesFiltersViewController.xib in Resources */,
@@ -1197,12 +1262,10 @@
 				3185AA172820005700767E31 /* KeychainAuthStateStorageClient.swift in Sources */,
 				31157D1526FC83FE00A43B33 /* UIViewController+ShowCalenderError.swift in Sources */,
 				31CF8132270B49100077CB0D /* VersionContentView.swift in Sources */,
-				31D07BDA282E40E800AA7D99 /* NSAttributedString+UpdateFonts.swift in Sources */,
 				31C28BF62719709B00312A62 /* NOICells.swift in Sources */,
 				3185AA10281FD77400767E31 /* AccessNotGrantedCoordinator.swift in Sources */,
 				313010C928450A5B00AF6520 /* UIApplication+URL.swift in Sources */,
 				3152756328479E2700D5C8A1 /* CompaniesFiltersViewController.swift in Sources */,
-				317615C926FDD369007FE10F /* UIFont+Additions.swift in Sources */,
 				3182A1BB282D476D005439B4 /* RoundedLabel.swift in Sources */,
 				31C640A026FE0B9D004B71A2 /* BaseTabCoordinator.swift in Sources */,
 				31BFAB3B283FC88A00EF274D /* CALayer+XibConfiguration.swift in Sources */,
@@ -1283,6 +1346,7 @@
 				31796C7C2809B489000542F6 /* GradientView.swift in Sources */,
 				317EC887283BB75900F30B95 /* PeopleViewModel.swift in Sources */,
 				313010C12844CEF500AF6520 /* UIImage+Animation.swift in Sources */,
+				31515A0D286C5A9300642907 /* UIFont+NOI.swift in Sources */,
 				3101FC59283391D700A3416F /* BaseTopTabBarCoordinator.swift in Sources */,
 				31C640AF26FE13D3004B71A2 /* ViewControllerFactory.swift in Sources */,
 			);

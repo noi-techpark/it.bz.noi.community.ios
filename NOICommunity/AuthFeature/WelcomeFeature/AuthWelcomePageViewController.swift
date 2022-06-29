@@ -13,9 +13,17 @@ final class AuthWelcomePageViewController: UIViewController {
     
     @IBOutlet var backgroundImageView: UIImageView!
 
-    @IBOutlet var textLabel: UILabel!
+    @IBOutlet var textLabel: UILabel! {
+        didSet {
+            textLabel.font = .NOI.headlineSemibold
+        }
+    }
     
-    @IBOutlet var detailedTextLabel: UILabel!
+    @IBOutlet var detailedTextLabel: UILabel! {
+        didSet {
+            detailedTextLabel.font = .NOI.bodyRegular
+        }
+    }
     
     @IBOutlet var backgroundGradientView: GradientView! {
         didSet {

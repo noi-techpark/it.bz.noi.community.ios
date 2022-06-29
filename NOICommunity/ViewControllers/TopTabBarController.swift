@@ -40,10 +40,7 @@ class TopTabBarController: UIViewController {
         )
         builder.tintColor = .noiSecondaryColor.withAlphaComponent(0.8)
         builder.selectedTintedColor = .noiSecondaryColor
-        builder.font = .preferredFont(
-            forTextStyle: .headline,
-            weight: .semibold
-        )
+        builder.font = .NOI.bodySemibold
         builder.selectedFont = builder.font
         builder.class = SegmentedControl.self
         let segmentedControl = builder.makeSegmentedControl(

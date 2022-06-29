@@ -17,28 +17,19 @@ class PersonDetailHeaderContentView: UIView, UIContentView {
     
     @IBOutlet var avatarPlaceHolderLabel: UILabel! {
         didSet {
-            avatarPlaceHolderLabel.font = .preferredFont(
-                forTextStyle: .title2,
-                weight: .semibold
-            )
+            avatarPlaceHolderLabel.font = .NOI.title3Semibold
         }
     }
     
     @IBOutlet private var fullnameLabel: UILabel! {
         didSet {
-            fullnameLabel.font = .preferredFont(
-                forTextStyle: .title1,
-                weight: .bold
-            )
+            fullnameLabel.font = .NOI.title1Semibold
         }
     }
     
     @IBOutlet private var companyLabel: UILabel! {
         didSet {
-            companyLabel.font = .preferredFont(
-                forTextStyle: .title2,
-                weight: .semibold
-            )
+            companyLabel.font = .NOI.bodySemibold
         }
     }
     
@@ -129,7 +120,9 @@ struct PersonDetailHeaderContentConfiguration: UIContentConfiguration, Hashable 
     var fullnameAttributedText: NSAttributedString?
     
     /// Properties for configuring the fullname text.
-    var fullnameTextProprieties = ContentConfiguration.TextProperties()
+    var fullnameTextProprieties = ContentConfiguration.TextProperties(
+        font: .NOI.title1Semibold
+    )
     
     /// The published date text.
     var company: String?
@@ -138,7 +131,9 @@ struct PersonDetailHeaderContentConfiguration: UIContentConfiguration, Hashable 
     var companyAttributedText: NSAttributedString?
     
     /// Properties for configuring the published date text.
-    var companyTextProprieties = ContentConfiguration.TextProperties()
+    var companyTextProprieties = ContentConfiguration.TextProperties(
+        font: .NOI.subheadlineRegular
+    )
     
     /// The primary avatar's text.
     var avatarText: String?
@@ -147,7 +142,9 @@ struct PersonDetailHeaderContentConfiguration: UIContentConfiguration, Hashable 
     var avatarAttributedText: NSAttributedString?
     
     /// Properties for configuring the avatar text.
-    var avatarTextProprieties = ContentConfiguration.TextProperties()
+    var avatarTextProprieties = ContentConfiguration.TextProperties(
+        font: .NOI.headlineSemibold
+    )
     
     func makeContentView() -> UIView & UIContentView {
         return PersonDetailHeaderContentView(configuration: self)

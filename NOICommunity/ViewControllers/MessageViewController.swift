@@ -55,16 +55,21 @@ final class MessageViewController: UIViewController {
     private let message: Message
 
     @IBOutlet private(set) var scrollView: UIScrollView?
+    
     @IBOutlet private var imageView: UIImageView?
+    
     @IBOutlet private var textLabel: UILabel? {
         didSet {
-            guard let textLabel = textLabel
-            else { return }
-
-            textLabel.font = .preferredFont(forTextStyle: .body, weight: .bold)
+            textLabel?.font = .NOI.bodySemibold
         }
     }
-    @IBOutlet private var detailedTextLabel: UILabel?
+    
+    @IBOutlet private var detailedTextLabel: UILabel? {
+        didSet {
+            detailedTextLabel?.font = .NOI.subheadlineRegular
+        }
+    }
+    
     @IBOutlet private var actionButton: UIButton?
 
     init(message: Message) {

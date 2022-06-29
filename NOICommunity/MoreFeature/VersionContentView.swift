@@ -20,9 +20,13 @@ class VersionContentView: UIView, UIContentView {
             updateLogoDynamicTypeHeight()
         }
     }
-    
-    @IBOutlet var textLabel: UILabel!
-    
+
+    @IBOutlet var textLabel: UILabel! {
+        didSet {
+            textLabel.font = .NOI.caption1Regular
+        }
+    }
+
     private var currentConfiguration: VersionContentConfiguration!
     var configuration: UIContentConfiguration {
         get { currentConfiguration }
@@ -92,7 +96,7 @@ private extension VersionContentView {
     func updateLogoDynamicTypeHeight() {
         logoImageViewHeightConstraint?.constant = UIFontMetrics(
             forTextStyle: .largeTitle
-        ).scaledValue(for: 50)
+        ).scaledValue(for: 44)
     }
     
     @objc func didRecognizeCrashTapGesture() {

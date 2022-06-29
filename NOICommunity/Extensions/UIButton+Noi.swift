@@ -43,14 +43,8 @@ extension UIButton {
         return self
     }
     
-    @discardableResult func withTextStyle(
-        _ textStyle: UIFont.TextStyle,
-        weight: UIFont.Weight = .regular
-    ) -> UIButton {
-        titleLabel?.font = .preferredFont(
-            forTextStyle: textStyle,
-            weight: weight
-        )
+    @discardableResult func withFont(_ font: UIFont) -> UIButton {
+        titleLabel?.font = font
         
         return self
     }
@@ -140,7 +134,7 @@ extension UIButton {
             .withMaximumHeight(150)
             .withTextAligment(.center)
             .withDynamicType(numberOfLines: numberOfLines)
-            .withTextStyle(.body, weight: .semibold)
+            .withFont(.NOI.bodySemibold)
     }
     
     @discardableResult func configureAsPrimaryActionButton()  -> UIButton {
