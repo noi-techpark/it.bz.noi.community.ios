@@ -16,6 +16,7 @@ final class MoreViewModel {
             .bookRoom,
             .onboarding,
             .feedbacks,
+            .bugReport,
             .myAccount
         ]
 
@@ -35,6 +36,11 @@ final class MoreViewModel {
         static let feedbacks = Self(
             localizedTitle: .localized("more_item_feedback"),
             url: .feedbacks
+        )
+        
+        static let bugReport = Self(
+            localizedTitle: .localized("more_item_bug_report"),
+            url: .bugReport
         )
         
         static let myAccount = Self(
