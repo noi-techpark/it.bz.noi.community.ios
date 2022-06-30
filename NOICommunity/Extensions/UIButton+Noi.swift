@@ -169,10 +169,24 @@ extension UIButton {
             .withTintColor(.noiSecondaryColor)
     }
     
-    @discardableResult func configureAsTertiaryActionButton()  -> UIButton {
+    @discardableResult func configureAsTertiaryActionButton() -> UIButton {
         self
             .configureAsFooterButton()
             .withTitleColor(.noiBackgroundColor)
+    }
+    
+    @discardableResult func configureAsFiltersButton() -> UIButton {
+        setTitleColor(.noiPrimaryColor, for: .normal)
+        setTitleColor(
+            .noiPrimaryColor.withAlphaComponent(0.6),
+            for: .highlighted
+        )
+        
+        layer.cornerRadius = 2
+        
+        titleLabel?.font = .NOI.fixed.caption1Semibold
+        
+        return self
     }
     
 }
