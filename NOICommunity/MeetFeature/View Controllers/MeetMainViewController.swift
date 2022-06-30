@@ -296,18 +296,13 @@ private extension MeetMainViewController.CollectionViewController {
             var contentConfiguration = PersonCardContentConfiguration()
             
             contentConfiguration.fullname = person.fullname
-            contentConfiguration.fullnameTextProprieties.font = .NOI.footnoteSemibold
-            
             contentConfiguration.company = company?.name ?? "N/D"
-            contentConfiguration.companyTextProprieties.font = .NOI.bodyRegular
-            
             contentConfiguration.avatarText = [
                 person.firstname.prefix(1),
                 person.lastname.prefix(1)
             ]
                 .joined()
                 .uppercased()
-            contentConfiguration.avatarTextProprieties.font = .NOI.bodySemibold
             
             cell.contentConfiguration = contentConfiguration
             

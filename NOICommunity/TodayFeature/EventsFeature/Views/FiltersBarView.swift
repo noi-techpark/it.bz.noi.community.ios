@@ -19,7 +19,7 @@ class FiltersBarView: UIView {
                 .noiPrimaryColor.withAlphaComponent(0.6),
                 for: .highlighted
             )
-            filtersButton.titleLabel?.font = .NOI.caption1Semibold
+            filtersButton.titleLabel?.font = .NOI.dynamic.caption1Semibold
             filtersButton.layer.cornerRadius = 2
         }
     }
@@ -32,7 +32,7 @@ class FiltersBarView: UIView {
         )
         builder.tintColor = color
         builder.selectedTintedColor = activeColor
-        builder.font = .NOI.caption1Semibold
+        builder.font = .NOI.fixed.caption1Semibold
         builder.selectedFont = builder.font
         builder.class = SegmentedControl.self
         let segmentedControl = builder.makeSegmentedControl(

@@ -137,7 +137,9 @@ struct NewsCardContentConfiguration: UIContentConfiguration, Hashable {
     var authorAttributedText: NSAttributedString?
     
     /// Properties for configuring the author text.
-    var authorTextProprieties = ContentConfiguration.TextProperties()
+    var authorTextProprieties = ContentConfiguration.TextProperties(
+        font: .NOI.dynamic.footnoteSemibold
+    )
     
     /// The published date text.
     var publishedDateText: String?
@@ -146,7 +148,9 @@ struct NewsCardContentConfiguration: UIContentConfiguration, Hashable {
     var publishedDateAttributedText: NSAttributedString?
     
     /// Properties for configuring the published date text.
-    var publishedDateTextProprieties = ContentConfiguration.TextProperties()
+    var publishedDateTextProprieties = ContentConfiguration.TextProperties(
+        font: .NOI.dynamic.bodyRegular
+    )
     
     /// The primary badge's text.
     var badgeText: String?
@@ -155,7 +159,9 @@ struct NewsCardContentConfiguration: UIContentConfiguration, Hashable {
     var badgeAttributedText: NSAttributedString?
     
     /// Properties for configuring the badge text.
-    var badgeTextProprieties = ContentConfiguration.TextProperties()
+    var badgeTextProprieties = ContentConfiguration.TextProperties(
+        font: .NOI.fixed.caption1Semibold
+    )
     
     /// The title text.
     var titleText: String?
@@ -164,7 +170,9 @@ struct NewsCardContentConfiguration: UIContentConfiguration, Hashable {
     var titleAttributedText: NSAttributedString?
     
     /// Properties for configuring the title text.
-    var titleTextProprieties = ContentConfiguration.TextProperties()
+    var titleTextProprieties = ContentConfiguration.TextProperties(
+        font: .NOI.dynamic.footnoteSemibold
+    )
     
     /// The abstract text.
     var abstractText: String?
@@ -173,7 +181,9 @@ struct NewsCardContentConfiguration: UIContentConfiguration, Hashable {
     var abstractAttributedText: NSAttributedString?
     
     /// Properties for configuring the abstract text.
-    var abstractTextProprieties = ContentConfiguration.TextProperties()
+    var abstractTextProprieties = ContentConfiguration.TextProperties(
+        font: .NOI.dynamic.bodyRegular
+    )
     
     func makeContentView() -> UIView & UIContentView {
         return NewsCardContentView(configuration: self)

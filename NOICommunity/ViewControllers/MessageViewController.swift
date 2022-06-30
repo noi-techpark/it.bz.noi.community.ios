@@ -60,13 +60,13 @@ final class MessageViewController: UIViewController {
     
     @IBOutlet private var textLabel: UILabel? {
         didSet {
-            textLabel?.font = .NOI.bodySemibold
+            textLabel?.font = .NOI.dynamic.bodySemibold
         }
     }
     
     @IBOutlet private var detailedTextLabel: UILabel? {
         didSet {
-            detailedTextLabel?.font = .NOI.subheadlineRegular
+            detailedTextLabel?.font = .NOI.dynamic.subheadlineRegular
         }
     }
     
