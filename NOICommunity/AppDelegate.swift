@@ -195,17 +195,12 @@ private extension AppDelegate {
             #imageLiteral(resourceName: "searchbar_searchFieldImage"),
             for: .normal
         )
-        let textFieldAppeanranceInSearchBar = UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self])
-        textFieldAppeanranceInSearchBar.font = .NOI.fixed.subheadlineRegular
-        textFieldAppeanranceInSearchBar.defaultTextAttributes = [
-            .font: UIFont.NOI.fixed.subheadlineRegular
-        ]
-        textFieldAppeanranceInSearchBar.adjustsFontForContentSizeCategory = false
         
-        let labelAppeanranceInSearchBar = UILabel.appearance(whenContainedInInstancesOf: [UISearchBar.self])
-        labelAppeanranceInSearchBar.font = .NOI.fixed.subheadlineRegular
-        labelAppeanranceInSearchBar.adjustsFontForContentSizeCategory = false
-    }
+        UISearchTextField.appearance().font = .NOI.dynamic.subheadlineRegular
+        UISearchTextField.appearance().defaultTextAttributes = [
+            .font: UIFont.NOI.dynamic.subheadlineRegular
+        ]
+        UISearchTextField.appearance().adjustsFontForContentSizeCategory = true    }
     
     func handle(launchOptions: [UIApplication.LaunchOptionsKey: Any]?) {
         if let notificationPayload = launchOptions?[.remoteNotification] as? [AnyHashable : Any] {

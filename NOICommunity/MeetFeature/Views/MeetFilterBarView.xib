@@ -45,9 +45,8 @@
                 <constraint firstItem="ftP-cC-loR" firstAttribute="trailing" secondItem="BgN-rw-rQc" secondAttribute="trailing" constant="17" id="Fu2-bn-AKA"/>
                 <constraint firstItem="ftP-cC-loR" firstAttribute="bottom" secondItem="BgN-rw-rQc" secondAttribute="bottom" constant="11" id="NHI-MD-OtN"/>
                 <constraint firstItem="BgN-rw-rQc" firstAttribute="leading" secondItem="aPI-Lo-v9F" secondAttribute="trailing" id="VaU-lV-bTS"/>
-                <constraint firstItem="ftP-cC-loR" firstAttribute="bottom" secondItem="aPI-Lo-v9F" secondAttribute="bottom" constant="13" id="bWk-qX-Xef"/>
                 <constraint firstItem="BgN-rw-rQc" firstAttribute="top" secondItem="ftP-cC-loR" secondAttribute="top" constant="11" id="gfV-vK-56y"/>
-                <constraint firstItem="aPI-Lo-v9F" firstAttribute="top" secondItem="ftP-cC-loR" secondAttribute="top" constant="13" id="kE7-DG-Myr"/>
+                <constraint firstItem="aPI-Lo-v9F" firstAttribute="centerY" secondItem="BgN-rw-rQc" secondAttribute="centerY" id="sgd-GT-fwB"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="190.57971014492756" y="78.348214285714278"/>
