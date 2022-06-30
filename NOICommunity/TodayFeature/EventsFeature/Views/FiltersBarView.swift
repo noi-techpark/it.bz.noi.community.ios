@@ -14,13 +14,7 @@ class FiltersBarView: UIView {
     @IBOutlet private(set) var scrollView: UIScrollView!
     @IBOutlet private(set) var filtersButton: UIButton! {
         didSet {
-            filtersButton.setTitleColor(.noiPrimaryColor, for: .normal)
-            filtersButton.setTitleColor(
-                .noiPrimaryColor.withAlphaComponent(0.6),
-                for: .highlighted
-            )
-            filtersButton.titleLabel?.font = .NOI.dynamic.caption1Semibold
-            filtersButton.layer.cornerRadius = 2
+            filtersButton.configureAsFiltersButton()
         }
     }
     
