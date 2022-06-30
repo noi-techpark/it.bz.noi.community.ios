@@ -169,7 +169,7 @@ struct PlaceCardContentConfiguration: UIContentConfiguration {
     
     /// Properties for configuring the primary text.
     var textProprieties = ContentConfiguration.TextProperties(
-        font: .NOI.title2Semibold
+        font: .NOI.dynamic.title2Semibold
     )
     
     /// The secondary text.
@@ -180,7 +180,7 @@ struct PlaceCardContentConfiguration: UIContentConfiguration {
     
     /// Properties for configuring the secondary text.
     var secondaryTextProprieties = ContentConfiguration.TextProperties(
-        font: .NOI.bodyRegular
+        font: .NOI.dynamic.bodyRegular
     )
     
     /// The action text.
@@ -191,7 +191,7 @@ struct PlaceCardContentConfiguration: UIContentConfiguration {
     
     /// Properties for configuring the action text.
     var actionTextProprieties = ContentConfiguration.TextProperties(
-        font: .NOI.bodySemibold
+        font: .NOI.dynamic.bodySemibold
     )
     
     /// The action handler callback.

@@ -115,7 +115,9 @@ struct EventCardContentConfiguration: UIContentConfiguration, Hashable {
     var attributedText: NSAttributedString?
     
     /// Properties for configuring the primary text.
-    var textProprieties = ContentConfiguration.TextProperties()
+    var textProprieties = ContentConfiguration.TextProperties(
+        font: .NOI.dynamic.title1Semibold
+    )
     
     /// The leading secondary text.
     var leadingSecondaryText: String?
@@ -125,7 +127,8 @@ struct EventCardContentConfiguration: UIContentConfiguration, Hashable {
     
     /// Properties for configuring the leading secondary text.
     var leadingSecondaryTextProprieties = ContentConfiguration.TextProperties(
-        numberOfLines: 1
+        numberOfLines: 1,
+        font: .NOI.dynamic.bodyRegular
     )
     
     /// The trailing secondary text.
@@ -136,7 +139,8 @@ struct EventCardContentConfiguration: UIContentConfiguration, Hashable {
     
     /// Properties for configuring the trailing secondary text.
     var trailingSecondaryTextProprieties = ContentConfiguration.TextProperties(
-        numberOfLines: 1
+        numberOfLines: 1,
+        font: .NOI.dynamic.bodyRegular
     )
     
     /// The tertiary text.
@@ -146,7 +150,9 @@ struct EventCardContentConfiguration: UIContentConfiguration, Hashable {
     var tertiaryAttributedText: NSAttributedString?
     
     /// Properties for configuring the tertiary text.
-    var tertiaryTextProprieties = ContentConfiguration.TextProperties()
+    var tertiaryTextProprieties = ContentConfiguration.TextProperties(
+        font: .NOI.dynamic.bodyRegular
+    )
     
     /// The primary badge's text.
     var badgeText: String?
@@ -155,7 +161,9 @@ struct EventCardContentConfiguration: UIContentConfiguration, Hashable {
     var badgeAttributedText: NSAttributedString?
     
     /// Properties for configuring the badge text.
-    var badgeTextProprieties = ContentConfiguration.TextProperties()
+    var badgeTextProprieties = ContentConfiguration.TextProperties(
+        font: .NOI.fixed.caption1Bold
+    )
     
     func makeContentView() -> UIView & UIContentView {
         return EventCardContentView(configuration: self)

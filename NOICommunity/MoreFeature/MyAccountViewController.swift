@@ -396,7 +396,7 @@ private extension UIButton {
     func configureAsCalloutFooterAction() -> UIButton {
         self
             .withDynamicType(numberOfLines: 1)
-            .withFont(.NOI.caption1Semibold)
+            .withFont(.NOI.dynamic.caption1Semibold)
             .withTitleColor(.noiSecondaryColor)
             .withTitleColor(
                 .noiSecondaryColor.withAlphaComponent(0.6),

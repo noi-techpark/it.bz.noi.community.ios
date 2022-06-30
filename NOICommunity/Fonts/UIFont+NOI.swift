@@ -40,7 +40,7 @@ extension UIFont {
         
         return noiItalicFont
     }
-
+    
     
     class func noiBoldFont(ofSize fontSize: CGFloat) -> UIFont {
         guard let noiSemiboldFont = UIFont(
@@ -104,60 +104,124 @@ extension UIFont {
     
     enum NOI {
         
-        static var subheadlineRegular: UIFont {
-            .noiPreferredFont(forTextStyle: .subheadline, withFontSize: 19)
+        enum `dynamic` {
+            
+            static var subheadlineRegular: UIFont {
+                .noiPreferredFont(forTextStyle: .subheadline, withFontSize: 19)
+            }
+            
+            static var bodyRegular: UIFont {
+                .noiPreferredFont(forTextStyle: .body, withFontSize: 17)
+            }
+            
+            static var bodyBold: UIFont {
+                .noiPreferredBoldFont(forTextStyle: .body, withFontSize: 17)
+            }
+            
+            static var bodySemibold: UIFont {
+                .noiPreferredSemiboldFont(forTextStyle: .body, withFontSize: 19)
+            }
+            
+            static var footnoteSemibold: UIFont {
+                .noiPreferredSemiboldFont(forTextStyle: .footnote, withFontSize: 17)
+            }
+            
+            static var caption1Regular: UIFont {
+                .noiPreferredFont(forTextStyle: .caption1, withFontSize: 14)
+            }
+            
+            static var caption2Regular: UIFont {
+                .noiPreferredFont(forTextStyle: .caption1, withFontSize: 13)
+            }
+            
+            static var caption1Bold: UIFont {
+                .noiPreferredBoldFont(forTextStyle: .footnote, withFontSize: 14)
+            }
+            
+            static var caption1Semibold: UIFont {
+                .noiPreferredSemiboldFont(forTextStyle: .footnote, withFontSize: 14)
+            }
+            
+            static var caption2Semibold: UIFont {
+                .noiPreferredSemiboldFont(forTextStyle: .caption2, withFontSize: 13)
+            }
+            
+            static var headlineSemibold: UIFont {
+                .noiPreferredSemiboldFont(forTextStyle: .headline, withFontSize: 25)
+            }
+            
+            static var title1Semibold: UIFont {
+                .noiPreferredSemiboldFont(forTextStyle: .title1, withFontSize: 40)
+            }
+            
+            static var title2Semibold: UIFont {
+                .noiPreferredSemiboldFont(forTextStyle: .title2, withFontSize: 33)
+            }
+            
+            static var title3Semibold: UIFont {
+                .noiPreferredSemiboldFont(forTextStyle: .title3, withFontSize: 25)
+            }
+            
         }
         
-        static var bodyRegular: UIFont {
-            .noiPreferredFont(forTextStyle: .body, withFontSize: 17)
-        }
-        
-        static var bodyBold: UIFont {
-            .noiPreferredBoldFont(forTextStyle: .body, withFontSize: 17)
-        }
-        
-        static var bodySemibold: UIFont {
-            .noiPreferredSemiboldFont(forTextStyle: .body, withFontSize: 19)
-        }
-        
-        static var footnoteSemibold: UIFont {
-            .noiPreferredSemiboldFont(forTextStyle: .footnote, withFontSize: 17)
-        }
-        
-        static var caption1Regular: UIFont {
-            .noiPreferredFont(forTextStyle: .caption1, withFontSize: 14)
-        }
-        
-        static var caption2Regular: UIFont {
-            .noiPreferredFont(forTextStyle: .caption1, withFontSize: 13)
-        }
-        
-        static var caption1Bold: UIFont {
-            .noiPreferredBoldFont(forTextStyle: .footnote, withFontSize: 14)
-        }
-        
-        static var caption1Semibold: UIFont {
-            .noiPreferredSemiboldFont(forTextStyle: .footnote, withFontSize: 14)
-        }
-        
-        static var caption2Semibold: UIFont {
-            .noiPreferredSemiboldFont(forTextStyle: .caption2, withFontSize: 13)
-        }
-        
-        static var headlineSemibold: UIFont {
-            .noiPreferredSemiboldFont(forTextStyle: .headline, withFontSize: 25)
-        }
-        
-        static var title1Semibold: UIFont {
-            .noiPreferredSemiboldFont(forTextStyle: .title1, withFontSize: 40)
-        }
-        
-        static var title2Semibold: UIFont {
-            .noiPreferredSemiboldFont(forTextStyle: .title2, withFontSize: 33)
-        }
-        
-        static var title3Semibold: UIFont {
-            .noiPreferredSemiboldFont(forTextStyle: .title3, withFontSize: 25)
+        enum fixed {
+            
+            static var subheadlineRegular: UIFont {
+                .noiFont(ofSize: 19)
+            }
+            
+            static var bodyRegular: UIFont {
+                .noiFont(ofSize: 17)
+            }
+            
+            static var bodyBold: UIFont {
+                .noiBoldFont(ofSize: 17)
+            }
+            
+            static var bodySemibold: UIFont {
+                .noiSemiboldFont(ofSize: 19)
+            }
+            
+            static var footnoteSemibold: UIFont {
+                .noiSemiboldFont(ofSize: 17)
+            }
+            
+            static var caption1Regular: UIFont {
+                .noiFont(ofSize: 14)
+            }
+            
+            static var caption2Regular: UIFont {
+                .noiFont(ofSize: 13)
+            }
+            
+            static var caption1Bold: UIFont {
+                .noiBoldFont(ofSize: 14)
+            }
+            
+            static var caption1Semibold: UIFont {
+                .noiSemiboldFont(ofSize: 14)
+            }
+            
+            static var caption2Semibold: UIFont {
+                .noiSemiboldFont(ofSize: 13)
+            }
+            
+            static var headlineSemibold: UIFont {
+                .noiSemiboldFont(ofSize: 25)
+            }
+            
+            static var title1Semibold: UIFont {
+                .noiSemiboldFont(ofSize: 40)
+            }
+            
+            static var title2Semibold: UIFont {
+                .noiSemiboldFont(ofSize: 33)
+            }
+            
+            static var title3Semibold: UIFont {
+                .noiSemiboldFont(ofSize: 25)
+            }
+            
         }
         
     }

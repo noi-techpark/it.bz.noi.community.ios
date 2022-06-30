@@ -133,11 +133,11 @@ private extension AppDelegate {
         navBarAppearance.backgroundColor = .noiBackgroundColor
         navBarAppearance.titleTextAttributes = [
             .foregroundColor: UIColor.noiPrimaryColor,
-            .font: UIFont.NOI.bodySemibold
+            .font: UIFont.NOI.fixed.bodySemibold
         ]
         navBarAppearance.largeTitleTextAttributes = [
             .foregroundColor: UIColor.noiPrimaryColor,
-            .font: UIFont.NOI.title1Semibold
+            .font: UIFont.NOI.fixed.title1Semibold
         ]
         UINavigationBar.appearance().standardAppearance = navBarAppearance
         UINavigationBar.appearance().scrollEdgeAppearance = navBarAppearance
@@ -146,7 +146,7 @@ private extension AppDelegate {
         let button = UIBarButtonItemAppearance()
         button.normal.titleTextAttributes = [
             .foregroundColor: UIColor.noiPrimaryColor,
-            .font: UIFont.NOI.bodyRegular
+            .font: UIFont.NOI.fixed.bodyRegular
         ]
         UIButton.appearance(whenContainedInInstancesOf: [UINavigationBar.self]).tintColor = UIColor.noiPrimaryColor
         navBarAppearance.buttonAppearance = button
@@ -154,7 +154,7 @@ private extension AppDelegate {
         let doneButton = UIBarButtonItemAppearance(style: .done)
         doneButton.normal.titleTextAttributes = [
             .foregroundColor: UIColor.noiPrimaryColor,
-            .font: UIFont.NOI.bodyBold
+            .font: UIFont.NOI.fixed.bodyBold
         ]
         navBarAppearance.doneButtonAppearance = doneButton
         
@@ -163,13 +163,13 @@ private extension AppDelegate {
             itemAppearance.normal.iconColor = .noiDisabled1Color
             itemAppearance.normal.titleTextAttributes = [
                 .foregroundColor: UIColor.noiDisabled1Color,
-                .font: UIFont.NOI.caption2Regular
+                .font: UIFont.NOI.fixed.caption2Regular
             ]
             
             itemAppearance.selected.iconColor = .noiPrimaryColor
             itemAppearance.selected.titleTextAttributes = [
                 .foregroundColor: UIColor.noiPrimaryColor,
-                .font: UIFont.NOI.caption2Semibold
+                .font: UIFont.NOI.fixed.caption2Semibold
             ]
         }
         tabBarAppearance.configureWithOpaqueBackground()
@@ -195,10 +195,16 @@ private extension AppDelegate {
             #imageLiteral(resourceName: "searchbar_searchFieldImage"),
             for: .normal
         )
-        UISearchTextField.appearance().font = UIFont.NOI.subheadlineRegular
-        UISearchTextField.appearance().defaultTextAttributes = [
-            .font: UIFont.NOI.subheadlineRegular
+        let textFieldAppeanranceInSearchBar = UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self])
+        textFieldAppeanranceInSearchBar.font = .NOI.fixed.subheadlineRegular
+        textFieldAppeanranceInSearchBar.defaultTextAttributes = [
+            .font: UIFont.NOI.fixed.subheadlineRegular
         ]
+        textFieldAppeanranceInSearchBar.adjustsFontForContentSizeCategory = false
+        
+        let labelAppeanranceInSearchBar = UILabel.appearance(whenContainedInInstancesOf: [UISearchBar.self])
+        labelAppeanranceInSearchBar.font = .NOI.fixed.subheadlineRegular
+        labelAppeanranceInSearchBar.adjustsFontForContentSizeCategory = false
     }
     
     func handle(launchOptions: [UIApplication.LaunchOptionsKey: Any]?) {

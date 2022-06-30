@@ -21,35 +21,33 @@
             <rect key="frame" x="0.0" y="0.0" width="567" height="144"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="XHu-VK-d0s">
-                    <rect key="frame" x="17" y="55" width="533" height="44"/>
-                    <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aPI-Lo-v9F">
-                            <rect key="frame" x="0.0" y="2" width="40" height="40"/>
-                            <color key="backgroundColor" name="background_color"/>
-                            <constraints>
-                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="40" id="chx-dq-VD5"/>
-                            </constraints>
-                            <color key="tintColor" name="primary_color"/>
-                            <inset key="contentEdgeInsets" minX="8" minY="8" maxX="8" maxY="8"/>
-                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                            <state key="normal" image="ic_filter"/>
-                        </button>
-                        <searchBar contentMode="redraw" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="BgN-rw-rQc">
-                            <rect key="frame" x="40" y="0.0" width="493" height="44"/>
-                            <textInputTraits key="textInputTraits"/>
-                        </searchBar>
-                    </subviews>
-                </stackView>
+                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aPI-Lo-v9F">
+                    <rect key="frame" x="17" y="57" width="40" height="40"/>
+                    <color key="backgroundColor" name="background_color"/>
+                    <constraints>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="40" id="chx-dq-VD5"/>
+                        <constraint firstAttribute="height" constant="40" id="oen-GC-12f"/>
+                    </constraints>
+                    <color key="tintColor" name="primary_color"/>
+                    <inset key="contentEdgeInsets" minX="8" minY="8" maxX="8" maxY="8"/>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                    <state key="normal" image="ic_filter"/>
+                </button>
+                <searchBar contentMode="redraw" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="BgN-rw-rQc">
+                    <rect key="frame" x="57" y="55" width="493" height="44"/>
+                    <textInputTraits key="textInputTraits"/>
+                </searchBar>
             </subviews>
             <viewLayoutGuide key="safeArea" id="ftP-cC-loR"/>
             <color key="backgroundColor" name="secondary_background_color"/>
             <constraints>
-                <constraint firstItem="XHu-VK-d0s" firstAttribute="top" secondItem="ftP-cC-loR" secondAttribute="top" constant="11" id="KfR-Pi-nLn"/>
-                <constraint firstItem="XHu-VK-d0s" firstAttribute="leading" secondItem="ftP-cC-loR" secondAttribute="leading" constant="17" id="blX-ME-LBp"/>
-                <constraint firstItem="ftP-cC-loR" firstAttribute="bottom" secondItem="XHu-VK-d0s" secondAttribute="bottom" constant="11" id="mGr-hL-vJn"/>
-                <constraint firstItem="ftP-cC-loR" firstAttribute="trailing" secondItem="XHu-VK-d0s" secondAttribute="trailing" constant="17" id="q9N-Tn-SdR"/>
-                <constraint firstItem="aPI-Lo-v9F" firstAttribute="leading" secondItem="ftP-cC-loR" secondAttribute="leading" constant="17" id="yRO-Ft-oyq"/>
+                <constraint firstItem="aPI-Lo-v9F" firstAttribute="leading" secondItem="ftP-cC-loR" secondAttribute="leading" constant="17" id="8OO-pi-L7c"/>
+                <constraint firstItem="ftP-cC-loR" firstAttribute="trailing" secondItem="BgN-rw-rQc" secondAttribute="trailing" constant="17" id="Fu2-bn-AKA"/>
+                <constraint firstItem="ftP-cC-loR" firstAttribute="bottom" secondItem="BgN-rw-rQc" secondAttribute="bottom" constant="11" id="NHI-MD-OtN"/>
+                <constraint firstItem="BgN-rw-rQc" firstAttribute="leading" secondItem="aPI-Lo-v9F" secondAttribute="trailing" id="VaU-lV-bTS"/>
+                <constraint firstItem="ftP-cC-loR" firstAttribute="bottom" secondItem="aPI-Lo-v9F" secondAttribute="bottom" constant="13" id="bWk-qX-Xef"/>
+                <constraint firstItem="BgN-rw-rQc" firstAttribute="top" secondItem="ftP-cC-loR" secondAttribute="top" constant="11" id="gfV-vK-56y"/>
+                <constraint firstItem="aPI-Lo-v9F" firstAttribute="top" secondItem="ftP-cC-loR" secondAttribute="top" constant="13" id="kE7-DG-Myr"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="190.57971014492756" y="78.348214285714278"/>

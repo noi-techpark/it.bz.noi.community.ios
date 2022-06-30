@@ -18,7 +18,7 @@ class MeetFilterBarView: UIView {
                 .noiPrimaryColor.withAlphaComponent(0.6),
                 for: .highlighted
             )
-            filtersButton.titleLabel?.font = .NOI.caption1Semibold
+            filtersButton.titleLabel?.font = .NOI.dynamic.caption1Semibold
             filtersButton.layer.cornerRadius = 2
         }
     }

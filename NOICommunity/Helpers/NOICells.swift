@@ -18,7 +18,7 @@ extension UIListContentConfiguration {
             trailing: 17
         )
         contentConfiguration.textProperties.color = .noiSecondaryColor
-        contentConfiguration.textProperties.font = .NOI.bodySemibold
+        contentConfiguration.textProperties.font = .NOI.dynamic.bodySemibold
         contentConfiguration.textProperties.numberOfLines = 0
         contentConfiguration.textProperties.adjustsFontForContentSizeCategory = true
         return contentConfiguration
@@ -33,7 +33,7 @@ extension UIListContentConfiguration {
             trailing: 17
         )
         contentConfiguration.textProperties.color = .noiSecondaryColor
-        contentConfiguration.textProperties.font = .NOI.bodyRegular
+        contentConfiguration.textProperties.font = .NOI.dynamic.bodyRegular
         contentConfiguration.textProperties.numberOfLines = 0
         contentConfiguration.textProperties.adjustsFontForContentSizeCategory = true
         return contentConfiguration
@@ -48,7 +48,7 @@ extension UIListContentConfiguration {
             trailing: 17
         )
         contentConfiguration.textProperties.color = .noiSecondaryColor
-        contentConfiguration.textProperties.font = .NOI.bodySemibold
+        contentConfiguration.textProperties.font = .NOI.dynamic.bodySemibold
         contentConfiguration.textProperties.numberOfLines = 0
         contentConfiguration.textProperties.adjustsFontForContentSizeCategory = true
         return contentConfiguration
@@ -64,12 +64,12 @@ extension UIListContentConfiguration {
         )
         
         contentConfiguration.textProperties.color = .noiSecondaryColor
-        contentConfiguration.textProperties.font = .NOI.caption1Semibold
+        contentConfiguration.textProperties.font = .NOI.dynamic.caption1Semibold
         contentConfiguration.textProperties.numberOfLines = 0
         contentConfiguration.textProperties.adjustsFontForContentSizeCategory = true
         
         contentConfiguration.secondaryTextProperties.color = .noiSecondaryColor
-        contentConfiguration.secondaryTextProperties.font = .NOI.subheadlineRegular
+        contentConfiguration.secondaryTextProperties.font = .NOI.dynamic.subheadlineRegular
         contentConfiguration.secondaryTextProperties.numberOfLines = 0
         contentConfiguration.secondaryTextProperties.adjustsFontForContentSizeCategory = true
         
@@ -86,7 +86,7 @@ extension UIListContentConfiguration {
         )
         
         contentConfiguration.textProperties.color = .noiSecondaryColor
-        contentConfiguration.textProperties.font = .NOI.bodySemibold
+        contentConfiguration.textProperties.font = .NOI.dynamic.bodySemibold
         contentConfiguration.textProperties.numberOfLines = 0
         contentConfiguration.textProperties.adjustsFontForContentSizeCategory = true
         return contentConfiguration

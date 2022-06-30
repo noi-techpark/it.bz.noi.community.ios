@@ -15,19 +15,19 @@ class PersonCardContentView: UIView, UIContentView {
     
     @IBOutlet var avatarPlaceHolderLabel: UILabel! {
         didSet {
-            avatarPlaceHolderLabel.font = .NOI.bodySemibold
+            avatarPlaceHolderLabel.font = .NOI.dynamic.bodySemibold
         }
     }
     
     @IBOutlet var fullnameLabel: UILabel! {
         didSet {
-            fullnameLabel.font = .NOI.footnoteSemibold
+            fullnameLabel.font = .NOI.dynamic.footnoteSemibold
         }
     }
     
     @IBOutlet var companyLabel: UILabel! {
         didSet {
-            companyLabel.font = .NOI.bodyRegular
+            companyLabel.font = .NOI.dynamic.bodyRegular
         }
     }
     
@@ -115,7 +115,9 @@ struct PersonCardContentConfiguration: UIContentConfiguration, Hashable {
     var fullnameAttributedText: NSAttributedString?
     
     /// Properties for configuring the fullname text.
-    var fullnameTextProprieties = ContentConfiguration.TextProperties()
+    var fullnameTextProprieties = ContentConfiguration.TextProperties(
+        font: .NOI.dynamic.footnoteSemibold
+    )
     
     /// The published date text.
     var company: String?
@@ -124,7 +126,9 @@ struct PersonCardContentConfiguration: UIContentConfiguration, Hashable {
     var companyAttributedText: NSAttributedString?
     
     /// Properties for configuring the published date text.
-    var companyTextProprieties = ContentConfiguration.TextProperties()
+    var companyTextProprieties = ContentConfiguration.TextProperties(
+        font: .NOI.dynamic.bodyRegular
+    )
     
     /// The primary avatar's text.
     var avatarText: String?
@@ -133,7 +137,9 @@ struct PersonCardContentConfiguration: UIContentConfiguration, Hashable {
     var avatarAttributedText: NSAttributedString?
     
     /// Properties for configuring the avatar text.
-    var avatarTextProprieties = ContentConfiguration.TextProperties()
+    var avatarTextProprieties = ContentConfiguration.TextProperties(
+        font: .NOI.fixed.bodySemibold
+    )
     
     func makeContentView() -> UIView & UIContentView {
         return PersonCardContentView(configuration: self)

@@ -30,6 +30,7 @@
                     <rect key="frame" x="17" y="0.0" width="40" height="40"/>
                     <color key="backgroundColor" name="background_color"/>
                     <constraints>
+                        <constraint firstAttribute="height" constant="40" id="H17-yK-xJi"/>
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="40" id="hEA-8p-VAW"/>
                     </constraints>
                     <color key="tintColor" name="primary_color"/>

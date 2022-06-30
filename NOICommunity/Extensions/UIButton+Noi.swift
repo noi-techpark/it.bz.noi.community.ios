@@ -134,7 +134,7 @@ extension UIButton {
             .withMaximumHeight(150)
             .withTextAligment(.center)
             .withDynamicType(numberOfLines: numberOfLines)
-            .withFont(.NOI.bodySemibold)
+            .withFont(.NOI.dynamic.bodySemibold)
     }
     
     @discardableResult func configureAsPrimaryActionButton()  -> UIButton {

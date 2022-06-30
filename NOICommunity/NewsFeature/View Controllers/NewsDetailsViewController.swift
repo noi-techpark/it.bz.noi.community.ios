@@ -34,25 +34,25 @@ class NewsDetailsViewController: UIViewController {
     
     @IBOutlet private var authorLabel: UILabel! {
         didSet {
-            authorLabel.font = .NOI.footnoteSemibold
+            authorLabel.font = .NOI.dynamic.footnoteSemibold
         }
     }
     
     @IBOutlet private var publishedDateLabel: UILabel! {
         didSet {
-            publishedDateLabel.font = .NOI.bodyRegular
+            publishedDateLabel.font = .NOI.dynamic.bodyRegular
         }
     }
     
     @IBOutlet private var titleLabel: UILabel! {
         didSet {
-            titleLabel.font = .NOI.footnoteSemibold
+            titleLabel.font = .NOI.dynamic.footnoteSemibold
         }
     }
     
     @IBOutlet private var abstractLabel: UILabel! {
         didSet {
-            abstractLabel.font = .NOI.bodyRegular
+            abstractLabel.font = .NOI.dynamic.bodyRegular
         }
     }
     

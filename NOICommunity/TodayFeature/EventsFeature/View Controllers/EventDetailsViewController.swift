@@ -58,14 +58,14 @@ class EventDetailsViewController: UIViewController {
     
     @IBOutlet private var aboutLabel: UILabel! {
         didSet {
-            aboutLabel.font = .NOI.headlineSemibold
+            aboutLabel.font = .NOI.dynamic.headlineSemibold
             aboutLabel.text = .localized("label_about")
         }
     }
     
     @IBOutlet private var descriptionTextView: UITextView! {
         didSet {
-            descriptionTextView.font = .NOI.bodyRegular
+            descriptionTextView.font = .NOI.dynamic.bodyRegular
             descriptionTextView.textContainerInset = .zero
             descriptionTextView.textContainer.lineFragmentPadding = 0
             descriptionTextView.linkTextAttributes = [
@@ -86,7 +86,7 @@ class EventDetailsViewController: UIViewController {
     
     @IBOutlet private var relatedEventsLabel: UILabel! {
         didSet {
-            relatedEventsLabel.font = .NOI.headlineSemibold
+            relatedEventsLabel.font = .NOI.dynamic.headlineSemibold
             relatedEventsLabel.text = .localized("label_interesting_for_you")
         }
     }

@@ -15,13 +15,13 @@ final class AuthWelcomePageViewController: UIViewController {
 
     @IBOutlet var textLabel: UILabel! {
         didSet {
-            textLabel.font = .NOI.headlineSemibold
+            textLabel.font = .NOI.dynamic.headlineSemibold
         }
     }
     
     @IBOutlet var detailedTextLabel: UILabel! {
         didSet {
-            detailedTextLabel.font = .NOI.bodyRegular
+            detailedTextLabel.font = .NOI.dynamic.bodyRegular
         }
     }
     

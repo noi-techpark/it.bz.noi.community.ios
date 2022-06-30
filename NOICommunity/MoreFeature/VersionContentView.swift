@@ -21,11 +21,7 @@ class VersionContentView: UIView, UIContentView {
         }
     }
 
-    @IBOutlet var textLabel: UILabel! {
-        didSet {
-            textLabel.font = .NOI.caption1Regular
-        }
-    }
+    @IBOutlet var textLabel: UILabel!
 
     private var currentConfiguration: VersionContentConfiguration!
     var configuration: UIContentConfiguration {
@@ -116,7 +112,9 @@ struct VersionContentConfiguration: UIContentConfiguration {
     var attributedVersion: NSAttributedString?
     
     /// Properties for configuring the primary text.
-    var textProprieties = ContentConfiguration.TextProperties()
+    var textProprieties = ContentConfiguration.TextProperties(
+        font: .NOI.dynamic.caption1Regular
+    )
     
     func makeContentView() -> UIView & UIContentView {
         return VersionContentView(configuration: self)
