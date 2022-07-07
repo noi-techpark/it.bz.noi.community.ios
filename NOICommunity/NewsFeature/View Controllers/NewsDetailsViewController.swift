@@ -92,7 +92,8 @@ class NewsDetailsViewController: UIViewController {
     }
     
     private lazy var galleryVC = GalleryCollectionViewController(
-        imageSize: CGSize(width: 170, height: 210),
+        imageSize: CGSize(width: 315, height: 210),
+        spacing: 17,
         placeholderImage: .image(withColor: .noiPlaceholderImageColor)
     )
     

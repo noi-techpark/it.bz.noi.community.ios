@@ -21,17 +21,20 @@ class GalleryCollectionViewController: UICollectionViewController {
             update(imageURL: imageURLs, animated: isOnScreen)
         }
     }
-    
+        
     let imageSize: CGSize
+    let spacing: CGFloat
     let placeholderImage: UIImage?
     
     init(
         imageURL: [URL] = [],
         imageSize: CGSize,
+        spacing: CGFloat,
         placeholderImage: UIImage? = nil
     ) {
         self.imageURLs = imageURL
         self.imageSize = imageSize
+        self.spacing = spacing
         self.placeholderImage = placeholderImage
         super.init(collectionViewLayout: UICollectionViewFlowLayout())
     }
@@ -79,11 +82,15 @@ private extension GalleryCollectionViewController {
     func configureCollectionView() {
         collectionView.backgroundColor = .clear
         collectionView.collectionViewLayout = Self.createLayout(
-            imageSize: imageSize
+            imageSize: imageSize,
+            spacing: spacing
         )
     }
 
-    static func createLayout(imageSize: CGSize) -> UICollectionViewLayout {
+    static func createLayout(
+        imageSize: CGSize,
+        spacing: CGFloat
+    ) -> UICollectionViewLayout {
         let layout = UICollectionViewCompositionalLayout { sectionIndex, _ in
             let itemSize = NSCollectionLayoutSize(
                 widthDimension: .estimated(imageSize.width),
@@ -99,7 +106,7 @@ private extension GalleryCollectionViewController {
             )
 
             let section = NSCollectionLayoutSection(group: group)
-            section.interGroupSpacing = 7
+            section.interGroupSpacing = spacing
             section.orthogonalScrollingBehavior = .groupPaging
             return section
         }
