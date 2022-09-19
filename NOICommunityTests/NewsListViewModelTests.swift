@@ -24,7 +24,7 @@ class NewsListViewModelTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
     
-    func testExample() throws {
+    func testPagination() throws {
         let newsPublisher = viewModel.$newsIds
             .collectNext(1)
         
@@ -33,14 +33,30 @@ class NewsListViewModelTests: XCTestCase {
         viewModel.fetchNews()
         result += try awaitPublisher(newsPublisher)
         
+        if viewModel.hasNextPage {
+            viewModel.fetchNews()
+            result += try awaitPublisher(newsPublisher)
+            
+            viewModel.fetchNews(refresh: true)
+            result += try awaitPublisher(newsPublisher)
+            
+            XCTAssertNotEqual(result[0], result[1])
+        }
+    }
+    
+    func testRefresh() throws {
+        let newsPublisher = viewModel.$newsIds
+            .collectNext(1)
+        
+        var result: [[String]] = []
+        
         viewModel.fetchNews()
         result += try awaitPublisher(newsPublisher)
         
         viewModel.fetchNews(refresh: true)
         result += try awaitPublisher(newsPublisher)
         
-        XCTAssertNotEqual(result[0], result[1])
-        XCTAssertEqual(result[0], result[2])
+        XCTAssertEqual(result[0], result[1])
     }
     
 }
