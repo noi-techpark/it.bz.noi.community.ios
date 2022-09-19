@@ -30,7 +30,13 @@ extension EventCardContentConfiguration {
 
         var contentConfiguration = EventCardContentConfiguration()
         
-        contentConfiguration.text = item.title ?? .notDefined
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.minimumLineHeight = 30
+        contentConfiguration.attributedText = NSAttributedString(
+            string: item.title ?? .notDefined,
+            attributes: [.paragraphStyle: paragraphStyle]
+        )
+        contentConfiguration.textProprieties.font = .NOI.dynamic.title0Semibold
         
         contentConfiguration.leadingSecondaryText = item.venue ?? .notDefined
         
@@ -47,16 +53,25 @@ extension EventCardContentConfiguration {
     }
     
     static func makeDetailedContentConfiguration(
-        for event: Event,
+        for item: Event,
         dayMonthIntervalFormatter: DateIntervalFormatter = .dayMonth(),
         timeIntervalFormatter: DateIntervalFormatter = .time()
     ) -> EventCardContentConfiguration {
         var contentConfiguration = makeContentConfiguration(
-            for: event,
+            for: item,
                dayMonthIntervalFormatter: dayMonthIntervalFormatter,
                timeIntervalFormatter: timeIntervalFormatter
         )
-        contentConfiguration.tertiaryText = event.organizer ?? .notDefined
+        
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.minimumLineHeight = 45
+        contentConfiguration.attributedText = NSAttributedString(
+            string: item.title ?? .notDefined,
+            attributes: [.paragraphStyle: paragraphStyle]
+        )
+        contentConfiguration.textProprieties.font = .NOI.dynamic.title1Semibold
+        
+        contentConfiguration.tertiaryText = item.organizer ?? .notDefined
         
         return contentConfiguration
     }
