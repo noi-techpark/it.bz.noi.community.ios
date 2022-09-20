@@ -255,7 +255,7 @@ private extension MeetMainViewController.CollectionViewController {
         let layout = UICollectionViewCompositionalLayout { sectionIndex, layoutEnvironment in
             let columns = self.columnCount(for: layoutEnvironment)
             
-            let estimatedHeight = NSCollectionLayoutDimension.estimated(84)
+            let estimatedHeight = NSCollectionLayoutDimension.estimated(85)
             let itemSize = NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1.0),
                 heightDimension: estimatedHeight
