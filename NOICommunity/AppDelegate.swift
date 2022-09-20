@@ -142,6 +142,7 @@ private extension AppDelegate {
         UINavigationBar.appearance().standardAppearance = navBarAppearance
         UINavigationBar.appearance().scrollEdgeAppearance = navBarAppearance
         UINavigationBar.appearance().compactAppearance = navBarAppearance
+        UINavigationBar.appearance().tintColor = UIColor.noiPrimaryColor
         
         let button = UIBarButtonItemAppearance()
         button.normal.titleTextAttributes = [
@@ -200,7 +201,8 @@ private extension AppDelegate {
         UISearchTextField.appearance().defaultTextAttributes = [
             .font: UIFont.NOI.dynamic.subheadlineRegular
         ]
-        UISearchTextField.appearance().adjustsFontForContentSizeCategory = true    }
+        UISearchTextField.appearance().adjustsFontForContentSizeCategory = true
+    }
     
     func handle(launchOptions: [UIApplication.LaunchOptionsKey: Any]?) {
         if let notificationPayload = launchOptions?[.remoteNotification] as? [AnyHashable : Any] {
