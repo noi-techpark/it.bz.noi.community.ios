@@ -150,6 +150,10 @@ extension UIFont {
                 .noiPreferredSemiboldFont(forTextStyle: .headline, withFontSize: 25)
             }
             
+            static var title0Semibold: UIFont {
+                .noiPreferredSemiboldFont(forTextStyle: .title1, withFontSize: 25)
+            }
+            
             static var title1Semibold: UIFont {
                 .noiPreferredSemiboldFont(forTextStyle: .title1, withFontSize: 40)
             }
