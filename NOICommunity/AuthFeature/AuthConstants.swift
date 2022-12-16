@@ -13,7 +13,7 @@ enum AuthConstant {
 #if TESTINGMACHINE_OAUTH
         return URL(string: "https://auth.opendatahub.testingmachine.eu/auth/realms/noi/")!
 #else
-        return URL(string: "https://auth.opendatahub.bz.it/auth/realms/noi/")!
+        return URL(string: "https://auth.opendatahub.com/auth/realms/noi/")!
 #endif
     }()
     
