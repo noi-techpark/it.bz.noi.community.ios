@@ -1,3 +1,9 @@
+<!--
+SPDX-FileCopyrightText: NOI Techpark <digital@noi.bz.it>
+
+SPDX-License-Identifier: CC0-1.0
+-->
+
 # NOI Community App for iOS
 
 [![CI](https://github.com/noi-techpark/it.bz.noi.community.ios/actions/workflows/main.yml/badge.svg)](https://github.com/noi-techpark/it.bz.noi.community.ios/actions/workflows/main.yml)

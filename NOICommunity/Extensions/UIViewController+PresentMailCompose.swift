@@ -1,10 +1,7 @@
+// Copyright © 2022 DIMENSION S.r.l. All rights reserved.
+// SPDX-FileCopyrightText: NOI Techpark <digital@noi.bz.it>
 //
-//  UIViewController+PresentMailCompose.swift
-//  NOICommunity
-//
-//  Created by Matteo Matassoni on 16/05/2022.
-//  Copyright © 2022 DIMENSION S.r.l. All rights reserved.
-//
+// SPDX-License-Identifier: AGPL-3.0-or-later
 
 import UIKit
 import MessageUI

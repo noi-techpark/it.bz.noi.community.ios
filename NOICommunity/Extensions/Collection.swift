@@ -1,10 +1,7 @@
+// Copyright © 2019 DIMENSION S.r.l. All rights reserved.
+// SPDX-FileCopyrightText: NOI Techpark <digital@noi.bz.it>
 //
-//  Collection.swift
-//  NOICommunity
-//
-//  Created by Matteo Matassoni on 21/09/2021.
-//  Copyright © 2019 DIMENSION S.r.l. All rights reserved.
-//
+// SPDX-License-Identifier: AGPL-3.0-or-later
 
 extension Optional where Wrapped: Collection {
     var isNilOrEmpty: Bool {

@@ -1,10 +1,8 @@
+// Copyright © 2019 hucet. All rights reserved.
+// SPDX-FileCopyrightText: NOI Techpark <digital@noi.bz.it>
 //
-//  InteractiveTransition.swift
-//  ViewTransition
-//
-//  Created by tskim on 24/08/2019.
-//  Copyright © 2019 hucet. All rights reserved.
-//
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
 import UIKit
 
 internal class InteractiveTransition: NSObject, UIViewControllerInteractiveTransitioning {
