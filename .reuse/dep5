@@ -3,6 +3,6 @@ Upstream-Name: it.bz.noi.community.ios
 Upstream-Contact: NOI Techpark <digital@noi.bz.it>
 Source: https://github.com/noi-techpark/it.bz.noi.community.ios
 
-Files: .github/* .gitignore NOICommunity.playground/contents.xcplayground NOICommunity/LaunchScreen.storyboard NOICommunityLib/.gitignore NOICommunityLib/Package.resolved LICENSE .editorconfig *.plist NOICommunity.xcodeproj/* NOICommunity/*.entitlements NOICommunity/**/*.xib NOICommunity/EventShortTypes.json NOICommunity/Colors.xcassets/* NOICommunity/*.lproj/* NOICommunity/Fonts/Source_Sans_Pro/* NOICommunity/Images.xcassets NOICommunity/IntroFeature/NOI_begins-with-you_Animation_black_short.mp4 NOICommunity/Photos.xcassets/*
+Files: .github/* .gitignore .pre-commit-config.yaml NOICommunity.playground/contents.xcplayground NOICommunity/LaunchScreen.storyboard NOICommunityLib/.gitignore NOICommunityLib/Package.resolved LICENSE .editorconfig *.plist NOICommunity.xcodeproj/* NOICommunity/*.entitlements NOICommunity/**/*.xib NOICommunity/EventShortTypes.json NOICommunity/Colors.xcassets/* NOICommunity/*.lproj/* NOICommunity/Fonts/Source_Sans_Pro/* NOICommunity/Images.xcassets NOICommunity/IntroFeature/NOI_begins-with-you_Animation_black_short.mp4 NOICommunity/Photos.xcassets/*
 Copyright: (c) NOI Techpark <digital@noi.bz.it>
 License: CC0-1.0
