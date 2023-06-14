@@ -43,7 +43,7 @@ To build the project, the following prerequisites must be met:
 
 1. Xcode 12 (downloadable from https://developer.apple.com/xcode/resources/)
 2. Be a member of NOI SPA Apple Developer Team (if you want to run the app and tests on your device)
-   (write a mail to [help@opendatahub.bz.it](mailto:help@opendatahub.bz.it), if you need access)
+   (write a mail to [help@opendatahub.com](mailto:help@opendatahub.com), if you need access)
 
 ### Source code
 
@@ -107,7 +107,7 @@ and add the newest build there.
 
 ### Support
 
-For support, please contact [help@opendatahub.bz.it](mailto:help@opendatahub.bz.it).
+For support, please contact [help@opendatahub.com](mailto:help@opendatahub.com).
 
 ### Contributing
 
