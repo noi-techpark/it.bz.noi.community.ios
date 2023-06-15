@@ -200,7 +200,7 @@ private extension Event {
             let nonOptImageURL = imageURL,
             case "http" = nonOptImageURL.scheme {
             var urlComponents = URLComponents(
-                string: "https://images.opendatahub.bz.it/api/Image/GetImageByURL"
+                string: "https://images.opendatahub.com/api/Image/GetImageByURL"
             )!
             urlComponents.queryItems = [URLQueryItem(
                 name: "imageurl",

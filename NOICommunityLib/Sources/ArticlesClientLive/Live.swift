@@ -18,7 +18,7 @@ import Endpoint
 
 // MARK: - Private Constants
 
-private let baseURL = URL(string: "https://tourism.opendatahub.bz.it")!
+private let baseURL = URL(string: "https://tourism.opendatahub.com")!
 private let articlesJsonDecoder: JSONDecoder = {
     let jsonDecoder = JSONDecoder()
     

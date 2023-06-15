@@ -18,7 +18,7 @@ import EventShortTypesClient
 
 // MARK: - Private Constants
 
-private let baseUrl = URL(string: "https://tourism.opendatahub.bz.it")!
+private let baseUrl = URL(string: "https://tourism.opendatahub.com")!
 private let jsonDecoder: JSONDecoder = {
     let jsonDecoder = JSONDecoder()
     jsonDecoder.keyDecodingStrategy = .convertFromPascalCase
