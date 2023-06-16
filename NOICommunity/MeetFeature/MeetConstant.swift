@@ -17,7 +17,7 @@ enum MeetConstant {
 #if TESTINGMACHINE_OAUTH
         return URL(string: "https://api.community.noi.testingmachine.eu")!
 #else
-        return URL(string: "https://api.community.noi.opendatahub.bz.it")!
+        return URL(string: "https://api.community.noi.opendatahub.com")!
 #endif
     }()
     
