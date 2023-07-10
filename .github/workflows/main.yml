@@ -4,7 +4,7 @@ jobs:
 
   ## Test on latest MacOS
   test:
-    runs-on: macos-11
+    runs-on: macos-13
     steps:
 
       - name: Checkout the code
