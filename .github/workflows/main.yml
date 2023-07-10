@@ -25,8 +25,6 @@ jobs:
           set -eo pipefail
           xcodebuild clean test \
             -scheme NOICommunity \
-            -destination 'platform=iOS Simulator,OS=15.0,name=iPhone 13' \
-            IPHONEOS_DEPLOYMENT_TARGET='15.0' \
           | xcpretty
 
   ## Deploy to TestFlight
