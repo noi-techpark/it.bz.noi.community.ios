@@ -25,6 +25,8 @@ jobs:
           set -eo pipefail
           xcodebuild clean test \
             -scheme NOICommunity \
+            -destination 'platform=iOS Simulator,OS=16.2,name=iPhone 14' \
+            IPHONEOS_DEPLOYMENT_TARGET='16.2' \
           | xcpretty
 
   ## Deploy to TestFlight
