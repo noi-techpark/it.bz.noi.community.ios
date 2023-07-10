@@ -10,13 +10,6 @@ jobs:
       - name: Checkout the code
         uses: actions/checkout@v2
 
-      #   # List possible Xcode versions
-      # - name: Force Xcode versions
-      #   run: sudo ls /Applications/*xcode*
-
-      # See https://xcodereleases.com/ for details (we choose the latest Release)
-      # - name: Force XCode 13.0.0
-      #   run: sudo xcode-select -switch /Applications/Xcode_13.0.app
 
       - name: Mock GoogleService-Info.plist
         run: mv NOICommunity/GoogleService-Info_mock.plist NOICommunity/GoogleService-Info.plist
@@ -47,18 +40,6 @@ jobs:
       - name: Checkout the code
         uses: actions/checkout@v2
 
-      # See https://xcodereleases.com/ for details (we choose the latest Release, available on macos-latest)
-      - name: Force XCode 13.0.0
-        run: sudo xcode-select -switch /Applications/Xcode_13.0.app
-
-      - name: Resolve package dependencies
-        run: xcodebuild -resolvePackageDependencies
-
-      - name: Inject GoogleService-Info.plist
-        env:
-          GOOGLE_SERVICE_INFO_PLIST: ${{ secrets.GOOGLE_SERVICE_INFO_PLIST }}
-        run: echo "$GOOGLE_SERVICE_INFO_PLIST" > NOICommunity/GoogleService-Info.plist
-
       - name: Install the Apple certificate and provisioning profile
         env: 
           BUILD_CERTIFICATE_BASE64: ${{ secrets.IOS_BUILD_CERTIFICATE_BASE64 }}
@@ -84,6 +65,15 @@ jobs:
           # apply provisioning profile
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
           cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
+
+
+      - name: Resolve package dependencies
+        run: xcodebuild -resolvePackageDependencies
+
+      - name: Inject GoogleService-Info.plist
+        env:
+          GOOGLE_SERVICE_INFO_PLIST: ${{ secrets.GOOGLE_SERVICE_INFO_PLIST }}
+        run: echo "$GOOGLE_SERVICE_INFO_PLIST" > NOICommunity/GoogleService-Info.plist
 
       - name: Increment build number
         run: |
