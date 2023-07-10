@@ -15,8 +15,8 @@ jobs:
       #   run: sudo ls /Applications/*xcode*
 
       # See https://xcodereleases.com/ for details (we choose the latest Release)
-      - name: Force XCode 13.0.0
-        run: sudo xcode-select -switch /Applications/Xcode_13.0.app
+      # - name: Force XCode 13.0.0
+      #   run: sudo xcode-select -switch /Applications/Xcode_13.0.app
 
       - name: Mock GoogleService-Info.plist
         run: mv NOICommunity/GoogleService-Info_mock.plist NOICommunity/GoogleService-Info.plist
