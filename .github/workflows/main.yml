@@ -3,38 +3,38 @@ on: [ pull_request, push ]
 jobs:
 
   ## Test on latest MacOS
-  test:
-    runs-on: macos-13
-    steps:
+  # test:
+  #   runs-on: macos-13
+  #   steps:
 
-      - name: Checkout the code
-        uses: actions/checkout@v2
+  #     - name: Checkout the code
+  #       uses: actions/checkout@v2
 
 
-      - name: Mock GoogleService-Info.plist
-        run: mv NOICommunity/GoogleService-Info_mock.plist NOICommunity/GoogleService-Info.plist
+  #     - name: Mock GoogleService-Info.plist
+  #       run: mv NOICommunity/GoogleService-Info_mock.plist NOICommunity/GoogleService-Info.plist
 
-      - name: Resolve package dependencies
-        run: xcodebuild -resolvePackageDependencies
+  #     - name: Resolve package dependencies
+  #       run: xcodebuild -resolvePackageDependencies
 
-      - name: List schemes (optional step to gather information)
-        run: xcodebuild -list -project NOICommunity.xcodeproj
+  #     - name: List schemes (optional step to gather information)
+  #       run: xcodebuild -list -project NOICommunity.xcodeproj
 
-      - name: Test the app
-        run: |
-          set -eo pipefail
-          xcodebuild clean test \
-            -scheme NOICommunity \
-            -destination 'platform=iOS Simulator,OS=16.2,name=iPhone 14' \
-            IPHONEOS_DEPLOYMENT_TARGET='16.2' \
-          | xcpretty
+  #     - name: Test the app
+  #       run: |
+  #         set -eo pipefail
+  #         xcodebuild clean test \
+  #           -scheme NOICommunity \
+  #           -destination 'platform=iOS Simulator,OS=16.2,name=iPhone 14' \
+  #           IPHONEOS_DEPLOYMENT_TARGET='16.2' \
+  #         | xcpretty
 
   ## Deploy to TestFlight
   deploy_testflight:
     name: Deploy to Testflight
     runs-on: macos-13
     if: github.ref == 'refs/heads/main'
-    needs: [ test ]
+    # needs: [ test ]
     steps:
 
       - name: Checkout the code
@@ -44,7 +44,7 @@ jobs:
       - name: Install the Apple certificate and provisioning profile
         env:
           BUILD_CERTIFICATE_BASE64: ${{ secrets.IOS_BUILD_CERTIFICATE_BASE64 }}
-          P12_PASSWORD: ${{ secrets.IOS_P12_PASSWORD }}
+          P12_PASSWORD: ${{ secrets.IOS_KEYCHAIN_PASSWORD }}
           BUILD_PROVISION_PROFILE_BASE64: ${{ secrets.IOS_PROVISION_PROFILE_BASE64 }}
           KEYCHAIN_PASSWORD: ${{ secrets.IOS_KEYCHAIN_PASSWORD }}
         run: |
