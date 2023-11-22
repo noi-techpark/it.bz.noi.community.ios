@@ -30,12 +30,10 @@ extension Endpoint {
         pageNumber: Int?
     ) -> Endpoint {
         Self(path: "/v1/Article") {
-            if let startDateString = dateFormatter.string(from: startDate) {
-                URLQueryItem(
-                    name: "startDate",
-                    value: startDateString
-                )
-            }
+            URLQueryItem(
+                name: "startDate",
+                value: dateFormatter.string(from: startDate)
+            )
             
             if let pageSize = pageSize {
                 URLQueryItem(

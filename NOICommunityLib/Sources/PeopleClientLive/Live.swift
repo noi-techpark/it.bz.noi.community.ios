@@ -30,10 +30,10 @@ extension PeopleClient {
                     "Authorization": "Bearer \(accessToken)",
                     "Accept": "application/json"
                 ]
-                
+
                 return urlSession
                     .dataTaskPublisher(for: urlRequest)
-                    .map { data, _ in data }
+                    .map(\.data)
                     .decode(
                         type: PeopleResponse.self,
                         decoder: JSONDecoder()
@@ -51,7 +51,7 @@ extension PeopleClient {
                 
                 return urlSession
                     .dataTaskPublisher(for: urlRequest)
-                    .map { data, _ in data }
+                    .map(\.data)
                     .decode(
                         type: CompanyResponse.self,
                         decoder: JSONDecoder()

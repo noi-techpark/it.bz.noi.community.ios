@@ -77,7 +77,7 @@ extension EventShortClient {
                 
                 return urlSession
                     .dataTaskPublisher(for: urlComponents.url!)
-                    .map { data, _ in data }
+                    .map(\.data)
                     .decode(
                         type: EventShortListResponse.self,
                         decoder: eventsJsonDecoder
@@ -96,7 +96,7 @@ extension EventShortClient {
                 
                 return URLSession.shared
                     .dataTaskPublisher(for: urlComponents.url!)
-                    .map { data, _ in data }
+                    .map(\.data)
                     .decode(
                         type: [String:String].self,
                         decoder: eventsJsonDecoder
