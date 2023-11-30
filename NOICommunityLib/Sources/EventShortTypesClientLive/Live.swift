@@ -34,7 +34,7 @@ extension EventShortTypesClient {
             filters: {
                 urlSession
                     .dataTaskPublisher(for: requestURL())
-                    .map { data, _ in data }
+                    .map(\.data)
                     .decode(
                         type: [EventsFilter].self,
                         decoder: jsonDecoder
