@@ -36,7 +36,6 @@
 		31178FE026FA318800BDCDAA /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31178FDF26FA318800BDCDAA /* Collection.swift */; };
 		311E0EC62825157800404DCE /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 311E0EC52825157800404DCE /* FirebaseMessaging */; };
 		3121AFDE2858B43A00248CDF /* MeetMainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3121AFDD2858B43A00248CDF /* MeetMainViewController.xib */; };
-		3122EA5127DB6FF7007E89E6 /* SwiftCache in Frameworks */ = {isa = PBXBuildFile; productRef = 3122EA5027DB6FF7007E89E6 /* SwiftCache */; };
 		312BBB5B2832658600AF84F0 /* UIViewController+PresentMailCompose.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312BBB5A2832658600AF84F0 /* UIViewController+PresentMailCompose.swift */; };
 		312D29D8270451B600F4F4E7 /* ImageCardContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312D29D7270451B600F4F4E7 /* ImageCardContentView.swift */; };
 		312F5D272808250000C84598 /* AuthWelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312F5D262808250000C84598 /* AuthWelcomeViewController.swift */; };
@@ -104,6 +103,7 @@
 		317EC889283BB83E00F30B95 /* PeopleClient in Frameworks */ = {isa = PBXBuildFile; productRef = 317EC888283BB83E00F30B95 /* PeopleClient */; };
 		317EC88B283BB83E00F30B95 /* PeopleClientLive in Frameworks */ = {isa = PBXBuildFile; productRef = 317EC88A283BB83E00F30B95 /* PeopleClientLive */; };
 		317F74FA27D8B5610084E619 /* CircleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317F74F927D8B5610084E619 /* CircleButton.swift */; };
+		3181B9212B1E12BD000D2A0F /* Core in Frameworks */ = {isa = PBXBuildFile; productRef = 3181B9202B1E12BD000D2A0F /* Core */; };
 		3182A177282CEFB7005439B4 /* NewsCardContentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3182A176282CE550005439B4 /* NewsCardContentView.xib */; };
 		3182A178282CEFB7005439B4 /* NewsCardContentConfiguration.SharedConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3182A175282CE550005439B4 /* NewsCardContentConfiguration.SharedConfig.swift */; };
 		3182A179282CEFB7005439B4 /* NewsCardContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3182A174282CE550005439B4 /* NewsCardContentView.swift */; };
@@ -433,12 +433,12 @@
 				31CE9BF62701BF33005EA61A /* Kingfisher in Frameworks */,
 				3182F4A227DB3841005ADDAF /* AppPreferencesClient in Frameworks */,
 				3182F4A627DB3841005ADDAF /* EventShortClient in Frameworks */,
+				3181B9212B1E12BD000D2A0F /* Core in Frameworks */,
 				3182F4AA27DB3841005ADDAF /* EventShortTypesClient in Frameworks */,
 				31E058F22812F18800D1F7FE /* KeychainAccess in Frameworks */,
 				319C4653282BB32400946AC7 /* ArticlesClient in Frameworks */,
 				3182F4A427DB3841005ADDAF /* AppPreferencesClientLive in Frameworks */,
 				319C4655282BB32400946AC7 /* ArticlesClientLive in Frameworks */,
-				3122EA5127DB6FF7007E89E6 /* SwiftCache in Frameworks */,
 				3182F4A827DB3841005ADDAF /* EventShortClientLive in Frameworks */,
 				317B6F9C28118BD6008D07C0 /* AuthClient in Frameworks */,
 				3182F4AC27DB3841005ADDAF /* EventShortTypesClientLive in Frameworks */,
@@ -1017,7 +1017,6 @@
 				3182F4A727DB3841005ADDAF /* EventShortClientLive */,
 				3182F4A927DB3841005ADDAF /* EventShortTypesClient */,
 				3182F4AB27DB3841005ADDAF /* EventShortTypesClientLive */,
-				3122EA5027DB6FF7007E89E6 /* SwiftCache */,
 				31EF82582810517600EBE5F0 /* AppAuth */,
 				317B6F9B28118BD6008D07C0 /* AuthClient */,
 				317B6F9D28118BD6008D07C0 /* AuthClientLive */,
@@ -1028,6 +1027,7 @@
 				319C4654282BB32400946AC7 /* ArticlesClientLive */,
 				317EC888283BB83E00F30B95 /* PeopleClient */,
 				317EC88A283BB83E00F30B95 /* PeopleClientLive */,
+				3181B9202B1E12BD000D2A0F /* Core */,
 			);
 			productName = NOICommunity;
 			productReference = 3145D22D26B3F73F00F16787 /* NOICommunity.app */;
@@ -2000,10 +2000,6 @@
 			package = 311E0EC42825157800404DCE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseMessaging;
 		};
-		3122EA5027DB6FF7007E89E6 /* SwiftCache */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = SwiftCache;
-		};
 		317B6F9B28118BD6008D07C0 /* AuthClient */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = AuthClient;
@@ -2019,6 +2015,10 @@
 		317EC88A283BB83E00F30B95 /* PeopleClientLive */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = PeopleClientLive;
+		};
+		3181B9202B1E12BD000D2A0F /* Core */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Core;
 		};
 		3182F4A127DB3841005ADDAF /* AppPreferencesClient */ = {
 			isa = XCSwiftPackageProductDependency;

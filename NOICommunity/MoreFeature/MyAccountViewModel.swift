@@ -12,7 +12,7 @@
 import Foundation
 import Combine
 import AuthClient
-import SwiftCache
+import Core
 
 // MARK: - MyAccountViewModel
 

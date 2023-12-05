@@ -11,10 +11,8 @@
 
 import Foundation
 import Combine
-import PascalJSONDecoder
-import DecodeEmptyRepresentable
+import Core
 import ArticlesClient
-import Endpoint
 
 // MARK: - Private Constants
 

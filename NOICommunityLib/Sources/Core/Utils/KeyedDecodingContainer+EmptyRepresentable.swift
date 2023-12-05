@@ -4,7 +4,7 @@
 
 //
 //  KeyedDecodingContainer+EmptyRepresentable.swift
-//  DecodeEmptyRepresentable
+//  Core
 //
 //  Created by Matteo Matassoni on 16/09/21.
 //

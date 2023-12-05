@@ -4,14 +4,12 @@
 
 //
 //  Endpoint+QueryBuilder.swift
-//  EndpointWithQueryBuilder
+//  Core
 //
 //  Created by Matteo Matassoni on 11/05/22.
 //
 
 import Foundation
-import Endpoint
-import ArrayBuilder
 
 extension Endpoint {
     

@@ -10,8 +10,7 @@
 //
 
 import Foundation
-import Endpoint
-import EndpointWithQueryBuilder
+import Core
 
 extension Endpoint {
     

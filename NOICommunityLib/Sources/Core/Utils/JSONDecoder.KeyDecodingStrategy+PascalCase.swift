@@ -4,7 +4,7 @@
 
 //
 //  JSONDecoder.KeyDecodingStrategy+PascalCase.swift
-//  PascalJSONDecoder
+//  Core
 //
 //  Created by Matteo Matassoni on 23/02/22.
 //

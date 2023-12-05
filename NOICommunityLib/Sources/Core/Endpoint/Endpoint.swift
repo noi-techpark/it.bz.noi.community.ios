@@ -4,7 +4,7 @@
 
 //
 //  Endpoint.swift
-//  TofaneSDK
+//  Core
 //
 //  Created by Matteo Matassoni on 04/08/21.
 //

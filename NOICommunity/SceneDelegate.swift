@@ -16,7 +16,7 @@ import EventShortClientLive
 import AppPreferencesClientLive
 import EventShortTypesClient
 import EventShortTypesClientLive
-import SwiftCache
+import Core
 import AuthClientLive
 import AuthStateStorageClient
 import ArticlesClientLive

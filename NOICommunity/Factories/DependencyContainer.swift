@@ -17,7 +17,7 @@ import AuthStateStorageClient
 import AuthClient
 import EventShortClient
 import EventShortTypesClient
-import SwiftCache
+import Core
 import ArticlesClient
 import PeopleClient
 

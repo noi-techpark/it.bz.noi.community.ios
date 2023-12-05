@@ -13,28 +13,8 @@ let package = Package(
     products: [
         // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(
-            name: "SwiftCache",
-            targets: ["SwiftCache"]
-        ),
-        .library(
-            name: "ArrayBuilder",
-            targets: ["ArrayBuilder"]
-        ),
-        .library(
-            name: "Endpoint",
-            targets: ["Endpoint"]
-        ),
-        .library(
-            name: "EndpointWithQueryBuilder",
-            targets: ["EndpointWithQueryBuilder"]
-        ),
-        .library(
-            name: "PascalJSONDecoder",
-            targets: ["PascalJSONDecoder"]
-        ),
-        .library(
-            name: "DecodeEmptyRepresentable",
-            targets: ["DecodeEmptyRepresentable"]
+            name: "Core",
+            targets: ["Core"]
         ),
         .library(
             name: "EventShortTypesClient",
@@ -100,91 +80,91 @@ let package = Package(
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
-            name: "SwiftCache",
-            dependencies: []
-        ),
-        .target(
-            name: "ArrayBuilder",
+            name: "Core",
             dependencies: []
         ),
         .testTarget(
-            name: "ArrayBuilderTests",
-            dependencies: ["ArrayBuilder"]
-        ),
-        .target(
-            name: "Endpoint",
-            dependencies: []
-        ),
-        .target(
-            name: "EndpointWithQueryBuilder",
+            name: "CoreTests",
             dependencies: [
-                "Endpoint",
-                "ArrayBuilder"
+                "Core"
             ]
         ),
         .target(
-            name: "PascalJSONDecoder",
-            dependencies: []
-        ),
-        .target(
-            name: "DecodeEmptyRepresentable",
-            dependencies: []
-        ),
-        .target(
             name: "EventShortTypesClient",
-            dependencies: []
+            dependencies: [
+                "Core"
+            ]
         ),
         .testTarget(
             name: "EventShortTypesClientTests",
-            dependencies: ["EventShortTypesClient"]
+            dependencies: [
+                "Core",
+                "EventShortTypesClient"
+            ]
         ),
         .target(
             name: "EventShortTypesClientLive",
             dependencies: [
-                "PascalJSONDecoder",
-                "DecodeEmptyRepresentable",
+                "Core",
                 "EventShortTypesClient"
             ]
         ),
         .target(
             name: "AppPreferencesClient",
-            dependencies: []
+            dependencies: [
+                "Core"
+            ]
         ),
         .testTarget(
             name: "AppPreferencesClientTests",
-            dependencies: ["AppPreferencesClient"]
+            dependencies: [
+                "Core",
+                "AppPreferencesClient"
+            ]
         ),
         .target(
             name: "AppPreferencesClientLive",
-            dependencies: ["AppPreferencesClient"]
+            dependencies: [
+                "Core",
+                "AppPreferencesClient"
+            ]
         ),
         .target(
             name: "EventShortClient",
-            dependencies: []
+            dependencies: [
+                "Core",
+            ]
         ),
         .testTarget(
             name: "EventShortClientTests",
-            dependencies: ["EventShortClient"]
+            dependencies: [
+                "Core",
+                "EventShortClient"
+            ]
         ),
         .target(
             name: "EventShortClientLive",
             dependencies: [
-                "PascalJSONDecoder",
-                "DecodeEmptyRepresentable",
+                "Core",
                 "EventShortClient"
             ]
         ),
         .target(
             name: "AuthStateStorageClient",
-            dependencies: []
+            dependencies: [
+                "Core"
+            ]
         ),
         .target(
             name: "AuthClient",
-            dependencies: []
+            dependencies: [
+                "Core"
+            ]
         ),
         .target(
             name: "AuthClientLive",
             dependencies: [
+                "Core",
                 "AuthClient",
                 "AuthStateStorageClient",
                 .product(name: "AppAuth", package: "AppAuth-iOS")
@@ -197,9 +177,7 @@ let package = Package(
         .target(
             name: "ArticlesClientLive",
             dependencies: [
-                "PascalJSONDecoder",
-                "DecodeEmptyRepresentable",
-                "EndpointWithQueryBuilder",
+                "Core",
                 "ArticlesClient",
             ]
         ),
@@ -210,9 +188,7 @@ let package = Package(
         .target(
             name: "PeopleClientLive",
             dependencies: [
-                "PascalJSONDecoder",
-                "DecodeEmptyRepresentable",
-                "EndpointWithQueryBuilder",
+                "Core",
                 "PeopleClient",
             ]
         )

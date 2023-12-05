@@ -10,7 +10,7 @@
 //
 
 import XCTest
-import ArrayBuilder
+import Core
 
 final class ArrayBuilderTests: XCTestCase {
     let bool = false
