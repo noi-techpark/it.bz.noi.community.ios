@@ -23,7 +23,7 @@ final class AuthWelcomeViewController: UIViewController {
     private var pageToPageViewController: [Int: AuthWelcomePageViewController] = [:]
     
     @IBOutlet var pagesContainerView: UIView!
-    
+
     @IBOutlet var footerView: UIView!
     
     @IBOutlet var pageControl: UIPageControl!
@@ -47,6 +47,57 @@ final class AuthWelcomeViewController: UIViewController {
                 .withTextAligment(.center)
         }
     }
+
+    @IBOutlet var privacyTextView: UITextView! {
+        didSet {
+            privacyTextView.isSelectable = true
+            privacyTextView.isEditable = false
+            privacyTextView.isScrollEnabled = false
+            privacyTextView.textContainer.lineFragmentPadding = 0
+            privacyTextView.textContainerInset = .zero
+
+            privacyTextView.delegate = self
+
+            privacyTextView.linkTextAttributes = [
+                .foregroundColor: UIColor.noiPrimaryColor,
+                .underlineStyle: NSUnderlineStyle.single.rawValue
+            ]
+
+            let text = String.localized("app_privacy_policy_label")
+            let mAttributedText = NSMutableAttributedString(string: text,
+                                                            attributes: [
+                                                                .font: UIFont.preferredFont(forTextStyle: .body),
+                                                                .foregroundColor: UIColor.noiPrimaryColor
+                                                            ])
+
+            if let range = text.range(of: String.localized("app_privacy_policy_label_link_part")),
+               let url = URL(string: .localized("url_app_privacy")) {
+                mAttributedText.addAttribute(.link,
+                                             value: url,
+                                             range: NSRange(range, in: text))
+            }
+
+            privacyTextView.attributedText = NSAttributedString(attributedString: mAttributedText)
+        }
+    }
+
+    @IBOutlet var privacyButton: UIButton! {
+        didSet {
+            privacyButton.setImage(#imageLiteral(resourceName: "checkbox_unchecked.pdf"), for: .normal)
+            privacyButton.setImage(#imageLiteral(resourceName: "checkbox_checked.pdf"), for: .selected)
+        }
+    }
+
+    @IBOutlet var privacyContainerView: UIView! {
+        didSet {
+            privacyContainerView.addGestureRecognizer(tapGestureRecognizer)
+        }
+    }
+
+    private lazy var tapGestureRecognizer = UITapGestureRecognizer(
+        target: self,
+        action: #selector(togglePrivacy)
+    )
     
     private lazy var pageViewController = UIPageViewController(
         transitionStyle: .scroll,
@@ -93,27 +144,77 @@ final class AuthWelcomeViewController: UIViewController {
             ).y - 18
         }
     }
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+
+        if traitCollection.preferredContentSizeCategory != previousTraitCollection?.preferredContentSizeCategory {
+            preferredContentSizeCategoryDidChange(traitCollection.preferredContentSizeCategory)
+        }
+    }
+
+    private func preferredContentSizeCategoryDidChange(_ previousPreferredContentSizeCategory: UIContentSizeCategory?) {
+        guard let attributedText = privacyTextView.attributedText
+        else { return }
+
+        let text = attributedText.string
+        let mAttributedText = NSMutableAttributedString(attributedString: attributedText)
+        attributedText.enumerateAttribute(.font,
+                                          in: NSRange(text.startIndex..., in: attributedText.string)) { value, range, stop in
+            mAttributedText.addAttribute(.font,
+                                         value: UIFont.preferredFont(forTextStyle: .body),
+                                         range: range)
+        }
+        privacyTextView.attributedText = NSAttributedString(attributedString: mAttributedText)
+    }
     
 }
 
 // MARK: Private APIs
 
 private extension AuthWelcomeViewController {
+
+    @objc private func togglePrivacy() {
+        privacyButton.isSelected.toggle()
+        viewModel.isPrivacyToggleOn = privacyButton.isSelected
+    }
     
     func configureBindings() {
-        loginButton
-            .publisher(for: .primaryActionTriggered)
-                .sink { [weak viewModel] in
-                    viewModel?.startLogin()
-                }
-                .store(in: &subscriptions)
+        viewModel.$isPrivacyToggleOn
+            .sink { [weak self] isOn in
+                self?.privacyButton.isSelected = isOn
+            }
+            .store(in: &subscriptions)
+
+        viewModel.$isLoginButtonEnabled
+            .sink { [weak self] isEnabled in
+                self?.loginButton.isEnabled = isEnabled
+            }
+            .store(in: &subscriptions)
+
+        viewModel.$isSignUpButtonEnabled
+            .sink { [weak self] isEnabled in
+                self?.signUpButton.isEnabled = isEnabled
+            }
+            .store(in: &subscriptions)
+
+        privacyButton.publisher(for: .primaryActionTriggered)
+            .sink { [weak self] in
+                self?.togglePrivacy()
+            }
+            .store(in: &subscriptions)
+
+        loginButton.publisher(for: .primaryActionTriggered)
+            .sink { [weak viewModel] in
+                viewModel?.startLogin()
+            }
+            .store(in: &subscriptions)
         
-        signUpButton
-            .publisher(for: .primaryActionTriggered)
-                .sink { [weak viewModel] in
-                    viewModel?.startSignUp()
-                }
-                .store(in: &subscriptions)
+        signUpButton.publisher(for: .primaryActionTriggered)
+            .sink { [weak viewModel] in
+                viewModel?.startSignUp()
+            }
+            .store(in: &subscriptions)
     }
     
     func knownPagePosition(of viewController: UIViewController) -> Int? {
@@ -206,4 +307,19 @@ private extension AuthWelcomePageViewController {
         detailedTextLabel.text = page.description
     }
     
+}
+
+extension AuthWelcomeViewController: UITextViewDelegate {
+
+    public func textView(_ textView: UITextView,
+                         shouldInteractWith url: URL,
+                         in nsCharacterRange: NSRange,
+                         interaction: UITextItemInteraction) -> Bool {
+        if url == URL(string: .localized("url_app_privacy")) {
+            viewModel.navigateToAppPrivacy()
+            return false
+        }
+
+        return true
+    }
 }

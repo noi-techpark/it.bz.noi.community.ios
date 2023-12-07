@@ -13,27 +13,27 @@ import UIKit
 import WebKit
 
 class WebViewController: UIViewController {
-
+    
     lazy var webView: WKWebView = { webView in
         webView.navigationDelegate = self
         webView.allowsBackForwardNavigationGestures = true
         webView.backgroundColor = .noiSecondaryBackgroundColor
         return webView
     }(WKWebView())
-
+    
     var url: URL? {
         didSet {
             guard url != oldValue
             else { return }
-
+            
             if isViewLoaded {
                 updateUI(for: url)
             }
         }
     }
-
+    
     var isLoadingHandler: ((Bool) -> Void)?
-
+    
     private lazy var activityIndicator: UIActivityIndicatorView = { activityIndicator in
         activityIndicator.hidesWhenStopped = true
         activityIndicator.style = .medium
@@ -41,17 +41,47 @@ class WebViewController: UIViewController {
         activityIndicator.color = .noiPrimaryColor
         return activityIndicator
     }(UIActivityIndicatorView())
-
+    
+    private var wasNavigationBarHidden: Bool = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         view.backgroundColor = webView.backgroundColor
         configureViewHierarchy()
         updateUI(for: url)
     }
-
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        .lightContent
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        guard let navigationController
+        else { return }
+        
+        wasNavigationBarHidden = navigationController.navigationBar.isHidden
+        let queued = transitionCoordinator?.animateAlongsideTransition(in: navigationController.navigationBar,
+                                                                       animation: { _ in
+            navigationController.navigationBar.isHidden = false
+        }) ?? false
+        if !queued {
+            navigationController.navigationBar.isHidden = false
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        guard let navigationController,
+              wasNavigationBarHidden
+        else { return }
+        
+        let queued = transitionCoordinator?.animateAlongsideTransition(in: navigationController.navigationBar,
+                                                                       animation: { _ in
+            navigationController.navigationBar.isHidden = true
+        }) ?? false
+        if !queued {
+            navigationController.navigationBar.isHidden = true
+        }
     }
 }
 
@@ -61,14 +91,14 @@ extension WebViewController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         setIsLoading(false)
     }
-
+    
     func webView(
         _ webView: WKWebView,
         didStartProvisionalNavigation navigation: WKNavigation!
     ) {
         setIsLoading(true)
     }
-
+    
     func webView(
         _ webView: WKWebView,
         didFail navigation: WKNavigation!,
@@ -106,7 +136,7 @@ private extension WebViewController {
             customView: activityIndicator
         )
     }
-
+    
     func updateUI(for url: URL?) {
         if let url = url {
             webView.load(URLRequest(url: url))
@@ -114,7 +144,7 @@ private extension WebViewController {
             webView.load(URLRequest(url: URL(string:"about:blank")!))
         }
     }
-
+    
     func setIsLoading(_ isLoading: Bool) {
         isLoadingHandler?(isLoading)
         if isLoading {

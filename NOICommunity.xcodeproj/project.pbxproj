@@ -121,6 +121,7 @@
 		3185AA15281FEAE900767E31 /* AccessNotGrantedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3185AA14281FEAE900767E31 /* AccessNotGrantedViewController.swift */; };
 		3185AA172820005700767E31 /* KeychainAuthStateStorageClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3185AA162820005700767E31 /* KeychainAuthStateStorageClient.swift */; };
 		3185AA1A2820066A00767E31 /* SwiftJWT in Frameworks */ = {isa = PBXBuildFile; productRef = 3185AA192820066A00767E31 /* SwiftJWT */; };
+		318664A22B22471E0088A752 /* LinkTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318664A12B22471E0088A752 /* LinkTextView.swift */; };
 		3187667526FB35C100782FA6 /* String+NotDefined.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3187667426FB35C100782FA6 /* String+NotDefined.swift */; };
 		3187667726FB38D600782FA6 /* DateIntervalFormatter+Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3187667626FB38D600782FA6 /* DateIntervalFormatter+Factory.swift */; };
 		31892F2C281BC09F00DD89F7 /* MoreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31892F2B281BC09F00DD89F7 /* MoreViewModel.swift */; };
@@ -338,6 +339,7 @@
 		3185AA11281FDBED00767E31 /* LoadUserInfoCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadUserInfoCoordinator.swift; sourceTree = "<group>"; };
 		3185AA14281FEAE900767E31 /* AccessNotGrantedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessNotGrantedViewController.swift; sourceTree = "<group>"; };
 		3185AA162820005700767E31 /* KeychainAuthStateStorageClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainAuthStateStorageClient.swift; sourceTree = "<group>"; };
+		318664A12B22471E0088A752 /* LinkTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkTextView.swift; sourceTree = "<group>"; };
 		3187667426FB35C100782FA6 /* String+NotDefined.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+NotDefined.swift"; sourceTree = "<group>"; };
 		3187667626FB38D600782FA6 /* DateIntervalFormatter+Factory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateIntervalFormatter+Factory.swift"; sourceTree = "<group>"; };
 		3187667826FB3A9300782FA6 /* EventDetailsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventDetailsViewController.xib; sourceTree = "<group>"; };
@@ -847,6 +849,7 @@
 				31AAC052270F2FFD00C26850 /* FooterView.swift */,
 				31796C7B2809B489000542F6 /* GradientView.swift */,
 				313010CE28463F1000AF6520 /* ContentConfiguration.swift */,
+				318664A12B22471E0088A752 /* LinkTextView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1247,6 +1250,7 @@
 				31C8F52B282522150009BCB7 /* NoiNewsTopic.swift in Sources */,
 				31178FDA26FA16A200BDCDAA /* NavigationController.swift in Sources */,
 				31BFAB35283FB49A00EF274D /* MeetConstant.swift in Sources */,
+				318664A22B22471E0088A752 /* LinkTextView.swift in Sources */,
 				3136CC422706F8D200C27129 /* UIView+TransitionId.swift in Sources */,
 				3182A1BE282D5159005439B4 /* NewsDetailsViewController.swift in Sources */,
 				319C0EA026F4790300C6D38B /* CalendarAdditions.swift in Sources */,

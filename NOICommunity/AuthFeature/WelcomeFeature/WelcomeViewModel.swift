@@ -26,13 +26,26 @@ struct WelcomePage: Hashable {
 final class WelcomeViewModel {
     
     private let loginSubject: PassthroughSubject<Void, Never> = .init()
-    lazy var startLoginPublisher = loginSubject.eraseToAnyPublisher()
+    private(set) lazy var startLoginPublisher = loginSubject.eraseToAnyPublisher()
     
     private let signUpSubject: PassthroughSubject<Void, Never> = .init()
-    lazy var startSignUpPublisher = signUpSubject.eraseToAnyPublisher()
+    private(set) lazy var startSignUpPublisher = signUpSubject.eraseToAnyPublisher()
+
+    private let navigateToAppPrivacySubject: PassthroughSubject<Void, Never> = .init()
+    private(set) lazy var navigateToAppPrivacyPublisher = navigateToAppPrivacySubject.eraseToAnyPublisher()
         
     private(set) var pages: [WelcomePage]
-    
+
+    @Published private(set) var isLoginButtonEnabled = false
+    @Published private(set) var isSignUpButtonEnabled = false
+
+    @Published var isPrivacyToggleOn = false {
+        didSet {
+            isLoginButtonEnabled = isPrivacyToggleOn
+            isSignUpButtonEnabled = isPrivacyToggleOn
+        }
+    }
+
     init(with pages: [WelcomePage]) {
         self.pages = pages
     }
@@ -42,11 +55,21 @@ final class WelcomeViewModel {
     }
     
     func startLogin() {
+        guard isLoginButtonEnabled
+        else { return }
+
         loginSubject.send()
     }
     
     func startSignUp() {
+        guard isSignUpButtonEnabled
+        else { return }
+
         signUpSubject.send()
+    }
+
+    func navigateToAppPrivacy() {
+        navigateToAppPrivacySubject.send()
     }
     
 }

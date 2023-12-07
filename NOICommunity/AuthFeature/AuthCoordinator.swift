@@ -72,6 +72,16 @@ private extension AuthCoordinator {
         let safariVC = SFSafariViewController(url: AuthConstant.signupURL)
         navigationController.present(safariVC, animated: true)
     }
+
+    func goToAppPrivacyPage() {
+        guard let url = URL(string: .localized("url_app_privacy"))
+        else { return }
+
+        let webVC = WebViewController()
+        webVC.url = url
+        webVC.navigationItem.title = .localized("app_privacy_policy_page_title")
+        navigationController.pushViewController(webVC, animated: true)
+    }
     
     func showWelcome(animated: Bool) {
         welcomeViewModel = dependencyContainer.makeWelcomeViewModel()
@@ -81,10 +91,18 @@ private extension AuthCoordinator {
                 self?.goToLogin()
             }
             .store(in: &subscriptions)
+
         welcomeViewModel.startSignUpPublisher
             .receive(on: DispatchQueue.main)
             .sink { [weak self] in
                 self?.goToSignUp()
+            }
+            .store(in: &subscriptions)
+
+        welcomeViewModel.navigateToAppPrivacyPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] in
+                self?.goToAppPrivacyPage()
             }
             .store(in: &subscriptions)
         
