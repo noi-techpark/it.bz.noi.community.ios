@@ -47,7 +47,7 @@ enum MyAccountViewModelError: LocalizedError {
     
 }
 
-class MyAccountViewModel {
+final class MyAccountViewModel {
     
     @Published var error: Error!
     

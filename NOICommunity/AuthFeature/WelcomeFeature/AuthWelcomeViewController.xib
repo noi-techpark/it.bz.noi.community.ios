@@ -98,6 +98,7 @@
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ElR-z1-tS9">
                                             <rect key="frame" x="0.0" y="59" width="380" height="50"/>
+                                            <color key="backgroundColor" name="secondary_color"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="Irb-nr-NGO"/>
                                             </constraints>

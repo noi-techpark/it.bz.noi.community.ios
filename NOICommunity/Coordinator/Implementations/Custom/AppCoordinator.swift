@@ -82,6 +82,8 @@ private extension AppCoordinator {
         }
         childCoordinators.append(authCoordinator)
         authCoordinator.start(animated: animated)
+
+        navigationController.navigationBar.isHidden = true
     }
     
     func showLoadUserInfo(

@@ -39,7 +39,9 @@ final class AccessNotGrantedViewController: ContainerViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
+        title = .localized("warning_title")
+        navigationController?.navigationBar.prefersLargeTitles = true
         configureBindings()
         viewModel.fetchUserInfo()
     }
@@ -50,40 +52,14 @@ final class AccessNotGrantedViewController: ContainerViewController {
 
 private extension AccessNotGrantedViewController {
     
-    func makeAvailableContent(
-        userInfo userInfoOrNil: UserInfo?
-    ) -> UIViewController {
-        let detailedText: String
-        
-        if let userInfo = userInfoOrNil {
-            detailedText = .localizedStringWithFormat(
-                .localized("access_not_granted_format"),
-                userInfo.name ?? "N/D",
-                userInfo.email ?? "N/D"
-            )
-        } else {
-            detailedText = .localized("access_not_granted_msg")
-        }
-        
-        return MessageViewController(
-            text: .localized("label_access_not_granted"),
-            detailedText: detailedText,
-            actionTitle: .localized("btn_logout"),
-            actionHandler: { [weak self] in
-                self?.viewModel.logout()
-            })
-    }
-    
     func configureBindings() {
         viewModel.$userInfoIsLoading
             .receive(on: DispatchQueue.main)
             .sink { [weak self] isLoading in
                 if isLoading {
-                    self?.content = LoadingViewController(style: .light)
+                    self?.showLoader()
                 } else {
-                    self?.content = self?.makeAvailableContent(
-                        userInfo: self?.viewModel.userInfoResult
-                    )
+                    self?.showAccessNotGranted(userInfo: self?.viewModel.userInfoResult)
                 }
             }
             .store(in: &subscriptions)
@@ -91,7 +67,7 @@ private extension AccessNotGrantedViewController {
         viewModel.$userInfoResult
             .receive(on: DispatchQueue.main)
             .sink { [weak self] userInfo in
-                self?.content = self?.makeAvailableContent(userInfo: userInfo)
+                self?.showAccessNotGranted(userInfo: userInfo)
             }
             .store(in: &subscriptions)
         
@@ -110,5 +86,37 @@ private extension AccessNotGrantedViewController {
             }
             .store(in: &subscriptions)
     }
-    
+
+    private func showLoader() {
+        navigationController?.navigationBar.isHidden = true
+
+        content = LoadingViewController(style: .light)
+    }
+
+    private func showAccessNotGranted(userInfo userInfoOrNil: UserInfo?) {
+        navigationController?.navigationBar.isHidden = false
+
+        content = {
+            let detailedText: String
+
+            if let userInfo = userInfoOrNil {
+                detailedText = .localizedStringWithFormat(
+                    .localized("access_not_granted_format"),
+                    userInfo.name ?? "N/D",
+                    userInfo.email ?? "N/D"
+                )
+            } else {
+                detailedText = .localized("access_not_granted_msg")
+            }
+
+            let contentVC = BlockAccessViewController(nibName: nil, bundle: nil)
+            contentVC.text = .localized("label_access_not_granted")
+            contentVC.detailedText = detailedText
+            contentVC.primaryActionTitle = .localized("btn_logout")
+            contentVC.primaryAction = { [weak self] in
+                self?.viewModel.logout()
+            }
+            return contentVC
+        }()
+    }
 }
