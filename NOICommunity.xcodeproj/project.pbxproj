@@ -20,6 +20,8 @@
 		3110CF6026F0E89C003B7174 /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3110CF5F26F0E89C003B7174 /* CircleView.swift */; };
 		311350E7282E4F0A00AC9BC9 /* GalleryCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311350E6282E4F0A00AC9BC9 /* GalleryCollectionViewController.swift */; };
 		311350E9282E5BD300AC9BC9 /* Photos.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 311350E8282E5BD300AC9BC9 /* Photos.xcassets */; };
+		31155BEB2B224FDE0027AEC1 /* BlockAccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31155BE92B224FDE0027AEC1 /* BlockAccessViewController.swift */; };
+		31155BEC2B224FDE0027AEC1 /* BlockAccessViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31155BEA2B224FDE0027AEC1 /* BlockAccessViewController.xib */; };
 		31157CFE26FC5DEB00A43B33 /* EventsCalendarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31157CFD26FC5DEB00A43B33 /* EventsCalendarManager.swift */; };
 		31157D0026FC648700A43B33 /* Event+CalendarEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31157CFF26FC648700A43B33 /* Event+CalendarEvent.swift */; };
 		31157D0526FC66FB00A43B33 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 31157D0726FC66FB00A43B33 /* InfoPlist.strings */; };
@@ -240,6 +242,8 @@
 		3110CF5F26F0E89C003B7174 /* CircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
 		311350E6282E4F0A00AC9BC9 /* GalleryCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryCollectionViewController.swift; sourceTree = "<group>"; };
 		311350E8282E5BD300AC9BC9 /* Photos.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Photos.xcassets; sourceTree = "<group>"; };
+		31155BE92B224FDE0027AEC1 /* BlockAccessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockAccessViewController.swift; sourceTree = "<group>"; };
+		31155BEA2B224FDE0027AEC1 /* BlockAccessViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BlockAccessViewController.xib; sourceTree = "<group>"; };
 		31157CFD26FC5DEB00A43B33 /* EventsCalendarManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventsCalendarManager.swift; sourceTree = "<group>"; };
 		31157CFF26FC648700A43B33 /* Event+CalendarEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Event+CalendarEvent.swift"; sourceTree = "<group>"; };
 		31157D0626FC66FB00A43B33 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -815,6 +819,8 @@
 				3101FC51283390F900A3416F /* TopTabBarController.swift */,
 				3101FC50283390F900A3416F /* TopTabBarController.xib */,
 				31157D1826FCA1EB00A43B33 /* WebViewController.swift */,
+				31155BE92B224FDE0027AEC1 /* BlockAccessViewController.swift */,
+				31155BEA2B224FDE0027AEC1 /* BlockAccessViewController.xib */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -1168,6 +1174,7 @@
 				317A5D71284E0EA300750412 /* CompaniesFiltersViewController.xib in Resources */,
 				311350E9282E5BD300AC9BC9 /* Photos.xcassets in Resources */,
 				3101FC52283390F900A3416F /* TopTabBarController.xib in Resources */,
+				31155BEC2B224FDE0027AEC1 /* BlockAccessViewController.xib in Resources */,
 				31CF8128270B3CD90077CB0D /* NOI_begins-with-you_Animation_black_short.mp4 in Resources */,
 				31157D0C26FC70A500A43B33 /* Localizable.strings in Resources */,
 				31E7872027D64F2300C67188 /* EventFiltersViewController.xib in Resources */,
@@ -1296,6 +1303,7 @@
 				3102F45F282C06B700687CF7 /* NewsViewController.swift in Sources */,
 				319C0E8D26F33BD000C6D38B /* ContainerViewController.swift in Sources */,
 				314EB4A1270DDDF60067FACA /* EventsCoordinator.NavigationControllerDelegate.swift in Sources */,
+				31155BEB2B224FDE0027AEC1 /* BlockAccessViewController.swift in Sources */,
 				315275652847A00700D5C8A1 /* CompanyId.swift in Sources */,
 				3197B095281A712B0002FA08 /* RootCoordinatorType.swift in Sources */,
 				319C0E9A26F3483600C6D38B /* UIControl+Combine.swift in Sources */,

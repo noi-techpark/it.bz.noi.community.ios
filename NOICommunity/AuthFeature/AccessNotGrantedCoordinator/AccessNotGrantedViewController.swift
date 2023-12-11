@@ -39,7 +39,9 @@ final class AccessNotGrantedViewController: ContainerViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
+        title = .localized("warning_title")
+        navigationController?.navigationBar.prefersLargeTitles = true
         configureBindings()
         viewModel.fetchUserInfo()
     }
@@ -64,14 +66,15 @@ private extension AccessNotGrantedViewController {
         } else {
             detailedText = .localized("access_not_granted_msg")
         }
-        
-        return MessageViewController(
-            text: .localized("label_access_not_granted"),
-            detailedText: detailedText,
-            actionTitle: .localized("btn_logout"),
-            actionHandler: { [weak self] in
-                self?.viewModel.logout()
-            })
+
+        let contentVC = BlockAccessViewController(nibName: nil, bundle: nil)
+        contentVC.text = .localized("label_access_not_granted")
+        contentVC.detailedText = detailedText
+        contentVC.primaryActionTitle = .localized("btn_logout")
+        contentVC.primaryAction = { [weak self] in
+            self?.viewModel.logout()
+        }
+        return contentVC
     }
     
     func configureBindings() {
@@ -81,6 +84,7 @@ private extension AccessNotGrantedViewController {
                 if isLoading {
                     self?.content = LoadingViewController(style: .light)
                 } else {
+                    self?.navigationController?.navigationBar.isHidden = false
                     self?.content = self?.makeAvailableContent(
                         userInfo: self?.viewModel.userInfoResult
                     )
