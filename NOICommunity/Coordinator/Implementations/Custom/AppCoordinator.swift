@@ -41,14 +41,12 @@ final class AppCoordinator: BaseNavigationCoordinator {
             }
             .store(in: &subscriptions)
         
-        guard isAutorizedClient()
-        else {
+        if !isAutorizedClient() {
             showAuthCoordinator()
-            return
-        }
-        
-        showLoadUserInfo(animated: false) { [weak self] in
-            self?.showAuthorizedContent(animated: true)
+        } else {
+            showLoadUserInfo(animated: false) { [weak self] in
+                self?.showAuthorizedContent(animated: true)
+            }
         }
     }
     
