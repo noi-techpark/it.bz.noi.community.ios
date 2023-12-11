@@ -16,13 +16,16 @@ import AuthClient
 import ArticlesClient
 import PeopleClient
 
+typealias IsAutorizedClient = () -> Bool
+typealias HasAccessGrantedClient = () -> Bool
+
 protocol ClientFactory {
     
     func makeAppPreferencesClient() -> AppPreferencesClient
     
-    func makeIsAutorizedClient() -> () -> Bool
+    func makeIsAutorizedClient() -> IsAutorizedClient
     
-    func makeHasAccessGrantedClient() -> () -> Bool
+    func makeHasAccessGrantedClient() -> HasAccessGrantedClient
     
     func makeAuthClient() -> AuthClient
     

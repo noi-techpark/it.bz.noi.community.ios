@@ -26,8 +26,8 @@ import PeopleClient
 final class DependencyContainer {
     
     let appPreferencesClient: AppPreferencesClient
-    let isAutorizedClient: () -> Bool
-    let hasAccessGrantedClient: () -> Bool
+    let isAutorizedClient: IsAutorizedClient
+    let hasAccessGrantedClient: HasAccessGrantedClient
     let authClient: AuthClient
     let eventShortClient: EventShortClient
     let eventShortTypesClient: EventShortTypesClient
@@ -54,8 +54,8 @@ final class DependencyContainer {
 
     init(
         appPreferencesClient: AppPreferencesClient,
-        isAutorizedClient: @escaping () -> Bool,
-        hasAccessGrantedClient: @escaping () -> Bool,
+        isAutorizedClient: @escaping IsAutorizedClient,
+        hasAccessGrantedClient: @escaping HasAccessGrantedClient,
         authClient: AuthClient,
         eventShortClient: EventShortClient,
         eventShortTypesClient: EventShortTypesClient,
@@ -85,7 +85,7 @@ final class DependencyContainer {
 
 extension DependencyContainer: ClientFactory {
     
-    func makeIsAutorizedClient() -> () -> Bool {
+    func makeIsAutorizedClient() -> IsAutorizedClient {
         isAutorizedClient
     }
     
@@ -98,7 +98,7 @@ extension DependencyContainer: ClientFactory {
         authClient
     }
     
-    func makeHasAccessGrantedClient() -> () -> Bool {
+    func makeHasAccessGrantedClient() -> HasAccessGrantedClient {
         hasAccessGrantedClient
     }
     
