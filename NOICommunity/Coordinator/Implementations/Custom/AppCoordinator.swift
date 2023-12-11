@@ -27,7 +27,7 @@ final class AppCoordinator: BaseNavigationCoordinator {
     
     private lazy var isAutorizedClient = dependencyContainer
         .makeIsAutorizedClient()
-    
+
     private var pendingDeepLinkIntent: DeepLinkIntent?
     
     private weak var tabCoordinator: TabCoordinator!
@@ -102,7 +102,27 @@ private extension AppCoordinator {
         childCoordinators.append(loadUserInfoCoordinator)
         loadUserInfoCoordinator.start(animated: animated)
     }
-    
+
+    func showTabCoordinator(animated: Bool = false) {
+        let tabBarController = TabBarController()
+        let tabCoordinator = TabCoordinator(
+            tabBarController: tabBarController,
+            dependencyContainer: dependencyContainer
+        )
+        childCoordinators.append(tabCoordinator)
+        self.tabCoordinator = tabCoordinator
+        tabCoordinator.start()
+        navigationController.setViewControllers(
+            [tabBarController],
+            animated: animated
+        )
+
+        if let pendingDeepLinkIntent = self.pendingDeepLinkIntent {
+            handle(deepLinkIntent: pendingDeepLinkIntent)
+            self.pendingDeepLinkIntent = nil
+        }
+    }
+
     func showAuthorizedContent(animated: Bool) {
         func showAccessNotGrantedCoordinator(animated: Bool) {
             let accessNotGrantedCoordinator = AccessNotGrantedCoordinator(
@@ -112,33 +132,36 @@ private extension AppCoordinator {
             childCoordinators.append(accessNotGrantedCoordinator)
             accessNotGrantedCoordinator.start(animated: animated)
         }
-        
-        func showTabCoordinator(animated: Bool = false) {
-            let tabBarController = TabBarController()
-            let tabCoordinator = TabCoordinator(
-                tabBarController: tabBarController,
+
+        func showComeOnBoardOnboardingCoordinator(animated: Bool) {
+            let comeOnBoardOnboardingCoordinator = ComeOnBoardOnboardingCoordinator(
+                navigationController: navigationController,
                 dependencyContainer: dependencyContainer
             )
-            childCoordinators.append(tabCoordinator)
-            self.tabCoordinator = tabCoordinator
-            tabCoordinator.start()
-            navigationController.setViewControllers(
-                [tabBarController],
-                animated: animated
-            )
-            
-            if let pendingDeepLinkIntent = self.pendingDeepLinkIntent {
-                handle(deepLinkIntent: pendingDeepLinkIntent)
-                self.pendingDeepLinkIntent = nil
+            comeOnBoardOnboardingCoordinator.didFinishHandler = { [weak self] coordinator in
+                self?.sacrifice(child: coordinator)
+                self?.showTabCoordinator(animated: true)
             }
+            childCoordinators.append(comeOnBoardOnboardingCoordinator)
+            comeOnBoardOnboardingCoordinator.start(animated: animated)
         }
         
         let hasAccessGrantedClient = dependencyContainer
             .makeHasAccessGrantedClient()
-        if hasAccessGrantedClient() {
-            showTabCoordinator(animated: true)
-        } else {
+        let skipComeOnBoardOnboarding = {
+            let appPreferencesClient = self.dependencyContainer
+                .makeAppPreferencesClient()
+            return appPreferencesClient
+                .fetch()
+                .skipComeOnBoardOnboarding
+        }
+
+        if !hasAccessGrantedClient() {
             showAccessNotGrantedCoordinator(animated: true)
+        } else if !skipComeOnBoardOnboarding() {
+            showComeOnBoardOnboardingCoordinator(animated: true)
+        } else {
+            showTabCoordinator(animated: true)
         }
     }
     

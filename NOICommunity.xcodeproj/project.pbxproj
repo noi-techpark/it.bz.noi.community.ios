@@ -155,6 +155,10 @@
 		31AA31EE26F0A94E00744A00 /* IdentifiableCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31AA31ED26F0A94E00744A00 /* IdentifiableCollectionViewCell.swift */; };
 		31AA31F126F0B40800744A00 /* EventCardContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31AA31F026F0B40800744A00 /* EventCardContentView.swift */; };
 		31AAC053270F2FFD00C26850 /* FooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31AAC052270F2FFD00C26850 /* FooterView.swift */; };
+		31AD1DB22B27947B006F71A4 /* ComeOnBoardOnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31AD1DB12B27947B006F71A4 /* ComeOnBoardOnboardingViewModel.swift */; };
+		31AD1DB32B279558006F71A4 /* ComeOnBoardOnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31AD1DB02B2791D8006F71A4 /* ComeOnBoardOnboardingViewController.swift */; };
+		31AD1DB52B279976006F71A4 /* ComeOnBoardOnboardingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31AD1DB42B279976006F71A4 /* ComeOnBoardOnboardingCoordinator.swift */; };
+		31AD1DB62B279E78006F71A4 /* ComeOnBoardOnboardingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31AD1DAE2B2791A4006F71A4 /* ComeOnBoardOnboardingViewController.xib */; };
 		31B3623E26F1E27A00031024 /* UIColor+NOI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B3623D26F1E27A00031024 /* UIColor+NOI.swift */; };
 		31B37E1E2833AFF700C26E6B /* MessageViewController+Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B37E1D2833AFF700C26E6B /* MessageViewController+Error.swift */; };
 		31B4477F26F86FE5000999BA /* SegmentedControlBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B4477E26F86FE4000999BA /* SegmentedControlBuilder.swift */; };
@@ -376,6 +380,10 @@
 		31AA31ED26F0A94E00744A00 /* IdentifiableCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifiableCollectionViewCell.swift; sourceTree = "<group>"; };
 		31AA31F026F0B40800744A00 /* EventCardContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCardContentView.swift; sourceTree = "<group>"; };
 		31AAC052270F2FFD00C26850 /* FooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterView.swift; sourceTree = "<group>"; };
+		31AD1DAE2B2791A4006F71A4 /* ComeOnBoardOnboardingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ComeOnBoardOnboardingViewController.xib; sourceTree = "<group>"; };
+		31AD1DB02B2791D8006F71A4 /* ComeOnBoardOnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComeOnBoardOnboardingViewController.swift; sourceTree = "<group>"; };
+		31AD1DB12B27947B006F71A4 /* ComeOnBoardOnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComeOnBoardOnboardingViewModel.swift; sourceTree = "<group>"; };
+		31AD1DB42B279976006F71A4 /* ComeOnBoardOnboardingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComeOnBoardOnboardingCoordinator.swift; sourceTree = "<group>"; };
 		31B3623D26F1E27A00031024 /* UIColor+NOI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+NOI.swift"; sourceTree = "<group>"; };
 		31B37E1D2833AFF700C26E6B /* MessageViewController+Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MessageViewController+Error.swift"; sourceTree = "<group>"; };
 		31B4477E26F86FE4000999BA /* SegmentedControlBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControlBuilder.swift; sourceTree = "<group>"; };
@@ -654,6 +662,7 @@
 				3167681427035D9500A9DB87 /* EatFeature */,
 				31DA4A732705EA110098E395 /* MoreFeature */,
 				31B3623A26F1D62700031024 /* Helpers */,
+				31AD1DAF2B2791CB006F71A4 /* ComeOnBoardOnboardingFeature */,
 				319C0E8F26F33BE200C6D38B /* ViewControllers */,
 				31AA31EC26F0A94400744A00 /* Views */,
 				31515A07286C563800642907 /* Fonts */,
@@ -892,6 +901,17 @@
 				31C640A326FE0C64004B71A2 /* URL+KnowNOIURLs.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		31AD1DAF2B2791CB006F71A4 /* ComeOnBoardOnboardingFeature */ = {
+			isa = PBXGroup;
+			children = (
+				31AD1DB42B279976006F71A4 /* ComeOnBoardOnboardingCoordinator.swift */,
+				31AD1DB12B27947B006F71A4 /* ComeOnBoardOnboardingViewModel.swift */,
+				31AD1DB02B2791D8006F71A4 /* ComeOnBoardOnboardingViewController.swift */,
+				31AD1DAE2B2791A4006F71A4 /* ComeOnBoardOnboardingViewController.xib */,
+			);
+			path = ComeOnBoardOnboardingFeature;
 			sourceTree = "<group>";
 		};
 		31B3623A26F1D62700031024 /* Helpers */ = {
@@ -1172,6 +1192,7 @@
 				3182A177282CEFB7005439B4 /* NewsCardContentView.xib in Resources */,
 				31157D0526FC66FB00A43B33 /* InfoPlist.strings in Resources */,
 				317A5D71284E0EA300750412 /* CompaniesFiltersViewController.xib in Resources */,
+				31AD1DB62B279E78006F71A4 /* ComeOnBoardOnboardingViewController.xib in Resources */,
 				311350E9282E5BD300AC9BC9 /* Photos.xcassets in Resources */,
 				3101FC52283390F900A3416F /* TopTabBarController.xib in Resources */,
 				31155BEC2B224FDE0027AEC1 /* BlockAccessViewController.xib in Resources */,
@@ -1243,6 +1264,7 @@
 				317615C726FDD0FE007FE10F /* MessageViewController.swift in Sources */,
 				319C0E8226F333A700C6D38B /* EventsViewModel.swift in Sources */,
 				31C640AD26FE13CC004B71A2 /* ViewModelFactory.swift in Sources */,
+				31AD1DB32B279558006F71A4 /* ComeOnBoardOnboardingViewController.swift in Sources */,
 				31C640B326FE148C004B71A2 /* BaseNavigationCoordinator.swift in Sources */,
 				3152755D28473D1C00D5C8A1 /* MeetFilterBarView.swift in Sources */,
 				31178FE026FA318800BDCDAA /* Collection.swift in Sources */,
@@ -1269,6 +1291,7 @@
 				31C14C2327DA3597009AF69D /* UIScrollView+ScrollToView.swift in Sources */,
 				31FAEA7F28197EC200CDBC1B /* NavigationCoordinatorType.swift in Sources */,
 				31157D1926FCA1EB00A43B33 /* WebViewController.swift in Sources */,
+				31AD1DB22B27947B006F71A4 /* ComeOnBoardOnboardingViewModel.swift in Sources */,
 				312F5D272808250000C84598 /* AuthWelcomeViewController.swift in Sources */,
 				3185AA172820005700767E31 /* KeychainAuthStateStorageClient.swift in Sources */,
 				31157D1526FC83FE00A43B33 /* UIViewController+ShowCalenderError.swift in Sources */,
@@ -1345,6 +1368,7 @@
 				31892F2C281BC09F00DD89F7 /* MoreViewModel.swift in Sources */,
 				31D07BD8282E35AA00AA7D99 /* NewsCoordinator.swift in Sources */,
 				319C0E8A26F33BD000C6D38B /* UIAlertController+Error.swift in Sources */,
+				31AD1DB52B279976006F71A4 /* ComeOnBoardOnboardingCoordinator.swift in Sources */,
 				3197B093281A70990002FA08 /* BaseCoordinator.swift in Sources */,
 				3101FC53283390F900A3416F /* TopTabBarController.swift in Sources */,
 				312D29D8270451B600F4F4E7 /* ImageCardContentView.swift in Sources */,

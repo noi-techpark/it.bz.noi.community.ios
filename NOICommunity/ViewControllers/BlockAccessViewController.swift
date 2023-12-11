@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: NOI Techpark <digital@noi.bz.it>
+//
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
 //
 //  BlockAccessViewController.swift
 //  NOICommunity
@@ -35,38 +39,6 @@ final class BlockAccessViewController: UIViewController {
             primaryActionCancellable = primaryButton?.publisher(for: .primaryActionTriggered)
                 .sink { [weak self] in
                     self?.primaryAction?()
-                }
-        }
-    }
-
-    var secondaryActionTitle: String? {
-        didSet {
-            secondaryButton?.setTitle(secondaryActionTitle, for: .normal)
-            secondaryButton?.isHidden = secondaryActionTitle == nil
-        }
-    }
-
-    var secondaryAction: (() -> Void)? {
-        didSet {
-            secondaryActionCancellable = secondaryButton?.publisher(for: .primaryActionTriggered)
-                .sink { [weak self] in
-                    self?.secondaryAction?()
-                }
-        }
-    }
-
-    var tertiaryActionTitle: String? {
-        didSet {
-            tertiaryButton?.setTitle(tertiaryActionTitle, for: .normal)
-            tertiaryButton?.isHidden = tertiaryActionTitle == nil
-        }
-    }
-
-    var tertiaryAction: (() -> Void)? {
-        didSet {
-            tertiaryActionCancellable = tertiaryButton?.publisher(for: .primaryActionTriggered)
-                .sink { [weak self] in
-                    self?.tertiaryAction?()
                 }
         }
     }
@@ -112,39 +84,11 @@ final class BlockAccessViewController: UIViewController {
         }
     }
 
-    @IBOutlet private var secondaryButton: UIButton? {
-        didSet {
-            secondaryButton?
-                .withTitle(secondaryActionTitle)
-                .withDynamicType()
-                .withFont(.NOI.dynamic.bodySemibold)
-                .withTextAligment(.center)
-            secondaryButton?.isHidden = secondaryActionTitle == nil
-            secondaryActionCancellable = secondaryButton?.publisher(for: .primaryActionTriggered)
-                .sink { [weak self] in
-                    self?.secondaryAction?()
-                }
-        }
-    }
-
-    @IBOutlet private var tertiaryButton: UIButton? {
-        didSet {
-            tertiaryButton?.setTitle(tertiaryActionTitle, for: .normal)
-            tertiaryButton?.isHidden = tertiaryActionTitle == nil
-            tertiaryActionCancellable = tertiaryButton?.publisher(for: .primaryActionTriggered)
-                .sink { [weak self] in
-                    self?.tertiaryAction?()
-                }
-        }
-    }
-
     @IBOutlet private var scrollView: UIScrollView!
 
     @IBOutlet private var footerContainerView: UIView!
 
     private var primaryActionCancellable: AnyCancellable?
-    private var secondaryActionCancellable: AnyCancellable?
-    private var tertiaryActionCancellable: AnyCancellable?
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()

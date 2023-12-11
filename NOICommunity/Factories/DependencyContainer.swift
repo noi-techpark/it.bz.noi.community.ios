@@ -160,7 +160,11 @@ extension DependencyContainer: ViewModelFactory {
     }
     
     func makeMyAccountViewModel() -> MyAccountViewModel {
-        .init(authClient: makeAuthClient(), cache: userInfoCache)
+        .init(
+            authClient: makeAuthClient(),
+            appPreferencesClient: makeAppPreferencesClient(),
+            cache: userInfoCache
+        )
     }
     
     func makeNewsListViewModel() -> NewsListViewModel {
@@ -177,6 +181,10 @@ extension DependencyContainer: ViewModelFactory {
     
     func makePeopleViewModel() -> PeopleViewModel {
         .init(authClient: makeAuthClient(), peopleClient: makePeopleClient())
+    }
+
+    func makeComeOnBoardOnboardingViewModel() -> ComeOnBoardOnboardingViewModel {
+        .init(appPreferencesClient: makeAppPreferencesClient())
     }
     
 }
@@ -243,6 +251,12 @@ extension DependencyContainer: ViewControllerFactory {
         viewModel: PeopleViewModel
     ) -> CompaniesFiltersViewController {
         .init(peopleViewModel: viewModel)
+    }
+
+    func makeComeOnBoardOnboardingViewController(
+        viewModel: ComeOnBoardOnboardingViewModel
+    ) -> ComeOnBoardOnboardingViewController {
+        .init(viewModel: viewModel)
     }
     
 }

@@ -46,7 +46,8 @@ class WebViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
+        navigationItem.largeTitleDisplayMode = .never
         view.backgroundColor = webView.backgroundColor
         configureViewHierarchy()
         updateUI(for: url)

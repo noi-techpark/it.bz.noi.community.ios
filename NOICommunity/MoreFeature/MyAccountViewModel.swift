@@ -13,6 +13,7 @@ import Foundation
 import Combine
 import AuthClient
 import Core
+import AppPreferencesClient
 
 // MARK: - MyAccountViewModel
 
@@ -61,6 +62,7 @@ final class MyAccountViewModel {
     private var logoutRequestCancellable: AnyCancellable?
     
     private let authClient: AuthClient
+    private let appPreferencesClient: AppPreferencesClient
     
     var requestAccountDeletionHandler: (() -> Void)?
     
@@ -69,8 +71,13 @@ final class MyAccountViewModel {
     }
     private var cache: Cache<CacheKey, UserInfo>?
     
-    init(authClient: AuthClient, cache: Cache<CacheKey, UserInfo>? = nil) {
+    init(
+        authClient: AuthClient,
+        appPreferencesClient: AppPreferencesClient,
+        cache: Cache<CacheKey, UserInfo>? = nil
+    ) {
         self.authClient = authClient
+        self.appPreferencesClient = appPreferencesClient
         self.cache = cache
         userInfoResult = cache?[.userInfo]
     }
@@ -139,7 +146,13 @@ final class MyAccountViewModel {
                     }
                 },
                 receiveValue: { [weak self] in
-                    self?.logoutResult = ()
+                    guard let self
+                    else { return }
+
+                    self.appPreferencesClient.delete()
+
+                    self.logoutResult = ()
+
                     
                     NotificationCenter
                         .default

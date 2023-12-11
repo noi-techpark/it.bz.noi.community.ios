@@ -16,6 +16,7 @@ import AppPreferencesClient
 // MARK: - Private Constants
 
 private let skipIntroKey = "skipIntro"
+private let skipComeOnBoardOnboardingKey = "skipComeOnBoardOnboarding"
 
 // MARK: - EventShortClient+Live
 
@@ -25,11 +26,19 @@ public extension AppPreferencesClient {
         Self(
             fetch: {
                 AppPreferences(
-                    skipIntro: userDefaults.bool(forKey: skipIntroKey)
+                    skipIntro: userDefaults.bool(forKey: skipIntroKey),
+                    skipComeOnBoardOnboarding: userDefaults.bool(forKey: skipComeOnBoardOnboardingKey)
                 )
             },
             update: { appPreference in
                 userDefaults.set(appPreference.skipIntro, forKey: skipIntroKey)
+                userDefaults.set(appPreference.skipComeOnBoardOnboarding, forKey: skipComeOnBoardOnboardingKey)
+                userDefaults.synchronize()
+            },
+            delete: {
+                userDefaults.removeObject(forKey: skipIntroKey)
+                userDefaults.removeObject(forKey: skipComeOnBoardOnboardingKey)
+                userDefaults.synchronize()
             }
         )
     }

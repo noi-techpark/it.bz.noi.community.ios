@@ -33,5 +33,7 @@ protocol ViewModelFactory {
     ) -> NewsDetailsViewModel
     
     func makePeopleViewModel() -> PeopleViewModel
+
+    func makeComeOnBoardOnboardingViewModel() -> ComeOnBoardOnboardingViewModel
     
 }

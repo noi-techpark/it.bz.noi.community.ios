@@ -40,8 +40,7 @@ final class AccessNotGrantedViewController: ContainerViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = .localized("warning_title")
-        navigationController?.navigationBar.prefersLargeTitles = true
+        title = .localized("warning_title")        
         configureBindings()
         viewModel.fetchUserInfo()
     }
