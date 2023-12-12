@@ -31,6 +31,8 @@ protocol ViewModelFactory {
     func makeNewsDetailsViewModel(
         availableNews: Article?
     ) -> NewsDetailsViewModel
+
+    func makeLoadUserInfoViewModel() -> LoadUserInfoViewModel
     
     func makePeopleViewModel() -> PeopleViewModel
 

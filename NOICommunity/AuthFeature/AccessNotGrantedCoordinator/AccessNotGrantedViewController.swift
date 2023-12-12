@@ -96,21 +96,9 @@ private extension AccessNotGrantedViewController {
         navigationController?.navigationBar.isHidden = false
 
         content = {
-            let detailedText: String
-
-            if let userInfo = userInfoOrNil {
-                detailedText = .localizedStringWithFormat(
-                    .localized("access_not_granted_format"),
-                    userInfo.name ?? "N/D",
-                    userInfo.email ?? "N/D"
-                )
-            } else {
-                detailedText = .localized("access_not_granted_msg")
-            }
-
             let contentVC = BlockAccessViewController(nibName: nil, bundle: nil)
-            contentVC.text = .localized("label_access_not_granted")
-            contentVC.detailedText = detailedText
+            contentVC.text = .localized("outsider_user_title")
+            contentVC.detailedText = .localized("outsider_user_body")
             contentVC.primaryActionTitle = .localized("btn_logout")
             contentVC.primaryAction = { [weak self] in
                 self?.viewModel.logout()

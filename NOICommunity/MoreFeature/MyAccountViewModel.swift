@@ -66,9 +66,6 @@ final class MyAccountViewModel {
     
     var requestAccountDeletionHandler: (() -> Void)?
     
-    enum CacheKey: Hashable {
-        case userInfo
-    }
     private var cache: Cache<CacheKey, UserInfo>?
     
     init(

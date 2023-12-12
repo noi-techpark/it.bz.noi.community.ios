@@ -34,13 +34,13 @@ final class DependencyContainer {
     let artileClient: ArticlesClient
     let peopleClient: PeopleClient
     
-    private var _userInfoCache: Cache<MyAccountViewModel.CacheKey, UserInfo>?
-    private var userInfoCache: Cache<MyAccountViewModel.CacheKey, UserInfo>! {
+    private var _userInfoCache: Cache<CacheKey, UserInfo>?
+    private var userInfoCache: Cache<CacheKey, UserInfo>! {
         get {
             if let userInfoCache = _userInfoCache {
                 return userInfoCache
             } else {
-                let userInfoCache = Cache<MyAccountViewModel.CacheKey, UserInfo>()
+                let userInfoCache = Cache<CacheKey, UserInfo>()
                 _userInfoCache = userInfoCache
                 return userInfoCache
             }
@@ -157,6 +157,16 @@ extension DependencyContainer: ViewModelFactory {
                 description: .localized("onboarding_meetup_text")
             )
         ])
+    }
+
+    func makeLoadUserInfoViewModel() -> LoadUserInfoViewModel {
+        .init(
+            authClient: makeAuthClient(),
+            hasAccessGrantedClient: makeHasAccessGrantedClient(),
+            peopleClient: makePeopleClient(),
+            appPreferencesClient: makeAppPreferencesClient(),
+            cache: userInfoCache
+        )
     }
     
     func makeMyAccountViewModel() -> MyAccountViewModel {

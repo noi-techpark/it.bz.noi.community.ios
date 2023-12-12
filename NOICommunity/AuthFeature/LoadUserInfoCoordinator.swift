@@ -16,8 +16,8 @@ import Combine
 
 final class LoadUserInfoCoordinator: BaseNavigationCoordinator {
     
-    private lazy var myAccountViewModel = dependencyContainer
-        .makeMyAccountViewModel()
+    private lazy var viewModel = dependencyContainer
+        .makeLoadUserInfoViewModel()
     
     private var subscriptions: Set<AnyCancellable> = []
     
@@ -41,32 +41,26 @@ private extension LoadUserInfoCoordinator {
             [LoadingViewController(style: .light)],
             animated: animated
         )
-        myAccountViewModel
-            .$userInfoResult
-            .dropFirst()
+
+        viewModel.resultPublisher
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                guard let self = self
-                else { return }
-                
-                self.didFinishHandler(self, .success(()))
-            }
+            .sink(
+                receiveCompletion: { [weak self] completion in
+                    guard let self = self
+                    else { return }
+
+                    switch completion {
+                    case .finished:
+                        self.didFinishHandler(self, .success(()))
+                    case .failure(let error):
+                        self.didFinishHandler(self, .failure(error))
+                    }
+                },
+                receiveValue: { _ in }
+            )
             .store(in: &subscriptions)
         
-        myAccountViewModel.$error
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] error in
-                guard let self = self
-                else { return }
-                
-                guard let error = error
-                else { return }
-                
-                self.didFinishHandler(self, .failure(error))
-            }
-            .store(in: &subscriptions)
-        
-        myAccountViewModel.fetchUserInfo()
+        viewModel.fetchVerifiedUserInfo()
     }
     
 }

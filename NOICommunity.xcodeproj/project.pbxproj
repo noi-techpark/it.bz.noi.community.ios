@@ -38,6 +38,8 @@
 		31178FE026FA318800BDCDAA /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31178FDF26FA318800BDCDAA /* Collection.swift */; };
 		311E0EC62825157800404DCE /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 311E0EC52825157800404DCE /* FirebaseMessaging */; };
 		3121AFDE2858B43A00248CDF /* MeetMainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3121AFDD2858B43A00248CDF /* MeetMainViewController.xib */; };
+		3126E7252B287F670013F456 /* LoadUserInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3126E7242B287F670013F456 /* LoadUserInfoViewModel.swift */; };
+		3126E7272B2882620013F456 /* CacheKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3126E7262B2882620013F456 /* CacheKey.swift */; };
 		312BBB5B2832658600AF84F0 /* UIViewController+PresentMailCompose.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312BBB5A2832658600AF84F0 /* UIViewController+PresentMailCompose.swift */; };
 		312D29D8270451B600F4F4E7 /* ImageCardContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312D29D7270451B600F4F4E7 /* ImageCardContentView.swift */; };
 		312F5D272808250000C84598 /* AuthWelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312F5D262808250000C84598 /* AuthWelcomeViewController.swift */; };
@@ -267,6 +269,8 @@
 		31178FDD26FA2F7100BDCDAA /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		31178FDF26FA318800BDCDAA /* Collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
 		3121AFDD2858B43A00248CDF /* MeetMainViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MeetMainViewController.xib; sourceTree = "<group>"; };
+		3126E7242B287F670013F456 /* LoadUserInfoViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadUserInfoViewModel.swift; sourceTree = "<group>"; };
+		3126E7262B2882620013F456 /* CacheKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheKey.swift; sourceTree = "<group>"; };
 		312BBB5A2832658600AF84F0 /* UIViewController+PresentMailCompose.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+PresentMailCompose.swift"; sourceTree = "<group>"; };
 		312D29D7270451B600F4F4E7 /* ImageCardContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCardContentView.swift; sourceTree = "<group>"; };
 		312F5D262808250000C84598 /* AuthWelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthWelcomeViewController.swift; sourceTree = "<group>"; };
@@ -737,12 +741,14 @@
 		3153010228071CF500471153 /* AuthFeature */ = {
 			isa = PBXGroup;
 			children = (
-				31F0DBD2280F02DC00E782D5 /* AuthCoordinator.swift */,
-				3185AA11281FDBED00767E31 /* LoadUserInfoCoordinator.swift */,
-				3153010328071CFF00471153 /* WelcomeFeature */,
 				3185AA13281FEAAE00767E31 /* AccessNotGrantedCoordinator */,
-				3185AA162820005700767E31 /* KeychainAuthStateStorageClient.swift */,
+				3153010328071CFF00471153 /* WelcomeFeature */,
 				3106A2E4282132840029839A /* AuthConstants.swift */,
+				31F0DBD2280F02DC00E782D5 /* AuthCoordinator.swift */,
+				3126E7262B2882620013F456 /* CacheKey.swift */,
+				3185AA162820005700767E31 /* KeychainAuthStateStorageClient.swift */,
+				3185AA11281FDBED00767E31 /* LoadUserInfoCoordinator.swift */,
+				3126E7242B287F670013F456 /* LoadUserInfoViewModel.swift */,
 			);
 			path = AuthFeature;
 			sourceTree = "<group>";
@@ -1284,6 +1290,7 @@
 				3182A1BE282D5159005439B4 /* NewsDetailsViewController.swift in Sources */,
 				319C0EA026F4790300C6D38B /* CalendarAdditions.swift in Sources */,
 				31C640A226FE0BA9004B71A2 /* CoordinatorType.swift in Sources */,
+				3126E7252B287F670013F456 /* LoadUserInfoViewModel.swift in Sources */,
 				31C3629F270EFC5C00C92532 /* UIButton+Background.swift in Sources */,
 				319C0E8E26F33BD000C6D38B /* UIViewController+Children.swift in Sources */,
 				31C640A426FE0C64004B71A2 /* URL+KnowNOIURLs.swift in Sources */,
@@ -1311,6 +1318,7 @@
 				317B6F9A28118950008D07C0 /* ClientFactory.swift in Sources */,
 				31DA4A762705EA110098E395 /* MoreMainViewController.swift in Sources */,
 				311350E7282E4F0A00AC9BC9 /* GalleryCollectionViewController.swift in Sources */,
+				3126E7272B2882620013F456 /* CacheKey.swift in Sources */,
 				31178FDC26FA26C500BDCDAA /* EventDetailsViewController.swift in Sources */,
 				31C362A1270EFCC200C92532 /* UIButton+Noi.swift in Sources */,
 				31BFAB39283FB8EC00EF274D /* PersonDetailsViewController.swift in Sources */,
