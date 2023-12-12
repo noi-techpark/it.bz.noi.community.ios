@@ -78,7 +78,7 @@ private extension AuthCoordinator {
         else { return }
 
         let webVC = WebViewController()
-        webVC.url = url
+        webVC.url = url.addQueryParams(fullview: true)
         webVC.navigationItem.title = .localized("app_privacy_policy_page_title")
         navigationController.pushViewController(webVC, animated: true)
     }
@@ -120,4 +120,19 @@ private extension AuthCoordinator {
         }
     }
     
+}
+
+private extension URL {
+    func addQueryParams(fullview: Bool) -> URL {
+        var urlComponents = URLComponents(
+            url: self,
+            resolvingAgainstBaseURL: false
+        )!
+        var queryItems = urlComponents.queryItems ?? []
+        if fullview {
+            queryItems.append(URLQueryItem(name: "fullview", value: "1"))
+        }
+        urlComponents.queryItems = !queryItems.isEmpty ? queryItems : nil
+        return urlComponents.url!
+    }
 }
