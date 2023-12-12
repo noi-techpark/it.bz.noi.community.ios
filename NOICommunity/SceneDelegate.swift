@@ -51,8 +51,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 
                 return authState.isAuthorized
             },
-            hasAccessGrantedClient: {
-                guard let authState = tokenStorage.state,
+            hasAccessGrantedClient: { [weak self] in
+                guard let self,
+                      let authState = tokenStorage.state,
                       let accessToken = authState.lastTokenResponse?.accessToken
                 else { return false }
                 
