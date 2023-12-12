@@ -85,6 +85,7 @@ extension EventShortTypesClient {
                     }
                 let restPublisher = urlSession
                     .dataTaskPublisher(for: requestURL())
+                    .debug()
                     .mapError { $0 as Error }
                     .map { data, _ -> Data in
                         let jsonString = String(
