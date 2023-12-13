@@ -11,7 +11,7 @@
 
 import Foundation
 import Combine
-import Endpoint
+import Core
 import PeopleClient
 
 // MARK: - PeopleClient+Live
@@ -33,6 +33,7 @@ extension PeopleClient {
 
                 return urlSession
                     .dataTaskPublisher(for: urlRequest)
+                    .debug()
                     .map(\.data)
                     .decode(
                         type: PeopleResponse.self,
@@ -51,6 +52,7 @@ extension PeopleClient {
                 
                 return urlSession
                     .dataTaskPublisher(for: urlRequest)
+                    .debug()
                     .map(\.data)
                     .decode(
                         type: CompanyResponse.self,

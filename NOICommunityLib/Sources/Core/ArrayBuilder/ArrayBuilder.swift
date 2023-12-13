@@ -4,7 +4,7 @@
 
 //
 //  ArrayBuilder.swift
-//  ArrayBuilder
+//  Core
 //
 //  Created by Matteo Matassoni on 11/05/22.
 //

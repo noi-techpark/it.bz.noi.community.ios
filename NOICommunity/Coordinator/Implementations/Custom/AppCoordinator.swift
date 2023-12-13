@@ -27,7 +27,7 @@ final class AppCoordinator: BaseNavigationCoordinator {
     
     private lazy var isAutorizedClient = dependencyContainer
         .makeIsAutorizedClient()
-    
+
     private var pendingDeepLinkIntent: DeepLinkIntent?
     
     private weak var tabCoordinator: TabCoordinator!
@@ -41,14 +41,10 @@ final class AppCoordinator: BaseNavigationCoordinator {
             }
             .store(in: &subscriptions)
         
-        guard isAutorizedClient()
-        else {
+        if !isAutorizedClient() {
             showAuthCoordinator()
-            return
-        }
-        
-        showLoadUserInfo(animated: false) { [weak self] in
-            self?.showAuthorizedContent(animated: true)
+        } else {
+            showLoadUserInfo()
         }
     }
     
@@ -82,63 +78,68 @@ private extension AppCoordinator {
         }
         childCoordinators.append(authCoordinator)
         authCoordinator.start(animated: animated)
+
+        navigationController.navigationBar.isHidden = true
     }
     
-    func showLoadUserInfo(
-        animated: Bool,
-        onSuccess successHandler: @escaping () -> Void
-    ) {
+    func showLoadUserInfo(animated: Bool = false) {
         let loadUserInfoCoordinator = LoadUserInfoCoordinator(
             navigationController: navigationController,
             dependencyContainer: dependencyContainer
         )
         loadUserInfoCoordinator.didFinishHandler = { [weak self] in
-            self?.loadUserInfoCoordinatorDidFinish(
-                $0,
-                with: $1,
-                onSuccess: successHandler
-            )
+            self?.loadUserInfoCoordinatorDidFinish($0, with: $1)
         }
         childCoordinators.append(loadUserInfoCoordinator)
         loadUserInfoCoordinator.start(animated: animated)
     }
-    
+
+    func showTabCoordinator(animated: Bool = false) {
+        let tabBarController = TabBarController()
+        let tabCoordinator = TabCoordinator(
+            tabBarController: tabBarController,
+            dependencyContainer: dependencyContainer
+        )
+        childCoordinators.append(tabCoordinator)
+        self.tabCoordinator = tabCoordinator
+        tabCoordinator.start()
+        navigationController.setViewControllers(
+            [tabBarController],
+            animated: animated
+        )
+
+        if let pendingDeepLinkIntent = self.pendingDeepLinkIntent {
+            handle(deepLinkIntent: pendingDeepLinkIntent)
+            self.pendingDeepLinkIntent = nil
+        }
+    }
+
+    func showComeOnBoardOnboardingCoordinator(animated: Bool) {
+        let comeOnBoardOnboardingCoordinator = ComeOnBoardOnboardingCoordinator(
+            navigationController: navigationController,
+            dependencyContainer: dependencyContainer
+        )
+        comeOnBoardOnboardingCoordinator.didFinishHandler = { [weak self] coordinator in
+            self?.sacrifice(child: coordinator)
+            self?.showTabCoordinator(animated: true)
+        }
+        childCoordinators.append(comeOnBoardOnboardingCoordinator)
+        comeOnBoardOnboardingCoordinator.start(animated: animated)
+    }
+
     func showAuthorizedContent(animated: Bool) {
-        func showAccessNotGrantedCoordinator(animated: Bool) {
-            let accessNotGrantedCoordinator = AccessNotGrantedCoordinator(
-                navigationController: navigationController,
-                dependencyContainer: dependencyContainer
-            )
-            childCoordinators.append(accessNotGrantedCoordinator)
-            accessNotGrantedCoordinator.start(animated: animated)
+        let skipComeOnBoardOnboarding = {
+            let appPreferencesClient = self.dependencyContainer
+                .makeAppPreferencesClient()
+            return appPreferencesClient
+                .fetch()
+                .skipComeOnBoardOnboarding
         }
-        
-        func showTabCoordinator(animated: Bool = false) {
-            let tabBarController = TabBarController()
-            let tabCoordinator = TabCoordinator(
-                tabBarController: tabBarController,
-                dependencyContainer: dependencyContainer
-            )
-            childCoordinators.append(tabCoordinator)
-            self.tabCoordinator = tabCoordinator
-            tabCoordinator.start()
-            navigationController.setViewControllers(
-                [tabBarController],
-                animated: animated
-            )
-            
-            if let pendingDeepLinkIntent = self.pendingDeepLinkIntent {
-                handle(deepLinkIntent: pendingDeepLinkIntent)
-                self.pendingDeepLinkIntent = nil
-            }
-        }
-        
-        let hasAccessGrantedClient = dependencyContainer
-            .makeHasAccessGrantedClient()
-        if hasAccessGrantedClient() {
-            showTabCoordinator(animated: true)
+
+        if !skipComeOnBoardOnboarding() {
+            showComeOnBoardOnboardingCoordinator(animated: true)
         } else {
-            showAccessNotGrantedCoordinator(animated: true)
+            showTabCoordinator(animated: true)
         }
     }
     
@@ -147,24 +148,25 @@ private extension AppCoordinator {
         _ authCoordinator: AuthCoordinator
     ) {
         sacrifice(child: authCoordinator)
-        showLoadUserInfo(animated: false) { [weak self] in
-            self?.showAuthorizedContent(animated: true)
-        }
+        showLoadUserInfo()
     }
     
     func loadUserInfoCoordinatorDidFinish(
         _ loadUserInfoCoordinator: LoadUserInfoCoordinator,
-        with result: Result<Void, Error>,
-        onSuccess successHandler: @escaping () -> Void
+        with result: Result<Void, Error>
     ) {
         sacrifice(child: loadUserInfoCoordinator)
+
         switch result {
-        case .success():
-            successHandler()
+        case .success:
+            showAuthorizedContent(animated: true)
         case .failure(AuthError.OAuthTokenInvalidGrant):
             logout(animated: true)
+        case .failure(LoadUserInfoError.accessNotGranted),
+                .failure(LoadUserInfoError.outsider):
+            showAccessNotGrantedCoordinator(animated: true)
         case .failure(_):
-            successHandler()
+            showAuthorizedContent(animated: true)
         }
     }
     
@@ -252,7 +254,16 @@ private extension AppCoordinator {
     @objc func closeModal(sender: Any?) {
         navigationController.dismiss(animated: true)
     }
-    
+
+    func showAccessNotGrantedCoordinator(animated: Bool) {
+        let accessNotGrantedCoordinator = AccessNotGrantedCoordinator(
+            navigationController: navigationController,
+            dependencyContainer: dependencyContainer
+        )
+        childCoordinators.append(accessNotGrantedCoordinator)
+        accessNotGrantedCoordinator.start(animated: animated)
+    }
+
 }
 
 // MARK: MFMailComposeViewControllerDelegate

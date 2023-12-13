@@ -11,8 +11,7 @@
 
 import Foundation
 import Combine
-import PascalJSONDecoder
-import DecodeEmptyRepresentable
+import Core
 import EventShortClient
 
 // MARK: - Private Constants
@@ -77,6 +76,7 @@ extension EventShortClient {
                 
                 return urlSession
                     .dataTaskPublisher(for: urlComponents.url!)
+                    .debug()
                     .map(\.data)
                     .decode(
                         type: EventShortListResponse.self,
@@ -96,6 +96,7 @@ extension EventShortClient {
                 
                 return URLSession.shared
                     .dataTaskPublisher(for: urlComponents.url!)
+                    .debug()
                     .map(\.data)
                     .decode(
                         type: [String:String].self,

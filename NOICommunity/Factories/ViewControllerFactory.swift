@@ -53,5 +53,8 @@ protocol ViewControllerFactory {
     func makeCompaniesFiltersViewController(
         viewModel: PeopleViewModel
     ) -> CompaniesFiltersViewController
-    
+
+    func makeComeOnBoardOnboardingViewController(
+        viewModel: ComeOnBoardOnboardingViewModel
+    ) -> ComeOnBoardOnboardingViewController
 }

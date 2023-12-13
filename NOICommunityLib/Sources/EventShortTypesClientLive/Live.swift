@@ -11,9 +11,7 @@
 
 import Foundation
 import Combine
-import SwiftCache
-import PascalJSONDecoder
-import DecodeEmptyRepresentable
+import Core
 import EventShortTypesClient
 
 // MARK: - Private Constants
@@ -34,6 +32,7 @@ extension EventShortTypesClient {
             filters: {
                 urlSession
                     .dataTaskPublisher(for: requestURL())
+                    .debug()
                     .map(\.data)
                     .decode(
                         type: [EventsFilter].self,
@@ -86,6 +85,7 @@ extension EventShortTypesClient {
                     }
                 let restPublisher = urlSession
                     .dataTaskPublisher(for: requestURL())
+                    .debug()
                     .mapError { $0 as Error }
                     .map { data, _ -> Data in
                         let jsonString = String(

@@ -4,7 +4,7 @@
 
 //
 //  Cache.swift
-//  Cache
+//  Core
 //
 //  Created by Matteo Matassoni on 11/03/22.
 //

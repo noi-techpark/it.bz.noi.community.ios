@@ -72,6 +72,16 @@ private extension AuthCoordinator {
         let safariVC = SFSafariViewController(url: AuthConstant.signupURL)
         navigationController.present(safariVC, animated: true)
     }
+
+    func goToAppPrivacyPage() {
+        guard let url = URL(string: .localized("url_app_privacy"))
+        else { return }
+
+        let webVC = WebViewController()
+        webVC.url = url.addQueryParams(fullview: true)
+        webVC.navigationItem.title = .localized("app_privacy_policy_page_title")
+        navigationController.pushViewController(webVC, animated: true)
+    }
     
     func showWelcome(animated: Bool) {
         welcomeViewModel = dependencyContainer.makeWelcomeViewModel()
@@ -81,10 +91,18 @@ private extension AuthCoordinator {
                 self?.goToLogin()
             }
             .store(in: &subscriptions)
+
         welcomeViewModel.startSignUpPublisher
             .receive(on: DispatchQueue.main)
             .sink { [weak self] in
                 self?.goToSignUp()
+            }
+            .store(in: &subscriptions)
+
+        welcomeViewModel.navigateToAppPrivacyPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] in
+                self?.goToAppPrivacyPage()
             }
             .store(in: &subscriptions)
         
@@ -102,4 +120,19 @@ private extension AuthCoordinator {
         }
     }
     
+}
+
+private extension URL {
+    func addQueryParams(fullview: Bool) -> URL {
+        var urlComponents = URLComponents(
+            url: self,
+            resolvingAgainstBaseURL: false
+        )!
+        var queryItems = urlComponents.queryItems ?? []
+        if fullview {
+            queryItems.append(URLQueryItem(name: "fullview", value: "1"))
+        }
+        urlComponents.queryItems = !queryItems.isEmpty ? queryItems : nil
+        return urlComponents.url!
+    }
 }

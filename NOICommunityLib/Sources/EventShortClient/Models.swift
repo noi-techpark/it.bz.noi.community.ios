@@ -249,8 +249,8 @@ public struct DocumentPDF: Decodable, Equatable {
 public struct ImageGallery: Decodable, Equatable {
     public let imageName: String?
     public let imageUrl: String?
-    public let width: Int
-    public let height: Int
+    public let width: Int?
+    public let height: Int?
     public let imageSource: String?
     public let imageTitle: [String:String]?
     public let imageDesc: [String:String]?

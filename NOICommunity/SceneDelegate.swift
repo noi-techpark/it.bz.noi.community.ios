@@ -16,7 +16,7 @@ import EventShortClientLive
 import AppPreferencesClientLive
 import EventShortTypesClient
 import EventShortTypesClientLive
-import SwiftCache
+import Core
 import AuthClientLive
 import AuthStateStorageClient
 import ArticlesClientLive
@@ -51,8 +51,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 
                 return authState.isAuthorized
             },
-            hasAccessGrantedClient: {
-                guard let authState = tokenStorage.state,
+            hasAccessGrantedClient: { [weak self] in
+                guard let self,
+                      let authState = tokenStorage.state,
                       let accessToken = authState.lastTokenResponse?.accessToken
                 else { return false }
                 

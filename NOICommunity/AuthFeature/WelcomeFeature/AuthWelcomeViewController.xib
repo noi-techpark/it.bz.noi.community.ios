@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -15,7 +15,10 @@
                 <outlet property="footerView" destination="Myg-RG-FqO" id="AnW-Do-OnF"/>
                 <outlet property="loginButton" destination="Vbf-nl-qua" id="Qmh-FD-0as"/>
                 <outlet property="pageControl" destination="3wm-sX-G2z" id="gU2-Iy-IvP"/>
-                <outlet property="pagesContainerView" destination="JNN-jq-OAA" id="Se8-SR-Zwe"/>
+                <outlet property="pagesContainerView" destination="JNN-jq-OAA" id="Dy4-A8-I84"/>
+                <outlet property="privacyButton" destination="pjd-OM-vHt" id="QRT-4v-tUJ"/>
+                <outlet property="privacyContainerView" destination="V5K-Xe-rud" id="dvn-Se-xX3"/>
+                <outlet property="privacyTextView" destination="2Rd-CF-OPP" id="zLS-vC-6fr"/>
                 <outlet property="signUpButton" destination="ElR-z1-tS9" id="hbS-dR-WSv"/>
                 <outlet property="view" destination="iN0-l3-epB" id="u6D-Kg-j9T"/>
             </connections>
@@ -30,40 +33,82 @@
                     <color key="backgroundColor" name="background_color"/>
                 </view>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="Myg-RG-FqO">
-                    <rect key="frame" x="17" y="683" width="380" height="159"/>
+                    <rect key="frame" x="17" y="322" width="380" height="520"/>
                     <subviews>
                         <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="3wm-sX-G2z">
                             <rect key="frame" x="0.0" y="0.0" width="380" height="26"/>
                         </pageControl>
-                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="9" translatesAutoresizingMaskIntoConstraints="NO" id="tor-wU-Xp3">
-                            <rect key="frame" x="0.0" y="50" width="380" height="109"/>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="oLk-ss-4qR">
+                            <rect key="frame" x="0.0" y="50" width="380" height="470"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vbf-nl-qua">
-                                    <rect key="frame" x="0.0" y="0.0" width="380" height="50"/>
-                                    <color key="backgroundColor" name="tertiary_background_color"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="45W-0D-140"/>
-                                    </constraints>
-                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                    <color key="tintColor" name="secondary_color"/>
-                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                    <state key="normal" title="Login"/>
-                                    <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                            <integer key="value" value="2"/>
-                                        </userDefinedRuntimeAttribute>
-                                    </userDefinedRuntimeAttributes>
-                                </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ElR-z1-tS9">
-                                    <rect key="frame" x="0.0" y="59" width="380" height="50"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="Irb-nr-NGO"/>
-                                    </constraints>
-                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                    <color key="tintColor" name="primary_color"/>
-                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                    <state key="normal" title="Signup"/>
-                                </button>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="5xM-Fn-DyZ">
+                                    <rect key="frame" x="0.0" y="0.0" width="380" height="346"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V5K-Xe-rud">
+                                            <rect key="frame" x="0.0" y="0.0" width="380" height="346"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pjd-OM-vHt">
+                                                    <rect key="frame" x="0.0" y="0.0" width="24" height="24"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="24" id="CJG-th-hKL"/>
+                                                        <constraint firstAttribute="width" constant="24" id="RRJ-Rk-JEM"/>
+                                                    </constraints>
+                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                    <state key="normal" image="checkbox_unchecked"/>
+                                                </button>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Rd-CF-OPP" customClass="LinkTextView" customModule="NOICommunity" customModuleProvider="target">
+                                                    <rect key="frame" x="32" y="0.0" width="348" height="346"/>
+                                                    <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                                    <color key="textColor" name="primary_color"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                </textView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="2Rd-CF-OPP" firstAttribute="leading" secondItem="pjd-OM-vHt" secondAttribute="trailing" constant="8" id="28b-ox-hVc"/>
+                                                <constraint firstAttribute="bottom" secondItem="2Rd-CF-OPP" secondAttribute="bottom" id="7eK-V1-dI4"/>
+                                                <constraint firstItem="pjd-OM-vHt" firstAttribute="top" secondItem="V5K-Xe-rud" secondAttribute="top" id="BtJ-pb-sfM"/>
+                                                <constraint firstItem="pjd-OM-vHt" firstAttribute="leading" secondItem="V5K-Xe-rud" secondAttribute="leading" id="QCV-vN-g8g"/>
+                                                <constraint firstItem="2Rd-CF-OPP" firstAttribute="top" secondItem="V5K-Xe-rud" secondAttribute="top" id="aNA-Kr-ake"/>
+                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="pjd-OM-vHt" secondAttribute="bottom" id="dx9-Gf-4jg"/>
+                                                <constraint firstAttribute="trailing" secondItem="2Rd-CF-OPP" secondAttribute="trailing" id="kCs-1c-M8j"/>
+                                            </constraints>
+                                        </view>
+                                    </subviews>
+                                    <gestureRecognizers/>
+                                </stackView>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="9" translatesAutoresizingMaskIntoConstraints="NO" id="tor-wU-Xp3">
+                                    <rect key="frame" x="0.0" y="361" width="380" height="109"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vbf-nl-qua">
+                                            <rect key="frame" x="0.0" y="0.0" width="380" height="50"/>
+                                            <color key="backgroundColor" name="tertiary_background_color"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="45W-0D-140"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                            <color key="tintColor" name="secondary_color"/>
+                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                            <state key="normal" title="Login"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                    <integer key="value" value="2"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ElR-z1-tS9">
+                                            <rect key="frame" x="0.0" y="59" width="380" height="50"/>
+                                            <color key="backgroundColor" name="secondary_color"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="Irb-nr-NGO"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                            <color key="tintColor" name="primary_color"/>
+                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                            <state key="normal" title="Signup"/>
+                                        </button>
+                                    </subviews>
+                                </stackView>
                             </subviews>
                         </stackView>
                     </subviews>
@@ -80,10 +125,11 @@
                 <constraint firstAttribute="trailing" secondItem="JNN-jq-OAA" secondAttribute="trailing" id="k01-7S-u5j"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="Myg-RG-FqO" secondAttribute="bottom" constant="20" id="oZj-VU-Ime"/>
             </constraints>
-            <point key="canvasLocation" x="139" y="140"/>
+            <point key="canvasLocation" x="-29" y="139"/>
         </view>
     </objects>
     <resources>
+        <image name="checkbox_unchecked" width="24" height="24"/>
         <namedColor name="background_color">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

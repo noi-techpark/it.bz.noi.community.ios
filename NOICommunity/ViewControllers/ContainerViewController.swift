@@ -11,14 +11,16 @@
 
 import UIKit
 
-class ContainerViewController: UIViewController {
+public class ContainerViewController: UIViewController {
+
     private var _content: UIViewController?
-    var content: UIViewController? {
+    @objc public var content: UIViewController? {
         get { _content }
         set { setContent(newValue, animated: false) }
     }
 
-    func setContent(_ content: UIViewController?, animated: Bool) {
+    @objc(setContent:animated:)
+    public func setContent(_ content: UIViewController?, animated: Bool) {
         let oldContent = _content
         _content = content
 
@@ -32,51 +34,25 @@ class ContainerViewController: UIViewController {
         }
     }
 
-    init(content: UIViewController?) {
+    @objc
+    public init(content: UIViewController?) {
         _content = content
         super.init(nibName: nil, bundle: nil)
     }
 
-    convenience init() {
+    @objc
+    convenience public init() {
         self.init(content: nil)
     }
 
-    required init?(coder: NSCoder) {
+    required public init?(coder: NSCoder) {
         super.init(coder: coder)
     }
 
-    override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
 
         replaceChild(nil, with: content, animated: false)
-    }
-
-    override var shouldAutomaticallyForwardAppearanceMethods: Bool {
-        false
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
-        content?.beginAppearanceTransition(true, animated: animated)
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-
-        content?.endAppearanceTransition()
-    }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-
-        content?.beginAppearanceTransition(false, animated: animated)
-    }
-
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-
-        content?.endAppearanceTransition()
     }
 
     private func replaceChild(_ oldChild: UIViewController?,
@@ -128,46 +104,59 @@ class ContainerViewController: UIViewController {
                             options: UIView.AnimationOptions,
                             completion: ((Bool) -> Void)?) {
         addChild(to)
-        to.beginAppearanceTransition(true, animated: animated)
         to.view.alpha = 0
-
         container.embedSubview(to.view)
-        UIView.animate(withDuration: duration,
-                       delay: 0,
-                       options: options,
-                       animations: {
-                        to.view.alpha = 1
-                       }, completion: { finished in
-                        if finished {
-                            to.didMove(toParent: self)
-                            to.endAppearanceTransition()
-                        }
 
-                        completion?(finished)
-                       })
+        let animationBlock = {
+            to.view.alpha = 1
+        }
+        let animationCompletionBlock = { (finished: Bool) -> Void in
+            to.didMove(toParent: self)
+            completion?(finished)
+        }
+
+        if animated {
+            UIView.animate(withDuration: duration,
+                           delay: 0,
+                           options: options,
+                           animations: animationBlock,
+                           completion: animationCompletionBlock)
+        } else {
+            animationBlock()
+            animationCompletionBlock(true)
+        }
     }
 
     private func transition(from: UIViewController,
-                            in _: UIView,
+                            in container: UIView,
                             animated: Bool,
                             duration: TimeInterval,
-                            options _: UIView.AnimationOptions,
+                            options: UIView.AnimationOptions,
                             completion: ((Bool) -> Void)?) {
         // animate out the "from" view
         // remove it
-
         from.willMove(toParent: nil)
-        from.beginAppearanceTransition(false, animated: animated)
 
-        UIView.animate(withDuration: duration, animations: {
+        let animationBlock = {
             from.view.alpha = 0
-        }, completion: { finished in
+        }
+        let animationCompletionBlock = { (finished: Bool) -> Void in
             from.view.removeFromSuperview()
-            from.endAppearanceTransition()
             from.removeFromParent()
 
             completion?(finished)
-        })
+        }
+
+        if animated {
+            UIView.animate(withDuration: duration,
+                           delay: 0,
+                           options: options,
+                           animations: animationBlock,
+                           completion: animationCompletionBlock)
+        } else {
+            animationBlock()
+            animationCompletionBlock(true)
+        }
     }
 
     private func transition(from: UIViewController,
@@ -181,60 +170,68 @@ class ContainerViewController: UIViewController {
         else { return }
 
         // animate from "from" view to "to" view
-
         from.willMove(toParent: nil)
         addChild(to)
-
-        from.beginAppearanceTransition(false, animated: animated)
-        to.beginAppearanceTransition(true, animated: animated)
 
         to.view.alpha = 0
         from.view.alpha = 1
 
         container.embedSubview(to.view)
         container.bringSubviewToFront(from.view)
-        UIView.animate(withDuration: duration,
-                       delay: 0,
-                       options: options,
-                       animations: {
-                        to.view.alpha = 1
-                        from.view.alpha = 0
-                       }, completion: { finished in
-                        from.view.removeFromSuperview()
-                        from.endAppearanceTransition()
-                        from.removeFromParent()
 
-                        if finished {
-                            to.didMove(toParent: self)
-                            to.endAppearanceTransition()
-                        }
+        let animationBlock = {
+            to.view.alpha = 1
+            from.view.alpha = 0
+        }
+        let animationCompletionBlock = { (finished: Bool) -> Void in
+            from.view.removeFromSuperview()
+            from.removeFromParent()
 
-                        completion?(finished)
-                       })
+            to.didMove(toParent: self)
+
+            completion?(finished)
+        }
+
+        if animated {
+            UIView.animate(withDuration: duration,
+                           delay: 0,
+                           options: options,
+                           animations: animationBlock,
+                           completion: animationCompletionBlock)
+        } else {
+            animationBlock()
+            animationCompletionBlock(true)
+        }
     }
 }
 
 // MARK: Status Bar
+
 extension ContainerViewController {
-    override var childForStatusBarStyle: UIViewController? {
+
+    public override var childForStatusBarStyle: UIViewController? {
         content
     }
 
-    override var childForStatusBarHidden: UIViewController? {
+    public override var childForStatusBarHidden: UIViewController? {
         content
     }
 }
 
 // MARK: Home Indicator
+
 extension ContainerViewController {
-    override var childForHomeIndicatorAutoHidden: UIViewController? {
+
+    public override var childForHomeIndicatorAutoHidden: UIViewController? {
         content
     }
 }
 
 // MARK: Screen-edge gestures
+
 extension ContainerViewController {
-    override var childForScreenEdgesDeferringSystemGestures: UIViewController? {
+
+    public override var childForScreenEdgesDeferringSystemGestures: UIViewController? {
         content
     }
 }

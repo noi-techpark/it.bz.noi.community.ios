@@ -4,7 +4,7 @@
 
 //
 //  String+firstCharLowercased.swift
-//  PascalJSONDecoder
+//  Core
 //
 //  Created by Matteo Matassoni on 11/03/22.
 //

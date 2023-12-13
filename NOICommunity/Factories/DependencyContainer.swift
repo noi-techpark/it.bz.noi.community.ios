@@ -17,7 +17,7 @@ import AuthStateStorageClient
 import AuthClient
 import EventShortClient
 import EventShortTypesClient
-import SwiftCache
+import Core
 import ArticlesClient
 import PeopleClient
 
@@ -26,21 +26,21 @@ import PeopleClient
 final class DependencyContainer {
     
     let appPreferencesClient: AppPreferencesClient
-    let isAutorizedClient: () -> Bool
-    let hasAccessGrantedClient: () -> Bool
+    let isAutorizedClient: IsAutorizedClient
+    let hasAccessGrantedClient: HasAccessGrantedClient
     let authClient: AuthClient
     let eventShortClient: EventShortClient
     let eventShortTypesClient: EventShortTypesClient
     let artileClient: ArticlesClient
     let peopleClient: PeopleClient
     
-    private var _userInfoCache: Cache<MyAccountViewModel.CacheKey, UserInfo>?
-    private var userInfoCache: Cache<MyAccountViewModel.CacheKey, UserInfo>! {
+    private var _userInfoCache: Cache<CacheKey, UserInfo>?
+    private var userInfoCache: Cache<CacheKey, UserInfo>! {
         get {
             if let userInfoCache = _userInfoCache {
                 return userInfoCache
             } else {
-                let userInfoCache = Cache<MyAccountViewModel.CacheKey, UserInfo>()
+                let userInfoCache = Cache<CacheKey, UserInfo>()
                 _userInfoCache = userInfoCache
                 return userInfoCache
             }
@@ -54,8 +54,8 @@ final class DependencyContainer {
 
     init(
         appPreferencesClient: AppPreferencesClient,
-        isAutorizedClient: @escaping () -> Bool,
-        hasAccessGrantedClient: @escaping () -> Bool,
+        isAutorizedClient: @escaping IsAutorizedClient,
+        hasAccessGrantedClient: @escaping HasAccessGrantedClient,
         authClient: AuthClient,
         eventShortClient: EventShortClient,
         eventShortTypesClient: EventShortTypesClient,
@@ -85,7 +85,7 @@ final class DependencyContainer {
 
 extension DependencyContainer: ClientFactory {
     
-    func makeIsAutorizedClient() -> () -> Bool {
+    func makeIsAutorizedClient() -> IsAutorizedClient {
         isAutorizedClient
     }
     
@@ -98,7 +98,7 @@ extension DependencyContainer: ClientFactory {
         authClient
     }
     
-    func makeHasAccessGrantedClient() -> () -> Bool {
+    func makeHasAccessGrantedClient() -> HasAccessGrantedClient {
         hasAccessGrantedClient
     }
     
@@ -158,9 +158,23 @@ extension DependencyContainer: ViewModelFactory {
             )
         ])
     }
+
+    func makeLoadUserInfoViewModel() -> LoadUserInfoViewModel {
+        .init(
+            authClient: makeAuthClient(),
+            hasAccessGrantedClient: makeHasAccessGrantedClient(),
+            peopleClient: makePeopleClient(),
+            appPreferencesClient: makeAppPreferencesClient(),
+            cache: userInfoCache
+        )
+    }
     
     func makeMyAccountViewModel() -> MyAccountViewModel {
-        .init(authClient: makeAuthClient(), cache: userInfoCache)
+        .init(
+            authClient: makeAuthClient(),
+            appPreferencesClient: makeAppPreferencesClient(),
+            cache: userInfoCache
+        )
     }
     
     func makeNewsListViewModel() -> NewsListViewModel {
@@ -177,6 +191,10 @@ extension DependencyContainer: ViewModelFactory {
     
     func makePeopleViewModel() -> PeopleViewModel {
         .init(authClient: makeAuthClient(), peopleClient: makePeopleClient())
+    }
+
+    func makeComeOnBoardOnboardingViewModel() -> ComeOnBoardOnboardingViewModel {
+        .init(appPreferencesClient: makeAppPreferencesClient())
     }
     
 }
@@ -243,6 +261,12 @@ extension DependencyContainer: ViewControllerFactory {
         viewModel: PeopleViewModel
     ) -> CompaniesFiltersViewController {
         .init(peopleViewModel: viewModel)
+    }
+
+    func makeComeOnBoardOnboardingViewController(
+        viewModel: ComeOnBoardOnboardingViewModel
+    ) -> ComeOnBoardOnboardingViewController {
+        .init(viewModel: viewModel)
     }
     
 }

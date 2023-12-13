@@ -64,6 +64,7 @@ private extension RootCoordinator {
     func startAppCoordinator() {
         let navigationController = NavigationController()
         navigationController.navigationBar.isHidden = true
+        navigationController.navigationBar.prefersLargeTitles = true
         let appCoordinator = AppCoordinator(
             navigationController: navigationController,
             dependencyContainer: dependencyContainer

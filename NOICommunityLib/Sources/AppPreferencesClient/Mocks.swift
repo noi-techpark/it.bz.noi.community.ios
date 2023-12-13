@@ -18,15 +18,33 @@ public extension AppPreferencesClient {
     
     static let alwaysShowIntro = Self(
         fetch: {
-            AppPreferences(skipIntro: false)
+            AppPreferences(skipIntro: false, skipComeOnBoardOnboarding: false)
         },
-        update: { _ in }
+        update: { _ in },
+        delete: { }
     )
     
     static let neverShowIntro = Self(
         fetch: {
-            AppPreferences(skipIntro: true)
+            AppPreferences(skipIntro: true, skipComeOnBoardOnboarding: false)
         },
-        update: { _ in }
+        update: { _ in },
+        delete: { }
+    )
+
+    static let alwaysShowComeOnBoardOnboarding = Self(
+        fetch: {
+            AppPreferences(skipIntro: false, skipComeOnBoardOnboarding: true)
+        },
+        update: { _ in },
+        delete: { }
+    )
+
+    static let neverShowComeOnBoardOnboarding = Self(
+        fetch: {
+            AppPreferences(skipIntro: false, skipComeOnBoardOnboarding: true)
+        },
+        update: { _ in },
+        delete: { }
     )
 }

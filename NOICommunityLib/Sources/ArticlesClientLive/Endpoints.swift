@@ -10,9 +10,8 @@
 //
 
 import Foundation
+import Core
 import ArticlesClient
-import Endpoint
-import EndpointWithQueryBuilder
 
 private let dateFormatter: DateFormatter = { dateFormatter in
     dateFormatter.calendar = Calendar(identifier: .iso8601)
