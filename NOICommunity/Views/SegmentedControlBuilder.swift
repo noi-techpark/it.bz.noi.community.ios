@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 //
-//  File.swift
+//  SegmentedControlBuilder.swift
 //  NOICommunity
 //
 //  Created by Matteo Matassoni on 20/09/21.
