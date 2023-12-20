@@ -78,7 +78,9 @@ final class LoadUserInfoViewModel {
                             guard let userEmail = userInfo.email
                             else { return false }
 
-                            return userEmail == person.email || userEmail.hasSuffix("@dimension.it")
+                            return userEmail == person.email || 
+                            userEmail == "noi.community.app.test@opendatahub.com" ||
+                            userEmail.hasSuffix("@dimension.it")
                         }
                     }
                     .setFailureType(to: Error.self)
