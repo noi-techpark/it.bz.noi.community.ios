@@ -168,6 +168,7 @@
 		31BFAB35283FB49A00EF274D /* MeetConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BFAB34283FB49800EF274D /* MeetConstant.swift */; };
 		31BFAB39283FB8EC00EF274D /* PersonDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BFAB38283FB8EC00EF274D /* PersonDetailsViewController.swift */; };
 		31BFAB3B283FC88A00EF274D /* CALayer+XibConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BFAB3A283FC88A00EF274D /* CALayer+XibConfiguration.swift */; };
+		31C028412B55924B00D851EE /* FeatureFlag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C028402B55924B00D851EE /* FeatureFlag.swift */; };
 		31C14C2327DA3597009AF69D /* UIScrollView+ScrollToView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C14C2227DA3597009AF69D /* UIScrollView+ScrollToView.swift */; };
 		31C2261C270F596E0098A70E /* EventCardContentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 315F4BE127034C00001905AF /* EventCardContentView.xib */; };
 		31C2261D270F59750098A70E /* EventDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3187667826FB3A9300782FA6 /* EventDetailsViewController.xib */; };
@@ -395,6 +396,7 @@
 		31BFAB34283FB49800EF274D /* MeetConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetConstant.swift; sourceTree = "<group>"; };
 		31BFAB38283FB8EC00EF274D /* PersonDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonDetailsViewController.swift; sourceTree = "<group>"; };
 		31BFAB3A283FC88A00EF274D /* CALayer+XibConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+XibConfiguration.swift"; sourceTree = "<group>"; };
+		31C028402B55924B00D851EE /* FeatureFlag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureFlag.swift; sourceTree = "<group>"; };
 		31C14C2227DA3597009AF69D /* UIScrollView+ScrollToView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+ScrollToView.swift"; sourceTree = "<group>"; };
 		31C28BF52719709B00312A62 /* NOICells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NOICells.swift; sourceTree = "<group>"; };
 		31C28BF7271992F500312A62 /* FiltersBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersBarView.swift; sourceTree = "<group>"; };
@@ -927,6 +929,7 @@
 				31178FCD26F8D7CC00BDCDAA /* Localization.swift */,
 				31C28BF52719709B00312A62 /* NOICells.swift */,
 				31C8F52A282522150009BCB7 /* NoiNewsTopic.swift */,
+				31C028402B55924B00D851EE /* FeatureFlag.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -1313,6 +1316,7 @@
 				31A5F04F27D22ECA00FA20BC /* EventFiltersListViewController.swift in Sources */,
 				3153010528071D1200471153 /* AuthWelcomePageViewController.swift in Sources */,
 				316F5615281C166B0075B09F /* MyAccountViewController.swift in Sources */,
+				31C028412B55924B00D851EE /* FeatureFlag.swift in Sources */,
 				31C640B126FE1449004B71A2 /* TabCoordinatorType.swift in Sources */,
 				31A5F05527D25A9400FA20BC /* EventFiltersViewController.swift in Sources */,
 				317B6F9A28118950008D07C0 /* ClientFactory.swift in Sources */,
