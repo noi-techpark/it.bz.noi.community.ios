@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22155" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BlockAccessViewController" customModule="NOICommunity" customModuleProvider="target">
             <connections>
-                <outlet property="bodyLabel" destination="Goo-xv-hFl" id="5bU-dW-3tS"/>
+                <outlet property="bodyTextView" destination="7Ra-l6-NXQ" id="iJR-gF-scW"/>
                 <outlet property="footerContainerView" destination="S5F-N1-0e8" id="qIh-s0-N0P"/>
                 <outlet property="headerStackView" destination="ZZj-DF-VrT" id="sWN-i0-zgc"/>
                 <outlet property="primaryButton" destination="yEy-28-VbN" id="nKV-eK-0Fa"/>
@@ -29,13 +30,13 @@
                     <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="ZZj-DF-VrT" userLabel="Header stack view">
-                            <rect key="frame" x="0.0" y="0.0" width="393" height="140.66666666666666"/>
+                            <rect key="frame" x="0.0" y="0.0" width="393" height="454.66666666666669"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IzH-DF-OvH" userLabel="Header texts view">
-                                    <rect key="frame" x="0.0" y="0.0" width="393" height="140.66666666666666"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="393" height="454.66666666666669"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="KIE-2e-JJb" userLabel="Header text stack view">
-                                            <rect key="frame" x="17" y="44" width="359" height="52.666666666666657"/>
+                                            <rect key="frame" x="17" y="44" width="359" height="366.66666666666669"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="title" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EcW-B4-UsJ">
                                                     <rect key="frame" x="0.0" y="0.0" width="359" height="20.333333333333332"/>
@@ -43,12 +44,14 @@
                                                     <color key="textColor" name="secondary_color"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="body" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Goo-xv-hFl">
-                                                    <rect key="frame" x="0.0" y="32.333333333333329" width="359" height="20.333333333333329"/>
-                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="body" textAlignment="natural" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7Ra-l6-NXQ" userLabel="body" customClass="LinkTextView" customModule="NOICommunity" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="32.333333333333343" width="359" height="334.33333333333326"/>
+                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                     <color key="textColor" name="secondary_color"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                    <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES" calendarEvent="YES"/>
+                                                </textView>
                                             </subviews>
                                         </stackView>
                                     </subviews>
@@ -131,5 +134,8 @@
         <namedColor name="secondary_color">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

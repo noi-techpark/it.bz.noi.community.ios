@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -205,6 +205,8 @@
 		31D77E742733FFDD0054397C /* UIRefreshControlAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D77E732733FFDD0054397C /* UIRefreshControlAdditions.swift */; };
 		31DA4A762705EA110098E395 /* MoreMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31DA4A742705EA110098E395 /* MoreMainViewController.swift */; };
 		31DA4A772705EA110098E395 /* MoreCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31DA4A752705EA110098E395 /* MoreCoordinator.swift */; };
+		31DAC7BC2B56853A00F24D79 /* URL+Params.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31DAC7BB2B56853A00F24D79 /* URL+Params.swift */; };
+		31DAC7BE2B568A0100F24D79 /* IndexPathAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31DAC7BD2B568A0100F24D79 /* IndexPathAdditions.swift */; };
 		31E058F22812F18800D1F7FE /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 31E058F12812F18800D1F7FE /* KeychainAccess */; };
 		31E7872027D64F2300C67188 /* EventFiltersViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31E7871F27D64E9600C67188 /* EventFiltersViewController.xib */; };
 		31E7872427D7419200C67188 /* UIButton+Insets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E7872327D7419200C67188 /* UIButton+Insets.swift */; };
@@ -430,6 +432,8 @@
 		31D9C78926FDFCD3001F2DBB /* BaseTabCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTabCoordinator.swift; sourceTree = "<group>"; };
 		31DA4A742705EA110098E395 /* MoreMainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoreMainViewController.swift; sourceTree = "<group>"; };
 		31DA4A752705EA110098E395 /* MoreCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoreCoordinator.swift; sourceTree = "<group>"; };
+		31DAC7BB2B56853A00F24D79 /* URL+Params.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Params.swift"; sourceTree = "<group>"; };
+		31DAC7BD2B568A0100F24D79 /* IndexPathAdditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexPathAdditions.swift; sourceTree = "<group>"; };
 		31E058F32812F29500D1F7FE /* NOICommunityDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NOICommunityDebug.entitlements; sourceTree = "<group>"; };
 		31E058F42812F2A700D1F7FE /* NOICommunityRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NOICommunityRelease.entitlements; sourceTree = "<group>"; };
 		31E7871F27D64E9600C67188 /* EventFiltersViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventFiltersViewController.xib; sourceTree = "<group>"; };
@@ -930,6 +934,8 @@
 				31C28BF52719709B00312A62 /* NOICells.swift */,
 				31C8F52A282522150009BCB7 /* NoiNewsTopic.swift */,
 				31C028402B55924B00D851EE /* FeatureFlag.swift */,
+				31DAC7BB2B56853A00F24D79 /* URL+Params.swift */,
+				31DAC7BD2B568A0100F24D79 /* IndexPathAdditions.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -1321,6 +1327,7 @@
 				31A5F05527D25A9400FA20BC /* EventFiltersViewController.swift in Sources */,
 				317B6F9A28118950008D07C0 /* ClientFactory.swift in Sources */,
 				31DA4A762705EA110098E395 /* MoreMainViewController.swift in Sources */,
+				31DAC7BC2B56853A00F24D79 /* URL+Params.swift in Sources */,
 				311350E7282E4F0A00AC9BC9 /* GalleryCollectionViewController.swift in Sources */,
 				3126E7272B2882620013F456 /* CacheKey.swift in Sources */,
 				31178FDC26FA26C500BDCDAA /* EventDetailsViewController.swift in Sources */,
@@ -1330,6 +1337,7 @@
 				317F74FA27D8B5610084E619 /* CircleButton.swift in Sources */,
 				31DA4A772705EA110098E395 /* MoreCoordinator.swift in Sources */,
 				312F5D292808252900C84598 /* WelcomeViewModel.swift in Sources */,
+				31DAC7BE2B568A0100F24D79 /* IndexPathAdditions.swift in Sources */,
 				3101FC5B283394FA00A3416F /* TodayCoordinator.swift in Sources */,
 				31C28BF8271992F500312A62 /* FiltersBarView.swift in Sources */,
 				3145D23326B3F73F00F16787 /* SceneDelegate.swift in Sources */,

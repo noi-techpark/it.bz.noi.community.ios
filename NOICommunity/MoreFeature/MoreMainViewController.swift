@@ -21,7 +21,7 @@ final class MoreMainViewController: UICollectionViewController {
     var didSelectHandler: ((Entry) -> Void)?
 
     init() {
-        super.init(collectionViewLayout: Self.createLayout())
+        super.init(collectionViewLayout: UICollectionViewFlowLayout())
     }
 
     @available(*, unavailable)
@@ -47,6 +47,7 @@ final class MoreMainViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        configureLayout()
         configureDataSource()
     }
 
@@ -65,11 +66,24 @@ private extension MoreMainViewController {
         case main
     }
 
-    static func createLayout() -> UICollectionViewLayout {
+    func configureLayout() {
         var config = UICollectionLayoutListConfiguration(appearance: .plain)
         config.backgroundColor = .noiSecondaryBackgroundColor
         config.footerMode = .supplementary
-        return UICollectionViewCompositionalLayout.list(using: config)
+        let indexPathToHide = IndexPath()
+        if #available(iOS 14.5, *) {
+            config.itemSeparatorHandler = { [weak collectionView] indexPath, sectionSeparatorConfiguration in
+                guard let collectionView
+                else { return sectionSeparatorConfiguration }
+
+                var configuration = sectionSeparatorConfiguration
+                if collectionView.isLastIndexPathInItsSection(indexPath) {
+                    configuration.bottomSeparatorVisibility = .hidden
+                }
+                return configuration
+            }
+        }
+        collectionView.collectionViewLayout = UICollectionViewCompositionalLayout.list(using: config)
     }
 
     func configureDataSource() {

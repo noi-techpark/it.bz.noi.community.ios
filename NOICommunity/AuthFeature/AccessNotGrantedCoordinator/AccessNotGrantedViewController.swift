@@ -16,41 +16,68 @@ import AuthClient
 // MARK: - AccessNotGrantedViewController
 
 final class AccessNotGrantedViewController: ContainerViewController {
-    
+
     let viewModel: MyAccountViewModel
-    
+
     private var subscriptions: Set<AnyCancellable> = []
-    
+
+    private lazy var loadingViewController = LoadingViewController(style: .light)
+
+    private var accessNotGrantedViewController: BlockAccessViewController = {
+        let contentVC = BlockAccessViewController(nibName: nil, bundle: nil)
+        contentVC.text = .localized("outsider_user_title")
+        let detailedAttributedText: NSAttributedString = {
+            let text = String.localized("outsider_user_body")
+            let mAttributedText = NSMutableAttributedString(string: text,
+                                                            attributes: [
+                                                                .font: UIFont.preferredFont(forTextStyle: .body),
+                                                                .foregroundColor: UIColor.noiSecondaryColor
+                                                            ])
+
+            if let range = text.range(of: String.localized("outsider_user_body_link_1_part")),
+               let url = URL(string: .localized("url_jobs_noi_techpark")) {
+                mAttributedText.addAttribute(.link,
+                                             value: url,
+                                             range: NSRange(range, in: text))
+            }
+
+            return NSAttributedString(attributedString: mAttributedText)
+        }()
+        contentVC.detailedAttributedText = detailedAttributedText
+        contentVC.primaryActionTitle = .localized("btn_logout")
+        return contentVC
+    }()
+
     init(viewModel: MyAccountViewModel) {
         self.viewModel = viewModel
-        
+
         super.init(content: nil)
     }
-    
+
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("\(#function) not available")
     }
-    
+
     @available(*, unavailable)
     override init(content: UIViewController?) {
         fatalError("\(#function) not available")
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = .localized("warning_title")        
+        title = .localized("warning_title")
         configureBindings()
         viewModel.fetchUserInfo()
     }
-    
+
 }
 
 // MARK: Private APIs
 
 private extension AccessNotGrantedViewController {
-    
+
     func configureBindings() {
         viewModel.$userInfoIsLoading
             .receive(on: DispatchQueue.main)
@@ -58,24 +85,24 @@ private extension AccessNotGrantedViewController {
                 if isLoading {
                     self?.showLoader()
                 } else {
-                    self?.showAccessNotGranted(userInfo: self?.viewModel.userInfoResult)
+                    self?.showAccessNotGranted()
                 }
             }
             .store(in: &subscriptions)
-        
+
         viewModel.$userInfoResult
             .receive(on: DispatchQueue.main)
             .sink { [weak self] userInfo in
-                self?.showAccessNotGranted(userInfo: userInfo)
+                self?.showAccessNotGranted()
             }
             .store(in: &subscriptions)
-        
+
         viewModel.$error
             .receive(on: DispatchQueue.main)
             .sink { [weak self] error in
                 guard let error = error
                 else { return }
-                
+
                 switch error {
                 case AuthError.userCanceledAuthorizationFlow:
                     break
@@ -89,21 +116,18 @@ private extension AccessNotGrantedViewController {
     private func showLoader() {
         navigationController?.navigationBar.isHidden = true
 
-        content = LoadingViewController(style: .light)
+        content = loadingViewController
     }
 
-    private func showAccessNotGranted(userInfo userInfoOrNil: UserInfo?) {
+    private func showAccessNotGranted() {
         navigationController?.navigationBar.isHidden = false
 
-        content = {
-            let contentVC = BlockAccessViewController(nibName: nil, bundle: nil)
-            contentVC.text = .localized("outsider_user_title")
-            contentVC.detailedText = .localized("outsider_user_body")
-            contentVC.primaryActionTitle = .localized("btn_logout")
-            contentVC.primaryAction = { [weak self] in
-                self?.viewModel.logout()
-            }
-            return contentVC
-        }()
+        accessNotGrantedViewController.primaryAction = { [weak self] in
+            self?.viewModel.logout()
+        }
+        accessNotGrantedViewController.didTapJobsLinkAction = { [weak self] in
+            self?.viewModel.navigateToNoiTechparkJobs()
+        }
+        content = accessNotGrantedViewController
     }
 }
