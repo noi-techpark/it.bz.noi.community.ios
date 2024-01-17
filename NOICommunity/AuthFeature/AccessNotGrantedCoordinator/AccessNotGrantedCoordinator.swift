@@ -27,6 +27,9 @@ private extension AccessNotGrantedCoordinator {
     
     func showAccessNotGranted(animated: Bool) {
         let myAccountViewModel = dependencyContainer.makeMyAccountViewModel()
+        myAccountViewModel.navigateToNoiTechparkJobsHandler = { [weak self] in
+            self?.navigateToNoiTechparkJobsHandler()
+        }
         let accessNotGrantedVC = dependencyContainer
             .makeAccessNotGrantedViewController(viewModel: myAccountViewModel)
         navigationController.setViewControllers(
@@ -34,5 +37,15 @@ private extension AccessNotGrantedCoordinator {
             animated: animated
         )
     }
-    
+
+    func navigateToNoiTechparkJobsHandler() {
+        guard let url = URL(string: .localized("url_jobs_noi_techpark"))
+        else { return }
+
+        let webVC = WebViewController()
+        webVC.url = url.addQueryParams(fullview: true)
+        webVC.navigationItem.title = .localized("noi_techpark_jobs_page_title")
+        navigationController.pushViewController(webVC, animated: true)
+    }
+
 }

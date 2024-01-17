@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -168,6 +168,7 @@
 		31BFAB35283FB49A00EF274D /* MeetConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BFAB34283FB49800EF274D /* MeetConstant.swift */; };
 		31BFAB39283FB8EC00EF274D /* PersonDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BFAB38283FB8EC00EF274D /* PersonDetailsViewController.swift */; };
 		31BFAB3B283FC88A00EF274D /* CALayer+XibConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BFAB3A283FC88A00EF274D /* CALayer+XibConfiguration.swift */; };
+		31C028412B55924B00D851EE /* FeatureFlag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C028402B55924B00D851EE /* FeatureFlag.swift */; };
 		31C14C2327DA3597009AF69D /* UIScrollView+ScrollToView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C14C2227DA3597009AF69D /* UIScrollView+ScrollToView.swift */; };
 		31C2261C270F596E0098A70E /* EventCardContentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 315F4BE127034C00001905AF /* EventCardContentView.xib */; };
 		31C2261D270F59750098A70E /* EventDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3187667826FB3A9300782FA6 /* EventDetailsViewController.xib */; };
@@ -204,6 +205,8 @@
 		31D77E742733FFDD0054397C /* UIRefreshControlAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D77E732733FFDD0054397C /* UIRefreshControlAdditions.swift */; };
 		31DA4A762705EA110098E395 /* MoreMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31DA4A742705EA110098E395 /* MoreMainViewController.swift */; };
 		31DA4A772705EA110098E395 /* MoreCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31DA4A752705EA110098E395 /* MoreCoordinator.swift */; };
+		31DAC7BC2B56853A00F24D79 /* URL+Params.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31DAC7BB2B56853A00F24D79 /* URL+Params.swift */; };
+		31DAC7BE2B568A0100F24D79 /* IndexPathAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31DAC7BD2B568A0100F24D79 /* IndexPathAdditions.swift */; };
 		31E058F22812F18800D1F7FE /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 31E058F12812F18800D1F7FE /* KeychainAccess */; };
 		31E7872027D64F2300C67188 /* EventFiltersViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31E7871F27D64E9600C67188 /* EventFiltersViewController.xib */; };
 		31E7872427D7419200C67188 /* UIButton+Insets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E7872327D7419200C67188 /* UIButton+Insets.swift */; };
@@ -395,6 +398,7 @@
 		31BFAB34283FB49800EF274D /* MeetConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetConstant.swift; sourceTree = "<group>"; };
 		31BFAB38283FB8EC00EF274D /* PersonDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonDetailsViewController.swift; sourceTree = "<group>"; };
 		31BFAB3A283FC88A00EF274D /* CALayer+XibConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+XibConfiguration.swift"; sourceTree = "<group>"; };
+		31C028402B55924B00D851EE /* FeatureFlag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureFlag.swift; sourceTree = "<group>"; };
 		31C14C2227DA3597009AF69D /* UIScrollView+ScrollToView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+ScrollToView.swift"; sourceTree = "<group>"; };
 		31C28BF52719709B00312A62 /* NOICells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NOICells.swift; sourceTree = "<group>"; };
 		31C28BF7271992F500312A62 /* FiltersBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersBarView.swift; sourceTree = "<group>"; };
@@ -428,6 +432,8 @@
 		31D9C78926FDFCD3001F2DBB /* BaseTabCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTabCoordinator.swift; sourceTree = "<group>"; };
 		31DA4A742705EA110098E395 /* MoreMainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoreMainViewController.swift; sourceTree = "<group>"; };
 		31DA4A752705EA110098E395 /* MoreCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoreCoordinator.swift; sourceTree = "<group>"; };
+		31DAC7BB2B56853A00F24D79 /* URL+Params.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Params.swift"; sourceTree = "<group>"; };
+		31DAC7BD2B568A0100F24D79 /* IndexPathAdditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexPathAdditions.swift; sourceTree = "<group>"; };
 		31E058F32812F29500D1F7FE /* NOICommunityDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NOICommunityDebug.entitlements; sourceTree = "<group>"; };
 		31E058F42812F2A700D1F7FE /* NOICommunityRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NOICommunityRelease.entitlements; sourceTree = "<group>"; };
 		31E7871F27D64E9600C67188 /* EventFiltersViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventFiltersViewController.xib; sourceTree = "<group>"; };
@@ -927,6 +933,9 @@
 				31178FCD26F8D7CC00BDCDAA /* Localization.swift */,
 				31C28BF52719709B00312A62 /* NOICells.swift */,
 				31C8F52A282522150009BCB7 /* NoiNewsTopic.swift */,
+				31C028402B55924B00D851EE /* FeatureFlag.swift */,
+				31DAC7BB2B56853A00F24D79 /* URL+Params.swift */,
+				31DAC7BD2B568A0100F24D79 /* IndexPathAdditions.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -1313,10 +1322,12 @@
 				31A5F04F27D22ECA00FA20BC /* EventFiltersListViewController.swift in Sources */,
 				3153010528071D1200471153 /* AuthWelcomePageViewController.swift in Sources */,
 				316F5615281C166B0075B09F /* MyAccountViewController.swift in Sources */,
+				31C028412B55924B00D851EE /* FeatureFlag.swift in Sources */,
 				31C640B126FE1449004B71A2 /* TabCoordinatorType.swift in Sources */,
 				31A5F05527D25A9400FA20BC /* EventFiltersViewController.swift in Sources */,
 				317B6F9A28118950008D07C0 /* ClientFactory.swift in Sources */,
 				31DA4A762705EA110098E395 /* MoreMainViewController.swift in Sources */,
+				31DAC7BC2B56853A00F24D79 /* URL+Params.swift in Sources */,
 				311350E7282E4F0A00AC9BC9 /* GalleryCollectionViewController.swift in Sources */,
 				3126E7272B2882620013F456 /* CacheKey.swift in Sources */,
 				31178FDC26FA26C500BDCDAA /* EventDetailsViewController.swift in Sources */,
@@ -1326,6 +1337,7 @@
 				317F74FA27D8B5610084E619 /* CircleButton.swift in Sources */,
 				31DA4A772705EA110098E395 /* MoreCoordinator.swift in Sources */,
 				312F5D292808252900C84598 /* WelcomeViewModel.swift in Sources */,
+				31DAC7BE2B568A0100F24D79 /* IndexPathAdditions.swift in Sources */,
 				3101FC5B283394FA00A3416F /* TodayCoordinator.swift in Sources */,
 				31C28BF8271992F500312A62 /* FiltersBarView.swift in Sources */,
 				3145D23326B3F73F00F16787 /* SceneDelegate.swift in Sources */,

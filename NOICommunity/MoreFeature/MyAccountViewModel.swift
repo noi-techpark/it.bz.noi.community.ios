@@ -65,7 +65,9 @@ final class MyAccountViewModel {
     private let appPreferencesClient: AppPreferencesClient
     
     var requestAccountDeletionHandler: (() -> Void)?
-    
+
+    var navigateToNoiTechparkJobsHandler: (() -> Void)?
+
     private var cache: Cache<CacheKey, UserInfo>?
     
     init(
@@ -161,5 +163,9 @@ final class MyAccountViewModel {
     func requestAccountDeletion() {
         requestAccountDeletionHandler?()
     }
-    
+
+    func navigateToNoiTechparkJobs() {
+        navigateToNoiTechparkJobsHandler?()
+    }
+
 }

@@ -74,7 +74,7 @@ final class PersonDetailsViewController: UIViewController {
                 .configureAsSecondaryActionButton(numberOfLines: 1)
                 .withTitle(.localized("btn_find"))
             
-            findButton.isHidden = company?.fullAddress == nil
+            findButton.isHidden = !FeatureFlag.displayFindCTA || company?.fullAddress == nil
         }
     }
     
@@ -184,6 +184,11 @@ private extension PersonDetailsViewController {
 }
 
 // MARK: Private APIs
+private extension FeatureFlag {
+
+    static let displayAddress = false
+    static let displayFindCTA = false
+}
 
 private extension PersonDetailsViewController.CollectionViewController {
     
@@ -205,6 +210,18 @@ private extension PersonDetailsViewController.CollectionViewController {
             case .address:
                 return .localized("label_address")
             }
+        }
+
+        static var allCases: [PersonDetailsViewController.CollectionViewController.Info] {
+            var result: [PersonDetailsViewController.CollectionViewController.Info] = [
+                email,
+                phoneNumber,
+                address
+            ]
+            if !FeatureFlag.displayAddress {
+                result.removeAll { $0 == .address }
+            }
+            return result
         }
     }
     
@@ -323,17 +340,20 @@ private extension PersonDetailsViewController.CollectionViewController {
         
         var snapshot = NSDiffableDataSourceSnapshot<Section, Info>()
         snapshot.appendSections([.main])
-        var items: [Info] = []
-        if person.email != nil {
-            items.append(.email)
-        }
-        if company?.phoneNumber != nil {
-            items.append(.phoneNumber)
-        }
-        if company?.fullAddress != nil {
-            items.append(.address)
-        }
-        snapshot.appendItems(items, toSection: .main)
+        let diplayItems = {
+            var result = Info.allCases
+            if person.email == nil {
+                result.removeAll { $0 == .email }
+            }
+            if company?.phoneNumber == nil {
+                result.removeAll { $0 == .phoneNumber }
+            }
+            if company?.fullAddress == nil {
+                result.removeAll { $0 == .address }
+            }
+            return result
+        }()
+        snapshot.appendItems(diplayItems, toSection: .main)
         dataSource.apply(snapshot, animatingDifferences: false)
     }
     

@@ -48,7 +48,7 @@ final class AuthWelcomeViewController: UIViewController {
         }
     }
 
-    @IBOutlet var privacyTextView: UITextView! {
+    @IBOutlet var privacyTextView: LinkTextView! {
         didSet {
             privacyTextView.isSelectable = true
             privacyTextView.isEditable = false

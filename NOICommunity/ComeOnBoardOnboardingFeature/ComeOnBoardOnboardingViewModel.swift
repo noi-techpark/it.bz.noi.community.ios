@@ -15,7 +15,7 @@ import AppPreferencesClient
 
 final class ComeOnBoardOnboardingViewModel {
 
-    lazy var navigateToMainAppPublisher = navigateToMainAppSubject
+    private(set) lazy var navigateToMainAppPublisher = navigateToMainAppSubject
         .eraseToAnyPublisher()
 
     @Published private(set) var isDontShowThisAgainToggleOn = false
