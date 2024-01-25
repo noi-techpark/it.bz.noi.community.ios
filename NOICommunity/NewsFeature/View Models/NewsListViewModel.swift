@@ -76,6 +76,7 @@ final class NewsListViewModel {
         
         var articlesListPublisher = articlesClient.list(
             Date(),
+            "noi-communityapp",
             pageSize,
             pageNumber
         )

@@ -65,9 +65,10 @@ extension ArticlesClient {
     
     public static func live(urlSession: URLSession = .shared) -> Self {
         Self(
-            list: { startDate, pageSize, pageNumber in
+            list: { startDate, publishedon, pageSize, pageNumber in
                 let urlRequest = Endpoint.articleList(
-                    startDate: startDate,
+                    startDate: startDate, 
+                    publishedon: publishedon,
                     pageSize: pageSize,
                     pageNumber: pageNumber
                 ).makeRequest(withBaseURL: baseURL)
