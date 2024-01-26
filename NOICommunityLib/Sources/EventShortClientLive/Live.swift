@@ -150,10 +150,10 @@ private extension EventShortListRequest {
                 name: "eventlocation",
                 value: eventLocation.rawValue))
         }
-        if let onlyActive = onlyActive {
+        if let publishedon = publishedon {
             result.append(URLQueryItem(
-                name: "onlyactive",
-                value: onlyActive ? "true" : "false"))
+                name: "publishedon",
+                value: publishedon))
         }
         if let eventIds = eventIds {
             result.append(URLQueryItem(

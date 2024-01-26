@@ -25,6 +25,7 @@ extension Endpoint {
     
     static func articleList(
         startDate: Date,
+        publishedon: String?,
         pageSize: Int?,
         pageNumber: Int?
     ) -> Endpoint {
@@ -33,7 +34,14 @@ extension Endpoint {
                 name: "startDate",
                 value: dateFormatter.string(from: startDate)
             )
-            
+
+            if let publishedon = publishedon {
+                URLQueryItem(
+                    name: "publishedon",
+                    value: publishedon
+                )
+            }
+
             if let pageSize = pageSize {
                 URLQueryItem(
                     name: "pagesize",
@@ -47,11 +55,6 @@ extension Endpoint {
                     value: String(pageNumber)
                 )
             }
-            
-            URLQueryItem(
-                name: "onlyActive",
-                value: "true"
-            )
             
             URLQueryItem(
                 name: "removeNullValues",

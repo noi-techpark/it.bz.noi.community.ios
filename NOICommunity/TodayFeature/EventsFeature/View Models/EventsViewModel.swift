@@ -70,7 +70,7 @@ class EventsViewModel {
                 startDate: startDate,
                 endDate: endDate,
                 eventLocation: .noi,
-                onlyActive: true,
+                publishedon: "noi-communityapp",
                 rawFilter: activeFilters.toQuery(),
                 removeNullValues: true,
                 optimizeDates: true
@@ -225,7 +225,7 @@ private extension Event {
             organizer: !eventShort.display5.isNilOrEmpty ?
             eventShort.display5 :
                 eventShort.companyName,
-            technologyFields: eventShort.technologyFields ?? [],
+            technologyFields: eventShort.technologyFields?.compactMap { $0 } ?? [],
             mapURL: mapURL,
             signupURL: eventShort.webAddress.flatMap(URL.init(string:))
         )

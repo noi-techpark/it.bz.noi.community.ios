@@ -83,7 +83,7 @@ public struct EventShort: Decodable, Equatable {
     public let eventTextDE: String?
     public let eventTextIT: String?
     public let eventTextEN: String?
-    public let technologyFields: [String]?
+    public let technologyFields: [String?]?
     public let customTagging: [String]?
     public let soldOut: Bool?
     public let eventDocument: [DocumentPDF]?
@@ -102,7 +102,7 @@ public struct EventShortListRequest {
     public let endDate: Date?
     public let source: Source?
     public let eventLocation: EventLocation?
-    public let onlyActive: Bool?
+    public let publishedon: String?
     public let eventIds: [String]?
     public let webAddress: String?
     public let sortOrder: Order?
@@ -124,7 +124,7 @@ public struct EventShortListRequest {
         endDate: Date? = nil,
         source: Source? = nil,
         eventLocation: EventLocation? = nil,
-        onlyActive: Bool? = nil,
+        publishedon: String? = nil,
         eventIds: [String]? = nil,
         webAddress: String? = nil,
         sortOrder: Order? = nil,
@@ -145,7 +145,7 @@ public struct EventShortListRequest {
         self.endDate = endDate
         self.source = source
         self.eventLocation = eventLocation
-        self.onlyActive = onlyActive
+        self.publishedon = publishedon
         self.eventIds = eventIds
         self.webAddress = webAddress
         self.sortOrder = sortOrder
