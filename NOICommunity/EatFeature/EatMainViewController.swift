@@ -43,10 +43,11 @@ final class EatViewModel {
             openeningText: .localized("community_bar_openings"),
             menuURL: .noiBarMenu,
             imagesNames:[
-                "rockin beets_asparagi_lasagne",
-                "rockin beets_meal prep",
-                "rockin beets_meals",
-                "rockin beets_obstmarkt"
+                "rockin beets_launch_box",
+                "rockin beets_fridge",
+                "rockin beets_launch_box_bottle",
+                "rockin beets_launch_box_bottle_zoomed",
+                "rockin beets_meal prep"
             ]
         )
         static let alumix = Self(
