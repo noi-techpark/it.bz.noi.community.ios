@@ -56,6 +56,7 @@ final class IntroViewController: UIViewController {
         )
 
         // Play video
+        enableAudioMix()
         player.play()
     }
 
@@ -85,5 +86,32 @@ final class IntroViewController: UIViewController {
 private extension IntroViewController {
     @objc func playerDidFinishPlaying(_ notification: NSNotification) {
         didFinishHandler?()
+        disableAudioMix()
+    }
+
+    func enableAudioMix() {
+        let session = AVAudioSession.sharedInstance()
+        do {
+            try session.setCategory(.playback,
+                                    mode: .default,
+                                    options: [.mixWithOthers]
+            )
+            try session.setActive(true)
+        } catch {
+            print(error)
+        }
+    }
+
+    func disableAudioMix() {
+        let session = AVAudioSession.sharedInstance()
+        do {
+            try session.setCategory(.playback,
+                                    mode: .default,
+                                    options: [.mixWithOthers]
+            )
+            try session.setActive(false, options: .notifyOthersOnDeactivation)
+        } catch {
+            print(error)
+        }
     }
 }
