@@ -11,7 +11,6 @@
 
 import UIKit
 import AppAuth
-import SwiftJWT
 import EventShortClientLive
 import AppPreferencesClientLive
 import EventShortTypesClient
@@ -50,18 +49,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 
                 
                 return authState.isAuthorized
-            },
-            hasAccessGrantedClient: { [weak self] in
-                guard let self,
-                      let authState = tokenStorage.state,
-                      let accessToken = authState.lastTokenResponse?.accessToken
-                else { return false }
-                
-                return self.verify(
-                    jwt: accessToken,
-                    roles: [AuthConstant.accessGrantedRole],
-                    of: AuthConstant.clientID
-                )
             },
             authClient: .live(
                 client: .init(
@@ -138,41 +125,6 @@ extension SceneDelegate: AuthContext {
     
     var presentationContext: () -> UIViewController {
         { (self.window?.rootViewController)! }
-    }
-    
-}
-
-
-// MARK: Private APIs
-
-private extension SceneDelegate {
-    
-    func verify(
-        jwt: String,
-        roles: [String],
-        of clientID: String
-    ) -> Bool {
-        struct MyClaims: Claims {
-            
-            let resourceAccess: [String: RolesContainer]
-            
-            private enum CodingKeys: String, CodingKey {
-                case resourceAccess = "resource_access"
-            }
-            
-            struct RolesContainer: Codable {
-                var roles: [String]
-            }
-        }
-        
-        guard let newJWT = try? JWT<MyClaims>(jwtString: jwt)
-        else {
-            return false
-        }
-        
-        let jwtRoles = Set(newJWT.claims.resourceAccess[clientID]?.roles ?? [])
-        let verifyRoles = Set(roles)
-        return jwtRoles.intersection(verifyRoles) == verifyRoles
     }
     
 }

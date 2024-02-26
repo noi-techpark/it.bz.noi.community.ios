@@ -27,7 +27,6 @@ final class DependencyContainer {
     
     let appPreferencesClient: AppPreferencesClient
     let isAutorizedClient: IsAutorizedClient
-    let hasAccessGrantedClient: HasAccessGrantedClient
     let authClient: AuthClient
     let eventShortClient: EventShortClient
     let eventShortTypesClient: EventShortTypesClient
@@ -55,7 +54,6 @@ final class DependencyContainer {
     init(
         appPreferencesClient: AppPreferencesClient,
         isAutorizedClient: @escaping IsAutorizedClient,
-        hasAccessGrantedClient: @escaping HasAccessGrantedClient,
         authClient: AuthClient,
         eventShortClient: EventShortClient,
         eventShortTypesClient: EventShortTypesClient,
@@ -64,7 +62,6 @@ final class DependencyContainer {
     ) {
         self.appPreferencesClient = appPreferencesClient
         self.isAutorizedClient = isAutorizedClient
-        self.hasAccessGrantedClient = hasAccessGrantedClient
         self.authClient = authClient
         self.eventShortClient = eventShortClient
         self.eventShortTypesClient = eventShortTypesClient
@@ -96,10 +93,6 @@ extension DependencyContainer: ClientFactory {
     
     func makeAuthClient() -> AuthClient {
         authClient
-    }
-    
-    func makeHasAccessGrantedClient() -> HasAccessGrantedClient {
-        hasAccessGrantedClient
     }
     
     func makeArticlesClient() -> ArticlesClient {
@@ -162,7 +155,6 @@ extension DependencyContainer: ViewModelFactory {
     func makeLoadUserInfoViewModel() -> LoadUserInfoViewModel {
         .init(
             authClient: makeAuthClient(),
-            hasAccessGrantedClient: makeHasAccessGrantedClient(),
             peopleClient: makePeopleClient(),
             appPreferencesClient: makeAppPreferencesClient(),
             cache: userInfoCache

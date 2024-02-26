@@ -124,7 +124,6 @@
 		3185AA12281FDBED00767E31 /* LoadUserInfoCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3185AA11281FDBED00767E31 /* LoadUserInfoCoordinator.swift */; };
 		3185AA15281FEAE900767E31 /* AccessNotGrantedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3185AA14281FEAE900767E31 /* AccessNotGrantedViewController.swift */; };
 		3185AA172820005700767E31 /* KeychainAuthStateStorageClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3185AA162820005700767E31 /* KeychainAuthStateStorageClient.swift */; };
-		3185AA1A2820066A00767E31 /* SwiftJWT in Frameworks */ = {isa = PBXBuildFile; productRef = 3185AA192820066A00767E31 /* SwiftJWT */; };
 		318664A22B22471E0088A752 /* LinkTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318664A12B22471E0088A752 /* LinkTextView.swift */; };
 		3187667526FB35C100782FA6 /* String+NotDefined.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3187667426FB35C100782FA6 /* String+NotDefined.swift */; };
 		3187667726FB38D600782FA6 /* DateIntervalFormatter+Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3187667626FB38D600782FA6 /* DateIntervalFormatter+Factory.swift */; };
@@ -467,7 +466,6 @@
 				317B6F9C28118BD6008D07C0 /* AuthClient in Frameworks */,
 				3182F4AC27DB3841005ADDAF /* EventShortTypesClientLive in Frameworks */,
 				311E0EC62825157800404DCE /* FirebaseMessaging in Frameworks */,
-				3185AA1A2820066A00767E31 /* SwiftJWT in Frameworks */,
 				317B6F9E28118BD6008D07C0 /* AuthClientLive in Frameworks */,
 				317EC889283BB83E00F30B95 /* PeopleClient in Frameworks */,
 			);
@@ -1065,7 +1063,6 @@
 				317B6F9B28118BD6008D07C0 /* AuthClient */,
 				317B6F9D28118BD6008D07C0 /* AuthClientLive */,
 				31E058F12812F18800D1F7FE /* KeychainAccess */,
-				3185AA192820066A00767E31 /* SwiftJWT */,
 				311E0EC52825157800404DCE /* FirebaseMessaging */,
 				319C4652282BB32400946AC7 /* ArticlesClient */,
 				319C4654282BB32400946AC7 /* ArticlesClientLive */,
@@ -1150,7 +1147,6 @@
 				31CE9BF42701BF33005EA61A /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				31EF82572810517500EBE5F0 /* XCRemoteSwiftPackageReference "AppAuth-iOS" */,
 				31E058F02812F18800D1F7FE /* XCRemoteSwiftPackageReference "KeychainAccess" */,
-				3185AA182820066A00767E31 /* XCRemoteSwiftPackageReference "Swift-JWT" */,
 				311E0EC42825157800404DCE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 3145D22E26B3F73F00F16787 /* Products */;
@@ -2016,14 +2012,6 @@
 				minimumVersion = 9.0.0;
 			};
 		};
-		3185AA182820066A00767E31 /* XCRemoteSwiftPackageReference "Swift-JWT" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Kitura/Swift-JWT.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 3.0.0;
-			};
-		};
 		31CE9BF42701BF33005EA61A /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
@@ -2099,11 +2087,6 @@
 		3182F4AB27DB3841005ADDAF /* EventShortTypesClientLive */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = EventShortTypesClientLive;
-		};
-		3185AA192820066A00767E31 /* SwiftJWT */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3185AA182820066A00767E31 /* XCRemoteSwiftPackageReference "Swift-JWT" */;
-			productName = SwiftJWT;
 		};
 		319C4652282BB32400946AC7 /* ArticlesClient */ = {
 			isa = XCSwiftPackageProductDependency;

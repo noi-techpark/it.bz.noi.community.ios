@@ -46,7 +46,4 @@ enum AuthConstant {
     
     static let endSessionURI = URL(string: "noi-community://oauth2redirect/end_session-callback")!
     
-    static let accessGrantedRole = "ACCESS_GRANTED"
-    
-    
 }
