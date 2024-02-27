@@ -162,8 +162,7 @@ private extension AppCoordinator {
             showAuthorizedContent(animated: true)
         case .failure(AuthError.OAuthTokenInvalidGrant):
             logout(animated: true)
-        case .failure(LoadUserInfoError.accessNotGranted),
-                .failure(LoadUserInfoError.outsider):
+        case .failure(LoadUserInfoError.outsider):
             showAccessNotGrantedCoordinator(animated: true)
         case .failure(_):
             showAuthorizedContent(animated: true)

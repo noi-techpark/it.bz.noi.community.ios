@@ -19,7 +19,6 @@ import PeopleClient
 // MARK: - LoadUserInfoViewModel
 
 enum LoadUserInfoError: Error {
-    case accessNotGranted
     case outsider
 }
 
@@ -33,7 +32,6 @@ final class LoadUserInfoViewModel {
     private var userInfoRequestCancellable: AnyCancellable?
     
     private let authClient: AuthClient
-    private let hasAccessGrantedClient: HasAccessGrantedClient
     private let peopleClient: PeopleClient
     private let appPreferencesClient: AppPreferencesClient
     
@@ -43,25 +41,17 @@ final class LoadUserInfoViewModel {
     
     init(
         authClient: AuthClient,
-        hasAccessGrantedClient: @escaping HasAccessGrantedClient,
         peopleClient: PeopleClient,
         appPreferencesClient: AppPreferencesClient,
         cache: Cache<CacheKey, UserInfo>? = nil
     ) {
         self.authClient = authClient
-        self.hasAccessGrantedClient = hasAccessGrantedClient
         self.peopleClient = peopleClient
         self.appPreferencesClient = appPreferencesClient
         self.cache = cache
     }
     
     func fetchVerifiedUserInfo() {
-        guard hasAccessGrantedClient()
-        else {
-            resultSubject.send(completion: .failure(LoadUserInfoError.accessNotGranted))
-            return
-        }
-
         let userInfoPublisher = authClient.userInfo()
         let peoplePublisher = authClient.accessToken()
             .flatMap { [peopleClient] accessToken in

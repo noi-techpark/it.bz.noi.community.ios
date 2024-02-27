@@ -17,15 +17,12 @@ import ArticlesClient
 import PeopleClient
 
 typealias IsAutorizedClient = () -> Bool
-typealias HasAccessGrantedClient = () -> Bool
 
 protocol ClientFactory {
     
     func makeAppPreferencesClient() -> AppPreferencesClient
     
     func makeIsAutorizedClient() -> IsAutorizedClient
-    
-    func makeHasAccessGrantedClient() -> HasAccessGrantedClient
     
     func makeAuthClient() -> AuthClient
     
