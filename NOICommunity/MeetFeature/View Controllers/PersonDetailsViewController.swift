@@ -54,7 +54,7 @@ final class PersonDetailsViewController: UIViewController {
                 .configureAsSecondaryActionButton(numberOfLines: 1)
                 .withTitle(.localized("btn_mail"))
             
-            mailButton.isHidden = person.email == nil
+            mailButton.isHidden = person.primaryEmail == nil
         }
     }
     
@@ -245,7 +245,7 @@ private extension PersonDetailsViewController.CollectionViewController {
             contentConfiguration.text = info.localizedString
             switch info {
             case .email:
-                contentConfiguration.secondaryText = person.email
+                contentConfiguration.secondaryText = person.primaryEmail
             case .phoneNumber:
                 contentConfiguration.secondaryText = company?.phoneNumber
             case .address:
@@ -342,7 +342,7 @@ private extension PersonDetailsViewController.CollectionViewController {
         snapshot.appendSections([.main])
         let diplayItems = {
             var result = Info.allCases
-            if person.email == nil {
+            if person.primaryEmail == nil {
                 result.removeAll { $0 == .email }
             }
             if company?.phoneNumber == nil {
@@ -376,7 +376,7 @@ extension PersonDetailsViewController.CollectionViewController {
         
         switch selectedInfo {
         case .email:
-            UIPasteboard.general.string = person.email!
+            UIPasteboard.general.string = person.primaryEmail!
         case .phoneNumber:
             UIPasteboard.general.string = company!.phoneNumber!
         case .address:
