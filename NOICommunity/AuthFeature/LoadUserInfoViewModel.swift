@@ -109,7 +109,6 @@ private extension Person {
 
     func hasEmail(_ email: String) -> Bool {
         let emails = [primaryEmail, secondaryEmail, tertiaryEmail].compactMap { $0 }
-        print(self.fullname, emails)
         return emails.contains { $0.compare(email, options: .caseInsensitive) == .orderedSame }
     }
 }
