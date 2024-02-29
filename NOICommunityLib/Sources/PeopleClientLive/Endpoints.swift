@@ -62,7 +62,7 @@ extension Endpoint {
             
             URLQueryItem(
                 name: "$select",
-                value: "emailaddress1,firstname,lastname,fullname,_parentcustomerid_value"
+                value: "emailaddress1,emailaddress2,emailaddress3,firstname,lastname,fullname,_parentcustomerid_value"
             )
             
             URLQueryItem(

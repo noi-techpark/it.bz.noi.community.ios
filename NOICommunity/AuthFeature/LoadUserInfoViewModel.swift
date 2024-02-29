@@ -68,7 +68,7 @@ final class LoadUserInfoViewModel {
                             guard let userEmail = userInfo.email
                             else { return false }
 
-                            return userEmail == person.email || 
+                            return person.hasEmail(userEmail) || 
                             userEmail == "noi.community.app.test@opendatahub.com" ||
                             userEmail.hasSuffix("@dimension.it")
                         }
@@ -104,3 +104,12 @@ final class LoadUserInfoViewModel {
             )
     }
 }
+
+private extension Person {
+
+    func hasEmail(_ email: String) -> Bool {
+        let emails = [primaryEmail, secondaryEmail, tertiaryEmail].compactMap { $0 }
+        return emails.contains { $0.compare(email, options: .caseInsensitive) == .orderedSame }
+    }
+}
+

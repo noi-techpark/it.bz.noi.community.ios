@@ -17,12 +17,16 @@ public struct Person: Codable {
     public var firstname: String
     public var lastname: String
     public var fullname: String
-    public var email: String?
+    public var primaryEmail: String?
+    public var secondaryEmail: String?
+    public var tertiaryEmail: String?
     public var companyId: String?
     
     private enum CodingKeys: String, CodingKey {
         case id = "contactid"
-        case email = "emailaddress1"
+        case primaryEmail = "emailaddress1"
+        case secondaryEmail = "emailaddress2"
+        case tertiaryEmail = "emailaddress3"
         case firstname
         case lastname
         case fullname

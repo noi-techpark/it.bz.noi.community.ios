@@ -75,7 +75,7 @@ private extension MeetCoordinator {
         
         detailVC.composeMailActionPublisher.sink { [weak navigationController] in
             navigationController?.mailTo(
-                person.email!,
+                person.primaryEmail!,
                 delegate: self,
                 completion: nil
             )
