@@ -108,7 +108,10 @@ final class LoadUserInfoViewModel {
 private extension Person {
 
     func hasEmail(_ email: String) -> Bool {
-        let emails = [primaryEmail, secondaryEmail, tertiaryEmail].compactMap { $0 }
+        let email = email.trimmingCharacters(in: .whitespacesAndNewlines)
+        let emails = [primaryEmail, secondaryEmail, tertiaryEmail]
+            .compactMap { $0 }
+            .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
         return emails.contains { $0.compare(email, options: .caseInsensitive) == .orderedSame }
     }
 }
