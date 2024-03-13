@@ -191,7 +191,7 @@ private extension Event {
         
         var imageURL = (eventShort.imageGallery ?? [])
             .lazy
-            .compactMap(\.imageUrl)
+            .compactMap { $0?.imageUrl }
             .first
             .flatMap(URL.init(string:))
         // Get an image from a http url as https content
