@@ -76,21 +76,21 @@ public struct EventShort: Decodable, Equatable {
     public let contactPostalCode: String?
     public let contactCity: String?
     public let contactCountry: String?
-    public let roomBooked: [RoomBooked]?
-    public let imageGallery: [ImageGallery]?
+    public let roomBooked: [RoomBooked?]?
+    public let imageGallery: [ImageGallery?]?
     public let videoUrl: String?
     public let activeWeb: Bool?
     public let eventTextDE: String?
     public let eventTextIT: String?
     public let eventTextEN: String?
     public let technologyFields: [String?]?
-    public let customTagging: [String]?
+    public let customTagging: [String?]?
     public let soldOut: Bool?
     public let eventDocument: [DocumentPDF]?
     public let externalOrganizer: Bool?
     public let shortname: String?
     public let gpsPoints: GpsInfo?
-    public let publishedOn: [String]?
+    public let publishedOn: [String?]?
 }
 
 // MARK: - EventShortListRequest
