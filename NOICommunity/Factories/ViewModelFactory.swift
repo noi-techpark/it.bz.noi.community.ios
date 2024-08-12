@@ -37,5 +37,7 @@ protocol ViewModelFactory {
     func makePeopleViewModel() -> PeopleViewModel
 
     func makeComeOnBoardOnboardingViewModel() -> ComeOnBoardOnboardingViewModel
-    
+
+    func makeDeveloperToolsViewModel() -> DeveloperToolsViewModel
+
 }

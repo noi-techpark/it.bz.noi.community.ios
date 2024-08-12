@@ -160,6 +160,11 @@
 		31AD1DB32B279558006F71A4 /* ComeOnBoardOnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31AD1DB02B2791D8006F71A4 /* ComeOnBoardOnboardingViewController.swift */; };
 		31AD1DB52B279976006F71A4 /* ComeOnBoardOnboardingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31AD1DB42B279976006F71A4 /* ComeOnBoardOnboardingCoordinator.swift */; };
 		31AD1DB62B279E78006F71A4 /* ComeOnBoardOnboardingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31AD1DAE2B2791A4006F71A4 /* ComeOnBoardOnboardingViewController.xib */; };
+		31B1926F2C6A2136009872E9 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 31B1926E2C6A2136009872E9 /* FirebaseCrashlytics */; };
+		31B192722C6A367D009872E9 /* DeveloperToolsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B192712C6A367D009872E9 /* DeveloperToolsViewController.swift */; };
+		31B192742C6A36E4009872E9 /* DeveloperToolsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B192732C6A36E4009872E9 /* DeveloperToolsCoordinator.swift */; };
+		31B192762C6A38C2009872E9 /* DeveloperToolsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B192752C6A38C2009872E9 /* DeveloperToolsViewModel.swift */; };
+		31B192782C6A434B009872E9 /* BaseWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B192772C6A434B009872E9 /* BaseWindow.swift */; };
 		31B3623E26F1E27A00031024 /* UIColor+NOI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B3623D26F1E27A00031024 /* UIColor+NOI.swift */; };
 		31B37E1E2833AFF700C26E6B /* MessageViewController+Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B37E1D2833AFF700C26E6B /* MessageViewController+Error.swift */; };
 		31B4477F26F86FE5000999BA /* SegmentedControlBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B4477E26F86FE4000999BA /* SegmentedControlBuilder.swift */; };
@@ -390,6 +395,10 @@
 		31AD1DB02B2791D8006F71A4 /* ComeOnBoardOnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComeOnBoardOnboardingViewController.swift; sourceTree = "<group>"; };
 		31AD1DB12B27947B006F71A4 /* ComeOnBoardOnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComeOnBoardOnboardingViewModel.swift; sourceTree = "<group>"; };
 		31AD1DB42B279976006F71A4 /* ComeOnBoardOnboardingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComeOnBoardOnboardingCoordinator.swift; sourceTree = "<group>"; };
+		31B192712C6A367D009872E9 /* DeveloperToolsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeveloperToolsViewController.swift; sourceTree = "<group>"; };
+		31B192732C6A36E4009872E9 /* DeveloperToolsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeveloperToolsCoordinator.swift; sourceTree = "<group>"; };
+		31B192752C6A38C2009872E9 /* DeveloperToolsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeveloperToolsViewModel.swift; sourceTree = "<group>"; };
+		31B192772C6A434B009872E9 /* BaseWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseWindow.swift; sourceTree = "<group>"; };
 		31B3623D26F1E27A00031024 /* UIColor+NOI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+NOI.swift"; sourceTree = "<group>"; };
 		31B37E1D2833AFF700C26E6B /* MessageViewController+Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MessageViewController+Error.swift"; sourceTree = "<group>"; };
 		31B4477E26F86FE4000999BA /* SegmentedControlBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControlBuilder.swift; sourceTree = "<group>"; };
@@ -466,6 +475,7 @@
 				317B6F9C28118BD6008D07C0 /* AuthClient in Frameworks */,
 				3182F4AC27DB3841005ADDAF /* EventShortTypesClientLive in Frameworks */,
 				311E0EC62825157800404DCE /* FirebaseMessaging in Frameworks */,
+				31B1926F2C6A2136009872E9 /* FirebaseCrashlytics in Frameworks */,
 				317B6F9E28118BD6008D07C0 /* AuthClientLive in Frameworks */,
 				317EC889283BB83E00F30B95 /* PeopleClient in Frameworks */,
 			);
@@ -656,6 +666,7 @@
 		3145D22F26B3F73F00F16787 /* NOICommunity */ = {
 			isa = PBXGroup;
 			children = (
+				31B192702C6A364E009872E9 /* DeveloperTools */,
 				3153010228071CF500471153 /* AuthFeature */,
 				3136CC3E2706F75200C27129 /* Transitions */,
 				31C640A926FE1389004B71A2 /* Factories */,
@@ -875,6 +886,7 @@
 				31796C7B2809B489000542F6 /* GradientView.swift */,
 				313010CE28463F1000AF6520 /* ContentConfiguration.swift */,
 				318664A12B22471E0088A752 /* LinkTextView.swift */,
+				31B192772C6A434B009872E9 /* BaseWindow.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -922,6 +934,16 @@
 				31AD1DAE2B2791A4006F71A4 /* ComeOnBoardOnboardingViewController.xib */,
 			);
 			path = ComeOnBoardOnboardingFeature;
+			sourceTree = "<group>";
+		};
+		31B192702C6A364E009872E9 /* DeveloperTools */ = {
+			isa = PBXGroup;
+			children = (
+				31B192712C6A367D009872E9 /* DeveloperToolsViewController.swift */,
+				31B192732C6A36E4009872E9 /* DeveloperToolsCoordinator.swift */,
+				31B192752C6A38C2009872E9 /* DeveloperToolsViewModel.swift */,
+			);
+			path = DeveloperTools;
 			sourceTree = "<group>";
 		};
 		31B3623A26F1D62700031024 /* Helpers */ = {
@@ -1044,7 +1066,6 @@
 				3145D22926B3F73F00F16787 /* Sources */,
 				3145D22A26B3F73F00F16787 /* Frameworks */,
 				3145D22B26B3F73F00F16787 /* Resources */,
-				313FB0B82719C548000AD9DA /* Crashlytics */,
 			);
 			buildRules = (
 			);
@@ -1069,6 +1090,7 @@
 				317EC888283BB83E00F30B95 /* PeopleClient */,
 				317EC88A283BB83E00F30B95 /* PeopleClientLive */,
 				3181B9202B1E12BD000D2A0F /* Core */,
+				31B1926E2C6A2136009872E9 /* FirebaseCrashlytics */,
 			);
 			productName = NOICommunity;
 			productReference = 3145D22D26B3F73F00F16787 /* NOICommunity.app */;
@@ -1230,29 +1252,6 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		313FB0B82719C548000AD9DA /* Crashlytics */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}\n",
-				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)\n",
-			);
-			name = Crashlytics;
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if [[ \"${CONFIGURATION}\" == \"Release\" ]]\nthen\n    ${BUILD_DIR%Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\n    echo \"✅ Crashlytics on configuration: ${CONFIGURATION}\"\nelse\n    echo \"❌ Crashlytics on configuration: ${CONFIGURATION}\"\nfi\n";
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		3145D22926B3F73F00F16787 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -1268,6 +1267,7 @@
 				31B3623E26F1E27A00031024 /* UIColor+NOI.swift in Sources */,
 				31892F2E281BC32800DD89F7 /* MyAccountViewModel.swift in Sources */,
 				3110CF6026F0E89C003B7174 /* CircleView.swift in Sources */,
+				31B192762C6A38C2009872E9 /* DeveloperToolsViewModel.swift in Sources */,
 				31C640AB26FE1397004B71A2 /* DependencyContainer.swift in Sources */,
 				31157D1B26FCB26200A43B33 /* String+Localization.swift in Sources */,
 				31AA31EE26F0A94E00744A00 /* IdentifiableCollectionViewCell.swift in Sources */,
@@ -1337,6 +1337,7 @@
 				3101FC5B283394FA00A3416F /* TodayCoordinator.swift in Sources */,
 				31C28BF8271992F500312A62 /* FiltersBarView.swift in Sources */,
 				3145D23326B3F73F00F16787 /* SceneDelegate.swift in Sources */,
+				31B192722C6A367D009872E9 /* DeveloperToolsViewController.swift in Sources */,
 				31AA31E826F09E3600744A00 /* Event.swift in Sources */,
 				3187667726FB38D600782FA6 /* DateIntervalFormatter+Factory.swift in Sources */,
 				3102F45F282C06B700687CF7 /* NewsViewController.swift in Sources */,
@@ -1365,6 +1366,7 @@
 				3102F45A282C03D300687CF7 /* NewsDetailsViewModel.swift in Sources */,
 				31B37E1E2833AFF700C26E6B /* MessageViewController+Error.swift in Sources */,
 				315275672847A01000D5C8A1 /* PersonId.swift in Sources */,
+				31B192742C6A36E4009872E9 /* DeveloperToolsCoordinator.swift in Sources */,
 				31C640C626FE1E43004B71A2 /* MeetMainViewController.swift in Sources */,
 				31C640C526FE1E43004B71A2 /* MeetCoordinator.swift in Sources */,
 				31AAC053270F2FFD00C26850 /* FooterView.swift in Sources */,
@@ -1373,6 +1375,7 @@
 				313010CF28463F1000AF6520 /* ContentConfiguration.swift in Sources */,
 				3185AA15281FEAE900767E31 /* AccessNotGrantedViewController.swift in Sources */,
 				317B6FA428118C95008D07C0 /* DependencyRepresentable.swift in Sources */,
+				31B192782C6A434B009872E9 /* BaseWindow.swift in Sources */,
 				31927A8127464E2800EA96AC /* RootCoordinator.swift in Sources */,
 				31C6409F26FE0B73004B71A2 /* OrientateCoordinator.swift in Sources */,
 				3152755F28476D4B00D5C8A1 /* CompanyViewModel.swift in Sources */,
@@ -1593,6 +1596,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = "it.dimension.noi-community";
 				PRODUCT_NAME = "${TARGET_NAME}";
 				PROVISIONING_PROFILE_SPECIFIER = "Noi Community Dev";
@@ -1615,6 +1619,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = it.bz.noi.community;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				PROVISIONING_PROFILE_SPECIFIER = it.bz.noi.community;
@@ -1783,6 +1788,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = "it.dimension.noi-community";
 				PRODUCT_NAME = "${TARGET_NAME}";
 				PROVISIONING_PROFILE_SPECIFIER = "Noi Community Dev";
@@ -1904,6 +1910,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = it.bz.noi.community;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				PROVISIONING_PROFILE_SPECIFIER = it.bz.noi.community;
@@ -2095,6 +2102,11 @@
 		319C4654282BB32400946AC7 /* ArticlesClientLive */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = ArticlesClientLive;
+		};
+		31B1926E2C6A2136009872E9 /* FirebaseCrashlytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 311E0EC42825157800404DCE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCrashlytics;
 		};
 		31CE9BF52701BF33005EA61A /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;

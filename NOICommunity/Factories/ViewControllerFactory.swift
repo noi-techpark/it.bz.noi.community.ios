@@ -57,4 +57,8 @@ protocol ViewControllerFactory {
     func makeComeOnBoardOnboardingViewController(
         viewModel: ComeOnBoardOnboardingViewModel
     ) -> ComeOnBoardOnboardingViewController
+
+    func makeDeveloperToolsViewController(
+        viewModel: DeveloperToolsViewModel
+    ) -> DeveloperToolsViewController
 }
