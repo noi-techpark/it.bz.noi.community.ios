@@ -188,7 +188,11 @@ extension DependencyContainer: ViewModelFactory {
     func makeComeOnBoardOnboardingViewModel() -> ComeOnBoardOnboardingViewModel {
         .init(appPreferencesClient: makeAppPreferencesClient())
     }
-    
+
+    func makeDeveloperToolsViewModel() -> DeveloperToolsViewModel {
+        .init()
+    }
+
 }
 
 // MARK: ViewControllerFactory
@@ -261,4 +265,10 @@ extension DependencyContainer: ViewControllerFactory {
         .init(viewModel: viewModel)
     }
     
+    func makeDeveloperToolsViewController(
+        viewModel: DeveloperToolsViewModel
+    ) -> DeveloperToolsViewController {
+        .init(viewModel: viewModel)
+    }
+
 }
