@@ -20,9 +20,11 @@ class BaseWindow: UIWindow {
     private var developerToolsCoordinator: DeveloperToolsCoordinator?
 
     open override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+        super.motionEnded(motion, with: event)
+
         switch motion {
         case .motionShake:
-#if DEBUG
+#if DEVELOPER_MENU
             showDeveloperTools()
 #endif
         default:
@@ -35,11 +37,13 @@ class BaseWindow: UIWindow {
 
 private extension BaseWindow {
 
-#if DEBUG
-    func showDeveloperTools() {
-        developerToolsCoordinator?.dismiss(animated: true)
-
+#if DEVELOPER_MENU
+    func showDeveloperTools(animated: Bool = true) {
         guard let rootViewController
+        else { return }
+
+        let isAlreadyShown = developerToolsCoordinator?.navigationController != nil && rootViewController.presentedViewController == developerToolsCoordinator?.navigationController
+        guard !isAlreadyShown
         else { return }
 
         let navigationController = UINavigationController()
@@ -49,7 +53,7 @@ private extension BaseWindow {
         )
         self.developerToolsCoordinator = developerToolsCoordinator
         developerToolsCoordinator.start()
-        rootViewController.present(navigationController, animated: true)
+        rootViewController.present(navigationController, animated: animated)
     }
 #endif
 

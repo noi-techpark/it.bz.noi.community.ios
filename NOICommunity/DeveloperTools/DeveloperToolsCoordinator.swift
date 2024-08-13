@@ -24,8 +24,5 @@ final class DeveloperToolsCoordinator: BaseNavigationCoordinator {
             animated: animated
         )
     }
-
-    func dismiss(animated: Bool) {
-        navigationController.dismiss(animated: animated)
-    }
+    
 }

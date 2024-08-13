@@ -149,7 +149,7 @@ private extension DeveloperToolsViewController {
     }
 
     func setInitialSnapshot() {
-        var snapshot = NSDiffableDataSourceSnapshot<Section, DeveloperToolsOption>()
+        let snapshot = NSDiffableDataSourceSnapshot<Section, DeveloperToolsOption>()
         dataSource.apply(snapshot, animatingDifferences: false)
     }
 }
