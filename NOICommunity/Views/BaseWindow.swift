@@ -46,7 +46,8 @@ private extension BaseWindow {
         guard !isAlreadyShown
         else { return }
 
-        let navigationController = UINavigationController()
+        let navigationController = NavigationController()
+        navigationController.modalPresentationStyle = .fullScreen
         let developerToolsCoordinator = DeveloperToolsCoordinator(
             navigationController: navigationController,
             dependencyContainer: dependencyContainer

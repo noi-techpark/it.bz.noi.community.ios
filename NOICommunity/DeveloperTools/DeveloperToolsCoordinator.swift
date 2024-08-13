@@ -10,6 +10,9 @@
 //
 
 import Foundation
+import UIKit
+
+// MARK: - DeveloperToolsCoordinator
 
 final class DeveloperToolsCoordinator: BaseNavigationCoordinator {
 
@@ -18,11 +21,29 @@ final class DeveloperToolsCoordinator: BaseNavigationCoordinator {
         let developerToolsViewController = dependencyContainer.makeDeveloperToolsViewController(
             viewModel: developerToolsViewModel
         )
+        developerToolsViewController.navigationItem.leftBarButtonItem = UIBarButtonItem(
+            image: UIImage(systemName: "xmark.circle.fill"),
+            style: .plain,
+            target: self,
+            action: #selector(didTapClose(_:))
+        )
         developerToolsViewController.title = "Developer Tools"
         navigationController.setViewControllers(
             [developerToolsViewController],
             animated: animated
         )
     }
-    
+
+    func dismiss(animated: Bool) {
+        navigationController.dismiss(animated: animated)
+    }
+}
+
+// MARK: Private APIs
+
+private extension DeveloperToolsCoordinator {
+
+    @objc func didTapClose(_ sender: Any?) {
+        dismiss(animated: true)
+    }
 }
