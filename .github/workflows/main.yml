@@ -71,12 +71,12 @@ jobs:
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
           cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
 
-      # See https://xcodereleases.com/ for details
-      # Xcode_15.0.1 has problems with Kingfisher library
-      # but, AppStore connect needs now XCode 15 with iOS 17
+      # Force Xcode specific version (if needed)
+      # This action switches Xcode to the specified version.
+      # For details on available versions of Xcode, see https://github.com/actions/runner-images/blob/main/images/macos/macos-14-Readme.md.
+      
       # - name: Force XCode specific version
-      #   run: sudo xcode-select -switch /Applications/Xcode_14.3.1.app
-
+      #   run: sudo xcode-select -switch /Applications/Xcode_15.4.app
 
       - name: Resolve package dependencies
         run: xcodebuild -resolvePackageDependencies
