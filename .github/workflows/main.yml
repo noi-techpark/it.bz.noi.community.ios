@@ -73,8 +73,9 @@ jobs:
 
       # See https://xcodereleases.com/ for details
       # Xcode_15.0.1 has problems with Kingfisher library
-      - name: Force XCode specific version
-        run: sudo xcode-select -switch /Applications/Xcode_14.3.1.app
+      # but, AppStore connect needs now XCode 15 with iOS 17
+      # - name: Force XCode specific version
+      #   run: sudo xcode-select -switch /Applications/Xcode_14.3.1.app
 
 
       - name: Resolve package dependencies
