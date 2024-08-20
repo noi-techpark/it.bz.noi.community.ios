@@ -74,7 +74,7 @@ jobs:
       # Force Xcode specific version (if needed)
       # This action switches Xcode to the specified version.
       # For details on available versions of Xcode, see https://github.com/actions/runner-images/blob/main/images/macos/macos-14-Readme.md.
-      
+
       # - name: Force XCode specific version
       #   run: sudo xcode-select -switch /Applications/Xcode_15.4.app
 
@@ -98,6 +98,10 @@ jobs:
       # - "Release DEVELOPER_MENU": same as "Release" but includes the Developer Menu
       # - "Release TMA DEVELOPER_MENU": same as "Release TMA" but includes the Developer Menu
 
+
+      - name: Extract Provisioning profile UUID and create PP_UUID env variable
+        run: echo "PP_UUID=$(grep -a -A 1 'UUID' ~/Library/MobileDevice/Provisioning\ Profiles/build_pp.mobileprovision | grep string | sed -e "s|<string>||" -e "s|</string>||" | tr -d '\t')" >> $GITHUB_ENV
+
       - name: Archive the project
         run: |
           set -eo pipefail
@@ -109,7 +113,7 @@ jobs:
             -destination "generic/platform=iOS,name=Any iOS Device" \
             OTHER_CODE_SIGN_FLAGS="--keychain ~/Library/Keychains/build.keychain" \
             CODE_SIGN_STYLE=Manual \
-            PROVISIONING_PROFILE='8217a111-ad20-4a6f-a664-5c1e5714d6fa' \
+            PROVISIONING_PROFILE=$PP_UUID \
             CODE_SIGN_IDENTITY="Apple Distribution"
 
       - name: Export .ipa
