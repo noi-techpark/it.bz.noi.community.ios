@@ -13,7 +13,7 @@ import UIKit
 
 // MARK: - FiltersBarView
 
-class FiltersBarView: UIView {
+class EventsFiltersBarView: UIView {
 
     @IBOutlet private(set) var scrollView: UIScrollView!
     @IBOutlet private(set) var filtersButton: UIButton! {
@@ -56,7 +56,7 @@ class FiltersBarView: UIView {
 
 // MARK: Private APIs
 
-private extension FiltersBarView {
+private extension EventsFiltersBarView {
 
     class SegmentedControl: UISegmentedControl {
 
@@ -81,7 +81,7 @@ private extension FiltersBarView {
         
         // Load containerView from its xib and embed it as a subview
         Bundle.main.loadNibNamed(
-            "\(FiltersBarView.self)",
+            "\(EventsFiltersBarView.self)",
             owner: self,
             options: nil
         )
@@ -124,7 +124,7 @@ private extension FiltersBarView {
 
 // MARK: - FiltersBarView.SegmentedControlImageFactory
 
-private extension FiltersBarView {
+private extension EventsFiltersBarView {
 
     @objc func selectedFilterValueDidChange(sender: UISegmentedControl) {
         let selectedSegmentIndex = sender.selectedSegmentIndex

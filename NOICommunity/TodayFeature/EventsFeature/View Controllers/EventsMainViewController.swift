@@ -66,7 +66,7 @@ final class EventsMainViewController: UIViewController {
     }
 
     @IBOutlet private var filterBarContainerView: UIView!
-    @IBOutlet private var filterBarView: FiltersBarView!
+    @IBOutlet private var filterBarView: EventsFiltersBarView!
     @IBOutlet private var contentContainerView: UIView!
 
     private var dateIntervalsControl: UISegmentedControl {
