@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
@@ -13,6 +13,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CompaniesFiltersViewController" customModule="NOICommunity">
             <connections>
                 <outlet property="actionsContainersView" destination="xTe-k4-PFK" id="9Mp-52-AMG"/>
+                <outlet property="filtersBarView" destination="ttU-N5-WqP" id="aMZ-cP-Nbu"/>
                 <outlet property="resetActiveFiltersButton" destination="4ba-SY-Pko" id="8U8-AA-Jve"/>
                 <outlet property="searchBar" destination="roE-YU-Y6c" id="W8m-ii-tBo"/>
                 <outlet property="searchBarContainerView" destination="wqE-GP-P9r" id="7ys-Eg-oFc"/>
@@ -26,13 +27,13 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xTe-k4-PFK" customClass="FooterView" customModule="NOICommunity" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="762" width="414" height="134"/>
+                    <rect key="frame" x="0.0" y="754" width="414" height="142"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="R2k-ek-ZPy">
-                            <rect key="frame" x="17" y="17" width="380" height="66"/>
+                            <rect key="frame" x="17" y="17" width="380" height="74"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lgr-xF-Vh3">
-                                    <rect key="frame" x="0.0" y="0.0" width="380" height="29"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="380" height="33"/>
                                     <color key="backgroundColor" name="background_color"/>
                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                     <color key="tintColor" name="primary_color"/>
@@ -40,7 +41,7 @@
                                     <state key="normal" title="Show results"/>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4ba-SY-Pko">
-                                    <rect key="frame" x="0.0" y="37" width="380" height="29"/>
+                                    <rect key="frame" x="0.0" y="41" width="380" height="33"/>
                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                     <state key="normal" title="Reset filters">
@@ -60,15 +61,21 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wqE-GP-P9r" userLabel="Search Bar Container View">
-                    <rect key="frame" x="0.0" y="44" width="414" height="73"/>
+                    <rect key="frame" x="0.0" y="48" width="414" height="118"/>
                     <subviews>
-                        <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="ZwR-Xr-N6X">
-                            <rect key="frame" x="8" y="11" width="398" height="51"/>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="ZwR-Xr-N6X">
+                            <rect key="frame" x="8" y="11" width="398" height="96"/>
                             <subviews>
                                 <searchBar contentMode="redraw" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="roE-YU-Y6c">
-                                    <rect key="frame" x="0.0" y="0.0" width="398" height="51"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="398" height="56"/>
                                     <textInputTraits key="textInputTraits"/>
                                 </searchBar>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ttU-N5-WqP" customClass="FiltersBarView" customModule="NOICommunity" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="56" width="398" height="40"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="40" id="Zas-2e-ftZ"/>
+                                    </constraints>
+                                </view>
                             </subviews>
                         </stackView>
                     </subviews>

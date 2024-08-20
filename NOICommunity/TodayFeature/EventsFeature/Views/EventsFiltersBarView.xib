@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -10,45 +11,44 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EventsFiltersBarView" customModule="NOICommunity" customModuleProvider="target">
             <connections>
-                <outlet property="contentView" destination="58z-I1-Rbh" id="jRs-nc-ksW"/>
-                <outlet property="filtersButton" destination="x5L-Ot-UP1" id="B61-qd-WL6"/>
-                <outlet property="scrollView" destination="caF-6A-pLP" id="jlF-g2-Q6Y"/>
+                <outlet property="contentView" destination="N45-Uj-LgX" id="gBc-yX-0a9"/>
+                <outlet property="filtersBarView" destination="tw7-nL-EkR" id="inJ-Hc-7VD"/>
+                <outlet property="filtersButton" destination="35S-Gd-hnZ" id="XSi-we-zVv"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="58z-I1-Rbh">
+        <view contentMode="scaleToFill" id="N45-Uj-LgX">
             <rect key="frame" x="0.0" y="0.0" width="414" height="40"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <scrollView verifyAmbiguity="off" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="caF-6A-pLP">
-                    <rect key="frame" x="56" y="0.0" width="358" height="40"/>
-                    <viewLayoutGuide key="contentLayoutGuide" id="gWf-MV-4Z9"/>
-                    <viewLayoutGuide key="frameLayoutGuide" id="aKd-08-1yV"/>
-                </scrollView>
-                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x5L-Ot-UP1">
-                    <rect key="frame" x="17" y="0.0" width="40" height="40"/>
-                    <color key="backgroundColor" name="background_color"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="40" id="H17-yK-xJi"/>
-                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="40" id="hEA-8p-VAW"/>
-                    </constraints>
-                    <color key="tintColor" name="primary_color"/>
-                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                    <state key="normal" image="ic_filter"/>
-                </button>
+                <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dme-iJ-Ntu">
+                    <rect key="frame" x="17" y="0.0" width="397" height="40"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="35S-Gd-hnZ">
+                            <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                            <color key="backgroundColor" name="background_color"/>
+                            <constraints>
+                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="40" id="h6M-yN-f1s"/>
+                            </constraints>
+                            <color key="tintColor" name="primary_color"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" image="ic_filter"/>
+                        </button>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tw7-nL-EkR" customClass="FiltersBarView" customModule="NOICommunity" customModuleProvider="target">
+                            <rect key="frame" x="40" y="0.0" width="357" height="40"/>
+                        </view>
+                    </subviews>
+                </stackView>
             </subviews>
-            <viewLayoutGuide key="safeArea" id="xtQ-9b-tl7"/>
+            <viewLayoutGuide key="safeArea" id="dmU-1L-C4F"/>
             <constraints>
-                <constraint firstItem="x5L-Ot-UP1" firstAttribute="top" secondItem="58z-I1-Rbh" secondAttribute="top" id="6MK-zF-xpF"/>
-                <constraint firstItem="caF-6A-pLP" firstAttribute="top" secondItem="58z-I1-Rbh" secondAttribute="top" id="Mg0-ty-oFW"/>
-                <constraint firstAttribute="trailing" secondItem="caF-6A-pLP" secondAttribute="trailing" id="QR4-Pb-5Dx"/>
-                <constraint firstItem="caF-6A-pLP" firstAttribute="leading" secondItem="x5L-Ot-UP1" secondAttribute="trailing" id="UZQ-YJ-hjf"/>
-                <constraint firstAttribute="bottom" secondItem="caF-6A-pLP" secondAttribute="bottom" id="eIj-Kc-Laa"/>
-                <constraint firstItem="x5L-Ot-UP1" firstAttribute="leading" secondItem="xtQ-9b-tl7" secondAttribute="leading" constant="17" id="rwL-eI-sHu"/>
-                <constraint firstAttribute="bottom" secondItem="x5L-Ot-UP1" secondAttribute="bottom" id="vcz-Vx-Kim"/>
+                <constraint firstItem="Dme-iJ-Ntu" firstAttribute="top" secondItem="N45-Uj-LgX" secondAttribute="top" id="KE5-Q2-idd"/>
+                <constraint firstAttribute="bottom" secondItem="Dme-iJ-Ntu" secondAttribute="bottom" id="O2U-EB-zfV"/>
+                <constraint firstItem="Dme-iJ-Ntu" firstAttribute="trailing" secondItem="dmU-1L-C4F" secondAttribute="trailing" id="m8J-47-vW1"/>
+                <constraint firstItem="Dme-iJ-Ntu" firstAttribute="leading" secondItem="dmU-1L-C4F" secondAttribute="leading" constant="17" id="vXC-VU-a7p"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="11.199999999999999" y="-90.854572713643179"/>
+            <point key="canvasLocation" x="11" y="90"/>
         </view>
     </objects>
     <resources>
