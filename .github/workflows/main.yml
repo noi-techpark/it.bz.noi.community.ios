@@ -112,7 +112,7 @@ jobs:
             -archivePath "$PWD/build/NOICommunity.xcarchive" \
             -destination "generic/platform=iOS,name=Any iOS Device" \
             OTHER_CODE_SIGN_FLAGS="--keychain ~/Library/Keychains/build.keychain" \
-            CODE_SIGN_STYLE=Manual \
+            CODE_SIGN_STYLE=Automatic \
             PROVISIONING_PROFILE=$PP_UUID \
             CODE_SIGN_IDENTITY="Apple Distribution"
 
