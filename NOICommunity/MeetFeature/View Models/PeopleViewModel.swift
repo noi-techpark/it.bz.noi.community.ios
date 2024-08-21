@@ -11,6 +11,7 @@
 
 import Foundation
 import Combine
+import Core
 import PeopleClient
 import AuthClient
 

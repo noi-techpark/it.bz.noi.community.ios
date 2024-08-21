@@ -11,6 +11,7 @@
 
 import UIKit
 import Combine
+import Core
 import PeopleClient
 
 // MARK: - MeetMainViewController

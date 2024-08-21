@@ -11,52 +11,8 @@
 
 import Foundation
 import Combine
+import Core
 import PeopleClient
-
-// MARK: - Initial
-
-struct Initial: Hashable {
-
-    let value: String
-
-    static let other = Initial("#")
-
-    private init(_ value: String) {
-        self.value = value
-    }
-
-    init(from text: String) {
-        guard let firstChar = text
-                // Trim spaces and new lines
-                .trimmingCharacters(in: .whitespacesAndNewlines)
-                // Remove diacritics
-                .applyingTransform(.stripDiacritics, reverse: false)?
-                .first
-        else { self = .other; return }
-
-        let value = String(firstChar)
-
-        let isLetter = value.rangeOfCharacter(from: .letters.inverted) == nil
-        guard isLetter
-        else { self = .other; return }
-
-        self.init(value)
-    }
-
-}
-
-extension Initial: Comparable {
-    static func <(lhs: Initial, rhs: Initial) -> Bool {
-        switch (lhs.value, rhs.value) {
-        case ("#", _):
-            return false
-        case (_, "#"):
-            return true
-        case (let lhsValue, let rhsValue):
-            return lhsValue.localizedCaseInsensitiveCompare(rhsValue) == .orderedAscending
-        }
-    }
-}
 
 // MARK - CompanyFilter
 
