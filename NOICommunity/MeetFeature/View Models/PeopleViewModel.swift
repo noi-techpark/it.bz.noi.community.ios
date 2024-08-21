@@ -29,11 +29,10 @@ final class PeopleViewModel {
     
     @Published private(set) var peopleIds: [PersonId]!
     
-    @Published private(set) var results: [PersonId]! {
-        didSet {
-            numberOfResults = results.count
-        }
-    }
+    @Published private(set) var results: (
+        [Initial],
+        [Initial: [PersonId]]
+    )!
     
     @Published private(set) var activeSearchTerm: String?
     
@@ -151,17 +150,19 @@ final class PeopleViewModel {
         activeSearchTerm = searchTerm
         activeCompanyIdsFilter = filterCompanyIds
         
-        let results = peopleIds
+        let filteredSortedPeople = peopleIds
             .lazy
+            // Maps person id to person
             .map { self.person(withId: $0) }
+            // Apply filtering based on search term
             .filter { person in
-                // Search term predicate
-                guard let searchTerm = searchTerm,
+                guard let searchTerm,
                       !searchTerm.isEmpty
                 else { return true }
-                return person.fullname
-                    .localizedStandardContains(searchTerm)
+
+                return person.fullname.localizedStandardContains(searchTerm)
             }
+            // Apply filtering based on company filters
             .filter { person in
                 // Belong to company predicate (OR)
                 guard let filterCompanyIds = filterCompanyIds
@@ -172,8 +173,19 @@ final class PeopleViewModel {
                 
                 return filterCompanyIds.contains(companyId)
             }
-            .map(\.id)
-        self.results = Array(results)
+            // Sort alphabetically by name
+            .sorted {
+                $0.fullname.localizedCaseInsensitiveCompare($1.fullname) == .orderedAscending
+            }
+
+        let peopleIdsByInitial = Dictionary(
+            grouping: filteredSortedPeople,
+            by: { Initial(from: $0.fullname) }
+        )
+            .mapValues { $0.map(\.id) }
+
+        let initials = Array(Set(peopleIdsByInitial.keys)).sorted()
+        self.results = (initials, peopleIdsByInitial)
     }
     
     func makeCompanyViewModel() -> CompanyViewModel {
