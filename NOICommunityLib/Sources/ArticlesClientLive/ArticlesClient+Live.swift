@@ -16,7 +16,6 @@ import ArticlesClient
 
 // MARK: - Private Constants
 
-private let baseURL = URL(string: "https://tourism.opendatahub.com")!
 private let articlesJsonDecoder: JSONDecoder = {
     let jsonDecoder = JSONDecoder()
     
@@ -63,7 +62,10 @@ private let articlesJsonDecoder: JSONDecoder = {
 
 extension ArticlesClient {
     
-    public static func live(urlSession: URLSession = .shared) -> Self {
+    public static func live(
+        baseURL: URL,
+        urlSession: URLSession = .shared
+    ) -> Self {
         Self(
             list: { startDate, publishedon, articleType, rawSort, rawFilter, pageSize, pageNumber in
                 let urlRequest = Endpoint.articleList(
@@ -78,6 +80,7 @@ extension ArticlesClient {
                 
                 return urlSession
                     .dataTaskPublisher(for: urlRequest)
+                    .debug()
                     .map { data, response in data }
                     .decode(
                         type: ArticleListResponseWithPageURLs.self,
@@ -92,6 +95,7 @@ extension ArticlesClient {
                 
                 return urlSession
                     .dataTaskPublisher(for: urlRequest)
+                    .debug()
                     .map { data, response in data }
                     .decode(
                         type: Article.self,

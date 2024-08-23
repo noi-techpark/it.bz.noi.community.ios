@@ -16,7 +16,6 @@ import EventShortTypesClient
 
 // MARK: - Private Constants
 
-private let baseUrl = URL(string: "https://tourism.opendatahub.com")!
 private let jsonDecoder: JSONDecoder = {
     let jsonDecoder = JSONDecoder()
     jsonDecoder.keyDecodingStrategy = .convertFromPascalCase
@@ -27,11 +26,14 @@ private let jsonDecoder: JSONDecoder = {
 
 extension EventShortTypesClient {
 
-    public static func live(urlSession: URLSession = .shared) -> Self {
+    public static func live(
+        baseURL: URL,
+        urlSession: URLSession = .shared
+    ) -> Self {
         Self(
             filters: {
                 urlSession
-                    .dataTaskPublisher(for: requestURL())
+                    .dataTaskPublisher(for: requestURL(baseURL: baseURL))
                     .debug()
                     .map(\.data)
                     .decode(
@@ -62,6 +64,7 @@ extension EventShortTypesClient {
     }
 
     public static func live(
+        baseURL: URL,
         memoryCache cache: Cache<CacheKey, [EventsFilter]>,
         diskCacheFileURL fileURL: URL,
         urlSession: URLSession = .shared
@@ -84,7 +87,7 @@ extension EventShortTypesClient {
                         return data
                     }
                 let restPublisher = urlSession
-                    .dataTaskPublisher(for: requestURL())
+                    .dataTaskPublisher(for: requestURL(baseURL: baseURL))
                     .debug()
                     .mapError { $0 as Error }
                     .map { data, _ -> Data in
@@ -124,9 +127,9 @@ extension EventShortTypesClient {
 
 private extension EventShortTypesClient {
 
-    static func requestURL() -> URL {
+    static func requestURL(baseURL: URL) -> URL {
         var urlComponents = URLComponents(
-            url: baseUrl,
+            url: baseURL,
             resolvingAgainstBaseURL: false
         )!
         urlComponents.path = "/v1/EventShortTypes"

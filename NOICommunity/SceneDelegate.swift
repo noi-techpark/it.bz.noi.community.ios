@@ -60,21 +60,24 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 context: self,
                 tokenStorage: tokenStorage
             ),
-            eventShortClient: .live(),
+            eventShortClient: .live(
+                baseURL: EventsFeatureConstants.clientBaseURL
+            ),
             eventShortTypesClient: {
                 if let fileURL = Bundle.main.url(
                     forResource: "EventShortTypes",
                     withExtension: "json"
                 ) {
                     return .live(
+                        baseURL: EventsFeatureConstants.clientBaseURL,
                         memoryCache: cache,
                         diskCacheFileURL: fileURL
                     )
                 } else {
-                    return .live()
+                    return .live(baseURL: EventsFeatureConstants.clientBaseURL)
                 }
             }(),
-            articleClient: .live(),
+            articleClient: .live(baseURL: NewsFeatureConstants.clientBaseURL),
             peopleClient: .live(baseURL: MeetConstant.clientBaseURL)
         )
     }()

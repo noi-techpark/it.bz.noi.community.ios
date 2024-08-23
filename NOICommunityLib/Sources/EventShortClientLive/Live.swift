@@ -16,7 +16,6 @@ import EventShortClient
 
 // MARK: - Private Constants
 
-private let baseUrl = URL(string: "https://tourism.opendatahub.com")!
 private let eventsJsonDecoder: JSONDecoder = {
     let jsonDecoder = JSONDecoder()
     
@@ -62,11 +61,14 @@ private let eventsJsonDecoder: JSONDecoder = {
 // MARK: - EventShortClient+Live
 
 extension EventShortClient {
-    public static func live(urlSession: URLSession = .shared) -> Self {
+    public static func live(
+        baseURL: URL,
+        urlSession: URLSession = .shared
+    ) -> Self {
         Self(
             list: { request in
                 var urlComponents = URLComponents(
-                    url: baseUrl,
+                    url: baseURL,
                     resolvingAgainstBaseURL: false
                 )!
                 urlComponents.path = "/v1/EventShort"
@@ -86,7 +88,7 @@ extension EventShortClient {
             },
             roomMapping: { language in
                 var urlComponents = URLComponents(
-                    url: baseUrl,
+                    url: baseURL,
                     resolvingAgainstBaseURL: false
                 )!
                 urlComponents.path = "/v1/EventShort/RoomMapping"

@@ -3,17 +3,15 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 //
-//  EventsFeatureConstants.swift
+//  NewsFeatureConstants.swift
 //  NOICommunity
 //
-//  Created by Matteo Matassoni on 21/09/21.
+//  Created by Matteo Matassoni on 23/08/24.
 //
 
 import Foundation
 
-enum EventsFeatureConstants {
-    static let maximumNumberOfEvents = 20
-    static let maximumNumberOfRelatedEvents = 3
+enum NewsFeatureConstants {
 
     public static let clientBaseURL: URL = {
 #if TESTINGMACHINE_OAUTH
