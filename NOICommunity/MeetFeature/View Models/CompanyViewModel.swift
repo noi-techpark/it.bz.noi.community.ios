@@ -19,20 +19,29 @@ import PeopleClient
 enum CompanyFilter: CaseIterable {
 
     case all
+    case noiSpa
+    case researchInstitutes
+    case universities
+    case institutions
     case companies
-    case startups
-    case researchInstitutions
+    case startup
 
     var title: String {
         switch self {
-        case .all: 
-            .localized("filter_by_none")
-        case .researchInstitutions:
-            .localized("filter_by_research_institution")
-        case .startups:
-            .localized("filter_by_startup")
+        case .all:
+            .localized("filter_by_all")
+        case .noiSpa:
+            .localized("filter_by_noi_spa")
+        case .researchInstitutes:
+            .localized("filter_by_research_institutes")
+        case .universities:
+            .localized("filter_by_universities")
+        case .institutions:
+            .localized("filter_by_institutions")
         case .companies:
-            .localized("filter_by_company")
+            .localized("filter_by_companies")
+        case .startup:
+            .localized("filter_by_startup")
         }
     }
 
@@ -40,12 +49,18 @@ enum CompanyFilter: CaseIterable {
         switch self {
         case .all:
             nil
-        case .researchInstitutions:
+        case .noiSpa:
+            .noiCommunity
+        case .researchInstitutes:
+            nil
+        case .universities:
+            nil
+        case .institutions:
             .researchInstitution
-        case .startups:
-            .startup
         case .companies:
             .company
+        case .startup:
+            .startup
         }
     }
 
@@ -98,6 +113,29 @@ final class CompanyViewModel {
 
         activeSearchTerm = searchTerm
         activeFilter = filter
+
+        let foo = companyIds
+        // Maps company id to company
+            .compactMap { self.company(withId: $0) }
+        // Apply filtering based on tag
+            .filter { company in
+                guard let tag = filter.tag
+                else { return true }
+
+                return company.tags.contains(tag)
+            }
+        // Apply filtering based on search term
+            .filter { company in
+                guard let searchTerm,
+                      !searchTerm.isEmpty
+                else { return true }
+
+                return company.name.localizedStandardContains(searchTerm)
+            }
+        // Sort alphabetically by name
+            .sorted {
+                $0.name.localizedCaseInsensitiveCompare($1.name) == .orderedAscending
+            }
 
         let filteredSortedCompanies = companyIds
             .lazy
