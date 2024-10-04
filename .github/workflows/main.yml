@@ -103,7 +103,7 @@ jobs:
         run: |
           set -eo pipefail
           xcodebuild clean archive \
-            -configuration "Release DEVELOPER_MENU" \
+            -configuration "Release" \
             -scheme NOICommunity \
             -sdk iphoneos \
             -archivePath "$PWD/build/NOICommunity.xcarchive" \
