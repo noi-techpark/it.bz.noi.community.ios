@@ -38,7 +38,7 @@ public struct Initial: Hashable {
         guard isLetter
         else { self = .other; return }
 
-        self.init(value)
+        self.init(value.uppercased())
     }
 
 }
