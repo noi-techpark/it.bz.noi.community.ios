@@ -34,7 +34,7 @@ final class PeopleViewModel {
         [Initial],
         [Initial: [PersonId]]
     )!
-    
+
     @Published private(set) var activeSearchTerm: String?
     
     @Published private(set) var activeCompanyIdsFilter: Set<CompanyId>? {
@@ -186,6 +186,7 @@ final class PeopleViewModel {
             .mapValues { $0.map(\.id) }
 
         let initials = Array(Set(peopleIdsByInitial.keys)).sorted()
+        self.numberOfResults = filteredSortedPeople.count
         self.results = (initials, peopleIdsByInitial)
     }
     
