@@ -19,9 +19,9 @@ import PeopleClient
 enum CompanyFilter: CaseIterable {
 
     case all
-    case institutions
     case companies
     case startup
+    case institutions
 
     var title: String {
         switch self {
