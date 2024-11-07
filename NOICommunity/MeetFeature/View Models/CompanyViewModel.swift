@@ -11,19 +11,59 @@
 
 import Foundation
 import Combine
+import Core
 import PeopleClient
+
+// MARK - CompanyFilter
+
+enum CompanyFilter: CaseIterable {
+
+    case all
+    case companies
+    case startup
+    case institutions
+
+    var title: String {
+        switch self {
+        case .all:
+            .localized("filter_by_all")
+        case .institutions:
+            .localized("filter_by_institutions")
+        case .companies:
+            .localized("filter_by_companies")
+        case .startup:
+            .localized("filter_by_startup")
+        }
+    }
+
+    var tag: Company.Tag? {
+        switch self {
+        case .all:
+            nil
+        case .institutions:
+            .researchInstitution
+        case .companies:
+            .company
+        case .startup:
+            .startup
+        }
+    }
+
+}
 
 // MARK: - CompanyViewModel
 
 final class CompanyViewModel {
     
-    private let allTags: [Company.Tag] = [.company, .startup, .researchInstitution]
-    
+    let filterItems: [CompanyFilter] = CompanyFilter.allCases
+
+    @Published private(set) var activeFilter: CompanyFilter = .all
+
     @Published private(set) var activeSearchTerm: String?
-    
+
     @Published private(set) var results: (
-        [Company.Tag],
-        [Company.Tag: [CompanyId]]
+        [Initial],
+        [Initial: [CompanyId]]
     )!
     
     private var companyIds: [CompanyId]
@@ -39,7 +79,7 @@ final class CompanyViewModel {
             uniqueKeysWithValues: companies.map { ($0.id, $0) }
         )
         
-        filter(searchTerm: activeSearchTerm)
+        filterBy(searchTerm: activeSearchTerm, filter: activeFilter)
     }
     
     func company(withId companyId: String) -> Company? {
@@ -48,27 +88,51 @@ final class CompanyViewModel {
         
         return result
     }
-    
-    func filter(searchTerm: String?) {
+
+    func filterBy(
+        searchTerm: String? = nil,
+        filter: CompanyFilter? = nil
+    ) {
+        let searchTerm = searchTerm ?? activeSearchTerm
+        let filter = filter ?? activeFilter
+
         activeSearchTerm = searchTerm
-        
-        let tagToCompanyIds: [Company.Tag: [CompanyId]] = allTags
-            .reduce([:]) { partialResult, tag in
-                var result = partialResult
-                let companyIds = self.companyIds(
-                    searchTerm: searchTerm,
-                    withTags: [tag]
-                )
-                if !companyIds.isEmpty {
-                    result[tag] = companyIds
-                }
-                return result
+        activeFilter = filter
+
+        let filteredSortedCompanies = companyIds
+            .lazy
+            // Maps company id to company
+            .compactMap { self.company(withId: $0) }
+            // Apply filtering based on tag
+            .filter { company in
+                guard let tag = filter.tag
+                else { return true }
+
+                return company.tags.contains(tag)
             }
-        let tags = allTags
-            .filter { tagToCompanyIds[$0] != nil }
-        self.results = (tags, tagToCompanyIds)
+            // Apply filtering based on search term
+            .filter { company in
+                guard let searchTerm,
+                      !searchTerm.isEmpty
+                else { return true }
+
+                return company.name.localizedStandardContains(searchTerm)
+            }
+            // Sort alphabetically by name
+            .sorted {
+                $0.name.localizedCaseInsensitiveCompare($1.name) == .orderedAscending
+            }
+
+        let companiesIdsByInitial = Dictionary(
+            grouping: filteredSortedCompanies,
+            by: { Initial(from: $0.name) }
+        )
+            .mapValues { $0.map(\.id) }
+
+        let initials = Array(Set(companiesIdsByInitial.keys)).sorted()
+        self.results = (initials, companiesIdsByInitial)
     }
-    
+
 }
 
 // MARK: Private APIs
@@ -104,5 +168,21 @@ private extension CompanyViewModel {
         
         return Array(results)
     }
-    
+
+    func filteredCompanies(withSearchTerm searchTerm: String?) -> [Company] {
+        let results = companyIds
+            .lazy
+            .compactMap { self.company(withId: $0) }
+            .filter { company in
+                // Search term predicate
+                guard let searchTerm = searchTerm,
+                      !searchTerm.isEmpty
+                else { return true }
+
+                return company.name.localizedStandardContains(searchTerm)
+            }
+
+        return Array(results)
+    }
+
 }

@@ -6,7 +6,7 @@
 //  FiltersBarView.swift
 //  NOICommunity
 //
-//  Created by Matteo Matassoni on 15/10/21.
+//  Created by Matteo Matassoni on 20/08/24.
 //
 
 import UIKit
@@ -15,14 +15,25 @@ import UIKit
 
 class FiltersBarView: UIView {
 
-    @IBOutlet private(set) var scrollView: UIScrollView!
-    @IBOutlet private(set) var filtersButton: UIButton! {
+    var items: [String] = [] {
         didSet {
-            filtersButton.configureAsFiltersButton()
+            guard items != oldValue
+            else { return }
+
+            segmentedControl.removeAllSegments()
+            items.reversed().forEach {
+                segmentedControl.insertSegment(
+                    withTitle: $0,
+                    at: 0,
+                    animated: false
+                )
+            }
         }
     }
-    
-    lazy var dateIntervalsControl: UISegmentedControl = {
+
+    lazy private(set) var scrollView = UIScrollView()
+
+    lazy private(set) var segmentedControl: UISegmentedControl = {
         let activeColor = UIColor.noiSecondaryColor
         let color = activeColor.withAlphaComponent(0.5)
         var builder = SegmentedControlBuilder(
@@ -34,13 +45,11 @@ class FiltersBarView: UIView {
         builder.selectedFont = builder.font
         builder.class = SegmentedControl.self
         let segmentedControl = builder.makeSegmentedControl(
-            items: DateIntervalFilter.allCases.map(\.localizedString)
+            items: items
         )
         segmentedControl.clipsToBounds = false
         return segmentedControl
     }()
-
-    @IBOutlet private var contentView: UIView!
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -78,17 +87,10 @@ private extension FiltersBarView {
 
     func setup() {
         backgroundColor = .noiSecondaryBackgroundColor
-        
-        // Load containerView from its xib and embed it as a subview
-        Bundle.main.loadNibNamed(
-            "\(FiltersBarView.self)",
-            owner: self,
-            options: nil
-        )
 
-        embedSubview(contentView)
+        embedSubview(scrollView)
         configureScrollView()
-        dateIntervalsControl.addTarget(
+        segmentedControl.addTarget(
             self,
             action: #selector(selectedFilterValueDidChange(sender:)),
             for: .valueChanged
@@ -96,24 +98,20 @@ private extension FiltersBarView {
     }
 
     func configureScrollView() {
-        scrollView.contentInset = .init(
-            top: 0,
-            left: 17,
-            bottom: 0,
-            right: 17
-        )
-        scrollView.addSubview(dateIntervalsControl)
-        dateIntervalsControl.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.showsHorizontalScrollIndicator = false
+        scrollView.showsVerticalScrollIndicator = false
+        scrollView.addSubview(segmentedControl)
+        segmentedControl.translatesAutoresizingMaskIntoConstraints = false
         let contentGuide = scrollView.contentLayoutGuide
         let frameGuide = scrollView.frameLayoutGuide
         NSLayoutConstraint.activate([
-            dateIntervalsControl.leadingAnchor
+            segmentedControl.leadingAnchor
                 .constraint(equalTo: contentGuide.leadingAnchor),
-            dateIntervalsControl.trailingAnchor
+            segmentedControl.trailingAnchor
                 .constraint(equalTo: contentGuide.trailingAnchor),
-            dateIntervalsControl.bottomAnchor
+            segmentedControl.bottomAnchor
                 .constraint(equalTo: contentGuide.bottomAnchor),
-            dateIntervalsControl.topAnchor
+            segmentedControl.topAnchor
                 .constraint(equalTo: contentGuide.topAnchor),
             frameGuide.heightAnchor
                 .constraint(equalTo: contentGuide.heightAnchor)
@@ -131,7 +129,7 @@ private extension FiltersBarView {
         let convertRect: (UIView) -> CGRect = {
             $0.convert($0.frame, to: self.scrollView)
         }
-        let selectedControls = dateIntervalsControl
+        let selectedControls = segmentedControl
             .recursiveSubviews { $0 is UILabel }
             .sorted { convertRect($0).minX < convertRect($1).minX }
         let selectedControl = selectedControls[selectedSegmentIndex]

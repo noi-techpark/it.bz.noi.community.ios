@@ -174,11 +174,12 @@
 		31BFAB3B283FC88A00EF274D /* CALayer+XibConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BFAB3A283FC88A00EF274D /* CALayer+XibConfiguration.swift */; };
 		31C028412B55924B00D851EE /* FeatureFlag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C028402B55924B00D851EE /* FeatureFlag.swift */; };
 		31C14C2327DA3597009AF69D /* UIScrollView+ScrollToView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C14C2227DA3597009AF69D /* UIScrollView+ScrollToView.swift */; };
+		31C1ECB82C74E248004C9104 /* FiltersBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C1ECB72C74E248004C9104 /* FiltersBarView.swift */; };
 		31C2261C270F596E0098A70E /* EventCardContentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 315F4BE127034C00001905AF /* EventCardContentView.xib */; };
 		31C2261D270F59750098A70E /* EventDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3187667826FB3A9300782FA6 /* EventDetailsViewController.xib */; };
 		31C28BF62719709B00312A62 /* NOICells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C28BF52719709B00312A62 /* NOICells.swift */; };
-		31C28BF8271992F500312A62 /* FiltersBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C28BF7271992F500312A62 /* FiltersBarView.swift */; };
-		31C28BFA2719931400312A62 /* FiltersBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31C28BF92719931400312A62 /* FiltersBarView.xib */; };
+		31C28BF8271992F500312A62 /* EventsFiltersBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C28BF7271992F500312A62 /* EventsFiltersBarView.swift */; };
+		31C28BFA2719931400312A62 /* EventsFiltersBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31C28BF92719931400312A62 /* EventsFiltersBarView.xib */; };
 		31C28BFD2719BD7200312A62 /* LoadingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31C28BFB2719BD7200312A62 /* LoadingViewController.xib */; };
 		31C28BFE2719BD7200312A62 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C28BFC2719BD7200312A62 /* LoadingViewController.swift */; };
 		31C3629F270EFC5C00C92532 /* UIButton+Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C3629E270EFC5C00C92532 /* UIButton+Background.swift */; };
@@ -408,9 +409,10 @@
 		31BFAB3A283FC88A00EF274D /* CALayer+XibConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+XibConfiguration.swift"; sourceTree = "<group>"; };
 		31C028402B55924B00D851EE /* FeatureFlag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureFlag.swift; sourceTree = "<group>"; };
 		31C14C2227DA3597009AF69D /* UIScrollView+ScrollToView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+ScrollToView.swift"; sourceTree = "<group>"; };
+		31C1ECB72C74E248004C9104 /* FiltersBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersBarView.swift; sourceTree = "<group>"; };
 		31C28BF52719709B00312A62 /* NOICells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NOICells.swift; sourceTree = "<group>"; };
-		31C28BF7271992F500312A62 /* FiltersBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersBarView.swift; sourceTree = "<group>"; };
-		31C28BF92719931400312A62 /* FiltersBarView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FiltersBarView.xib; sourceTree = "<group>"; };
+		31C28BF7271992F500312A62 /* EventsFiltersBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsFiltersBarView.swift; sourceTree = "<group>"; };
+		31C28BF92719931400312A62 /* EventsFiltersBarView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventsFiltersBarView.xib; sourceTree = "<group>"; };
 		31C28BFB2719BD7200312A62 /* LoadingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadingViewController.xib; sourceTree = "<group>"; };
 		31C28BFC2719BD7200312A62 /* LoadingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
 		31C3629E270EFC5C00C92532 /* UIButton+Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Background.swift"; sourceTree = "<group>"; };
@@ -513,8 +515,8 @@
 				315F4BE327035679001905AF /* EventCardContentConfiguration.SharedConfig.swift */,
 				31AA31F026F0B40800744A00 /* EventCardContentView.swift */,
 				315F4BE127034C00001905AF /* EventCardContentView.xib */,
-				31C28BF7271992F500312A62 /* FiltersBarView.swift */,
-				31C28BF92719931400312A62 /* FiltersBarView.xib */,
+				31C28BF7271992F500312A62 /* EventsFiltersBarView.swift */,
+				31C28BF92719931400312A62 /* EventsFiltersBarView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -887,6 +889,7 @@
 				313010CE28463F1000AF6520 /* ContentConfiguration.swift */,
 				318664A12B22471E0088A752 /* LinkTextView.swift */,
 				31B192772C6A434B009872E9 /* BaseWindow.swift */,
+				31C1ECB72C74E248004C9104 /* FiltersBarView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1204,7 +1207,7 @@
 				31515A20286C868600642907 /* SourceSansPro-LightItalic.ttf in Resources */,
 				3121AFDE2858B43A00248CDF /* MeetMainViewController.xib in Resources */,
 				31515A1F286C868600642907 /* SourceSansPro-Bold.ttf in Resources */,
-				31C28BFA2719931400312A62 /* FiltersBarView.xib in Resources */,
+				31C28BFA2719931400312A62 /* EventsFiltersBarView.xib in Resources */,
 				313010CD2846102000AF6520 /* MyAccountViewController.xib in Resources */,
 				31EBA3742807FAD9001AAE8F /* AuthWelcomeViewController.xib in Resources */,
 				3132EF3A283D29E00016DF7F /* PersonCardContentView.xib in Resources */,
@@ -1319,6 +1322,7 @@
 				3153010528071D1200471153 /* AuthWelcomePageViewController.swift in Sources */,
 				316F5615281C166B0075B09F /* MyAccountViewController.swift in Sources */,
 				31C028412B55924B00D851EE /* FeatureFlag.swift in Sources */,
+				31C1ECB82C74E248004C9104 /* FiltersBarView.swift in Sources */,
 				31C640B126FE1449004B71A2 /* TabCoordinatorType.swift in Sources */,
 				31A5F05527D25A9400FA20BC /* EventFiltersViewController.swift in Sources */,
 				317B6F9A28118950008D07C0 /* ClientFactory.swift in Sources */,
@@ -1335,7 +1339,7 @@
 				312F5D292808252900C84598 /* WelcomeViewModel.swift in Sources */,
 				31DAC7BE2B568A0100F24D79 /* IndexPathAdditions.swift in Sources */,
 				3101FC5B283394FA00A3416F /* TodayCoordinator.swift in Sources */,
-				31C28BF8271992F500312A62 /* FiltersBarView.swift in Sources */,
+				31C28BF8271992F500312A62 /* EventsFiltersBarView.swift in Sources */,
 				3145D23326B3F73F00F16787 /* SceneDelegate.swift in Sources */,
 				31B192722C6A367D009872E9 /* DeveloperToolsViewController.swift in Sources */,
 				31AA31E826F09E3600744A00 /* Event.swift in Sources */,

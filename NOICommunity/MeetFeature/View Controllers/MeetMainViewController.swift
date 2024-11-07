@@ -11,6 +11,7 @@
 
 import UIKit
 import Combine
+import Core
 import PeopleClient
 
 // MARK: - MeetMainViewController
@@ -98,6 +99,9 @@ extension MeetMainViewController: UISearchBarDelegate {
 
 private extension MeetMainViewController {
     
+    typealias DataSource = UICollectionViewDiffableDataSource<Initial, PersonId>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<Initial, PersonId>
+
     func configureBindings() {
         barView.searchBar.delegate = self
         
@@ -157,8 +161,8 @@ private extension MeetMainViewController {
         
         let viewModel: PeopleViewModel
         
-        private var dataSource: UICollectionViewDiffableDataSource<Section, PersonId>! = nil
-        
+        private var dataSource: DataSource!
+
         private var subscriptions: Set<AnyCancellable> = []
         
         private var refreshControl: UIRefreshControl? {
@@ -242,49 +246,13 @@ private extension MeetMainViewController.CollectionViewController {
         case main
     }
     
-    func columnCount(
-        for layoutEnviroment: NSCollectionLayoutEnvironment
-    ) -> Int {
-        switch (
-            layoutEnviroment.container.effectiveContentSize.width
-        ) {
-        case 0..<600:
-            return 1
-        default:
-            return 2
-        }
-    }
-    
     func createLayout() -> UICollectionViewLayout {
-        let layout = UICollectionViewCompositionalLayout { sectionIndex, layoutEnvironment in
-            let columns = self.columnCount(for: layoutEnvironment)
-            
-            let estimatedHeight = NSCollectionLayoutDimension.estimated(85)
-            let itemSize = NSCollectionLayoutSize(
-                widthDimension: .fractionalWidth(1.0),
-                heightDimension: estimatedHeight
-            )
-            let item = NSCollectionLayoutItem(layoutSize: itemSize)
-            
-            let groupSize = NSCollectionLayoutSize(
-                widthDimension: .fractionalWidth(1.0),
-                heightDimension: estimatedHeight
-            )
-            let group = NSCollectionLayoutGroup.horizontal(
-                layoutSize: groupSize,
-                subitem: item,
-                count: columns
-            )
-            group.interItemSpacing = .fixed(2)
-            
-            let section = NSCollectionLayoutSection(group: group)
-            section.interGroupSpacing = 2
-            
-            return section
-        }
-        return layout
+        var config = UICollectionLayoutListConfiguration(appearance: .grouped)
+        config.headerMode = .supplementary
+        config.backgroundColor = .noiSecondaryBackgroundColor
+        return UICollectionViewCompositionalLayout.list(using: config)
     }
-    
+
     func configureCollectionView() {
         collectionView.backgroundColor = .noiSecondaryBackgroundColor
         collectionView.collectionViewLayout = createLayout()
@@ -313,6 +281,19 @@ private extension MeetMainViewController.CollectionViewController {
             cell.backgroundConfiguration = .noiListPlainCell(for: cell)
         }
         
+        let headerRegistration = UICollectionView
+            .SupplementaryRegistration<UICollectionViewListCell>(
+                elementKind: UICollectionView.elementKindSectionHeader
+            ) { cell, kind, indexPath in
+                let initial = self.dataSource
+                    .snapshot()
+                    .sectionIdentifiers[indexPath.section]
+
+                var config = UIListContentConfiguration.noiGroupedHeader()
+                config.text = initial.value
+                cell.contentConfiguration = config
+            }
+        
         dataSource = .init(
             collectionView: collectionView
         ) { collectionView, indexPath, item in
@@ -322,13 +303,33 @@ private extension MeetMainViewController.CollectionViewController {
                 item: item
             )
         }
+        
+        dataSource.supplementaryViewProvider = { collectionView, kind, indexPath in
+            switch kind {
+            case UICollectionView.elementKindSectionHeader:
+                return collectionView.dequeueConfiguredReusableSupplementary(
+                    using: headerRegistration,
+                    for: indexPath
+                )
+            default:
+                return nil
+            }
+        }
+
+        updateUI(viewModel.results, animated: false)
     }
     
-    func updateUI(peopleIds: [PersonId]?, animated: Bool) {
-        var snapshot = NSDiffableDataSourceSnapshot<Section, PersonId>()
-        if let peopleIds = peopleIds {
-            snapshot.appendSections([.main])
-            snapshot.appendItems(peopleIds, toSection: .main)
+    func updateUI(
+        _ result: ([Initial], [Initial: [PersonId]])?,
+        animated: Bool
+    ) {
+        var snapshot = MeetMainViewController.Snapshot()
+        if let result {
+            let (sections, sectionToItems) = result
+            snapshot.appendSections(sections)
+            for section in sections {
+                snapshot.appendItems(sectionToItems[section]!, toSection: section)
+            }
         }
         dataSource.apply(snapshot, animatingDifferences: animated)
     }
@@ -351,7 +352,7 @@ private extension MeetMainViewController.CollectionViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] in
                 let isOnScreen = self?.viewIfLoaded?.window != nil
-                self?.updateUI(peopleIds: $0, animated: isOnScreen)
+                self?.updateUI($0, animated: isOnScreen)
             }
             .store(in: &subscriptions)
         
@@ -366,7 +367,7 @@ private extension MeetMainViewController.CollectionViewController {
             .store(in: &subscriptions)
         
         viewModel.$results
-            .map(\.?.isEmpty)
+            .map(\.?.0.isEmpty)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] isEmpty in
                 guard let self = self
