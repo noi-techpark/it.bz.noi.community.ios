@@ -220,25 +220,6 @@ private extension CompaniesFiltersViewController {
                 let selectedSegmentIndex = filters.selectedSegmentIndex
                 let newSelectedFilter = companyViewModel.filterItems[selectedSegmentIndex]
                 companyViewModel.filterBy(filter: newSelectedFilter)
-
-                let convertRect: (UIView) -> CGRect = {
-                    $0.convert($0.frame, to: filtersScrollView)
-                }
-                let selectedControls = filters
-                    .recursiveSubviews { $0 is UILabel }
-                    .sorted { convertRect($0).minX < convertRect($1).minX }
-                let selectedControl = selectedControls[selectedSegmentIndex]
-                let selectedControlRect = convertRect(selectedControl)
-                if !filtersScrollView.bounds.contains(
-                    selectedControlRect
-                ) {
-                    let targetScrollingRect = selectedControlRect
-                        .insetBy(dx: -100, dy: 0)
-                    filtersScrollView.scrollRectToVisible(
-                        targetScrollingRect,
-                        animated: true
-                    )
-                }
             }
             .store(in: &subscriptions)
     }

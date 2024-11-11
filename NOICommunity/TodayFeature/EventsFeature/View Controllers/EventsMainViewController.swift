@@ -154,34 +154,13 @@ private extension EventsMainViewController {
 
     func configureBindings() {
         dateIntervalsControl.publisher(for: .valueChanged)
-            .sink { [unowned dateIntervalsControl, weak viewModel, weak dateIntervalsScrollView] in
+            .sink { [unowned dateIntervalsControl, weak viewModel] in
                 let selectedSegmentIndex = dateIntervalsControl.selectedSegmentIndex
 
                 let newDateIntervalFilter = DateIntervalFilter
                     .allCases[dateIntervalsControl.selectedSegmentIndex]
                 viewModel?.dateIntervalFilter = newDateIntervalFilter
                 viewModel?.refreshEvents()
-
-                if let dateIntervalsScrollView = dateIntervalsScrollView {
-                    let convertRect: (UIView) -> CGRect = {
-                        $0.convert($0.frame, to: dateIntervalsScrollView)
-                    }
-                    let selectedControls = dateIntervalsControl
-                        .recursiveSubviews { $0 is UILabel }
-                        .sorted { convertRect($0).minX < convertRect($1).minX }
-                    let selectedControl = selectedControls[selectedSegmentIndex]
-                    let selectedControlRect = convertRect(selectedControl)
-                    if !dateIntervalsScrollView.bounds.contains(
-                        selectedControlRect
-                    ) {
-                        let targetScrollingRect = selectedControlRect
-                            .insetBy(dx: -100, dy: 0)
-                        dateIntervalsScrollView.scrollRectToVisible(
-                            targetScrollingRect,
-                            animated: true
-                        )
-                    }
-                }
             }
             .store(in: &subscriptions)
 
