@@ -31,7 +31,12 @@ class FiltersBarView: UIView {
         }
     }
 
-    lazy private(set) var scrollView = UIScrollView()
+    var contentInset: UIEdgeInsets {
+        get { scrollView.contentInset }
+        set { scrollView.contentInset = newValue }
+    }
+
+    lazy private var scrollView = UIScrollView()
 
     lazy private(set) var segmentedControl: UISegmentedControl = {
         let activeColor = UIColor.noiSecondaryColor
@@ -129,15 +134,17 @@ private extension FiltersBarView {
         let convertRect: (UIView) -> CGRect = {
             $0.convert($0.frame, to: self.scrollView)
         }
-        let selectedControls = segmentedControl
+        let selectedControlsLabels = segmentedControl
             .recursiveSubviews { $0 is UILabel }
             .sorted { convertRect($0).minX < convertRect($1).minX }
-        let selectedControl = selectedControls[selectedSegmentIndex]
-        scrollView.scrollToView(
-            view: selectedControl,
-            position: .middle,
-            animated: true
-        )
+        let selectedControlLabel = selectedControlsLabels[selectedSegmentIndex]
+        let selectedControl = selectedControlLabel.superview ?? selectedControlLabel
+        let selectedControlRect = convertRect(selectedControl)
+
+        let targetRect = selectedControlRect
+            //.insetBy(dx: -4, dy: 0)
+        scrollView.scrollRectToVisible(targetRect, animated: true)
+
     }
 
     struct NoiSegmentedControlImageFactory: SegmentedControlImageFactory {

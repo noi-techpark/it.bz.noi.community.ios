@@ -20,7 +20,7 @@ class EventsFiltersBarView: UIView {
     @IBOutlet private(set) var filtersBarView: FiltersBarView! {
         didSet {
             filtersBarView.items = DateIntervalFilter.allCases.map(\.localizedString)
-            filtersBarView.scrollView.contentInset = .init(
+            filtersBarView.contentInset = .init(
                 top: 0,
                 left: 17,
                 bottom: 0,
@@ -37,10 +37,6 @@ class EventsFiltersBarView: UIView {
 
     var dateIntervalsControl: UISegmentedControl {
         filtersBarView.segmentedControl
-    }
-
-    var scrollView: UIScrollView {
-        filtersBarView.scrollView
     }
 
     override init(frame: CGRect) {

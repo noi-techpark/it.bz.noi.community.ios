@@ -77,10 +77,6 @@ final class EventsMainViewController: UIViewController {
         filterBarView.filtersButton
     }
 
-    private var dateIntervalsScrollView: UIScrollView {
-        filterBarView.scrollView
-    }
-
     private lazy var resultsVC = makeResultsViewController()
 
     init(viewModel: EventsViewModel) {

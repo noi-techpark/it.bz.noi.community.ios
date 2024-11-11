@@ -29,7 +29,7 @@ final class CompaniesFiltersViewController: UIViewController {
             filtersBarView.items = companyViewModel
                 .filterItems
                 .map(\.title)
-            filtersBarView.scrollView.contentInset = .init(
+            filtersBarView.contentInset = .init(
                 top: 0,
                 left: 8,
                 bottom: 0,
@@ -60,10 +60,6 @@ final class CompaniesFiltersViewController: UIViewController {
 
     private var filters: UISegmentedControl {
         filtersBarView.segmentedControl
-    }
-
-    private var filtersScrollView: UIScrollView {
-        filtersBarView.scrollView
     }
 
     private var subscriptions: Set<AnyCancellable> = []
@@ -211,10 +207,9 @@ private extension CompaniesFiltersViewController {
 
         filters
             .publisher(for: .valueChanged)
-            .sink { [weak filters, weak companyViewModel, weak filtersScrollView] in
+            .sink { [weak filters, weak companyViewModel] in
                 guard let filters,
-                      let companyViewModel,
-                      let filtersScrollView
+                      let companyViewModel
                 else { return }
 
                 let selectedSegmentIndex = filters.selectedSegmentIndex
