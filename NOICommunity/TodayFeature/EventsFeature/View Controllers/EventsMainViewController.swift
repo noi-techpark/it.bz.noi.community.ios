@@ -66,12 +66,14 @@ final class EventsMainViewController: UIViewController {
     }
 
     @IBOutlet private var filterBarContainerView: UIView!
-    @IBOutlet private var filterBarView: EventsFiltersBarView!
-    @IBOutlet private var contentContainerView: UIView!
 
-    private var dateIntervalsControl: UISegmentedControl {
-        filterBarView.dateIntervalsControl
+    @IBOutlet private var filterBarView: EventsFiltersBarView! {
+        didSet {
+            filterBarView.filtersBarView.delegate = self
+        }
     }
+
+    @IBOutlet private var contentContainerView: UIView!
 
     private var filtersButton: UIButton {
         filterBarView.filtersButton
@@ -149,17 +151,6 @@ private extension EventsMainViewController {
     }
 
     func configureBindings() {
-        dateIntervalsControl.publisher(for: .valueChanged)
-            .sink { [unowned dateIntervalsControl, weak viewModel] in
-                let selectedSegmentIndex = dateIntervalsControl.selectedSegmentIndex
-
-                let newDateIntervalFilter = DateIntervalFilter
-                    .allCases[dateIntervalsControl.selectedSegmentIndex]
-                viewModel?.dateIntervalFilter = newDateIntervalFilter
-                viewModel?.refreshEvents()
-            }
-            .store(in: &subscriptions)
-
         filtersButton.publisher(for: .primaryActionTriggered)
             .sink { [weak viewModel] in
                 viewModel?.showFilters()
@@ -242,5 +233,29 @@ private extension EventsMainViewController {
                 filtersButton.setTitle(title, for: .normal)
             }
             .store(in: &subscriptions)
+
+        viewModel.$dateIntervalFilter
+            .sink { [weak self] newActiveFilter in
+                guard let self
+                else { return }
+
+                self.filterBarView.filtersBarView.indexOfSelectedItem = DateIntervalFilter.allCases.firstIndex(of: newActiveFilter)
+            }
+            .store(in: &subscriptions)
     }
+}
+
+// MARK: FilterBarViewDelegate
+
+extension EventsMainViewController: FiltersBarViewDelegate {
+
+    func filtersBarView(
+        _ filtersBarView: FiltersBarView,
+        didSelectItemAt index: Int
+    ) {
+        let newDateIntervalFilter = DateIntervalFilter.allCases[index]
+        viewModel.dateIntervalFilter = newDateIntervalFilter
+        viewModel.refreshEvents()
+    }
+
 }

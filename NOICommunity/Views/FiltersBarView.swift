@@ -11,9 +11,22 @@
 
 import UIKit
 
+// MARK: - FiltersBarViewDelegate
+
+protocol FiltersBarViewDelegate: AnyObject {
+
+    func filtersBarView(
+        _ filtersBarView: FiltersBarView,
+        didSelectItemAt index: Int
+    )
+
+}
+
 // MARK: - FiltersBarView
 
 class FiltersBarView: UIView {
+
+    weak var delegate: FiltersBarViewDelegate?
 
     var items: [String] = [] {
         didSet {
@@ -31,6 +44,19 @@ class FiltersBarView: UIView {
         }
     }
 
+    var indexOfSelectedItem: Int? {
+        didSet {
+            guard indexOfSelectedItem != oldValue
+            else { return }
+
+            if let indexOfSelectedItem {
+                segmentedControl.selectedSegmentIndex = indexOfSelectedItem
+            } else {
+                segmentedControl.selectedSegmentIndex = UISegmentedControl.noSegment
+            }
+        }
+    }
+
     var contentInset: UIEdgeInsets {
         get { scrollView.contentInset }
         set { scrollView.contentInset = newValue }
@@ -38,7 +64,7 @@ class FiltersBarView: UIView {
 
     lazy private var scrollView = UIScrollView()
 
-    lazy private(set) var segmentedControl: UISegmentedControl = {
+    lazy private var segmentedControl: UISegmentedControl = {
         let activeColor = UIColor.noiSecondaryColor
         let color = activeColor.withAlphaComponent(0.5)
         var builder = SegmentedControlBuilder(
@@ -131,6 +157,12 @@ private extension FiltersBarView {
 
     @objc func selectedFilterValueDidChange(sender: UISegmentedControl) {
         let selectedSegmentIndex = sender.selectedSegmentIndex
+
+        // Callback
+        delegate?.filtersBarView(self, didSelectItemAt: selectedSegmentIndex)
+
+        // Scroll to selected index
+
         let convertRect: (UIView) -> CGRect = {
             $0.convert($0.frame, to: self.scrollView)
         }
@@ -142,7 +174,6 @@ private extension FiltersBarView {
         let selectedControlRect = convertRect(selectedControl)
 
         let targetRect = selectedControlRect
-            //.insetBy(dx: -4, dy: 0)
         scrollView.scrollRectToVisible(targetRect, animated: true)
 
     }

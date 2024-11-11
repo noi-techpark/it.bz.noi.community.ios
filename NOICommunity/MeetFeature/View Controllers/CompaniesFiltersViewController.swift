@@ -26,6 +26,7 @@ final class CompaniesFiltersViewController: UIViewController {
 
     @IBOutlet private var filtersBarView: FiltersBarView! {
         didSet {
+            filtersBarView.delegate = self
             filtersBarView.items = companyViewModel
                 .filterItems
                 .map(\.title)
@@ -56,10 +57,6 @@ final class CompaniesFiltersViewController: UIViewController {
             showResultsButton
                 .configureAsPrimaryActionButton()
         }
-    }
-
-    private var filters: UISegmentedControl {
-        filtersBarView.segmentedControl
     }
 
     private var subscriptions: Set<AnyCancellable> = []
@@ -192,29 +189,12 @@ private extension CompaniesFiltersViewController {
 
         companyViewModel
             .$activeFilter
-            .sink { [weak filters, weak companyViewModel] newActiveFilter in
-                guard let filters,
+            .sink { [weak filtersBarView, weak companyViewModel] newActiveFilter in
+                guard let filtersBarView,
                       let companyViewModel
                 else { return }
 
-                if let matchingIndex = companyViewModel.filterItems.firstIndex(of: newActiveFilter) {
-                    filters.selectedSegmentIndex = matchingIndex
-                } else {
-                    filters.selectedSegmentIndex = UISegmentedControl.noSegment
-                }
-            }
-            .store(in: &subscriptions)
-
-        filters
-            .publisher(for: .valueChanged)
-            .sink { [weak filters, weak companyViewModel] in
-                guard let filters,
-                      let companyViewModel
-                else { return }
-
-                let selectedSegmentIndex = filters.selectedSegmentIndex
-                let newSelectedFilter = companyViewModel.filterItems[selectedSegmentIndex]
-                companyViewModel.filterBy(filter: newSelectedFilter)
+                filtersBarView.indexOfSelectedItem = companyViewModel.filterItems.firstIndex(of: newActiveFilter)
             }
             .store(in: &subscriptions)
     }
@@ -442,6 +422,20 @@ private extension CompaniesFiltersViewController.CollectionViewController {
             .store(in: &subscriptions)
     }
     
+}
+
+// MARK: FilterBarViewDelegate
+
+extension CompaniesFiltersViewController: FiltersBarViewDelegate {
+
+    func filtersBarView(
+        _ filtersBarView: FiltersBarView,
+        didSelectItemAt index: Int
+    ) {
+        let newSelectedFilter = companyViewModel.filterItems[index]
+        companyViewModel.filterBy(filter: newSelectedFilter)
+    }
+
 }
 
 // MARK: UISearchBarDelegate {

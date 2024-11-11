@@ -35,10 +35,6 @@ class EventsFiltersBarView: UIView {
         }
     }
 
-    var dateIntervalsControl: UISegmentedControl {
-        filtersBarView.segmentedControl
-    }
-
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
