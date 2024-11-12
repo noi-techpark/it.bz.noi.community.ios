@@ -10,113 +10,123 @@
 //
 
 import UIKit
+import CoreUI
+
+// MARK: - FiltersBarViewDelegate
 
 protocol FiltersBarViewDelegate: AnyObject {
+
     func filtersBarView(
         _ filtersBarView: FiltersBarView,
         didSelectItemAt index: Int
     )
+
 }
 
-internal class FiltersBarView: UIView {
-    // MARK: - Public Properties
-    weak internal var delegate: FiltersBarViewDelegate?
+// MARK: - FiltersBarView
+
+class FiltersBarView: UIView {
+
+    // MARK: Public Properties
+
+    weak var delegate: FiltersBarViewDelegate?
     
-    internal var items: [String] = [] {
+    var items: [String] = [] {
         didSet {
             updateDataSource()
         }
     }
     
-    internal var indexOfSelectedItem: Int? {
+    var indexOfSelectedItem: Int? {
         didSet {
             if let index = indexOfSelectedItem {
                 let indexPath = IndexPath(item: index, section: 0)
-                collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
+                collectionView.selectItem(
+                    at: indexPath,
+                    animated: true,
+                    scrollPosition: .centeredHorizontally
+                )
             } else {
-                if let selectedIndexPaths = collectionView.indexPathsForSelectedItems {
-                    selectedIndexPaths.forEach { indexPath in
-                        collectionView.deselectItem(at: indexPath, animated: true)
+                (collectionView.indexPathsForSelectedItems ?? [])
+                    .forEach {
+                        collectionView.deselectItem(at: $0, animated: true)
                     }
-                }
             }
         }
     }
     
-    internal var contentInset: UIEdgeInsets = .zero {
+    var contentInset: UIEdgeInsets = .zero {
         didSet {
             updateCollectionViewLayout()
         }
     }
     
-    // MARK: - Private Properties
-    private enum Section: Hashable {
-        case main
-    }
+    // MARK: Private Properties
     
     private var collectionView: UICollectionView!
     private var dataSource: UICollectionViewDiffableDataSource<Section, String>!
     
-    // Visual properties from original SegmentedControl
-    private let spacing: CGFloat = 5
-    private let height: CGFloat = 40
-    
-    // MARK: - Initialization
-    override internal init(frame: CGRect) {
+    // MARK: Initialization
+
+    override init(frame: CGRect) {
         super.init(frame: frame)
+
         setupCollectionView()
         configureDataSource()
     }
     
-    required internal init?(coder: NSCoder) {
+    required init?(coder: NSCoder) {
         super.init(coder: coder)
+
         setupCollectionView()
         configureDataSource()
     }
-    
-    // MARK: - Private Methods
-    
-    private func setupCollectionView() {
+
+}
+
+// MARK: Private Methods
+
+private extension FiltersBarView {
+
+    enum Section: Hashable {
+        case main
+    }
+
+    func setupCollectionView() {
         collectionView = UICollectionView(
             frame: .zero,
             collectionViewLayout: createLayout()
         )
         collectionView.backgroundColor = .noiSecondaryBackgroundColor
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.delegate = self
         collectionView.allowsMultipleSelection = false
-        
-        collectionView.register(FilterCell.self, forCellWithReuseIdentifier: FilterCell.reuseIdentifier)
-        
-        addSubview(collectionView)
-        
-        NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: topAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: bottomAnchor)
-        ])
+
+        embedSubview(collectionView)
     }
-    
-    private func createLayout() -> UICollectionViewLayout {
-        let layout = UICollectionViewCompositionalLayout { [weak self] _, _ in
-            guard let self = self else { return nil }
-            
-            let itemSize = NSCollectionLayoutSize(
-                widthDimension: .estimated(100),
+
+    func createLayout() -> UICollectionViewLayout {
+        UICollectionViewCompositionalLayout { [weak self] _, _ in
+            guard let self
+            else { return nil }
+
+            let size = NSCollectionLayoutSize(
+                widthDimension: .estimated(SizeAndConstants.estimatedWidth),
                 heightDimension: .fractionalHeight(1.0)
             )
-            let item = NSCollectionLayoutItem(layoutSize: itemSize)
-            
+            let item = NSCollectionLayoutItem(layoutSize: size)
+
             let groupSize = NSCollectionLayoutSize(
-                widthDimension: .estimated(100),
-                heightDimension: .absolute(self.height)
+                widthDimension: .estimated(SizeAndConstants.estimatedWidth),
+                heightDimension: .absolute(SizeAndConstants.height)
             )
-            let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-            
+            let group = NSCollectionLayoutGroup.horizontal(
+                layoutSize: groupSize,
+                subitems: [item]
+            )
+
             let section = NSCollectionLayoutSection(group: group)
-            section.interGroupSpacing = self.spacing // Usando il spacing definito
+            section.interGroupSpacing = SizeAndConstants.spacing
             section.orthogonalScrollingBehavior = .continuous
             section.contentInsets = NSDirectionalEdgeInsets(
                 top: self.contentInset.top,
@@ -124,43 +134,50 @@ internal class FiltersBarView: UIView {
                 bottom: self.contentInset.bottom,
                 trailing: self.contentInset.right
             )
-            
+
             return section
         }
-        return layout
     }
-    
-    private func configureDataSource() {
-        dataSource = UICollectionViewDiffableDataSource<Section, String>(
-            collectionView: collectionView
-        ) { [weak self] collectionView, indexPath, item in
-            guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: FilterCell.reuseIdentifier,
-                for: indexPath
-            ) as? FilterCell else {
-                fatalError("Failed to dequeue FilterCell")
-            }
-            
+
+    func configureDataSource() {
+        let cellRegistration: UICollectionView.CellRegistration<FilterCell, String> 
+        = .init { cell, _, item in
             cell.configure(with: item)
+        }
+
+        dataSource = .init(
+            collectionView: collectionView
+        ) { collectionView, indexPath, item in
+            let cell = collectionView.dequeueConfiguredReusableCell(
+                using: cellRegistration,
+                for: indexPath,
+                item: item
+            )
             return cell
         }
     }
-    
-    private func updateDataSource() {
+
+    func updateDataSource() {
         var snapshot = NSDiffableDataSourceSnapshot<Section, String>()
         snapshot.appendSections([.main])
         snapshot.appendItems(items, toSection: .main)
         dataSource.apply(snapshot, animatingDifferences: true)
     }
-    
-    private func updateCollectionViewLayout() {
+
+    func updateCollectionViewLayout() {
         collectionView.setCollectionViewLayout(createLayout(), animated: true)
     }
+
 }
 
-// MARK: - UICollectionViewDelegate
+// MARK: UICollectionViewDelegate
+
 extension FiltersBarView: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+
+    func collectionView(
+        _ collectionView: UICollectionView,
+        didSelectItemAt indexPath: IndexPath
+    ) {
         indexOfSelectedItem = indexPath.item
         delegate?.filtersBarView(self, didSelectItemAt: indexPath.item)
         
@@ -174,23 +191,12 @@ extension FiltersBarView: UICollectionViewDelegate {
 }
 
 // MARK: - Filter Cell
+
 private class FilterCell: UICollectionViewCell {
-    static let reuseIdentifier = "FilterCell"
-    
-    // MARK: - Constants from parent view
-    private let lineWidth: CGFloat = 1
-    private let cornerRadius: CGFloat = 1
-    private let height: CGFloat = 40
-    
-    private let activeColor = UIColor.noiSecondaryColor
-    private let inactiveColor = UIColor.noiSecondaryColor.withAlphaComponent(0.5)
-    private let normalFont: UIFont = .NOI.fixed.caption1Semibold
-    private let selectedFont: UIFont = .NOI.fixed.caption1Semibold
     
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
@@ -205,68 +211,95 @@ private class FilterCell: UICollectionViewCell {
     
     private func setupCell() {
         // Base setup
-        contentView.backgroundColor = .noiPrimaryColor
-        contentView.layer.cornerRadius = cornerRadius
-        contentView.layer.borderWidth = lineWidth
-        contentView.clipsToBounds = false // Per permettere l'ombra
-        
-        // Shadow setup
-        layer.shadowColor = UIColor.black.cgColor
-        layer.shadowOffset = CGSize(width: 0, height: 1)
-        layer.shadowRadius = cornerRadius
-        layer.shadowOpacity = 0.1
-        layer.masksToBounds = false
+        contentView.backgroundColor = SizeAndConstants.fillColor
+        contentView.layer.cornerRadius = SizeAndConstants.cornerRadius
+        contentView.layer.borderWidth = SizeAndConstants.lineWidth
         
         // Label setup
         contentView.addSubview(titleLabel)
+
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+
         NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
-            titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
-            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            contentView.heightAnchor.constraint(equalToConstant: height) // Aggiungiamo il vincolo dell'altezza
+            titleLabel.topAnchor.constraint(
+                equalTo:
+                    contentView.topAnchor,
+                constant: 8
+            ),
+            titleLabel.bottomAnchor.constraint(
+                equalTo:
+                    contentView.bottomAnchor,
+                constant: -8
+            ),
+            titleLabel.leadingAnchor.constraint(
+                equalTo:
+                    contentView.leadingAnchor,
+                constant: 16
+            ),
+            titleLabel.trailingAnchor.constraint(
+                equalTo:
+                    contentView.trailingAnchor,
+                constant: -16
+            ),
         ])
         
-        updateSelectionState()
+        updateSelectionHighlightedState()
     }
     
     func configure(with title: String) {
         titleLabel.text = title
-        updateSelectionState()
+
+        updateSelectionHighlightedState()
     }
     
     override var isSelected: Bool {
         didSet {
-            updateSelectionState()
+            updateSelectionHighlightedState()
         }
     }
-    
-    private func updateSelectionState() {
-        if isSelected {
-            contentView.layer.borderColor = activeColor.cgColor
-            titleLabel.textColor = activeColor
-            titleLabel.font = selectedFont
-            layer.shadowOpacity = 0.2
+
+    override var isHighlighted: Bool {
+        didSet {
+            updateSelectionHighlightedState()
+        }
+    }
+
+    private func updateSelectionHighlightedState() {
+        if isSelected || isHighlighted {
+            contentView.layer.borderColor = SizeAndConstants.selectedLineColor.cgColor
+            titleLabel.textColor = SizeAndConstants.selectedTextColor
+            titleLabel.font = SizeAndConstants.selectedFont
         } else {
-            contentView.layer.borderColor = UIColor.noiInactiveColor.cgColor
-            titleLabel.textColor = inactiveColor
-            titleLabel.font = normalFont
-            layer.shadowOpacity = 0.1
+            contentView.layer.borderColor = SizeAndConstants.lineColor.cgColor
+            titleLabel.textColor = SizeAndConstants.textColor
+            titleLabel.font = SizeAndConstants.font
         }
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
+
         titleLabel.text = nil
         isSelected = false
+        isHighlighted = false
     }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        // Aggiorna il layer dell'ombra
-        layer.shadowPath = UIBezierPath(
-            roundedRect: bounds,
-            cornerRadius: contentView.layer.cornerRadius
-        ).cgPath
-    }
+
+}
+
+private extension SizeAndConstants {
+
+    static let height: CGFloat = 40
+    static let estimatedWidth: CGFloat = 100
+    static let spacing: CGFloat = 5
+    static let lineWidth: CGFloat = 1
+    static let cornerRadius: CGFloat = 2
+
+    static let fillColor = UIColor.noiPrimaryColor
+    static let lineColor = UIColor.noiInactiveColor
+    static let selectedLineColor = UIColor.noiSecondaryColor
+    static let textColor = selectedTextColor.withAlphaComponent(0.5)
+    static let selectedTextColor = UIColor.noiSecondaryColor
+    static let font: UIFont = .NOI.fixed.caption1Semibold
+    static let selectedFont: UIFont = .NOI.fixed.caption1Semibold
+
 }
