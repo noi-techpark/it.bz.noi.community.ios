@@ -58,37 +58,30 @@ internal class FiltersBarView: UIView {
     private var dataSource: UICollectionViewDiffableDataSource<Section, String>!
     
     // Visual properties from original SegmentedControl
-    private let lineWidth: CGFloat = 5
-    private let cornerRadius: CGFloat = 5
     private let spacing: CGFloat = 5
     private let height: CGFloat = 40
     
     // MARK: - Initialization
     override internal init(frame: CGRect) {
         super.init(frame: frame)
-        setupView()
         setupCollectionView()
         configureDataSource()
     }
     
     required internal init?(coder: NSCoder) {
         super.init(coder: coder)
-        setupView()
         setupCollectionView()
         configureDataSource()
     }
     
     // MARK: - Private Methods
-    private func setupView() {
-        backgroundColor = .noiSecondaryBackgroundColor
-    }
     
     private func setupCollectionView() {
         collectionView = UICollectionView(
             frame: .zero,
             collectionViewLayout: createLayout()
         )
-        collectionView.backgroundColor = .clear
+        collectionView.backgroundColor = .noiSecondaryBackgroundColor
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.delegate = self
