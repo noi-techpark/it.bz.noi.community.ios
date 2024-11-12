@@ -11,301 +11,269 @@
 
 import UIKit
 
-// MARK: - FiltersBarViewDelegate
-
 protocol FiltersBarViewDelegate: AnyObject {
-
     func filtersBarView(
         _ filtersBarView: FiltersBarView,
         didSelectItemAt index: Int
     )
-
 }
 
-// MARK: - FiltersBarView
-
-class FiltersBarView: UIView {
-
-    weak var delegate: FiltersBarViewDelegate?
-
-    var items: [String] = [] {
+internal class FiltersBarView: UIView {
+    // MARK: - Public Properties
+    weak internal var delegate: FiltersBarViewDelegate?
+    
+    internal var items: [String] = [] {
         didSet {
-            guard items != oldValue
-            else { return }
-
-            segmentedControl.removeAllSegments()
-            items.reversed().forEach {
-                segmentedControl.insertSegment(
-                    withTitle: $0,
-                    at: 0,
-                    animated: false
-                )
-            }
+            updateDataSource()
         }
     }
-
-    var indexOfSelectedItem: Int? {
+    
+    internal var indexOfSelectedItem: Int? {
         didSet {
-            guard indexOfSelectedItem != oldValue
-            else { return }
-
-            if let indexOfSelectedItem {
-                segmentedControl.selectedSegmentIndex = indexOfSelectedItem
+            if let index = indexOfSelectedItem {
+                let indexPath = IndexPath(item: index, section: 0)
+                collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
             } else {
-                segmentedControl.selectedSegmentIndex = UISegmentedControl.noSegment
+                if let selectedIndexPaths = collectionView.indexPathsForSelectedItems {
+                    selectedIndexPaths.forEach { indexPath in
+                        collectionView.deselectItem(at: indexPath, animated: true)
+                    }
+                }
             }
         }
     }
-
-    var contentInset: UIEdgeInsets {
-        get { scrollView.contentInset }
-        set { scrollView.contentInset = newValue }
+    
+    internal var contentInset: UIEdgeInsets = .zero {
+        didSet {
+            updateCollectionViewLayout()
+        }
     }
-
-    lazy private var scrollView = UIScrollView()
-
-    lazy private var segmentedControl: UISegmentedControl = {
-        let activeColor = UIColor.noiSecondaryColor
-        let color = activeColor.withAlphaComponent(0.5)
-        var builder = SegmentedControlBuilder(
-            imageFactory: NoiSegmentedControlImageFactory()
-        )
-        builder.tintColor = color
-        builder.selectedTintedColor = activeColor
-        builder.font = .NOI.fixed.caption1Semibold
-        builder.selectedFont = builder.font
-        builder.class = SegmentedControl.self
-        let segmentedControl = builder.makeSegmentedControl(
-            items: items
-        )
-        segmentedControl.clipsToBounds = false
-        return segmentedControl
-    }()
-
-    override init(frame: CGRect) {
+    
+    // MARK: - Private Properties
+    private enum Section: Hashable {
+        case main
+    }
+    
+    private var collectionView: UICollectionView!
+    private var dataSource: UICollectionViewDiffableDataSource<Section, String>!
+    
+    // Visual properties from original SegmentedControl
+    private let lineWidth: CGFloat = 5
+    private let cornerRadius: CGFloat = 5
+    private let spacing: CGFloat = 5
+    private let height: CGFloat = 40
+    
+    // MARK: - Initialization
+    override internal init(frame: CGRect) {
         super.init(frame: frame)
-        setup()
+        setupView()
+        setupCollectionView()
+        configureDataSource()
     }
-
-    required init?(coder: NSCoder) {
+    
+    required internal init?(coder: NSCoder) {
         super.init(coder: coder)
-        setup()
+        setupView()
+        setupCollectionView()
+        configureDataSource()
     }
-
-}
-
-// MARK: Private APIs
-
-private extension FiltersBarView {
-
-    class SegmentedControl: UISegmentedControl {
-
-        // Removes swipe gesture
-        override func gestureRecognizerShouldBegin(
-            _ gestureRecognizer: UIGestureRecognizer
-        ) -> Bool {
-            true
-        }
-
-        override func layoutSubviews() {
-            super.layoutSubviews()
-
-            // Force a square shape
-            layer.cornerRadius = 0
-        }
-
-    }
-
-    func setup() {
+    
+    // MARK: - Private Methods
+    private func setupView() {
         backgroundColor = .noiSecondaryBackgroundColor
-
-        embedSubview(scrollView)
-        configureScrollView()
-        segmentedControl.addTarget(
-            self,
-            action: #selector(selectedFilterValueDidChange(sender:)),
-            for: .valueChanged
-        )
     }
-
-    func configureScrollView() {
-        scrollView.showsHorizontalScrollIndicator = false
-        scrollView.showsVerticalScrollIndicator = false
-        scrollView.addSubview(segmentedControl)
-        segmentedControl.translatesAutoresizingMaskIntoConstraints = false
-        let contentGuide = scrollView.contentLayoutGuide
-        let frameGuide = scrollView.frameLayoutGuide
+    
+    private func setupCollectionView() {
+        collectionView = UICollectionView(
+            frame: .zero,
+            collectionViewLayout: createLayout()
+        )
+        collectionView.backgroundColor = .clear
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.delegate = self
+        collectionView.allowsMultipleSelection = false
+        
+        collectionView.register(FilterCell.self, forCellWithReuseIdentifier: FilterCell.reuseIdentifier)
+        
+        addSubview(collectionView)
+        
         NSLayoutConstraint.activate([
-            segmentedControl.leadingAnchor
-                .constraint(equalTo: contentGuide.leadingAnchor),
-            segmentedControl.trailingAnchor
-                .constraint(equalTo: contentGuide.trailingAnchor),
-            segmentedControl.bottomAnchor
-                .constraint(equalTo: contentGuide.bottomAnchor),
-            segmentedControl.topAnchor
-                .constraint(equalTo: contentGuide.topAnchor),
-            frameGuide.heightAnchor
-                .constraint(equalTo: contentGuide.heightAnchor)
+            collectionView.topAnchor.constraint(equalTo: topAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
-
+    
+    private func createLayout() -> UICollectionViewLayout {
+        let layout = UICollectionViewCompositionalLayout { [weak self] _, _ in
+            guard let self = self else { return nil }
+            
+            let itemSize = NSCollectionLayoutSize(
+                widthDimension: .estimated(100),
+                heightDimension: .fractionalHeight(1.0)
+            )
+            let item = NSCollectionLayoutItem(layoutSize: itemSize)
+            
+            let groupSize = NSCollectionLayoutSize(
+                widthDimension: .estimated(100),
+                heightDimension: .absolute(self.height)
+            )
+            let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+            
+            let section = NSCollectionLayoutSection(group: group)
+            section.interGroupSpacing = self.spacing // Usando il spacing definito
+            section.orthogonalScrollingBehavior = .continuous
+            section.contentInsets = NSDirectionalEdgeInsets(
+                top: self.contentInset.top,
+                leading: self.contentInset.left,
+                bottom: self.contentInset.bottom,
+                trailing: self.contentInset.right
+            )
+            
+            return section
+        }
+        return layout
+    }
+    
+    private func configureDataSource() {
+        dataSource = UICollectionViewDiffableDataSource<Section, String>(
+            collectionView: collectionView
+        ) { [weak self] collectionView, indexPath, item in
+            guard let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: FilterCell.reuseIdentifier,
+                for: indexPath
+            ) as? FilterCell else {
+                fatalError("Failed to dequeue FilterCell")
+            }
+            
+            cell.configure(with: item)
+            return cell
+        }
+    }
+    
+    private func updateDataSource() {
+        var snapshot = NSDiffableDataSourceSnapshot<Section, String>()
+        snapshot.appendSections([.main])
+        snapshot.appendItems(items, toSection: .main)
+        dataSource.apply(snapshot, animatingDifferences: true)
+    }
+    
+    private func updateCollectionViewLayout() {
+        collectionView.setCollectionViewLayout(createLayout(), animated: true)
+    }
 }
 
-// MARK: - FiltersBarView.SegmentedControlImageFactory
-
-private extension FiltersBarView {
-
-    @objc func selectedFilterValueDidChange(sender: UISegmentedControl) {
-        let selectedSegmentIndex = sender.selectedSegmentIndex
-
-        // Callback
-        delegate?.filtersBarView(self, didSelectItemAt: selectedSegmentIndex)
-
-        // Scroll to selected index
-
-        let convertRect: (UIView) -> CGRect = {
-            $0.convert($0.frame, to: self.scrollView)
-        }
-        let selectedControlsLabels = segmentedControl
-            .recursiveSubviews { $0 is UILabel }
-            .sorted { convertRect($0).minX < convertRect($1).minX }
-        let selectedControlLabel = selectedControlsLabels[selectedSegmentIndex]
-        let selectedControl = selectedControlLabel.superview ?? selectedControlLabel
-        let selectedControlRect = convertRect(selectedControl)
-
-        let targetRect = selectedControlRect
-        scrollView.scrollRectToVisible(targetRect, animated: true)
-
-    }
-
-    struct NoiSegmentedControlImageFactory: SegmentedControlImageFactory {
-
-        var height: CGFloat = 40
-        var spacing: CGFloat = 5
-        var selectedStates: [UIControl.State] = [.selected, .highlighted]
-        var lineWidth: CGFloat = 2
-        var fillColor = UIColor.noiPrimaryColor
-        var lineColor = UIColor.noiInactiveColor
-        var selectedLineColor = UIColor.noiSecondaryColor
-        var cornerRadius: CGFloat = 2
-        var edgeOffset: CGFloat {
-            0
-        }
-
-        func background(for state: UIControl.State) -> UIImage? {
-            let imageSize = CGSize(width: cornerRadius * 2 + 1 , height: height)
-            let renderer = UIGraphicsImageRenderer(size: imageSize)
-
-            return renderer.image { context in
-                let canvasRect = CGRect(origin: .zero, size: imageSize)
-                let roundedRectPath = UIBezierPath(
-                    roundedRect: canvasRect.insetBy(
-                        dx: lineWidth / 2,
-                        dy: lineWidth / 2
-                    ),
-                    cornerRadius: cornerRadius
-                )
-                roundedRectPath.lineWidth = lineWidth
-                strokeColor(for: state).setStroke()
-                roundedRectPath.stroke()
-                fillColor.setFill()
-                roundedRectPath.fill()
-            }
-        }
-
-        func divider(
-            leftState: UIControl.State,
-            rightState: UIControl.State
-        ) -> UIImage? {
-            let halfRoundedRectSize = CGSize(
-                width: cornerRadius + 1,
-                height: height
-            )
-            let cornerRadii = CGSize(width: cornerRadius, height: cornerRadius)
-            let imageSize = CGSize(
-                width: halfRoundedRectSize.width * 2 + spacing,
-                height: halfRoundedRectSize.height
-            )
-            let renderer = UIGraphicsImageRenderer(size: imageSize)
-
-            let image = renderer.image { context in
-                fillColor.setFill()
-
-                let leftHalfRoundedRectRect = CGRect(
-                    origin: .zero,
-                    size: halfRoundedRectSize
-                )
-                let leftHalfRoundedRectPath = UIBezierPath(
-                    roundedRect: leftHalfRoundedRectRect.insetBy(
-                        dx: lineWidth / 2,
-                        dy: lineWidth / 2
-                    ),
-                    byRoundingCorners: [.topRight, .bottomRight],
-                    cornerRadii: cornerRadii
-                )
-                leftHalfRoundedRectPath.lineWidth = lineWidth
-                strokeColor(for: leftState).setStroke()
-                leftHalfRoundedRectPath.stroke()
-                leftHalfRoundedRectPath.fill()
-
-                let rightHalfRoundedRectRect = leftHalfRoundedRectRect
-                    .offsetBy(
-                        dx: leftHalfRoundedRectRect.maxX + spacing,
-                        dy: 0
-                    )
-                let rightHalfRoundedRectPath = UIBezierPath(
-                    roundedRect: rightHalfRoundedRectRect.insetBy(
-                        dx: lineWidth / 2,
-                        dy: lineWidth / 2
-                    ),
-                    byRoundingCorners: [.topLeft, .bottomLeft],
-                    cornerRadii: cornerRadii
-                )
-                rightHalfRoundedRectPath.lineWidth = lineWidth
-                strokeColor(for: rightState).setStroke()
-                rightHalfRoundedRectPath.stroke()
-                rightHalfRoundedRectPath.fill()
-            }
-
-            return image.cropped(with: CGRect(
-                origin: .zero,
-                size: imageSize
-            ).insetBy(dx: lineWidth / 2, dy: 0)
-            )
-        }
-
-        private func strokeColor(for state: UIControl.State) -> UIColor {
-            switch state {
-            case .selected,
-                    .highlighted,
-                [.selected, .highlighted]:
-                return selectedLineColor
-            default:
-                return lineColor
-            }
-        }
-
-    }
-
-}
-
-private extension UIImage {
-
-    func cropped(with cropRect: CGRect) -> UIImage {
-        var rect = cropRect
-        rect.origin.x *= scale
-        rect.origin.y *= scale
-        rect.size.width *= scale
-        rect.size.height *= scale
-
-        let croppedCGImage = cgImage!.cropping(
-            to: rect
-        )!
-        return UIImage(
-            cgImage: croppedCGImage,
-            scale: scale,
-            orientation: imageOrientation
+// MARK: - UICollectionViewDelegate
+extension FiltersBarView: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        indexOfSelectedItem = indexPath.item
+        delegate?.filtersBarView(self, didSelectItemAt: indexPath.item)
+        
+        // Scroll to selected item
+        collectionView.scrollToItem(
+            at: indexPath,
+            at: .centeredHorizontally,
+            animated: true
         )
     }
+}
 
+// MARK: - Filter Cell
+private class FilterCell: UICollectionViewCell {
+    static let reuseIdentifier = "FilterCell"
+    
+    // MARK: - Constants from parent view
+    private let lineWidth: CGFloat = 1
+    private let cornerRadius: CGFloat = 1
+    private let height: CGFloat = 40
+    
+    private let activeColor = UIColor.noiSecondaryColor
+    private let inactiveColor = UIColor.noiSecondaryColor.withAlphaComponent(0.5)
+    private let normalFont: UIFont = .NOI.fixed.caption1Semibold
+    private let selectedFont: UIFont = .NOI.fixed.caption1Semibold
+    
+    private let titleLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupCell()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setupCell() {
+        // Base setup
+        contentView.backgroundColor = .noiPrimaryColor
+        contentView.layer.cornerRadius = cornerRadius
+        contentView.layer.borderWidth = lineWidth
+        contentView.clipsToBounds = false // Per permettere l'ombra
+        
+        // Shadow setup
+        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowOffset = CGSize(width: 0, height: 1)
+        layer.shadowRadius = cornerRadius
+        layer.shadowOpacity = 0.1
+        layer.masksToBounds = false
+        
+        // Label setup
+        contentView.addSubview(titleLabel)
+        NSLayoutConstraint.activate([
+            titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
+            titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
+            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            contentView.heightAnchor.constraint(equalToConstant: height) // Aggiungiamo il vincolo dell'altezza
+        ])
+        
+        updateSelectionState()
+    }
+    
+    func configure(with title: String) {
+        titleLabel.text = title
+        updateSelectionState()
+    }
+    
+    override var isSelected: Bool {
+        didSet {
+            updateSelectionState()
+        }
+    }
+    
+    private func updateSelectionState() {
+        if isSelected {
+            contentView.layer.borderColor = activeColor.cgColor
+            titleLabel.textColor = activeColor
+            titleLabel.font = selectedFont
+            layer.shadowOpacity = 0.2
+        } else {
+            contentView.layer.borderColor = UIColor.noiInactiveColor.cgColor
+            titleLabel.textColor = inactiveColor
+            titleLabel.font = normalFont
+            layer.shadowOpacity = 0.1
+        }
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        titleLabel.text = nil
+        isSelected = false
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        // Aggiorna il layer dell'ombra
+        layer.shadowPath = UIBezierPath(
+            roundedRect: bounds,
+            cornerRadius: contentView.layer.cornerRadius
+        ).cgPath
+    }
 }
