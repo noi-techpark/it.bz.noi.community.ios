@@ -98,11 +98,19 @@ private extension FiltersBarView {
             collectionViewLayout: createLayout()
         )
         collectionView.backgroundColor = .noiSecondaryBackgroundColor
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.delegate = self
         collectionView.allowsMultipleSelection = false
-
-        embedSubview(collectionView)
+        
+        addSubview(collectionView)
+        
+        NSLayoutConstraint.activate([
+            collectionView.topAnchor.constraint(equalTo: topAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: bottomAnchor)
+        ])
     }
 
     func createLayout() -> UICollectionViewLayout {
