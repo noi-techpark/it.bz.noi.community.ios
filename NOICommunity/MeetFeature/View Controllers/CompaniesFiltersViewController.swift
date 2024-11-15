@@ -26,10 +26,11 @@ final class CompaniesFiltersViewController: UIViewController {
 
     @IBOutlet private var filtersBarView: FiltersBarView! {
         didSet {
+            filtersBarView.delegate = self
             filtersBarView.items = companyViewModel
                 .filterItems
                 .map(\.title)
-            filtersBarView.scrollView.contentInset = .init(
+            filtersBarView.contentInset = .init(
                 top: 0,
                 left: 8,
                 bottom: 0,
@@ -56,14 +57,6 @@ final class CompaniesFiltersViewController: UIViewController {
             showResultsButton
                 .configureAsPrimaryActionButton()
         }
-    }
-
-    private var filters: UISegmentedControl {
-        filtersBarView.segmentedControl
-    }
-
-    private var filtersScrollView: UIScrollView {
-        filtersBarView.scrollView
     }
 
     private var subscriptions: Set<AnyCancellable> = []
@@ -196,49 +189,12 @@ private extension CompaniesFiltersViewController {
 
         companyViewModel
             .$activeFilter
-            .sink { [weak filters, weak companyViewModel] newActiveFilter in
-                guard let filters,
+            .sink { [weak filtersBarView, weak companyViewModel] newActiveFilter in
+                guard let filtersBarView,
                       let companyViewModel
                 else { return }
 
-                if let matchingIndex = companyViewModel.filterItems.firstIndex(of: newActiveFilter) {
-                    filters.selectedSegmentIndex = matchingIndex
-                } else {
-                    filters.selectedSegmentIndex = UISegmentedControl.noSegment
-                }
-            }
-            .store(in: &subscriptions)
-
-        filters
-            .publisher(for: .valueChanged)
-            .sink { [weak filters, weak companyViewModel, weak filtersScrollView] in
-                guard let filters,
-                      let companyViewModel,
-                      let filtersScrollView
-                else { return }
-
-                let selectedSegmentIndex = filters.selectedSegmentIndex
-                let newSelectedFilter = companyViewModel.filterItems[selectedSegmentIndex]
-                companyViewModel.filterBy(filter: newSelectedFilter)
-
-                let convertRect: (UIView) -> CGRect = {
-                    $0.convert($0.frame, to: filtersScrollView)
-                }
-                let selectedControls = filters
-                    .recursiveSubviews { $0 is UILabel }
-                    .sorted { convertRect($0).minX < convertRect($1).minX }
-                let selectedControl = selectedControls[selectedSegmentIndex]
-                let selectedControlRect = convertRect(selectedControl)
-                if !filtersScrollView.bounds.contains(
-                    selectedControlRect
-                ) {
-                    let targetScrollingRect = selectedControlRect
-                        .insetBy(dx: -100, dy: 0)
-                    filtersScrollView.scrollRectToVisible(
-                        targetScrollingRect,
-                        animated: true
-                    )
-                }
+                filtersBarView.indexOfSelectedItem = companyViewModel.filterItems.firstIndex(of: newActiveFilter)
             }
             .store(in: &subscriptions)
     }
@@ -466,6 +422,20 @@ private extension CompaniesFiltersViewController.CollectionViewController {
             .store(in: &subscriptions)
     }
     
+}
+
+// MARK: FilterBarViewDelegate
+
+extension CompaniesFiltersViewController: FiltersBarViewDelegate {
+
+    func filtersBarView(
+        _ filtersBarView: FiltersBarView,
+        didSelectItemAt index: Int
+    ) {
+        let newSelectedFilter = companyViewModel.filterItems[index]
+        companyViewModel.filterBy(filter: newSelectedFilter)
+    }
+
 }
 
 // MARK: UISearchBarDelegate {

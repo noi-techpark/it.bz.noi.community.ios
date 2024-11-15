@@ -59,6 +59,7 @@
 		313FB0B72719C518000AD9DA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 313FB0B62719C518000AD9DA /* GoogleService-Info.plist */; };
 		313FB0B92719CFA9000AD9DA /* EventsMainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 319C0EA226F4A43C00C6D38B /* EventsMainViewController.xib */; };
 		314263A5271F048800DA4429 /* AppFeatureSwitches.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314263A4271F048800DA4429 /* AppFeatureSwitches.swift */; };
+		3145054D2CE39190000F3E9F /* CoreUI in Frameworks */ = {isa = PBXBuildFile; productRef = 3145054C2CE39190000F3E9F /* CoreUI */; };
 		3145D23126B3F73F00F16787 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3145D23026B3F73F00F16787 /* AppDelegate.swift */; };
 		3145D23326B3F73F00F16787 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3145D23226B3F73F00F16787 /* SceneDelegate.swift */; };
 		3145D23A26B3F74000F16787 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3145D23926B3F74000F16787 /* Images.xcassets */; };
@@ -468,6 +469,7 @@
 				3182F4A227DB3841005ADDAF /* AppPreferencesClient in Frameworks */,
 				3182F4A627DB3841005ADDAF /* EventShortClient in Frameworks */,
 				3181B9212B1E12BD000D2A0F /* Core in Frameworks */,
+				3145054D2CE39190000F3E9F /* CoreUI in Frameworks */,
 				3182F4AA27DB3841005ADDAF /* EventShortTypesClient in Frameworks */,
 				31E058F22812F18800D1F7FE /* KeychainAccess in Frameworks */,
 				319C4653282BB32400946AC7 /* ArticlesClient in Frameworks */,
@@ -1094,6 +1096,7 @@
 				317EC88A283BB83E00F30B95 /* PeopleClientLive */,
 				3181B9202B1E12BD000D2A0F /* Core */,
 				31B1926E2C6A2136009872E9 /* FirebaseCrashlytics */,
+				3145054C2CE39190000F3E9F /* CoreUI */,
 			);
 			productName = NOICommunity;
 			productReference = 3145D22D26B3F73F00F16787 /* NOICommunity.app */;
@@ -2306,6 +2309,10 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 311E0EC42825157800404DCE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseMessaging;
+		};
+		3145054C2CE39190000F3E9F /* CoreUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = CoreUI;
 		};
 		317B6F9B28118BD6008D07C0 /* AuthClient */ = {
 			isa = XCSwiftPackageProductDependency;

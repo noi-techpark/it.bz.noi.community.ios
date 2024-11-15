@@ -66,19 +66,17 @@ final class EventsMainViewController: UIViewController {
     }
 
     @IBOutlet private var filterBarContainerView: UIView!
-    @IBOutlet private var filterBarView: EventsFiltersBarView!
-    @IBOutlet private var contentContainerView: UIView!
 
-    private var dateIntervalsControl: UISegmentedControl {
-        filterBarView.dateIntervalsControl
+    @IBOutlet private var filterBarView: EventsFiltersBarView! {
+        didSet {
+            filterBarView.filtersBarView.delegate = self
+        }
     }
+
+    @IBOutlet private var contentContainerView: UIView!
 
     private var filtersButton: UIButton {
         filterBarView.filtersButton
-    }
-
-    private var dateIntervalsScrollView: UIScrollView {
-        filterBarView.scrollView
     }
 
     private lazy var resultsVC = makeResultsViewController()
@@ -153,38 +151,6 @@ private extension EventsMainViewController {
     }
 
     func configureBindings() {
-        dateIntervalsControl.publisher(for: .valueChanged)
-            .sink { [unowned dateIntervalsControl, weak viewModel, weak dateIntervalsScrollView] in
-                let selectedSegmentIndex = dateIntervalsControl.selectedSegmentIndex
-
-                let newDateIntervalFilter = DateIntervalFilter
-                    .allCases[dateIntervalsControl.selectedSegmentIndex]
-                viewModel?.dateIntervalFilter = newDateIntervalFilter
-                viewModel?.refreshEvents()
-
-                if let dateIntervalsScrollView = dateIntervalsScrollView {
-                    let convertRect: (UIView) -> CGRect = {
-                        $0.convert($0.frame, to: dateIntervalsScrollView)
-                    }
-                    let selectedControls = dateIntervalsControl
-                        .recursiveSubviews { $0 is UILabel }
-                        .sorted { convertRect($0).minX < convertRect($1).minX }
-                    let selectedControl = selectedControls[selectedSegmentIndex]
-                    let selectedControlRect = convertRect(selectedControl)
-                    if !dateIntervalsScrollView.bounds.contains(
-                        selectedControlRect
-                    ) {
-                        let targetScrollingRect = selectedControlRect
-                            .insetBy(dx: -100, dy: 0)
-                        dateIntervalsScrollView.scrollRectToVisible(
-                            targetScrollingRect,
-                            animated: true
-                        )
-                    }
-                }
-            }
-            .store(in: &subscriptions)
-
         filtersButton.publisher(for: .primaryActionTriggered)
             .sink { [weak viewModel] in
                 viewModel?.showFilters()
@@ -267,5 +233,29 @@ private extension EventsMainViewController {
                 filtersButton.setTitle(title, for: .normal)
             }
             .store(in: &subscriptions)
+
+        viewModel.$dateIntervalFilter
+            .sink { [weak self] newActiveFilter in
+                guard let self
+                else { return }
+
+                self.filterBarView.filtersBarView.indexOfSelectedItem = DateIntervalFilter.allCases.firstIndex(of: newActiveFilter)
+            }
+            .store(in: &subscriptions)
     }
+}
+
+// MARK: FilterBarViewDelegate
+
+extension EventsMainViewController: FiltersBarViewDelegate {
+
+    func filtersBarView(
+        _ filtersBarView: FiltersBarView,
+        didSelectItemAt index: Int
+    ) {
+        let newDateIntervalFilter = DateIntervalFilter.allCases[index]
+        viewModel.dateIntervalFilter = newDateIntervalFilter
+        viewModel.refreshEvents()
+    }
+
 }

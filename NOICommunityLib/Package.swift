@@ -17,6 +17,10 @@ let package = Package(
             targets: ["Core"]
         ),
         .library(
+            name: "CoreUI",
+            targets: ["CoreUI"]
+        ),
+        .library(
             name: "EventShortTypesClient",
             targets: ["EventShortTypesClient"]
         ),
@@ -87,6 +91,16 @@ let package = Package(
             name: "CoreTests",
             dependencies: [
                 "Core"
+            ]
+        ),
+        .target(
+            name: "CoreUI",
+            dependencies: []
+        ),
+        .testTarget(
+            name: "CoreUITests",
+            dependencies: [
+                "CoreUI"
             ]
         ),
         .target(
