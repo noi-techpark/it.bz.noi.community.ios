@@ -100,6 +100,7 @@ private extension FiltersBarView {
         collectionView.backgroundColor = .noiSecondaryBackgroundColor
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.showsHorizontalScrollIndicator = false
+        collectionView.alwaysBounceVertical = false
         collectionView.delegate = self
         collectionView.allowsMultipleSelection = false
         
