@@ -268,10 +268,10 @@ private extension NewsDetailsViewController {
             textView.removeFromSuperview()
         }
         
-        if news.imageGallery.isNilOrEmpty {
+        if news.imageGallery.isEmpty {
             galleryContainerView.removeFromSuperview()
         } else {
-            galleryVC.imageURLs = news.imageGallery?.compactMap(\.url) ?? []
+            galleryVC.imageURLs = news.imageGallery.compactMap(\.url)
             if galleryVC.parent != self {
                 embedChild(galleryVC, in: galleryContainerView)
             }

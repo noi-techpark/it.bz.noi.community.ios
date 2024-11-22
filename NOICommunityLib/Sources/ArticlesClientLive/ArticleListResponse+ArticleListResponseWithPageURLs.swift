@@ -3,41 +3,16 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 //
-//  Models.swift
-//  ArticlesClient
+//  ArticleListResponse+ArticleListResponseWithPageURLs.swift
+//  
 //
-//  Created by Matteo Matassoni on 10/05/22.
+//  Created by Matteo Matassoni on 22/11/24.
 //
 
 import Foundation
 import ArticlesClient
 
-// MARK: - ArticleListResponse
-
-struct MyArticleListResponse: Codable, Equatable {
-    
-    let totalResults: Int
-    
-    let totalPages: Int
-    
-    let currentPage: Int
-    
-    let previousPageURL: URL?
-    
-    let nextPageURL: URL?
-    
-    let items: [Article]?
-    
-    private enum CodingKeys: String, CodingKey {
-        case totalResults
-        case totalPages
-        case currentPage
-        case previousPageURL = "previousPage"
-        case nextPageURL = "nextPage"
-        case items
-    }
-    
-}
+// MARK: - ArticleListResponse+ArticleListResponseWithPageURLs
 
 private func extractPageNumber(url: URL) -> Int? {
     let urlComponents = URLComponents(
@@ -52,8 +27,8 @@ private func extractPageNumber(url: URL) -> Int? {
 }
 
 extension ArticleListResponse {
-    
-    init(from response: MyArticleListResponse) {
+
+    init(from response: ArticleListResponseWithPageURLs) {
         self.init(
             totalResults: response.totalResults,
             totalPages: response.totalPages,
@@ -63,5 +38,5 @@ extension ArticleListResponse {
             items: response.items
         )
     }
-    
+
 }

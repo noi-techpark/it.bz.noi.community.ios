@@ -14,16 +14,54 @@ import Combine
 
 public struct ArticlesClient {
     
-    public var list: (Date, String?, Int?, Int?) -> AnyPublisher<ArticleListResponse, Error>
-    
-    public typealias ArticleId = String
-    public var detail: (String) -> AnyPublisher<Article, Error>
-    
+    public typealias ListMethod = (
+        _ startDate: Date?,
+        _ publishedon: String?,
+        _ articleType: String?,
+        _ rawSort: String?,
+        _ rawFilter: String?,
+        _ pageSize: Int?,
+        _ pageNumber: Int?
+    ) -> AnyPublisher<ArticleListResponse, Error>
+    public var list: ListMethod
+
+    public typealias DetailMethod = (
+        _ articleId: String
+    ) -> AnyPublisher<Article, Error>
+    public var detail: DetailMethod
+
     public init(
-        list: @escaping (Date, String?, Int?, Int?) -> AnyPublisher<ArticleListResponse, Error>,
-        detail: @escaping (String) -> AnyPublisher<Article, Error>
+        list: @escaping ListMethod, 
+        detail: @escaping DetailMethod
     ) {
         self.list = list
         self.detail = detail
     }
+
+    public func list(
+        startDate: Date? = nil,
+        publishedon: String? = nil,
+        articleType: String? = nil,
+        rawSort: String? = nil,
+        rawFilter: String? = nil,
+        pageSize: Int? = nil,
+        pageNumber: Int? = nil
+    ) -> AnyPublisher<ArticleListResponse, Error> {
+        list(
+            startDate,
+            publishedon,
+            articleType,
+            rawSort,
+            rawFilter,
+            pageSize,
+            pageNumber
+        )
+    }
+
+    public func detail(
+        ofArticleWithId articleId: String
+    ) -> AnyPublisher<Article, Error> {
+        detail(articleId)
+    }
+
 }

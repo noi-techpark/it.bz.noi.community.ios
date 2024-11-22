@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 //
-//  Live.swift
+//  ArticlesClient+Live.swift
 //  ArticlesClientLive
 //
 //  Created by Matteo Matassoni on 10/05/22.
@@ -65,10 +65,13 @@ extension ArticlesClient {
     
     public static func live(urlSession: URLSession = .shared) -> Self {
         Self(
-            list: { startDate, publishedon, pageSize, pageNumber in
+            list: { startDate, publishedon, articleType, rawSort, rawFilter, pageSize, pageNumber in
                 let urlRequest = Endpoint.articleList(
                     startDate: startDate, 
                     publishedon: publishedon,
+                    articleType: articleType,
+                    rawSort: rawSort,
+                    rawFilter: rawFilter,
                     pageSize: pageSize,
                     pageNumber: pageNumber
                 ).makeRequest(withBaseURL: baseURL)
@@ -77,7 +80,7 @@ extension ArticlesClient {
                     .dataTaskPublisher(for: urlRequest)
                     .map { data, response in data }
                     .decode(
-                        type: MyArticleListResponse.self,
+                        type: ArticleListResponseWithPageURLs.self,
                         decoder: articlesJsonDecoder
                     )
                     .map(ArticleListResponse.init(from:))

@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 //
-//  Endpoints.swift
+//  Endpoint+Article.swift
 //  ArticlesClientLive
 //
 //  Created by Matteo Matassoni on 11/05/22.
@@ -24,16 +24,21 @@ private let dateFormatter: DateFormatter = { dateFormatter in
 extension Endpoint {
     
     static func articleList(
-        startDate: Date,
+        startDate: Date?,
         publishedon: String?,
+        articleType: String?,
+        rawSort: String?,
+        rawFilter: String?,
         pageSize: Int?,
         pageNumber: Int?
     ) -> Endpoint {
         Self(path: "/v1/Article") {
-            URLQueryItem(
-                name: "startDate",
-                value: dateFormatter.string(from: startDate)
-            )
+            if let startDate {
+                URLQueryItem(
+                    name: "startDate",
+                    value: dateFormatter.string(from: startDate)
+                )
+            }
 
             if let publishedon = publishedon {
                 URLQueryItem(
@@ -42,38 +47,49 @@ extension Endpoint {
                 )
             }
 
-            if let pageSize = pageSize {
+            if let pageSize {
                 URLQueryItem(
                     name: "pagesize",
                     value: String(pageSize)
                 )
             }
             
-            if let pageNumber = pageNumber {
+            if let pageNumber {
                 URLQueryItem(
                     name: "pagenumber",
                     value: String(pageNumber)
                 )
             }
-            
+
             URLQueryItem(
                 name: "removeNullValues",
                 value: "true"
             )
-            
-            URLQueryItem(
-                name: "articletype",
-                value: "newsfeednoi"
-            )
-            
-            URLQueryItem(
-                name: "rawsort",
-                value: "-ArticleDate"
-            )
-            
+
+            if let articleType {
+                URLQueryItem(
+                    name: "articletype",
+                    value: articleType
+                )
+            }
+
+            if let rawSort {
+                URLQueryItem(
+                    name: "rawsort",
+                    value: rawSort
+                )
+            }
+
+            if let rawFilter {
+                URLQueryItem(
+                    name: "rawfilter",
+                    value: rawFilter
+                )
+            }
+
             URLQueryItem(
                 name: "fields",
-                value: "Id,ArticleDate,Detail,ContactInfos,ImageGallery,ODHTags"
+                value: "Id,ArticleDate,Detail,ContactInfos,ImageGallery,ODHTags,Highlight"
             )
         }
     }
