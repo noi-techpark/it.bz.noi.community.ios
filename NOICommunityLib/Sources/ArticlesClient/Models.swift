@@ -41,6 +41,10 @@ public struct ArticleListResponse: Codable, Hashable {
 
     public let nextPage: Int?
 
+    public var hasNextPage: Bool {
+        nextPage != nil
+    }
+
     public let items: [Article]
 
     public init(from decoder: any Decoder) throws {

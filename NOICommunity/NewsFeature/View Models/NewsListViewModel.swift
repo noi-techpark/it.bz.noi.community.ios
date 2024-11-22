@@ -21,7 +21,9 @@ final class NewsListViewModel {
     
     let pageSize: Int
     let firstPage: Int
-    
+
+    private var needsToRequestHighlight = true
+
     private var nextPage: Int?
     
     var hasNextPage: Bool {
@@ -51,13 +53,14 @@ final class NewsListViewModel {
         
         configureBindings()
     }
-    
+
     func fetchNews(refresh: Bool = false) {
         guard nextPage != nil || refresh
         else { return }
         
         let pageNumber = refresh ? firstPage : nextPage!
-        
+        needsToRequestHighlight = needsToRequestHighlight || refresh
+
         isLoadingFirstPage = pageNumber == firstPage
         isLoading = true
         
@@ -67,10 +70,10 @@ final class NewsListViewModel {
                 publishedon: "noi-communityapp",
                 articleType: "newsfeednoi",
                 rawSort: "-ArticleDate",
+                rawFilter: needsToRequestHighlight ? #"eq(Highlight,"true")"# : #"or(eq(Highlight,"false"),isnull(Highlight))"#,
                 pageSize: pageSize,
                 pageNumber: pageNumber
             )
-
         if refresh {
             articlesListPublisher = articlesListPublisher
                 .delay(for: 0.3, scheduler: RunLoop.main)
@@ -95,7 +98,15 @@ final class NewsListViewModel {
                     guard let self
                     else { return }
 
-                    self.nextPage = pagination.nextPage
+                    let hadRequestHighlight = needsToRequestHighlight
+
+                    if needsToRequestHighlight,
+                        !pagination.hasNextPage {
+                        self.nextPage = firstPage
+                        self.needsToRequestHighlight = false
+                    } else {
+                        self.nextPage = pagination.nextPage
+                    }
 
                     let newItems = pagination.items
                     newItems.forEach { self.idToNews[$0.id] = $0 }
@@ -104,7 +115,13 @@ final class NewsListViewModel {
                     } else {
                         self.newsIds += newItems.map(\.id)
                     }
-                })
+
+                    if hadRequestHighlight,
+                       newItems.isEmpty {
+                        self.fetchNews(refresh: refresh)
+                    }
+                }
+            )
     }
     
     func news(withId newsId: String) -> Article {

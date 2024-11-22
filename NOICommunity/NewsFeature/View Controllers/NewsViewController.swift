@@ -194,12 +194,17 @@ private extension NewsViewController {
         viewModel.$isLoadingFirstPage
             .dropFirst()
             .receive(on: DispatchQueue.main)
-            .sink(receiveValue: { [unowned refreshControl, collectionView] isLoading in
-                if isLoading {
-                    collectionView?.scrollTo(direction: .top)
+            .sink(receiveValue: { [weak self] isLoadingFirstPage in
+                guard let self else { return }
+                
+                if isLoadingFirstPage {
+                    self.updateUI(
+                        newsIds: [],
+                        animated: self.isInWindowHierarchy
+                    )
                 }
-                refreshControl?.setIsLoading(
-                    isLoading,
+                self.refreshControl?.setIsLoading(
+                    isLoadingFirstPage,
                     forced: true,
                     scrollToTop: true
                 )
@@ -209,8 +214,9 @@ private extension NewsViewController {
         viewModel.$newsIds            
             .receive(on: DispatchQueue.main)
             .sink { [weak self] in
-                let isOnScreen = self?.viewIfLoaded?.window != nil
-                self?.updateUI(newsIds: $0, animated: isOnScreen)
+                guard let self else { return }
+
+                self.updateUI(newsIds: $0, animated: self.isInWindowHierarchy)
             }
             .store(in: &subscriptions)
         
