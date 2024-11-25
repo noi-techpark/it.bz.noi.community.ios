@@ -22,7 +22,7 @@ final class NewsListViewModel {
     let pageSize: Int
     let firstPage: Int
 
-    private var needsToRequestHighlight = true
+    private var needsToRequestHighlight: Bool
 
     private var nextPage: Int?
     
@@ -44,13 +44,15 @@ final class NewsListViewModel {
     init(
         articlesClient: ArticlesClient,
         pageSize: Int = 10,
-        firstPage: Int = 1
+        firstPage: Int = 1,
+        needsToRequestHighlight: Bool = true
     ) {
         self.articlesClient = articlesClient
         self.pageSize = pageSize
         self.firstPage = firstPage
         self.nextPage = firstPage
-        
+        self.needsToRequestHighlight = needsToRequestHighlight
+
         configureBindings()
     }
 
@@ -118,7 +120,7 @@ final class NewsListViewModel {
 
                     if hadRequestHighlight,
                        newItems.isEmpty {
-                        self.fetchNews(refresh: refresh)
+                        self.fetchNews()
                     }
                 }
             )
