@@ -23,31 +23,6 @@ final class AccessNotGrantedViewController: ContainerViewController {
 
     private lazy var loadingViewController = LoadingViewController(style: .light)
 
-    private var accessNotGrantedViewController: BlockAccessViewController = {
-        let contentVC = BlockAccessViewController(nibName: nil, bundle: nil)
-        contentVC.text = .localized("outsider_user_title")
-        let detailedAttributedText: NSAttributedString = {
-            let text = String.localized("outsider_user_body")
-            let mAttributedText = NSMutableAttributedString(string: text,
-                                                            attributes: [
-                                                                .font: UIFont.preferredFont(forTextStyle: .body),
-                                                                .foregroundColor: UIColor.noiSecondaryColor
-                                                            ])
-
-            if let range = text.range(of: String.localized("outsider_user_body_link_1_part")),
-               let url = URL(string: .localized("url_jobs_noi_techpark")) {
-                mAttributedText.addAttribute(.link,
-                                             value: url,
-                                             range: NSRange(range, in: text))
-            }
-
-            return NSAttributedString(attributedString: mAttributedText)
-        }()
-        contentVC.detailedAttributedText = detailedAttributedText
-        contentVC.primaryActionTitle = .localized("btn_logout")
-        return contentVC
-    }()
-
     init(viewModel: MyAccountViewModel) {
         self.viewModel = viewModel
 
@@ -84,16 +59,15 @@ private extension AccessNotGrantedViewController {
             .sink { [weak self] isLoading in
                 if isLoading {
                     self?.showLoader()
-                } else {
-                    self?.showAccessNotGranted()
                 }
             }
             .store(in: &subscriptions)
 
         viewModel.$userInfoResult
+            .compactMap { $0 }
             .receive(on: DispatchQueue.main)
             .sink { [weak self] userInfo in
-                self?.showAccessNotGranted()
+                self?.showAccessNotGranted(with: userInfo)
             }
             .store(in: &subscriptions)
 
@@ -119,9 +93,36 @@ private extension AccessNotGrantedViewController {
         content = loadingViewController
     }
 
-    private func showAccessNotGranted() {
+    private func showAccessNotGranted(with userInfo: UserInfo) {
         navigationController?.navigationBar.isHidden = false
 
+        let accessNotGrantedViewController: BlockAccessViewController = {
+            let contentVC = BlockAccessViewController(nibName: nil, bundle: nil)
+            contentVC.text = .localized("outsider_user_title")
+            let detailedAttributedText: NSAttributedString = {
+                let text = String.localizedStringWithFormat(
+                    .localized("outsider_user_body_format"),
+                    userInfo.email ?? "N/D"
+                )
+                let mAttributedText = NSMutableAttributedString(string: text,
+                                                                attributes: [
+                                                                    .font: UIFont.preferredFont(forTextStyle: .body),
+                                                                    .foregroundColor: UIColor.noiSecondaryColor
+                                                                ])
+
+                if let range = text.range(of: String.localized("outsider_user_body_link_1_part")),
+                   let url = URL(string: .localized("url_jobs_noi_techpark")) {
+                    mAttributedText.addAttribute(.link,
+                                                 value: url,
+                                                 range: NSRange(range, in: text))
+                }
+
+                return NSAttributedString(attributedString: mAttributedText)
+            }()
+            contentVC.detailedAttributedText = detailedAttributedText
+            contentVC.primaryActionTitle = .localized("btn_logout")
+            return contentVC
+        }()
         accessNotGrantedViewController.primaryAction = { [weak self] in
             self?.viewModel.logout()
         }
