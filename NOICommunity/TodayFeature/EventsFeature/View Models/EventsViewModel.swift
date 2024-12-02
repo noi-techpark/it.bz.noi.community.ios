@@ -71,6 +71,7 @@ class EventsViewModel {
                 endDate: endDate,
                 eventLocation: .noi,
                 publishedon: "noi-communityapp",
+                fields: ["AnchorVenue", "AnchorVenueRoomMapping", "CompanyName", "Display5", "EndDate", "EventDescriptionDE", "EventDescriptionEN", "EventDescriptionIT", "EventLocation", "EventTextDE", "EventTextEN", "EventTextIT", "Id", "ImageGallery", "StartDate", "WebAddress"], 
                 rawFilter: activeFilters.toQuery(),
                 removeNullValues: true,
                 optimizeDates: true
