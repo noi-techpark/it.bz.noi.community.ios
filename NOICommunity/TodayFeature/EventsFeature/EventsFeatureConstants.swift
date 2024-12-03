@@ -13,5 +13,4 @@ import Foundation
 
 enum EventsFeatureConstants {
     static let maximumNumberOfEvents = 20
-    static let maximumNumberOfRelatedEvents = 3
 }

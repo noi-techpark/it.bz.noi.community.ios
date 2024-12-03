@@ -15,20 +15,12 @@ import Kingfisher
 class EventDetailsViewController: UIViewController {
     
     let event: Event
-    let relatedEvents: [Event]
     
     var locateActionHandler: ((Event) -> Void)?
 
     var addToCalendarActionHandler: ((Event) -> Void)?
 
     var signupActionHandler: ((Event) -> Void)?
-
-    var didSelectRelatedEventHandler: ((
-        UICollectionView,
-        UICollectionViewCell,
-        IndexPath,
-        Event
-    ) -> Void)?
     
     private var _cardView: (UIView & UIContentView)!
     
@@ -36,8 +28,6 @@ class EventDetailsViewController: UIViewController {
         loadViewIfNeeded()
         return _cardView
     }
-    
-    private var relatedEventsVC: EventListViewController!
     
     @IBOutlet private var scrollView: UIScrollView! {
         didSet {
@@ -82,18 +72,11 @@ class EventDetailsViewController: UIViewController {
     
     @IBOutlet private var relatedSection: UIView! {
         didSet {
-            if relatedEvents.isEmpty {
-                relatedSection.removeFromSuperview()
-            }
+            relatedSection.removeFromSuperview()
         }
     }
     
-    @IBOutlet private var relatedEventsLabel: UILabel! {
-        didSet {
-            relatedEventsLabel.font = .NOI.dynamic.headlineSemibold
-            relatedEventsLabel.text = .localized("label_interesting_for_you")
-        }
-    }
+    @IBOutlet private var relatedEventsLabel: UILabel!
     
     @IBOutlet private var relatedEventsContainerView: UIView!
     
@@ -125,9 +108,8 @@ class EventDetailsViewController: UIViewController {
         }
     }
     
-    init(for item: Event, relatedEvents: [Event]) {
+    init(for item: Event) {
         self.event = item
-        self.relatedEvents = relatedEvents
         super.init(nibName: "\(EventDetailsViewController.self)", bundle: nil)
     }
     
@@ -147,7 +129,6 @@ class EventDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewHierarchy()
-        configureChilds()
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -156,10 +137,6 @@ class EventDetailsViewController: UIViewController {
     
     override func preferredContentSizeDidChange(forChildContentContainer container: UIContentContainer) {
         super.preferredContentSizeDidChange(forChildContentContainer: container)
-        
-        if container === relatedEventsVC {
-            relatedEventsContainerViewHeight.constant = container.preferredContentSize.height
-        }
     }
 }
 
@@ -189,21 +166,6 @@ private extension EventDetailsViewController {
         }
     }
     
-    func configureChilds() {
-        guard !relatedEvents.isEmpty
-        else { return }
-        
-        relatedEventsVC = EventListViewController(
-            items: relatedEvents,
-            embeddedHorizontally: true
-        )
-        relatedEventsVC.didSelectHandler = { [weak self] in
-            self?.didSelectRelatedEventHandler?($0, $1, $2, $3)
-        }
-        embedChild(relatedEventsVC, in: relatedEventsContainerView)
-        relatedEventsContainerViewHeight.constant = relatedEventsVC.preferredContentSize.height
-    }
-    
     @IBAction func findOnMapsAction(sender: Any?) {
         locateActionHandler?(event)
     }
@@ -220,6 +182,6 @@ private extension EventDetailsViewController {
 extension EventDetailsViewController: CurrentScrollOffsetProvider
 {
     var currentScrollOffset: CGPoint {
-        relatedEventsVC?.currentScrollOffset ?? .zero
+        .zero
     }
 }

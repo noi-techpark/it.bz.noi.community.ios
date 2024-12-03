@@ -116,22 +116,9 @@ private extension EventsCoordinator {
         transitionCollectionView: UICollectionView? = nil,
         transitionIndexPath: IndexPath? = nil
     ) {
-//        let transitionId = "event_\(event.id)"
-//        if
-//            let transitionCollectionView = transitionCollectionView,
-//            let transitionIndexPath = transitionIndexPath {
-//            let transitionInfo = EventsNavigationControllerDelegate.TransitionInfo(
-//                id: transitionId,
-//                collectionView: transitionCollectionView,
-//                indexPath: transitionIndexPath,
-//                event: event
-//            )
-//            navigationDelegate.transitionInfos.append(transitionInfo)
-//        }
 
         let detailVC = EventDetailsViewController(
-            for: event,
-               relatedEvents: eventsViewModel.relatedEvent(of: event)
+            for: event
         )
         //detailVC.cardView.transitionId = transitionId
         detailVC.addToCalendarActionHandler = { [weak self] in
@@ -142,13 +129,6 @@ private extension EventsCoordinator {
         }
         detailVC.signupActionHandler = { [weak self] in
             self?.signupEvent($0)
-        }
-        detailVC.didSelectRelatedEventHandler = { [weak self] collectionView, _, indexPath, selectedEvent in
-            self?.goToDetails(
-                of: selectedEvent,
-                transitionCollectionView: collectionView,
-                transitionIndexPath: indexPath
-            )
         }
         detailVC.navigationItem.title = event.title
         detailVC.navigationItem.largeTitleDisplayMode = .never

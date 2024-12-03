@@ -29,7 +29,6 @@ class EventsViewModel {
     let eventShortClient: EventShortClient
     let language: Language?
     let maximumNumberOfEvents: Int
-    let maximumNumberOfRelatedEvents: Int
     let showFiltersHandler: () -> Void
     
     private var subscriptions: Set<AnyCancellable> = []
@@ -40,13 +39,11 @@ class EventsViewModel {
         eventShortClient: EventShortClient,
         language: Language?,
         maximumNumberOfEvents: Int = EventsFeatureConstants.maximumNumberOfEvents,
-        maximumNumberOfRelatedEvents: Int = EventsFeatureConstants.maximumNumberOfRelatedEvents,
         showFiltersHandler: @escaping () -> Void
     ) {
         self.eventShortClient = eventShortClient
         self.language = language
         self.maximumNumberOfEvents = maximumNumberOfEvents
-        self.maximumNumberOfRelatedEvents = maximumNumberOfRelatedEvents
         self.showFiltersHandler = showFiltersHandler
     }
 
@@ -104,24 +101,6 @@ class EventsViewModel {
                         )
                     }
                 })
-    }
-    
-    func relatedEvent(of event: Event) -> [Event] {
-        let slice = eventResults
-            .lazy
-            .filter { candidateEvent in
-                guard candidateEvent.id != event.id
-                else { return false }
-                
-                for techField in event.technologyFields {
-                    if candidateEvent.technologyFields.contains(techField) {
-                        return true
-                    }
-                }
-                return false
-            }
-            .prefix(maximumNumberOfRelatedEvents)
-        return Array(slice)
     }
 
     func showFilters() {
