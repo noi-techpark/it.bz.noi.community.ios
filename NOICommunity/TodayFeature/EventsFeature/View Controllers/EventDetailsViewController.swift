@@ -70,18 +70,6 @@ class EventDetailsViewController: UIViewController {
         }
     }
     
-    @IBOutlet private var relatedSection: UIView! {
-        didSet {
-            relatedSection.removeFromSuperview()
-        }
-    }
-    
-    @IBOutlet private var relatedEventsLabel: UILabel!
-    
-    @IBOutlet private var relatedEventsContainerView: UIView!
-    
-    @IBOutlet private var relatedEventsContainerViewHeight: NSLayoutConstraint!
-    
     @IBOutlet private var actionsContainersView: FooterView!
     
     @IBOutlet private var locateEventButton: UIButton! {
