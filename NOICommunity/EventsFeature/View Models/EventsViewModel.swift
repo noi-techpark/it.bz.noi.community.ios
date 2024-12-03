@@ -16,8 +16,8 @@ import EventShortTypesClient
 
 // MARK: - EventsViewModel
 
-class EventsViewModel {
-    
+final class EventsViewModel {
+
     @Published var isLoading = false
     @Published var error: Error!
     @Published var eventResults: [Event]!
@@ -51,60 +51,9 @@ class EventsViewModel {
     }
 
     func refreshEvents() {
-        let (startDate, endDate) = dateIntervalFilter.toStartEndDates()
-        
-        isLoading = true
-        eventResults = nil
-        
-        let roomMappingPublisher: AnyPublisher<[String : String], Error>
-        if let roomMapping = roomMapping {
-            roomMappingPublisher = Just(roomMapping)
-                .setFailureType(to: Error.self)
-                .eraseToAnyPublisher()
-        } else {
-            roomMappingPublisher = eventShortClient.roomMapping(language)
-        }
-        let eventListPublisher = eventShortClient
-            .list(EventShortListRequest(
-                pageSize: maximumNumberOfEvents,
-                startDate: startDate,
-                endDate: endDate,
-                eventLocation: .noi,
-                publishedon: "noi-communityapp",
-                fields: ["AnchorVenue", "AnchorVenueRoomMapping", "CompanyName", "Display5", "EndDate", "EventDescriptionDE", "EventDescriptionEN", "EventDescriptionIT", "EventLocation", "EventTextDE", "EventTextEN", "EventTextIT", "Id", "ImageGallery", "StartDate", "WebAddress"], 
-                rawFilter: activeFilters.toQuery(),
-                removeNullValues: true,
-                optimizeDates: true
-            ))
-        
-        refreshEventsRequestCancellable = roomMappingPublisher
-            .zip(eventListPublisher)
-            .receive(on: DispatchQueue.main)
-            .sink(
-                receiveCompletion: { [weak self] completion in
-                    self?.isLoading = false
-                    
-                    switch completion {
-                    case .finished:
-                        break
-                    case .failure(let error):
-                        self?.error = error
-                    }
-                },
-                receiveValue: { [weak self] in
-                    guard let self = self
-                    else { return }
-                    
-                    let (roomMappingResponse, eventShortListResponse) = $0
-                    self.roomMapping = roomMappingResponse
-                    let allEventsShort = eventShortListResponse.items ?? []
-                    self.eventResults = allEventsShort.map { eventShort in
-                        Event(
-                            from: eventShort,
-                            roomMapping: roomMappingResponse
-                        )
-                    }
-                })
+		Task(priority: .userInitiated) { [weak self] in
+			await self?.performRefreshEvents()
+		}
     }
     
     func relatedEvent(of event: Event) -> [Event] {
@@ -131,9 +80,55 @@ class EventsViewModel {
 
 }
 
+// MARK: Private APIs
+
+private extension EventsViewModel {
+
+	func performRefreshEvents() async {
+		eventResults = nil
+
+		isLoading = true
+		defer {
+			isLoading = false
+		}
+
+		do {
+			roomMapping = if let availableRoomMapping = roomMapping {
+				availableRoomMapping
+			} else {
+				try await eventShortClient.getRoomMapping(language: language?.rawValue)
+			}
+
+			let (startDate, endDate) = dateIntervalFilter.toStartEndDates()
+			let response = try await eventShortClient.getEventShortList(
+				pageSize: maximumNumberOfEvents,
+				startDate: startDate,
+				endDate: endDate,
+				eventLocation: .noi,
+				publishedon: "noi-communityapp",
+				fields: ["AnchorVenue", "AnchorVenueRoomMapping", "CompanyName", "Display5", "EndDate", "EventDescriptionDE", "EventDescriptionEN", "EventDescriptionIT", "EventLocation", "EventTextDE", "EventTextEN", "EventTextIT", "Id", "ImageGallery", "StartDate", "WebAddress"],
+				rawFilter: activeFilters.toQuery(),
+				removeNullValues: true,
+				optimizeDates: true
+			)
+			eventResults = response
+				.items
+				.map { eventShort in
+					Event(
+						from: eventShort,
+						roomMapping: roomMapping
+					)
+				}
+		} catch {
+			self.error = error
+		}
+	}
+}
+
 // MARK: - DateIntervalFilter Additions
 
 private extension DateIntervalFilter {
+
     func toStartEndDates(
         using calendar: Calendar = .current
     ) -> (start: Date, end: Date?) {
@@ -157,6 +152,7 @@ private extension DateIntervalFilter {
 // MARK: - EventShort Additions
 
 private extension EventShort {
+
     var localizedEventDescriptions: [String:String] {
         Dictionary(uniqueKeysWithValues: [
             eventDescriptionIT.map { ("it", $0) },
@@ -177,6 +173,7 @@ private extension EventShort {
 // MARK: - Event Additions
 
 private extension Event {
+
     init(
         from eventShort: EventShort,
         roomMapping: [String:String]

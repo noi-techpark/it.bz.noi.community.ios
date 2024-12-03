@@ -11,7 +11,7 @@
 
 import UIKit
 import AppAuth
-import EventShortClientLive
+import EventShortClient
 import AppPreferencesClientLive
 import EventShortTypesClient
 import EventShortTypesClientLive
@@ -60,7 +60,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 context: self,
                 tokenStorage: tokenStorage
             ),
-            eventShortClient: .live(),
+			eventShortClient: EventShortClientImplementation(
+				baseURL: EventsFeatureConstants.clientBaseURL,
+				transport: URLSession.shared
+			),
             eventShortTypesClient: {
                 if let fileURL = Bundle.main.url(
                     forResource: "EventShortTypes",

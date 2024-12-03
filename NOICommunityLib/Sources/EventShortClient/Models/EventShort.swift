@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 //
-//  Models.swift
+//  EventShort.swift
 //  EventShortClient
 //
 //  Created by Matteo Matassoni on 16/09/21.
@@ -11,21 +11,10 @@
 
 import Foundation
 
-// MARK: - EventShortListResponse
-
-public struct EventShortListResponse: Decodable, Equatable {
-    public let totalResults: Int
-    public let totalPages: Int
-    public let currentPage: Int
-    public let onlineResults: Int?
-    public let resultId: String?
-    public let seed: String?
-    public let items: [EventShort]?
-}
-
 // MARK: - EventShort
 
 public struct EventShort: Decodable, Equatable {
+
     public let licenseInfo: LicenseInfo?
     public let id: String?
     public let source: String?
@@ -93,75 +82,6 @@ public struct EventShort: Decodable, Equatable {
     public let publishedOn: [String?]?
 }
 
-// MARK: - EventShortListRequest
-
-public struct EventShortListRequest {
-    public let pageNumber: Int?
-    public let pageSize: Int?
-    public let startDate: Date?
-    public let endDate: Date?
-    public let source: Source?
-    public let eventLocation: EventLocation?
-    public let publishedon: String?
-    public let eventIds: [String]?
-    public let webAddress: String?
-    public let sortOrder: Order?
-    public let seed: Int?
-    public let language: String?
-    public let langFilter: [String]?
-    public let fields: [String]?
-    public let lastChange: Date?
-    public let searchFilter: String?
-    public let rawFilter: String?
-    public let rawSort: String?
-    public let removeNullValues: Bool?
-    public let optimizeDates: Bool?
-
-    public init(
-        pageNumber: Int? = nil,
-        pageSize: Int? = nil,
-        startDate: Date? = nil,
-        endDate: Date? = nil,
-        source: Source? = nil,
-        eventLocation: EventLocation? = nil,
-        publishedon: String? = nil,
-        eventIds: [String]? = nil,
-        webAddress: String? = nil,
-        sortOrder: Order? = nil,
-        seed: Int? = nil,
-        language: String? = nil,
-        langFilter: [String]? = nil,
-        fields: [String]? = nil,
-        lastChange: Date? = nil,
-        searchFilter: String? = nil,
-        rawFilter: String? = nil,
-        rawSort: String? = nil,
-        removeNullValues: Bool? = nil,
-        optimizeDates: Bool? = nil
-    ) {
-        self.pageNumber = pageNumber
-        self.pageSize = pageSize
-        self.startDate = startDate
-        self.endDate = endDate
-        self.source = source
-        self.eventLocation = eventLocation
-        self.publishedon = publishedon
-        self.eventIds = eventIds
-        self.webAddress = webAddress
-        self.sortOrder = sortOrder
-        self.seed = seed
-        self.language = language
-        self.langFilter = langFilter
-        self.fields = fields
-        self.lastChange = lastChange
-        self.searchFilter = searchFilter
-        self.rawFilter = rawFilter
-        self.rawSort = rawSort
-        self.removeNullValues = removeNullValues
-        self.optimizeDates = optimizeDates
-    }
-}
-
 // MARK: - Source
 
 public struct Source: Hashable {
@@ -186,15 +106,6 @@ extension EventLocation: Decodable {
         let container = try decoder.singleValueContainer()
         self.init(rawValue: try container.decode(String.self))
     }
-}
-
-// MARK: - Order
-
-public struct Order: Hashable {
-    public let rawValue: String
-
-    public static let ascending = Self(rawValue: "ASC")
-    public static let descending = Self(rawValue: "DESC")
 }
 
 // MARK: - LicenseInfo

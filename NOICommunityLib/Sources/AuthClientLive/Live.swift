@@ -53,7 +53,7 @@ public protocol AuthContext {
     var presentationContext: () -> UIViewController { get }
 }
 
-// MARK: - EventShortClient+Live
+// MARK: - AuthClient+Live
 
 public extension AuthClient {
     

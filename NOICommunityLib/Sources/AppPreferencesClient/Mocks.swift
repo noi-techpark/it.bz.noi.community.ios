@@ -12,7 +12,7 @@
 import Foundation
 import Combine
 
-// MARK: - EventShortClient+Live
+// MARK: - AppPreferencesClient+Live
 
 public extension AppPreferencesClient {
     
