@@ -46,6 +46,7 @@ final class AppCoordinator: BaseNavigationCoordinator {
         } else {
             showLoadUserInfo()
         }
+
     }
     
     func handle(deepLinkIntent: DeepLinkIntent) {
@@ -59,6 +60,8 @@ final class AppCoordinator: BaseNavigationCoordinator {
         switch deepLinkIntent {
         case .showNews(let newsId):
             showNewsDetails(newsId: newsId, sender: deepLinkIntent)
+		case .showEvent(let eventId):
+			showEventDetails(eventId: eventId, sender: deepLinkIntent)
         }
     }
     
@@ -198,20 +201,21 @@ private extension AppCoordinator {
             detailsViewController: NewsDetailsViewController
         ) {
             viewModel.showExternalLinkPublisher
+				.receive(on: DispatchQueue.main)
                 .sink { [weak self] (news, sender) in
                     self?.showNewsExternalLink(of: news, sender: sender)
                 }
                 .store(in: &subscriptions)
             viewModel.showAskAQuestionPublisher
+				.receive(on: DispatchQueue.main)
                 .sink { [weak self] (news, sender) in
                     self?.showNewsAskAQuestion(for: news, sender: sender)
                 }
                 .store(in: &subscriptions)
             viewModel.$result
+				.compactMap { $0 }
+				.receive(on: DispatchQueue.main)
                 .sink { [weak detailsViewController] news in
-                    guard let news = news
-                    else { return }
-                    
                     detailsViewController?.navigationItem.title = localizedValue(
                         from: news.languageToDetails
                     )?
@@ -249,7 +253,112 @@ private extension AppCoordinator {
             animated: true
         )
     }
-    
+
+	func addEventToCalendar(
+		_ event: Event,
+		from viewController: UIViewController
+	) {
+		EventsCalendarManager.shared.presentCalendarModalToAddEvent(
+			event: event.toCalendarEvent(),
+			from: viewController
+		) { [weak viewController] result in
+			guard case let .failure(error) = result
+			else { return }
+
+			if let calendarError = error as? CalendarError {
+				viewController?.showCalendarError(calendarError)
+			} else {
+				viewController?.showError(error)
+			}
+		}
+	}
+
+	func locateEvent(
+		_ event: Event,
+		from viewController: UIViewController
+	) {
+		let mapViewController = MapWebViewController()
+		mapViewController.url = event.mapURL ?? .map
+		mapViewController.navigationItem.title = event.mapURL != nil ?
+		event.venue:
+			.localized("title_generic_noi_techpark_map")
+		viewController.navigationController?.pushViewController(
+			mapViewController,
+			animated: true
+		)
+	}
+
+	func signupEvent(
+		_ event: Event,
+		from viewController: UIViewController
+	) {
+		UIApplication.shared.open(
+			event.signupURL!,
+			options: [:],
+			completionHandler: nil
+		)
+	}
+
+	func showEventDetails(eventId: String, sender: Any?) {
+		func configureBindings(
+			viewModel: EventDetailsViewModel,
+			pageViewController: EventPageViewController
+		) {
+			viewModel.$result
+				.compactMap { $0 }
+				.receive(on: DispatchQueue.main)
+				.sink { [weak pageViewController] event in
+					pageViewController?.navigationItem.title = event.title
+				}
+				.store(in: &subscriptions)
+		}
+
+		let viewModel = dependencyContainer.makeEventDetailsViewModel(
+			eventId: eventId
+		)
+		let pageVC = {
+			let pageVC = dependencyContainer.makeEventPageViewController(
+				viewModel: viewModel
+			)
+			pageVC.addToCalendarActionHandler = { [weak self, weak pageVC] in
+				guard let pageVC
+				else { return }
+
+				self?.addEventToCalendar($0, from: pageVC)
+			}
+			pageVC.locateActionHandler = { [weak self, weak pageVC] in
+				guard let pageVC
+				else { return }
+
+				self?.locateEvent($0, from: pageVC)
+			}
+			pageVC.signupActionHandler = { [weak self, weak pageVC] in
+				guard let pageVC
+				else { return }
+
+
+				self?.signupEvent($0, from: pageVC)
+			}
+			pageVC.navigationItem.title = nil
+			pageVC.navigationItem.largeTitleDisplayMode = .never
+			pageVC.navigationItem.leftBarButtonItem = UIBarButtonItem(
+				image: UIImage(systemName: "xmark.circle.fill"),
+				style: .plain,
+				target: self,
+				action: #selector(closeModal(sender:))
+			)
+			pageVC.modalPresentationStyle = .fullScreen
+			return pageVC
+		}()
+
+		configureBindings(viewModel: viewModel, pageViewController: pageVC)
+
+		navigationController.present(
+			NavigationController(rootViewController: pageVC),
+			animated: true
+		)
+	}
+
     @objc func closeModal(sender: Any?) {
         navigationController.dismiss(animated: true)
     }

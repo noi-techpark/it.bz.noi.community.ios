@@ -15,7 +15,7 @@ import UIKit
 
 enum DeepLinkIntent {
     case showNews(newsId: String)
-    //case showEvent(eventId: String)
+    case showEvent(eventId: String)
 }
 
 // MARK: - DeepLinkManager
@@ -43,9 +43,9 @@ struct DeepLinkManager {
             case (URLConstant.newsDetailsPath, let newsId):
                 // Matches: <customURLScheme><host>/newsDetails/{newsId}
                 return .showNews(newsId: newsId)
-//            case (URLConstant.eventDetailsPath, let eventId):
-//                // Matches: <customURLScheme><host>/eventDetails/{eventId}
-//                return .showEvent(eventId: eventId)
+            case (URLConstant.eventDetailsPath, let eventId):
+                // Matches: <customURLScheme><host>/eventDetails/{eventId}
+                return .showEvent(eventId: eventId)
             default:
                 return nil
             }

@@ -14,7 +14,6 @@ import Foundation
 enum EventsFeatureConstants {
 
     static let maximumNumberOfEvents = 20
-    static let maximumNumberOfRelatedEvents = 3
 
 	public static let clientBaseURL: URL = {
 #if TESTINGMACHINE_OAUTH

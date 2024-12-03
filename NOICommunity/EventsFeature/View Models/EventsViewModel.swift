@@ -11,12 +11,13 @@
 
 import Foundation
 import Combine
+import CoreUI
 import EventShortClient
 import EventShortTypesClient
 
 // MARK: - EventsViewModel
 
-final class EventsViewModel {
+final class EventsViewModel: BasePageViewModel {
 
     @Published var isLoading = false
     @Published var error: Error!
@@ -24,59 +25,54 @@ final class EventsViewModel {
     @Published var dateIntervalFilter: DateIntervalFilter = .all
     @Published var activeFilters: Set<EventsFilter> = []
 
+	private var refreshCancellable: AnyCancellable?
     private var refreshEventsRequestCancellable: AnyCancellable?
     
     let eventShortClient: EventShortClient
     let language: Language?
     let maximumNumberOfEvents: Int
-    let maximumNumberOfRelatedEvents: Int
     let showFiltersHandler: () -> Void
     
     private var subscriptions: Set<AnyCancellable> = []
     
     private var roomMapping: [String:String]!
-    
+
+	@available(*, unavailable)
+	required init() {
+		fatalError("\(#function) not available")
+	}
+
     init(
         eventShortClient: EventShortClient,
         language: Language?,
         maximumNumberOfEvents: Int = EventsFeatureConstants.maximumNumberOfEvents,
-        maximumNumberOfRelatedEvents: Int = EventsFeatureConstants.maximumNumberOfRelatedEvents,
         showFiltersHandler: @escaping () -> Void
     ) {
         self.eventShortClient = eventShortClient
         self.language = language
         self.maximumNumberOfEvents = maximumNumberOfEvents
-        self.maximumNumberOfRelatedEvents = maximumNumberOfRelatedEvents
         self.showFiltersHandler = showFiltersHandler
     }
-
+	
     func refreshEvents() {
 		Task(priority: .userInitiated) { [weak self] in
 			await self?.performRefreshEvents()
 		}
     }
-    
-    func relatedEvent(of event: Event) -> [Event] {
-        let slice = eventResults
-            .lazy
-            .filter { candidateEvent in
-                guard candidateEvent.id != event.id
-                else { return false }
-                
-                for techField in event.technologyFields {
-                    if candidateEvent.technologyFields.contains(techField) {
-                        return true
-                    }
-                }
-                return false
-            }
-            .prefix(maximumNumberOfRelatedEvents)
-        return Array(slice)
-    }
 
     func showFilters() {
         showFiltersHandler()
     }
+
+	override func configureBindings() {
+		super.configureBindings()
+		refreshCancellable = NotificationCenter
+			.default
+			.publisher(for: refreshEventsListNotification)
+			.sink { [weak self] _ in
+				self?.refreshEvents()
+			}
+	}
 
 }
 
@@ -106,7 +102,24 @@ private extension EventsViewModel {
 				endDate: endDate,
 				eventLocation: .noi,
 				publishedon: "noi-communityapp",
-				fields: ["AnchorVenue", "AnchorVenueRoomMapping", "CompanyName", "Display5", "EndDate", "EventDescriptionDE", "EventDescriptionEN", "EventDescriptionIT", "EventLocation", "EventTextDE", "EventTextEN", "EventTextIT", "Id", "ImageGallery", "StartDate", "WebAddress"],
+				fields: [
+					"AnchorVenue",
+					"AnchorVenueRoomMapping",
+					"CompanyName",
+					"Display5",
+					"EndDate",
+					"EventDescriptionDE",
+					"EventDescriptionEN",
+					"EventDescriptionIT",
+					"EventLocation",
+					"EventTextDE",
+					"EventTextEN",
+					"EventTextIT",
+					"Id",
+					"ImageGallery",
+					"StartDate",
+					"WebAddress"
+				],
 				rawFilter: activeFilters.toQuery(),
 				removeNullValues: true,
 				optimizeDates: true
@@ -172,7 +185,7 @@ private extension EventShort {
 
 // MARK: - Event Additions
 
-private extension Event {
+extension Event {
 
     init(
         from eventShort: EventShort,

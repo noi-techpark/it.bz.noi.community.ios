@@ -122,7 +122,16 @@ extension DependencyContainer: ViewModelFactory {
             showFiltersHandler: showFiltersHandler
         )
     }
-    
+
+
+	func makeEventDetailsViewModel(eventId: String) -> EventDetailsViewModel {
+		.init(eventShortClient: eventShortClient, eventId: eventId)
+	}
+
+	func makeEventDetailsViewModel(event: Event) -> EventDetailsViewModel {
+		.init(eventShortClient: eventShortClient, event: event)
+	}
+
     func makeEventFiltersViewModel(
         showFilteredResultsHandler: @escaping () -> Void
     ) -> EventFiltersViewModel {
@@ -202,7 +211,13 @@ extension DependencyContainer: ViewControllerFactory {
     func makeEventListViewController() -> EventListViewController {
         .init(items: [])
     }
-    
+
+	func makeEventPageViewController(
+		viewModel: EventDetailsViewModel
+	) -> EventPageViewController {
+		.init(viewModel: viewModel)
+	}
+
     func makeEventFiltersViewController(
         viewModel: EventFiltersViewModel
     ) -> EventFiltersViewController {

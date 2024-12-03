@@ -15,11 +15,15 @@ import PeopleClient
 protocol ViewControllerFactory {
     
     func makeEventListViewController() -> EventListViewController
-    
+
+	func makeEventPageViewController(
+		viewModel: EventDetailsViewModel
+	) -> EventPageViewController
+
     func makeEventFiltersViewController(
         viewModel: EventFiltersViewModel
     ) -> EventFiltersViewController
-    
+
     func makeWelcomeViewController(
         viewModel: WelcomeViewModel
     ) -> AuthWelcomeViewController

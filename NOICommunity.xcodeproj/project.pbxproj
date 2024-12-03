@@ -35,6 +35,8 @@
 		31178FE026FA318800BDCDAA /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31178FDF26FA318800BDCDAA /* Collection.swift */; };
 		311E0EC62825157800404DCE /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 311E0EC52825157800404DCE /* FirebaseMessaging */; };
 		3121AFDE2858B43A00248CDF /* MeetMainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3121AFDD2858B43A00248CDF /* MeetMainViewController.xib */; };
+		31260A632CFF611B00ADBDEF /* EventPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31260A622CFF610F00ADBDEF /* EventPageViewController.swift */; };
+		31260A652CFF68CF00ADBDEF /* EventDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31260A642CFF68CF00ADBDEF /* EventDetailsViewModel.swift */; };
 		3126E7252B287F670013F456 /* LoadUserInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3126E7242B287F670013F456 /* LoadUserInfoViewModel.swift */; };
 		3126E7272B2882620013F456 /* CacheKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3126E7262B2882620013F456 /* CacheKey.swift */; };
 		312BBB5B2832658600AF84F0 /* UIViewController+PresentMailCompose.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312BBB5A2832658600AF84F0 /* UIViewController+PresentMailCompose.swift */; };
@@ -274,6 +276,8 @@
 		31178FDD26FA2F7100BDCDAA /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		31178FDF26FA318800BDCDAA /* Collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
 		3121AFDD2858B43A00248CDF /* MeetMainViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MeetMainViewController.xib; sourceTree = "<group>"; };
+		31260A622CFF610F00ADBDEF /* EventPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventPageViewController.swift; sourceTree = "<group>"; };
+		31260A642CFF68CF00ADBDEF /* EventDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailsViewModel.swift; sourceTree = "<group>"; };
 		3126E7242B287F670013F456 /* LoadUserInfoViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadUserInfoViewModel.swift; sourceTree = "<group>"; };
 		3126E7262B2882620013F456 /* CacheKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheKey.swift; sourceTree = "<group>"; };
 		312BBB5A2832658600AF84F0 /* UIViewController+PresentMailCompose.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+PresentMailCompose.swift"; sourceTree = "<group>"; };
@@ -757,6 +761,7 @@
 		316A82902CFF1FF0002D62D3 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				31260A622CFF610F00ADBDEF /* EventPageViewController.swift */,
 				316A82872CFF1FF0002D62D3 /* EventDetailsViewController.swift */,
 				316A82882CFF1FF0002D62D3 /* EventDetailsViewController.xib */,
 				316A82892CFF1FF0002D62D3 /* EventFiltersListViewController.swift */,
@@ -773,6 +778,7 @@
 		316A82952CFF1FF0002D62D3 /* View Models */ = {
 			isa = PBXGroup;
 			children = (
+				31260A642CFF68CF00ADBDEF /* EventDetailsViewModel.swift */,
 				316A82912CFF1FF0002D62D3 /* DateIntervalFilter.swift */,
 				316A82922CFF1FF0002D62D3 /* Event.swift */,
 				316A82932CFF1FF0002D62D3 /* EventFiltersViewModel.swift */,
@@ -1303,6 +1309,7 @@
 				31157D1926FCA1EB00A43B33 /* WebViewController.swift in Sources */,
 				31AD1DB22B27947B006F71A4 /* ComeOnBoardOnboardingViewModel.swift in Sources */,
 				312F5D272808250000C84598 /* AuthWelcomeViewController.swift in Sources */,
+				31260A652CFF68CF00ADBDEF /* EventDetailsViewModel.swift in Sources */,
 				3185AA172820005700767E31 /* KeychainAuthStateStorageClient.swift in Sources */,
 				31157D1526FC83FE00A43B33 /* UIViewController+ShowCalenderError.swift in Sources */,
 				31CF8132270B49100077CB0D /* VersionContentView.swift in Sources */,
@@ -1377,6 +1384,7 @@
 				313010CB2845F99900AF6520 /* UIViewController+DirectionActionSheet.swift in Sources */,
 				31E7872627D8918800C67188 /* UIImageAdditions.swift in Sources */,
 				313010CF28463F1000AF6520 /* ContentConfiguration.swift in Sources */,
+				31260A632CFF611B00ADBDEF /* EventPageViewController.swift in Sources */,
 				3185AA15281FEAE900767E31 /* AccessNotGrantedViewController.swift in Sources */,
 				317B6FA428118C95008D07C0 /* DependencyRepresentable.swift in Sources */,
 				31B192782C6A434B009872E9 /* BaseWindow.swift in Sources */,

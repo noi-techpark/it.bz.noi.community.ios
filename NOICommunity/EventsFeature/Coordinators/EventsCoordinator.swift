@@ -23,7 +23,6 @@ final class EventsCoordinator: BaseNavigationCoordinator {
     
     private var mainVC: EventsMainViewController!
     private var eventsViewModel: EventsViewModel!
-    //private var navigationDelegate: EventsNavigationControllerDelegate!
     private lazy var eventFiltersViewModel = dependencyContainer
         .makeEventFiltersViewModel { [weak self] in
             self?.closeFilters()
@@ -31,21 +30,13 @@ final class EventsCoordinator: BaseNavigationCoordinator {
     private var subscriptions: Set<AnyCancellable> = []
 
     override func start(animated: Bool) {
-//        navigationDelegate = EventsNavigationControllerDelegate(
-//            navigationController: navigationController
-//        )
-//        navigationController.delegate = navigationDelegate
         let eventsViewModel = dependencyContainer.makeEventsViewModel { [weak self] in
             self?.goToFilters()
         }
         self.eventsViewModel = eventsViewModel
         mainVC = EventsMainViewController(viewModel: eventsViewModel)
-        mainVC.didSelectHandler = { [weak self] collectionView, _, indexPath, event in
-            self?.goToDetails(
-                of: event,
-                transitionCollectionView: collectionView,
-                transitionIndexPath: indexPath
-            )
+        mainVC.didSelectHandler = { [weak self] _, _, _, event in
+            self?.goToDetails(of: event)
         }
         mainVC.tabBarItem.title = .localized("events_top_tab")
 
@@ -111,48 +102,29 @@ private extension EventsCoordinator {
         )
     }
 
-    func goToDetails(
-        of event: Event,
-        transitionCollectionView: UICollectionView? = nil,
-        transitionIndexPath: IndexPath? = nil
-    ) {
-//        let transitionId = "event_\(event.id)"
-//        if
-//            let transitionCollectionView = transitionCollectionView,
-//            let transitionIndexPath = transitionIndexPath {
-//            let transitionInfo = EventsNavigationControllerDelegate.TransitionInfo(
-//                id: transitionId,
-//                collectionView: transitionCollectionView,
-//                indexPath: transitionIndexPath,
-//                event: event
-//            )
-//            navigationDelegate.transitionInfos.append(transitionInfo)
-//        }
+    func goToDetails(of event: Event) {
+		let viewModel = dependencyContainer.makeEventDetailsViewModel(
+			event: event
+		)
+		let pageVC = {
+			let pageVC = dependencyContainer.makeEventPageViewController(
+				viewModel: viewModel
+			)
+			pageVC.addToCalendarActionHandler = { [weak self] in
+				self?.addEventToCalendar($0)
+			}
+			pageVC.locateActionHandler = { [weak self] in
+				self?.locateEvent($0)
+			}
+			pageVC.signupActionHandler = { [weak self] in
+				self?.signupEvent($0)
+			}
+			pageVC.navigationItem.title = event.title
+			pageVC.navigationItem.largeTitleDisplayMode = .never
 
-        let detailVC = EventDetailsViewController(
-            for: event,
-               relatedEvents: eventsViewModel.relatedEvent(of: event)
-        )
-        //detailVC.cardView.transitionId = transitionId
-        detailVC.addToCalendarActionHandler = { [weak self] in
-            self?.addEventToCalendar($0)
-        }
-        detailVC.locateActionHandler = { [weak self] in
-            self?.locateEvent($0)
-        }
-        detailVC.signupActionHandler = { [weak self] in
-            self?.signupEvent($0)
-        }
-        detailVC.didSelectRelatedEventHandler = { [weak self] collectionView, _, indexPath, selectedEvent in
-            self?.goToDetails(
-                of: selectedEvent,
-                transitionCollectionView: collectionView,
-                transitionIndexPath: indexPath
-            )
-        }
-        detailVC.navigationItem.title = event.title
-        detailVC.navigationItem.largeTitleDisplayMode = .never
-        navigationController.pushViewController(detailVC, animated: true)
+			return pageVC
+		}()
+        navigationController.pushViewController(pageVC, animated: true)
     }
 
     func goToFilters() {

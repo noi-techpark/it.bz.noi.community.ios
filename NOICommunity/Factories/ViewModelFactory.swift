@@ -18,6 +18,14 @@ protocol ViewModelFactory {
         showFiltersHandler: @escaping () -> Void
     ) -> EventsViewModel
 
+	func makeEventDetailsViewModel(
+		eventId: String
+	) -> EventDetailsViewModel
+
+	func makeEventDetailsViewModel(
+		event: Event
+	) -> EventDetailsViewModel
+
     func makeEventFiltersViewModel(
         showFilteredResultsHandler: @escaping () -> Void
     ) -> EventFiltersViewModel

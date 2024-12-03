@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
@@ -20,10 +20,6 @@
                 <outlet property="contentStackView" destination="Ms9-9u-gmy" id="LSs-vh-Vil"/>
                 <outlet property="descriptionTextView" destination="yHa-xw-ydP" id="h3j-Ue-4ex"/>
                 <outlet property="locateEventButton" destination="kST-yx-x1w" id="27l-Dt-5PT"/>
-                <outlet property="relatedEventsContainerView" destination="4Am-sS-Faf" id="gNJ-lX-dKH"/>
-                <outlet property="relatedEventsContainerViewHeight" destination="t4O-OV-xfG" id="qsW-4l-hpy"/>
-                <outlet property="relatedEventsLabel" destination="tFh-cA-dVL" id="DYn-d2-u3e"/>
-                <outlet property="relatedSection" destination="2PU-Pp-kjG" id="rzK-oa-r4H"/>
                 <outlet property="scrollView" destination="QeO-FA-lUc" id="YVH-xN-i78"/>
                 <outlet property="signupButton" destination="Y3W-5G-W9S" id="3A7-Hm-k4H"/>
                 <outlet property="view" destination="iN0-l3-epB" id="Rr7-cF-DkH"/>
@@ -38,7 +34,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="375" height="658"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Ms9-9u-gmy">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="1200.3333333333333"/>
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="745.66666666666663"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uP2-sL-Mq1">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="745.66666666666663"/>
@@ -69,35 +65,6 @@
                                         <constraint firstItem="WDF-Vn-O75" firstAttribute="bottom" secondItem="DNt-cv-3h7" secondAttribute="bottom" id="FCv-fg-Yfx"/>
                                         <constraint firstItem="DNt-cv-3h7" firstAttribute="leading" secondItem="WDF-Vn-O75" secondAttribute="leading" constant="17" id="KUC-wh-UH7"/>
                                         <constraint firstItem="WDF-Vn-O75" firstAttribute="trailing" secondItem="DNt-cv-3h7" secondAttribute="trailing" constant="17" id="Oo4-qK-e1b"/>
-                                    </constraints>
-                                </view>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2PU-Pp-kjG">
-                                    <rect key="frame" x="0.0" y="765.66666666666663" width="375" height="434.66666666666663"/>
-                                    <subviews>
-                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacingType="standard" baselineRelativeArrangement="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ehj-hr-rpd">
-                                            <rect key="frame" x="17" y="0.0" width="341" height="434.66666666666669"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Interesting for you?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tFh-cA-dVL">
-                                                    <rect key="frame" x="0.0" y="0.0" width="341" height="26.333333333333332"/>
-                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
-                                                    <color key="textColor" name="secondary_color"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Am-sS-Faf">
-                                                    <rect key="frame" x="0.0" y="34.666666666666742" width="341" height="400"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="400" id="t4O-OV-xfG"/>
-                                                    </constraints>
-                                                </view>
-                                            </subviews>
-                                        </stackView>
-                                    </subviews>
-                                    <viewLayoutGuide key="safeArea" id="Vo2-zi-E9a"/>
-                                    <constraints>
-                                        <constraint firstItem="ehj-hr-rpd" firstAttribute="top" secondItem="Vo2-zi-E9a" secondAttribute="top" id="2qf-IG-BxP"/>
-                                        <constraint firstItem="Vo2-zi-E9a" firstAttribute="trailing" secondItem="ehj-hr-rpd" secondAttribute="trailing" constant="17" id="Ajo-kT-Tw8"/>
-                                        <constraint firstItem="ehj-hr-rpd" firstAttribute="leading" secondItem="Vo2-zi-E9a" secondAttribute="leading" constant="17" id="VC1-r3-HCb"/>
-                                        <constraint firstItem="ehj-hr-rpd" firstAttribute="bottom" secondItem="Vo2-zi-E9a" secondAttribute="bottom" id="pm9-64-nTW"/>
                                     </constraints>
                                 </view>
                             </subviews>

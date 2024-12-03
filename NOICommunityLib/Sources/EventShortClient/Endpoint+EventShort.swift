@@ -214,7 +214,7 @@ extension Endpoint {
 
 			if let fields {
 				URLQueryItem(
-					name: "optimizedates",
+					name: "fields",
 					value: fields.joined(separator: ",")
 				)
 			}
