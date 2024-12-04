@@ -132,10 +132,7 @@ class EventDetailsViewController: UIViewController {
 private extension EventDetailsViewController {
     func configureViewHierarchy() {
         var contentConfiguration = EventCardContentConfiguration.makeDetailedContentConfiguration(for: event)
-        defer {
-            _cardView = contentConfiguration.makeContentView()
-            contentStackView.insertArrangedSubview(_cardView, at: 0)
-        }
+		_cardView = contentConfiguration.makeContentView()
         
         if let imageURL = event.imageURL {
             KingfisherManager.shared.retrieveImage(with: imageURL) { [weak _cardView] result in
@@ -152,6 +149,8 @@ private extension EventDetailsViewController {
         } else {
             addToCalendarButton.removeFromSuperview()
         }
+
+		contentStackView.insertArrangedSubview(_cardView, at: 0)
     }
     
     @IBAction func findOnMapsAction(sender: Any?) {
