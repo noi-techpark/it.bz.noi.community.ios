@@ -102,7 +102,7 @@ private extension AccessNotGrantedViewController {
             let detailedAttributedText: NSAttributedString = {
                 let text = String.localizedStringWithFormat(
                     .localized("outsider_user_body_format"),
-                    userInfo.email ?? "N/D"
+                    userInfo.email ?? .localized("label_no_value")
                 )
                 let mAttributedText = NSMutableAttributedString(string: text,
                                                                 attributes: [
