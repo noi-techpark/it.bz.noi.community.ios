@@ -18,7 +18,7 @@ import EventShortTypesClientLive
 import Core
 import AuthClientLive
 import AuthStateStorageClient
-import ArticlesClientLive
+import ArticlesClient
 import PeopleClientLive
 
 #if DEBUG
@@ -77,7 +77,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                     return .live()
                 }
             }(),
-            articleClient: .live(),
+			articleClient: ArticlesClientImplementation(
+				baseURL: EventsFeatureConstants.clientBaseURL,
+				transport: URLSession.shared
+			),
             peopleClient: .live(baseURL: MeetConstant.clientBaseURL)
         )
     }()

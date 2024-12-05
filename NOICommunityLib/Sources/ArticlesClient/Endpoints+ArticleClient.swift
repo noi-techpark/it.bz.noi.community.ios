@@ -3,15 +3,14 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 //
-//  Endpoints.swift
-//  ArticlesClientLive
+//  Endpoints+ArticleClient.swift
+//  ArticlesClient
 //
 //  Created by Matteo Matassoni on 11/05/22.
 //
 
 import Foundation
 import Core
-import ArticlesClient
 
 private let dateFormatter: DateFormatter = { dateFormatter in
     dateFormatter.calendar = Calendar(identifier: .iso8601)
@@ -24,16 +23,18 @@ private let dateFormatter: DateFormatter = { dateFormatter in
 extension Endpoint {
     
     static func articleList(
-        startDate: Date,
+        startDate: Date?,
         publishedon: String?,
         pageSize: Int?,
         pageNumber: Int?
     ) -> Endpoint {
         Self(path: "/v1/Article") {
-            URLQueryItem(
-                name: "startDate",
-                value: dateFormatter.string(from: startDate)
-            )
+			if let startDate {
+				URLQueryItem(
+					name: "startDate",
+					value: dateFormatter.string(from: startDate)
+				)
+			}
 
             if let publishedon = publishedon {
                 URLQueryItem(

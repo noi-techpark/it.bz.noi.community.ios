@@ -32,8 +32,6 @@ final class NewsDetailsViewModel {
     lazy var showAskAQuestionPublisher = showAskAQuestionSubject
         .eraseToAnyPublisher()
     
-    private var fetchRequestCancellable: AnyCancellable?
-    
     init(
         articlesClient: ArticlesClient,
         availableNews: Article?,
@@ -45,24 +43,9 @@ final class NewsDetailsViewModel {
     }
     
     func refreshNewsDetails(newsId: String) {
-        isLoading = true
-        
-        fetchRequestCancellable = articlesClient.detail(newsId)
-        .receive(on: DispatchQueue.main)
-        .sink(
-            receiveCompletion: { [weak self] completion in
-                self?.isLoading = false
-                
-                switch completion {
-                case .finished:
-                    break
-                case .failure(let error):
-                    self?.error = error
-                }
-            },
-            receiveValue: { [weak self] in
-                self?.result = $0
-            })
+		Task(priority: .userInitiated) { [weak self] in
+			await self?.performRefreshNewsDetails(newsId: newsId)
+		}
     }
     
     func showExternalLink(sender: Any?) {
@@ -73,4 +56,23 @@ final class NewsDetailsViewModel {
         showAskAQuestionSubject.send((result, sender))
     }
     
+}
+
+// MARK: Private APIs
+
+private extension NewsDetailsViewModel {
+
+	func performRefreshNewsDetails(newsId: String) async {
+		isLoading = true
+		defer {
+			isLoading = false
+		}
+
+		do {
+			result = try await articlesClient.getArticle(newsId: newsId)
+		} catch {
+			self.error = error
+		}
+	}
+
 }

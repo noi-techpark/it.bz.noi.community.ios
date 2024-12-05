@@ -158,7 +158,6 @@
 		319C0E9A26F3483600C6D38B /* UIControl+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319C0E9926F3483600C6D38B /* UIControl+Combine.swift */; };
 		319C0EA026F4790300C6D38B /* CalendarAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319C0E9F26F4790300C6D38B /* CalendarAdditions.swift */; };
 		319C4653282BB32400946AC7 /* ArticlesClient in Frameworks */ = {isa = PBXBuildFile; productRef = 319C4652282BB32400946AC7 /* ArticlesClient */; };
-		319C4655282BB32400946AC7 /* ArticlesClientLive in Frameworks */ = {isa = PBXBuildFile; productRef = 319C4654282BB32400946AC7 /* ArticlesClientLive */; };
 		319C465A282BBD8000946AC7 /* NewsListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319C4657282BB80F00946AC7 /* NewsListViewModel.swift */; };
 		319C465C282BBE5100946AC7 /* XCTestCase+awaitPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319C465B282BBE5100946AC7 /* XCTestCase+awaitPublisher.swift */; };
 		319C465E282BCC5D00946AC7 /* collectNext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319C465D282BCC5D00946AC7 /* collectNext.swift */; };
@@ -477,7 +476,6 @@
 				31E058F22812F18800D1F7FE /* KeychainAccess in Frameworks */,
 				319C4653282BB32400946AC7 /* ArticlesClient in Frameworks */,
 				3182F4A427DB3841005ADDAF /* AppPreferencesClientLive in Frameworks */,
-				319C4655282BB32400946AC7 /* ArticlesClientLive in Frameworks */,
 				317B6F9C28118BD6008D07C0 /* AuthClient in Frameworks */,
 				3182F4AC27DB3841005ADDAF /* EventShortTypesClientLive in Frameworks */,
 				311E0EC62825157800404DCE /* FirebaseMessaging in Frameworks */,
@@ -1093,7 +1091,6 @@
 				31E058F12812F18800D1F7FE /* KeychainAccess */,
 				311E0EC52825157800404DCE /* FirebaseMessaging */,
 				319C4652282BB32400946AC7 /* ArticlesClient */,
-				319C4654282BB32400946AC7 /* ArticlesClientLive */,
 				317EC888283BB83E00F30B95 /* PeopleClient */,
 				317EC88A283BB83E00F30B95 /* PeopleClientLive */,
 				3181B9202B1E12BD000D2A0F /* Core */,
@@ -2361,10 +2358,6 @@
 		319C4652282BB32400946AC7 /* ArticlesClient */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = ArticlesClient;
-		};
-		319C4654282BB32400946AC7 /* ArticlesClientLive */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = ArticlesClientLive;
 		};
 		31B1926E2C6A2136009872E9 /* FirebaseCrashlytics */ = {
 			isa = XCSwiftPackageProductDependency;

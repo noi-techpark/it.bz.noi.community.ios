@@ -149,7 +149,7 @@ public final class EventShortClientImplementation: EventShortClient {
 		optimizeDates: Bool?,
 		fields: [String]?,
 		removeNullValues: Bool?
-	) async throws -> EventShort {
+	) async throws -> EventShort {		
 		let request = Endpoint
 			.eventShort(
 				id: id,

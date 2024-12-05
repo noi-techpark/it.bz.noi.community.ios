@@ -57,10 +57,6 @@ let package = Package(
             targets: ["ArticlesClient"]
         ),
         .library(
-            name: "ArticlesClientLive",
-            targets: ["ArticlesClientLive"]
-        ),
-        .library(
             name: "PeopleClient",
             targets: ["PeopleClient"]
         ),
@@ -154,14 +150,9 @@ let package = Package(
         ),
         .target(
             name: "ArticlesClient",
-            dependencies: []
-        ),
-        .target(
-            name: "ArticlesClientLive",
             dependencies: [
-                "Core",
-                "ArticlesClient",
-            ]
+				"Core"
+			]
         ),
         .target(
             name: "PeopleClient",
