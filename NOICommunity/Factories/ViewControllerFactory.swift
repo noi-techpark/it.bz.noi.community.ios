@@ -40,10 +40,9 @@ protocol ViewControllerFactory {
         viewModel: NewsListViewModel
     ) -> NewsViewController
     
-    func makeNewsDetailsViewController(
-        newsId: String,
+    func makeNewsPageViewController(
         viewModel: NewsDetailsViewModel
-    ) -> NewsDetailsViewController
+    ) -> NewsPageViewController
     
     func makeMeetMainViewController(
         viewModel: PeopleViewModel

@@ -177,18 +177,24 @@ private extension AppCoordinator {
         showAuthCoordinator(animated: animated)
     }
     
-    func showNewsExternalLink(of news: Article, sender: Any?) {
+	func showNewsExternalLink(
+		of news: Article,
+		from viewController: UIViewController
+	) {
         let author = localizedValue(from: news.languageToAuthor)
         let safariVC = SFSafariViewController(url: author!.externalURL!)
-        navigationController.presentedViewController?.present(
+		navigationController.presentedViewController?.present(
             safariVC,
             animated: true
         )
     }
     
-    func showNewsAskAQuestion(for news: Article, sender: Any?) {
+    func showNewsAskAQuestion(
+		for news: Article,
+		from viewController: UIViewController
+	) {
         let author = localizedValue(from: news.languageToAuthor)
-        navigationController.presentedViewController?.mailTo(
+		navigationController.presentedViewController?.mailTo(
             author!.email!,
             delegate: self,
             completion: nil
@@ -198,25 +204,13 @@ private extension AppCoordinator {
     func showNewsDetails(newsId: String, sender: Any?) {
         func configureBindings(
             viewModel: NewsDetailsViewModel,
-            detailsViewController: NewsDetailsViewController
+			pageViewController: NewsPageViewController
         ) {
-            viewModel.showExternalLinkPublisher
-				.receive(on: DispatchQueue.main)
-                .sink { [weak self] (news, sender) in
-                    self?.showNewsExternalLink(of: news, sender: sender)
-                }
-                .store(in: &subscriptions)
-            viewModel.showAskAQuestionPublisher
-				.receive(on: DispatchQueue.main)
-                .sink { [weak self] (news, sender) in
-                    self?.showNewsAskAQuestion(for: news, sender: sender)
-                }
-                .store(in: &subscriptions)
             viewModel.$result
 				.compactMap { $0 }
 				.receive(on: DispatchQueue.main)
-                .sink { [weak detailsViewController] news in
-                    detailsViewController?.navigationItem.title = localizedValue(
+                .sink { [weak pageViewController] news in
+					pageViewController?.navigationItem.title = localizedValue(
                         from: news.languageToDetails
                     )?
                         .title
@@ -225,31 +219,46 @@ private extension AppCoordinator {
         }
         
         let viewModel = dependencyContainer.makeNewsDetailsViewModel(
-            availableNews: nil
+			newsId: newsId
         )
-        
-        let detailsVC = dependencyContainer.makeNewsDetailsViewController(
-            newsId: newsId,
-            viewModel: viewModel
-        )
-        
+		let pageVC = {
+			let pageVC = dependencyContainer.makeNewsPageViewController(
+				viewModel: viewModel
+			)
+
+			pageVC.externalLinkActionHandler = { [weak self, weak pageVC] in
+				guard let pageVC
+				else { return }
+
+				self?.showNewsExternalLink(of: $0, from: pageVC)
+			}
+			pageVC.askQuestionActionHandler = { [weak self, weak pageVC] in
+				guard let pageVC
+				else { return }
+
+				self?.showNewsAskAQuestion(for: $0, from: pageVC)
+			}
+
+			pageVC.navigationItem.title = nil
+			pageVC.navigationItem.largeTitleDisplayMode = .never
+			pageVC.navigationItem.leftBarButtonItem = UIBarButtonItem(
+				image: UIImage(systemName: "xmark.circle.fill"),
+				style: .plain,
+				target: self,
+				action: #selector(closeModal(sender:))
+			)
+			pageVC.modalPresentationStyle = .fullScreen
+
+			return pageVC
+		}()
+
         configureBindings(
             viewModel: viewModel,
-            detailsViewController: detailsVC
+			pageViewController: pageVC
         )
-        
-        detailsVC.navigationItem.title = nil
-        detailsVC.navigationItem.largeTitleDisplayMode = .never
-        detailsVC.navigationItem.leftBarButtonItem = UIBarButtonItem(
-            image: UIImage(systemName: "xmark.circle.fill"),
-            style: .plain,
-            target: self,
-            action: #selector(closeModal(sender:))
-        )
-        detailsVC.modalPresentationStyle = .fullScreen
         
         navigationController.present(
-            NavigationController(rootViewController: detailsVC),
+            NavigationController(rootViewController: pageVC),
             animated: true
         )
     }
@@ -320,6 +329,7 @@ private extension AppCoordinator {
 			let pageVC = dependencyContainer.makeEventPageViewController(
 				viewModel: viewModel
 			)
+
 			pageVC.addToCalendarActionHandler = { [weak self, weak pageVC] in
 				guard let pageVC
 				else { return }
@@ -339,6 +349,7 @@ private extension AppCoordinator {
 
 				self?.signupEvent($0, from: pageVC)
 			}
+
 			pageVC.navigationItem.title = nil
 			pageVC.navigationItem.largeTitleDisplayMode = .never
 			pageVC.navigationItem.leftBarButtonItem = UIBarButtonItem(
@@ -348,6 +359,7 @@ private extension AppCoordinator {
 				action: #selector(closeModal(sender:))
 			)
 			pageVC.modalPresentationStyle = .fullScreen
+
 			return pageVC
 		}()
 

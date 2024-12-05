@@ -181,13 +181,17 @@ extension DependencyContainer: ViewModelFactory {
     func makeNewsListViewModel() -> NewsListViewModel {
         .init(articlesClient: makeArticlesClient())
     }
-    
-    func makeNewsDetailsViewModel(availableNews: Article?) -> NewsDetailsViewModel {
-        .init(
-            articlesClient: makeArticlesClient(),
-            availableNews: availableNews,
-            language: nil
-        )
+
+	func makeNewsDetailsViewModel(
+		newsId: String
+	) -> NewsDetailsViewModel {
+		.init(articlesClient: makeArticlesClient(), newsId: newsId)
+	}
+
+	func makeNewsDetailsViewModel(
+		news: Article
+	) -> NewsDetailsViewModel {
+		.init(articlesClient: makeArticlesClient(), news: news)
     }
     
     func makePeopleViewModel() -> PeopleViewModel {
@@ -248,11 +252,10 @@ extension DependencyContainer: ViewControllerFactory {
         .init(viewModel: viewModel)
     }
     
-    func makeNewsDetailsViewController(
-        newsId: String,
-        viewModel: NewsDetailsViewModel
-    ) -> NewsDetailsViewController {
-        .init(newsId: newsId, viewModel: viewModel)
+	func makeNewsPageViewController(
+		viewModel: NewsDetailsViewModel
+	) -> NewsPageViewController {
+        .init(viewModel: viewModel)
     }
     
     func makeMeetMainViewController(

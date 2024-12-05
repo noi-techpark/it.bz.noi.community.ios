@@ -14,22 +14,15 @@ import Combine
 import ArticlesClient
 
 class NewsDetailsViewController: UIViewController {
+
+	let news: Article
+
+    var externalLinkActionHandler: ((Article) -> Void)?
     
-    let newsId: String
-    
-    let viewModel: NewsDetailsViewModel
-    
-    var externalLinkActionHandler: ((Article, Any?) -> Void)?
-    
-    var askQuestionActionHandler: ((Article, Any?) -> Void)?
-    
-    private var subscriptions: Set<AnyCancellable> = []
-    
-    private lazy var refreshControl: UIRefreshControl = { refreshControl in
-        scrollView.refreshControl = refreshControl
-        return refreshControl
-    }(UIRefreshControl())
-    
+    var askQuestionActionHandler: ((Article) -> Void)?
+
+	private var subscriptions: Set<AnyCancellable> = []
+
     @IBOutlet private var scrollView: UIScrollView!
     
     @IBOutlet private var containerView: UIView!
@@ -100,12 +93,11 @@ class NewsDetailsViewController: UIViewController {
         spacing: 17,
         placeholderImage: .image(withColor: .noiPlaceholderImageColor)
     )
-    
-    init(newsId: String, viewModel: NewsDetailsViewModel) {
-        self.newsId = newsId
-        self.viewModel = viewModel
-        super.init(nibName: "\(NewsDetailsViewController.self)", bundle: nil)
-    }
+
+	init(for item: Article) {
+		self.news = item
+		super.init(nibName: "\(NewsDetailsViewController.self)", bundle: nil)
+	}
     
     @available(*, unavailable)
     required init?(coder: NSCoder) {
@@ -115,20 +107,6 @@ class NewsDetailsViewController: UIViewController {
     @available(*, unavailable)
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         fatalError("\(#function) not available")
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        configureBindings()
-        
-        refreshControl = .init()
-        
-        if let news = viewModel.result {
-            updateUI(news: news)
-        } else {
-            viewModel.refreshNewsDetails(newsId: newsId)
-        }
     }
     
     override func traitCollectionDidChange(
@@ -163,7 +141,59 @@ class NewsDetailsViewController: UIViewController {
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .lightContent
     }
-    
+
+	override func viewDidLoad() {
+		super.viewDidLoad()
+
+		configureBindings()
+		let author = localizedValue(from: news.languageToAuthor)
+
+		imageView.kf.setImage(with: author?.logoURL)
+
+		authorLabel.text = author?.name ?? .notDefined
+
+		if author?.externalURL == nil {
+			externalLinkButton.removeFromSuperview()
+		}
+		if author?.email == nil {
+			askQuestionButton.removeFromSuperview()
+		}
+		if actionsStackView.subviews.isEmpty {
+			footerView.removeFromSuperview()
+		}
+
+		publishedDateLabel.text = news.date
+			.flatMap { publishedDateFormatter.string(from: $0) }
+
+		let details = localizedValue(from: news.languageToDetails)
+		titleLabel.text = details?.title
+		abstractLabel.text = details?.abstract
+
+		textView.attributedText = details?.attributedText()?
+			.updatedFonts(usingTextStyle: .body)
+
+
+		if details?.text == nil {
+			textView.removeFromSuperview()
+		}
+
+		if news.imageGallery.isNilOrEmpty {
+			galleryContainerView.removeFromSuperview()
+		} else {
+			galleryVC.imageURLs = news.imageGallery?.compactMap(\.url) ?? []
+			if galleryVC.parent != self {
+				embedChild(galleryVC, in: galleryContainerView)
+			}
+		}
+
+		if galleryTextStackView.subviews.isEmpty {
+			NSLayoutConstraint.deactivate(fullDetailConstraints)
+			NSLayoutConstraint.activate(shortDetailConstraints)
+
+			galleryTextStackView.removeFromSuperview()
+		}
+	}
+
 }
 
 // UITextViewDelegate
@@ -188,107 +218,27 @@ private extension NewsDetailsViewController {
     
     func configureBindings() {
         externalLinkButton.publisher(for: .primaryActionTriggered)
-            .sink { [weak viewModel, externalLinkButton] in
-                viewModel?.showExternalLink(sender: externalLinkButton)
+            .sink { [weak self] in
+				guard let self
+				else { return }
+
+				self.externalLinkActionHandler?(self.news)
             }
             .store(in: &subscriptions)
         
         askQuestionButton.publisher(for: .primaryActionTriggered)
-            .sink { [weak viewModel, askQuestionButton] in
-                viewModel?.showAskAQuestion(sender: askQuestionButton)
-            }
-            .store(in: &subscriptions)
-        
-        refreshControl.publisher(for: .valueChanged)
-            .sink { [weak viewModel, newsId] in
-                viewModel?.refreshNewsDetails(newsId: newsId)
-            }
-            .store(in: &subscriptions)
-        
-        viewModel.$isLoading
-            .receive(on: DispatchQueue.main)
-            .sink(receiveValue: { [unowned refreshControl] isLoading in
-                refreshControl.isLoading = isLoading
-            })
-            .store(in: &subscriptions)
-        
-        viewModel.$result
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] in
-                self?.updateUI(news: $0)
-            }
-            .store(in: &subscriptions)
-        
-        viewModel.$error
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] error in
-                guard let error = error
-                else { return }
-                
-                self?.showError(error)
-            }
+			.sink { [weak self] in
+				guard let self
+				else { return }
+
+				self.askQuestionActionHandler?(self.news)
+			}
             .store(in: &subscriptions)
     }
     
-    func updateUI(news: Article?) {
-        guard let news = news else {
-            containerView.isHidden = true
-            footerView.isHidden = true
-            return
-        }
-        
-        let author = localizedValue(from: news.languageToAuthor)
-        
-        imageView.kf.setImage(with: author?.logoURL)
-        
-        authorLabel.text = author?.name ?? .notDefined
-        
-        if author?.externalURL == nil {
-            externalLinkButton.removeFromSuperview()
-        }
-        if author?.email == nil {
-            askQuestionButton.removeFromSuperview()
-        }
-        if actionsStackView.subviews.isEmpty {
-            footerView.removeFromSuperview()
-        }
-        
-        publishedDateLabel.text = news.date
-            .flatMap { publishedDateFormatter.string(from: $0) }
-        
-        let details = localizedValue(from: news.languageToDetails)
-        titleLabel.text = details?.title
-        abstractLabel.text = details?.abstract
-        
-        textView.attributedText = details?.attributedText()?
-            .updatedFonts(usingTextStyle: .body)
-        
-        
-        if details?.text == nil {
-            textView.removeFromSuperview()
-        }
-        
-        if news.imageGallery.isNilOrEmpty {
-            galleryContainerView.removeFromSuperview()
-        } else {
-            galleryVC.imageURLs = news.imageGallery?.compactMap(\.url) ?? []
-            if galleryVC.parent != self {
-                embedChild(galleryVC, in: galleryContainerView)
-            }
-        }
-        
-        if galleryTextStackView.subviews.isEmpty {
-            NSLayoutConstraint.deactivate(fullDetailConstraints)
-            NSLayoutConstraint.activate(shortDetailConstraints)
-            
-            galleryTextStackView.removeFromSuperview()
-        }
-        
-        containerView.isHidden = false
-        footerView.isHidden = false
-    }
-    
-    func preferredContentSizeCategoryDidChange(previousPreferredContentSizeCategory: UIContentSizeCategory?) {
+    func preferredContentSizeCategoryDidChange(
+		previousPreferredContentSizeCategory: UIContentSizeCategory?
+	) {
         textView.attributedText = textView.attributedText?.updatedFonts(usingTextStyle: .body)
     }
     

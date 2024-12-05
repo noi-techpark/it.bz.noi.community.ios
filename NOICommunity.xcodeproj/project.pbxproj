@@ -224,6 +224,7 @@
 		31F0DBD3280F0D3D00E782D5 /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F0DBD2280F02DC00E782D5 /* AuthCoordinator.swift */; };
 		31FAEA7D28197D9700CDBC1B /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FAEA7C28197D9700CDBC1B /* AppCoordinator.swift */; };
 		31FAEA7F28197EC200CDBC1B /* NavigationCoordinatorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FAEA7E28197EC200CDBC1B /* NavigationCoordinatorType.swift */; };
+		31FFE9502D01E068007C699B /* NewsPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FFE94F2D01E065007C699B /* NewsPageViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -458,6 +459,7 @@
 		31F0DBD2280F02DC00E782D5 /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
 		31FAEA7C28197D9700CDBC1B /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		31FAEA7E28197EC200CDBC1B /* NavigationCoordinatorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationCoordinatorType.swift; sourceTree = "<group>"; };
+		31FFE94F2D01E065007C699B /* NewsPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsPageViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -523,6 +525,7 @@
 		3102F45C282C069500687CF7 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				31FFE94F2D01E065007C699B /* NewsPageViewController.swift */,
 				3102F45E282C06B700687CF7 /* NewsViewController.swift */,
 				3182A1BC282D5159005439B4 /* NewsDetailsViewController.swift */,
 				3182A1BD282D5159005439B4 /* NewsDetailsViewController.xib */,
@@ -1305,6 +1308,7 @@
 				31FAEA7F28197EC200CDBC1B /* NavigationCoordinatorType.swift in Sources */,
 				31157D1926FCA1EB00A43B33 /* WebViewController.swift in Sources */,
 				31AD1DB22B27947B006F71A4 /* ComeOnBoardOnboardingViewModel.swift in Sources */,
+				31FFE9502D01E068007C699B /* NewsPageViewController.swift in Sources */,
 				312F5D272808250000C84598 /* AuthWelcomeViewController.swift in Sources */,
 				31260A652CFF68CF00ADBDEF /* EventDetailsViewModel.swift in Sources */,
 				3185AA172820005700767E31 /* KeychainAuthStateStorageClient.swift in Sources */,

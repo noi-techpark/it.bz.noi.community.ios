@@ -10,59 +10,68 @@
 //
 
 import Foundation
+import CoreUI
 import Combine
 import ArticlesClient
 
 // MARK: - NewsDetailsViewModel
 
-final class NewsDetailsViewModel {
-    
+final class NewsDetailsViewModel: BasePageViewModel {
+
     let articlesClient: ArticlesClient
-    let language: Language?
-    
+	let newsId: String
+
     @Published private(set) var isLoading = false
     @Published private(set) var error: Error!
     @Published private(set) var result: Article!
     
-    private var showExternalLinkSubject: PassthroughSubject<(Article, Any?), Never> = .init()
-    lazy var showExternalLinkPublisher = showExternalLinkSubject
-        .eraseToAnyPublisher()
-    
-    private var showAskAQuestionSubject: PassthroughSubject<(Article, Any?), Never> = .init()
-    lazy var showAskAQuestionPublisher = showAskAQuestionSubject
-        .eraseToAnyPublisher()
-    
     init(
         articlesClient: ArticlesClient,
-        availableNews: Article?,
-        language: Language?
+        news: Article
     ) {
         self.articlesClient = articlesClient
-        self.result = availableNews
-        self.language = language
-    }
-    
-    func refreshNewsDetails(newsId: String) {
-		Task(priority: .userInitiated) { [weak self] in
-			await self?.performRefreshNewsDetails(newsId: newsId)
-		}
-    }
-    
-    func showExternalLink(sender: Any?) {
-        showExternalLinkSubject.send((result, sender))
+		self.newsId = news.id
+		self.result = news
+
+		super.init()
     }
 
-    func showAskAQuestion(sender: Any?) {
-        showAskAQuestionSubject.send((result, sender))
+	init(
+		articlesClient: ArticlesClient,
+		newsId: String
+	) {
+		self.articlesClient = articlesClient
+		self.newsId = newsId
+
+		super.init()
+	}
+
+	@available(*, unavailable)
+	required init() {
+		fatalError("\(#function) not available")
+	}
+
+    func fetchNews(with newsId: String) {
+		Task(priority: .userInitiated) { [weak self] in
+			await self?.performFetchNews(with: newsId)
+		}
     }
-    
+
+	override func onViewDidLoad() {
+		super.onViewDidLoad()
+
+		if result == nil {
+			fetchNews(with: newsId)
+		}
+	}
+
 }
 
 // MARK: Private APIs
 
 private extension NewsDetailsViewModel {
 
-	func performRefreshNewsDetails(newsId: String) async {
+	func performFetchNews(with newsId: String) async {
 		isLoading = true
 		defer {
 			isLoading = false

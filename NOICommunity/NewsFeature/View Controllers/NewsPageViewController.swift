@@ -3,43 +3,38 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 //
-//  EventPageViewController.swift
+//  NewsPageViewController.swift
 //  NOICommunity
 //
-//  Created by Matteo Matassoni on 03/12/24.
+//  Created by Matteo Matassoni on 05/12/24.
 //
 
 import UIKit
 import CoreUI
+import ArticlesClient
 
-// MARK: - EventPageViewController
+// MARK: - NewsPageViewController
 
-final class EventPageViewController: BasePageViewController<EventDetailsViewModel> {
+final class NewsPageViewController: BasePageViewController<NewsDetailsViewModel> {
 
 	private lazy var containerViewController = ContainerViewController()
 
-	private var eventDetailsViewController: EventDetailsViewController? {
+	private var newsDetailsViewController: NewsDetailsViewController? {
 		children
 			.lazy
-			.compactMap { $0 as? EventDetailsViewController }
+			.compactMap { $0 as? NewsDetailsViewController }
 			.first
 	}
 
-	var locateActionHandler: ((Event) -> Void)? {
+	var externalLinkActionHandler: ((Article) -> Void)? {
 		didSet {
-			eventDetailsViewController?.locateActionHandler = locateActionHandler
+			newsDetailsViewController?.externalLinkActionHandler = externalLinkActionHandler
 		}
 	}
 
-	var addToCalendarActionHandler: ((Event) -> Void)? {
+	var askQuestionActionHandler: ((Article) -> Void)? {
 		didSet {
-			eventDetailsViewController?.addToCalendarActionHandler = addToCalendarActionHandler
-		}
-	}
-
-	var signupActionHandler: ((Event) -> Void)? {
-		didSet {
-			eventDetailsViewController?.signupActionHandler = signupActionHandler
+			newsDetailsViewController?.askQuestionActionHandler = askQuestionActionHandler
 		}
 	}
 
@@ -80,22 +75,22 @@ final class EventPageViewController: BasePageViewController<EventDetailsViewMode
 
 		embedChild(containerViewController)
 	}
+	
 
 }
 
 // MARK: Private APIs
 
-private extension EventPageViewController {
+private extension NewsPageViewController {
 
 	func show(content: UIViewController) {
 		containerViewController.content = content
 	}
 
-	func makeResultContent(for event: Event) -> EventDetailsViewController {
-		let result = EventDetailsViewController(for: event)
-		result.locateActionHandler = locateActionHandler
-		result.addToCalendarActionHandler = addToCalendarActionHandler
-		result.signupActionHandler = signupActionHandler
+	func makeResultContent(for news: Article) -> NewsDetailsViewController {
+		let result = NewsDetailsViewController(for: news)
+		result.externalLinkActionHandler = externalLinkActionHandler
+		result.askQuestionActionHandler = askQuestionActionHandler
 		return result
 	}
 

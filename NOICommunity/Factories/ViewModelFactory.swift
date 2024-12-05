@@ -35,10 +35,14 @@ protocol ViewModelFactory {
     func makeMyAccountViewModel() -> MyAccountViewModel
     
     func makeNewsListViewModel() -> NewsListViewModel
-    
-    func makeNewsDetailsViewModel(
-        availableNews: Article?
-    ) -> NewsDetailsViewModel
+
+	func makeNewsDetailsViewModel(
+		newsId: String
+	) -> NewsDetailsViewModel
+
+	func makeNewsDetailsViewModel(
+		news: Article
+	) -> NewsDetailsViewModel
 
     func makeLoadUserInfoViewModel() -> LoadUserInfoViewModel
     

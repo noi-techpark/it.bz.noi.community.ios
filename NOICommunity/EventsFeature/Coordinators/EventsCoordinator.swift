@@ -110,6 +110,7 @@ private extension EventsCoordinator {
 			let pageVC = dependencyContainer.makeEventPageViewController(
 				viewModel: viewModel
 			)
+			
 			pageVC.addToCalendarActionHandler = { [weak self] in
 				self?.addEventToCalendar($0)
 			}
@@ -119,6 +120,7 @@ private extension EventsCoordinator {
 			pageVC.signupActionHandler = { [weak self] in
 				self?.signupEvent($0)
 			}
+
 			pageVC.navigationItem.title = event.title
 			pageVC.navigationItem.largeTitleDisplayMode = .never
 
