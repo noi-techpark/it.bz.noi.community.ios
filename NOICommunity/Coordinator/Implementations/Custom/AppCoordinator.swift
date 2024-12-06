@@ -205,6 +205,7 @@ private extension AppCoordinator {
 		guard let topViewController
 		else { return }
 
+		// TODO: remove after title refactor
         func configureBindings(
             viewModel: NewsDetailsViewModel,
 			pageViewController: NewsPageViewController
@@ -254,6 +255,7 @@ private extension AppCoordinator {
 			return pageVC
 		}()
 
+		// TODO: remove after title refactor
         configureBindings(
             viewModel: viewModel,
 			pageViewController: pageVC
@@ -314,6 +316,7 @@ private extension AppCoordinator {
 		guard let topViewController
 		else { return }
 
+		// TODO: move set navigationItem title here
 		func configureBindings(
 			viewModel: EventDetailsViewModel,
 			pageViewController: EventPageViewController
@@ -355,7 +358,9 @@ private extension AppCoordinator {
 				self?.signupEvent($0, from: pageVC)
 			}
 
+			// TODO: move set navigationItem title here
 			pageVC.navigationItem.title = nil
+			
 			pageVC.navigationItem.largeTitleDisplayMode = .never
 			pageVC.navigationItem.leftBarButtonItem = UIBarButtonItem(
 				image: UIImage(systemName: "xmark.circle.fill"),

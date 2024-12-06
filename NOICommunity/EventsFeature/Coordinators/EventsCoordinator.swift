@@ -121,7 +121,9 @@ private extension EventsCoordinator {
 				self?.signupEvent($0)
 			}
 
+			// TODO: remove after title refactor
 			pageVC.navigationItem.title = event.title
+			
 			pageVC.navigationItem.largeTitleDisplayMode = .never
 
 			return pageVC
