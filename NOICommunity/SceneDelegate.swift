@@ -11,14 +11,14 @@
 
 import UIKit
 import AppAuth
-import EventShortClientLive
+import EventShortClient
 import AppPreferencesClientLive
 import EventShortTypesClient
 import EventShortTypesClientLive
 import Core
 import AuthClientLive
 import AuthStateStorageClient
-import ArticlesClientLive
+import ArticlesClient
 import PeopleClientLive
 
 #if DEBUG
@@ -60,9 +60,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 context: self,
                 tokenStorage: tokenStorage
             ),
-            eventShortClient: .live(
-                baseURL: EventsFeatureConstants.clientBaseURL
-            ),
+			eventShortClient: EventShortClientImplementation(
+				baseURL: EventsFeatureConstants.clientBaseURL,
+				transport: URLSession.shared
+			),
             eventShortTypesClient: {
                 if let fileURL = Bundle.main.url(
                     forResource: "EventShortTypes",
@@ -77,7 +78,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                     return .live(baseURL: EventsFeatureConstants.clientBaseURL)
                 }
             }(),
-            articleClient: .live(baseURL: NewsFeatureConstants.clientBaseURL),
+			articleClient: ArticlesClientImplementation(
+				baseURL: EventsFeatureConstants.clientBaseURL,
+				transport: URLSession.shared
+			),
             peopleClient: .live(baseURL: MeetConstant.clientBaseURL)
         )
     }()

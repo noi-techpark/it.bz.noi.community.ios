@@ -57,73 +57,9 @@ final class NewsListViewModel {
     }
 
     func fetchNews(refresh: Bool = false) {
-        guard nextPage != nil || refresh
-        else { return }
-        
-        let pageNumber = refresh ? firstPage : nextPage!
-        needsToRequestHighlight = needsToRequestHighlight || refresh
-
-        isLoadingFirstPage = pageNumber == firstPage
-        isLoading = true
-        
-        var articlesListPublisher = articlesClient
-            .list(
-                startDate: Date(),
-                publishedon: "noi-communityapp",
-                articleType: "newsfeednoi",
-                rawSort: "-ArticleDate",
-                rawFilter: needsToRequestHighlight ? #"eq(Highlight,"true")"# : #"or(eq(Highlight,"false"),isnull(Highlight))"#,
-                pageSize: pageSize,
-                pageNumber: pageNumber
-            )
-        if refresh {
-            articlesListPublisher = articlesListPublisher
-                .delay(for: 0.3, scheduler: RunLoop.main)
-                .eraseToAnyPublisher()
-        }
-        
-        fetchRequestCancellable = articlesListPublisher
-            .receive(on: DispatchQueue.main)
-            .sink(
-                receiveCompletion: { [weak self] completion in
-                    self?.isLoadingFirstPage = false
-                    self?.isLoading = false
-
-                    switch completion {
-                    case .finished:
-                        break
-                    case .failure(let error):
-                        self?.error = error
-                    }
-                },
-                receiveValue: { [weak self] pagination in
-                    guard let self
-                    else { return }
-
-                    let hadRequestHighlight = needsToRequestHighlight
-
-                    if needsToRequestHighlight,
-                        !pagination.hasNextPage {
-                        self.nextPage = firstPage
-                        self.needsToRequestHighlight = false
-                    } else {
-                        self.nextPage = pagination.nextPage
-                    }
-
-                    let newItems = pagination.items
-                    newItems.forEach { self.idToNews[$0.id] = $0 }
-                    if refresh {
-                        self.newsIds = newItems.map(\.id)
-                    } else {
-                        self.newsIds += newItems.map(\.id)
-                    }
-
-                    if hadRequestHighlight,
-                       newItems.isEmpty {
-                        self.fetchNews()
-                    }
-                }
-            )
+		Task(priority: .userInitiated) { [weak self] in
+			await self?.performFetchNews(refresh: refresh)
+		}
     }
     
     func news(withId newsId: String) -> Article {
@@ -142,7 +78,58 @@ final class NewsListViewModel {
 // MARK: Private APIs
 
 private extension NewsListViewModel {
-    
+
+	func performFetchNews(refresh: Bool = false) async {
+		guard nextPage != nil || refresh
+		else { return }
+
+		let pageNumber = refresh ? firstPage : nextPage!
+		needsToRequestHighlight = needsToRequestHighlight || refresh
+
+		isLoadingFirstPage = pageNumber == firstPage
+		isLoading = true
+		defer {
+			isLoadingFirstPage = false
+			isLoading = false
+		}
+
+		do {
+			let pagination = try await articlesClient.getArticleList(
+				startDate: Date(),
+				publishedOn: "noi-communityapp",
+				articleType: "newsfeednoi",
+				rawSort: "-ArticleDate",
+				rawFilter: needsToRequestHighlight ? #"eq(Highlight,"true")"# : #"or(eq(Highlight,"false"),isnull(Highlight))"#,
+				pageSize: pageSize,
+				pageNumber: pageNumber
+			)
+
+			let hadRequestHighlight = needsToRequestHighlight
+
+			if needsToRequestHighlight, !pagination.hasNextPage {
+				nextPage = firstPage
+				needsToRequestHighlight = false
+			} else {
+				nextPage = pagination.nextPage
+			}
+
+			let newItems = pagination.items
+			newItems.forEach { idToNews[$0.id] = $0 }
+			if refresh {
+				newsIds = newItems.map(\.id)
+			} else {
+				newsIds = newsIds + newItems.map(\.id)
+			}
+
+			if hadRequestHighlight, newItems.isEmpty {
+				fetchNews()
+			}
+		} catch {
+			self.error = error
+		}
+
+	}
+
     func configureBindings() {
         refreshCancellable = NotificationCenter
             .default

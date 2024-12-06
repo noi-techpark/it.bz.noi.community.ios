@@ -31,7 +31,7 @@ final class AppCoordinator: BaseNavigationCoordinator {
     private var pendingDeepLinkIntent: DeepLinkIntent?
     
     private weak var tabCoordinator: TabCoordinator!
-    
+
     override func start(animated: Bool) {
         NotificationCenter
             .default
@@ -46,6 +46,7 @@ final class AppCoordinator: BaseNavigationCoordinator {
         } else {
             showLoadUserInfo()
         }
+
     }
     
     func handle(deepLinkIntent: DeepLinkIntent) {
@@ -59,6 +60,8 @@ final class AppCoordinator: BaseNavigationCoordinator {
         switch deepLinkIntent {
         case .showNews(let newsId):
             showNewsDetails(newsId: newsId, sender: deepLinkIntent)
+		case .showEvent(let eventId):
+			showEventDetails(eventId: eventId, sender: deepLinkIntent)
         }
     }
     
@@ -174,18 +177,24 @@ private extension AppCoordinator {
         showAuthCoordinator(animated: animated)
     }
     
-    func showNewsExternalLink(of news: Article, sender: Any?) {
+	func showNewsExternalLink(
+		of news: Article,
+		from viewController: UIViewController
+	) {
         let author = localizedValue(from: news.languageToAuthor)
         let safariVC = SFSafariViewController(url: author!.externalURL!)
-        navigationController.presentedViewController?.present(
+		navigationController.presentedViewController?.present(
             safariVC,
             animated: true
         )
     }
     
-    func showNewsAskAQuestion(for news: Article, sender: Any?) {
+    func showNewsAskAQuestion(
+		for news: Article,
+		from viewController: UIViewController
+	) {
         let author = localizedValue(from: news.languageToAuthor)
-        navigationController.presentedViewController?.mailTo(
+		navigationController.presentedViewController?.mailTo(
             author!.email!,
             delegate: self,
             completion: nil
@@ -193,66 +202,138 @@ private extension AppCoordinator {
     }
     
     func showNewsDetails(newsId: String, sender: Any?) {
-        func configureBindings(
-            viewModel: NewsDetailsViewModel,
-            detailsViewController: NewsDetailsViewController
-        ) {
-            viewModel.showExternalLinkPublisher
-                .sink { [weak self] (news, sender) in
-                    self?.showNewsExternalLink(of: news, sender: sender)
-                }
-                .store(in: &subscriptions)
-            viewModel.showAskAQuestionPublisher
-                .sink { [weak self] (news, sender) in
-                    self?.showNewsAskAQuestion(for: news, sender: sender)
-                }
-                .store(in: &subscriptions)
-            viewModel.$result
-                .sink { [weak detailsViewController] news in
-                    guard let news = news
-                    else { return }
-                    
-                    detailsViewController?.navigationItem.title = localizedValue(
-                        from: news.languageToDetails
-                    )?
-                        .title
-                }
-                .store(in: &subscriptions)
-        }
+		guard let topViewController
+		else { return }
         
         let viewModel = dependencyContainer.makeNewsDetailsViewModel(
-            availableNews: nil
+			newsId: newsId
         )
-        
-        let detailsVC = dependencyContainer.makeNewsDetailsViewController(
-            newsId: newsId,
-            viewModel: viewModel
-        )
-        
-        configureBindings(
-            viewModel: viewModel,
-            detailsViewController: detailsVC
-        )
-        
-        detailsVC.navigationItem.title = nil
-        detailsVC.navigationItem.largeTitleDisplayMode = .never
-        detailsVC.navigationItem.leftBarButtonItem = UIBarButtonItem(
-            image: UIImage(systemName: "xmark.circle.fill"),
-            style: .plain,
-            target: self,
-            action: #selector(closeModal(sender:))
-        )
-        detailsVC.modalPresentationStyle = .fullScreen
-        
-        navigationController.present(
-            NavigationController(rootViewController: detailsVC),
+		let pageVC = {
+			let pageVC = dependencyContainer.makeNewsPageViewController(
+				viewModel: viewModel
+			)
+
+			pageVC.externalLinkActionHandler = { [weak self, weak pageVC] in
+				guard let pageVC
+				else { return }
+
+				self?.showNewsExternalLink(of: $0, from: pageVC)
+			}
+			pageVC.askQuestionActionHandler = { [weak self, weak pageVC] in
+				guard let pageVC
+				else { return }
+
+				self?.showNewsAskAQuestion(for: $0, from: pageVC)
+			}
+
+			pageVC.navigationItem.leftBarButtonItem = UIBarButtonItem(
+				image: UIImage(systemName: "xmark.circle.fill"),
+				primaryAction: UIAction { [weak pageVC] _ in
+					pageVC?.dismiss(animated: true)
+				})
+			pageVC.modalPresentationStyle = .fullScreen
+
+			return pageVC
+		}()
+
+		topViewController.present(
+            NavigationController(rootViewController: pageVC),
             animated: true
         )
     }
-    
-    @objc func closeModal(sender: Any?) {
-        navigationController.dismiss(animated: true)
-    }
+
+	func addEventToCalendar(
+		_ event: Event,
+		from viewController: UIViewController
+	) {
+		EventsCalendarManager.shared.presentCalendarModalToAddEvent(
+			event: event.toCalendarEvent(),
+			from: viewController
+		) { [weak viewController] result in
+			guard case let .failure(error) = result
+			else { return }
+
+			if let calendarError = error as? CalendarError {
+				viewController?.showCalendarError(calendarError)
+			} else {
+				viewController?.showError(error)
+			}
+		}
+	}
+
+	func locateEvent(
+		_ event: Event,
+		from viewController: UIViewController
+	) {
+		let mapViewController = MapWebViewController()
+		mapViewController.url = event.mapURL ?? .map
+		mapViewController.navigationItem.title = event.mapURL != nil ?
+		event.venue:
+			.localized("title_generic_noi_techpark_map")
+		viewController.navigationController?.pushViewController(
+			mapViewController,
+			animated: true
+		)
+	}
+
+	func signupEvent(
+		_ event: Event,
+		from viewController: UIViewController
+	) {
+		UIApplication.shared.open(
+			event.signupURL!,
+			options: [:],
+			completionHandler: nil
+		)
+	}
+
+	func showEventDetails(eventId: String, sender: Any?) {
+		guard let topViewController
+		else { return }
+        
+		let viewModel = dependencyContainer.makeEventDetailsViewModel(
+			eventId: eventId
+		)
+		let pageVC = {
+			let pageVC = dependencyContainer.makeEventPageViewController(
+				viewModel: viewModel
+			)
+
+			pageVC.addToCalendarActionHandler = { [weak self, weak pageVC] in
+				guard let pageVC
+				else { return }
+
+				self?.addEventToCalendar($0, from: pageVC)
+			}
+			pageVC.locateActionHandler = { [weak self, weak pageVC] in
+				guard let pageVC
+				else { return }
+
+				self?.locateEvent($0, from: pageVC)
+			}
+			pageVC.signupActionHandler = { [weak self, weak pageVC] in
+				guard let pageVC
+				else { return }
+
+
+				self?.signupEvent($0, from: pageVC)
+			}
+
+			pageVC.navigationItem.leftBarButtonItem = UIBarButtonItem(
+				image: UIImage(systemName: "xmark.circle.fill"),
+				primaryAction: UIAction { [weak pageVC] _ in
+					pageVC?.dismiss(animated: true)
+				})
+			pageVC.modalPresentationStyle = .fullScreen
+
+			return pageVC
+		}()
+
+		topViewController.present(
+			NavigationController(rootViewController: pageVC),
+			animated: true
+		)
+	}
 
     func showAccessNotGrantedCoordinator(animated: Bool) {
         let accessNotGrantedCoordinator = AccessNotGrantedCoordinator(

@@ -15,6 +15,7 @@ import AppPreferencesClient
 // MARK: - Refresh News List Notification
 
 let refreshNewsListNotification = Notification.Name("refreshNewsList")
+let refreshEventsListNotification = Notification.Name("refreshEventsList")
 
 // MARK: - RootCoordinator
 
@@ -52,6 +53,8 @@ final class RootCoordinator: BaseRootCoordinator {
             return
         case .showNews(newsId: _):
             refreshNewsList()
+		case .showEvent(eventId: _):
+			refreshEventsList()
         }
     }
     
@@ -108,5 +111,11 @@ private extension RootCoordinator {
             .default
             .post(name: refreshNewsListNotification, object: self)
     }
-    
+
+	func refreshEventsList() {
+		NotificationCenter
+			.default
+			.post(name: refreshEventsListNotification, object: self)
+	}
+
 }

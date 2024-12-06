@@ -18,7 +18,7 @@ import AppPreferencesClient
 private let skipIntroKey = "skipIntro"
 private let skipComeOnBoardOnboardingKey = "skipComeOnBoardOnboarding"
 
-// MARK: - EventShortClient+Live
+// MARK: - AppPreferencesClient+Live
 
 public extension AppPreferencesClient {
     

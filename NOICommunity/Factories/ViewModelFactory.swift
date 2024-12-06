@@ -18,6 +18,14 @@ protocol ViewModelFactory {
         showFiltersHandler: @escaping () -> Void
     ) -> EventsViewModel
 
+	func makeEventDetailsViewModel(
+		eventId: String
+	) -> EventDetailsViewModel
+
+	func makeEventDetailsViewModel(
+		event: Event
+	) -> EventDetailsViewModel
+
     func makeEventFiltersViewModel(
         showFilteredResultsHandler: @escaping () -> Void
     ) -> EventFiltersViewModel
@@ -27,10 +35,14 @@ protocol ViewModelFactory {
     func makeMyAccountViewModel() -> MyAccountViewModel
     
     func makeNewsListViewModel() -> NewsListViewModel
-    
-    func makeNewsDetailsViewModel(
-        availableNews: Article?
-    ) -> NewsDetailsViewModel
+
+	func makeNewsDetailsViewModel(
+		newsId: String
+	) -> NewsDetailsViewModel
+
+	func makeNewsDetailsViewModel(
+		news: Article
+	) -> NewsDetailsViewModel
 
     func makeLoadUserInfoViewModel() -> LoadUserInfoViewModel
     

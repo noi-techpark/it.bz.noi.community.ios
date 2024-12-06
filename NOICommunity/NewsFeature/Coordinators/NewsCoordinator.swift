@@ -31,8 +31,8 @@ final class NewsCoordinator: BaseNavigationCoordinator {
     
     override func start(animated: Bool) {
         newsListViewModel = dependencyContainer.makeNewsListViewModel()
-        newsListViewModel.showDetailsHandler = { [weak self] in
-            self?.goToDetails(of: $0, sender: $1)
+        newsListViewModel.showDetailsHandler = { [weak self] news, _ in
+            self?.goToDetails(of: news)
         }
         mainVC = dependencyContainer.makeNewsViewController(
             viewModel: newsListViewModel
@@ -45,40 +45,33 @@ final class NewsCoordinator: BaseNavigationCoordinator {
 
 private extension NewsCoordinator {
     
-    func goToDetails(of news: Article, sender: Any?) {
+    func goToDetails(of news: Article) {
         let viewModel = dependencyContainer.makeNewsDetailsViewModel(
-            availableNews: news
+			news: news
         )
-        viewModel.showExternalLinkPublisher
-            .sink { [weak self] (news, sender) in
-                self?.showExternalLink(of: news, sender: sender)
-            }
-            .store(in: &subscriptions)
-        viewModel.showAskAQuestionPublisher
-            .sink { [weak self] (news, sender) in
-                self?.showAskAQuestion(for: news, sender: sender)
-            }
-            .store(in: &subscriptions)
-        
-        let detailVC = dependencyContainer.makeNewsDetailsViewController(
-            newsId: news.id,
-            viewModel: viewModel
-        )
-        detailVC.navigationItem.title = localizedValue(
-            from: news.languageToDetails
-        )?
-            .title
-        detailVC.navigationItem.largeTitleDisplayMode = .never
-        navigationController.pushViewController(detailVC, animated: true)
+		let pageVC = {
+			let pageVC = dependencyContainer.makeNewsPageViewController(
+				viewModel: viewModel
+			)
+
+			pageVC.externalLinkActionHandler = { [weak self] in
+				self?.showExternalLink(of: $0)
+			}
+			pageVC.askQuestionActionHandler = { [weak self] in
+				self?.showAskAQuestion(for: $0)
+			}
+			return pageVC
+		}()
+        navigationController.pushViewController(pageVC, animated: true)
     }
     
-    func showExternalLink(of news: Article, sender: Any?) {
+    func showExternalLink(of news: Article) {
         let author = localizedValue(from: news.languageToAuthor)
         let safariVC = SFSafariViewController(url: author!.externalURL!)
         navigationController.present(safariVC, animated: true)
     }
     
-    func showAskAQuestion(for news: Article, sender: Any?) {
+    func showAskAQuestion(for news: Article) {
         let author = localizedValue(from: news.languageToAuthor)
         navigationController.mailTo(
             author!.email!,
