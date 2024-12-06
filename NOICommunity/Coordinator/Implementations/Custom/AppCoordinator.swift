@@ -178,23 +178,21 @@ private extension AppCoordinator {
     }
     
 	func showNewsExternalLink(
-		of news: Article,
-		from viewController: UIViewController
+		of news: Article
 	) {
         let author = localizedValue(from: news.languageToAuthor)
         let safariVC = SFSafariViewController(url: author!.externalURL!)
-		navigationController.presentedViewController?.present(
+		topViewController.present(
             safariVC,
             animated: true
         )
     }
     
     func showNewsAskAQuestion(
-		for news: Article,
-		from viewController: UIViewController
+		for news: Article
 	) {
         let author = localizedValue(from: news.languageToAuthor)
-		navigationController.presentedViewController?.mailTo(
+		topViewController.mailTo(
             author!.email!,
             delegate: self,
             completion: nil
@@ -202,9 +200,6 @@ private extension AppCoordinator {
     }
     
     func showNewsDetails(newsId: String, sender: Any?) {
-		guard let topViewController
-		else { return }
-        
         let viewModel = dependencyContainer.makeNewsDetailsViewModel(
 			newsId: newsId
         )
@@ -213,17 +208,11 @@ private extension AppCoordinator {
 				viewModel: viewModel
 			)
 
-			pageVC.externalLinkActionHandler = { [weak self, weak pageVC] in
-				guard let pageVC
-				else { return }
-
-				self?.showNewsExternalLink(of: $0, from: pageVC)
+			pageVC.externalLinkActionHandler = { [weak self] in
+				self?.showNewsExternalLink(of: $0)
 			}
-			pageVC.askQuestionActionHandler = { [weak self, weak pageVC] in
-				guard let pageVC
-				else { return }
-
-				self?.showNewsAskAQuestion(for: $0, from: pageVC)
+			pageVC.askQuestionActionHandler = { [weak self] in
+				self?.showNewsAskAQuestion(for: $0)
 			}
 
 			pageVC.navigationItem.leftBarButtonItem = UIBarButtonItem(
@@ -243,42 +232,40 @@ private extension AppCoordinator {
     }
 
 	func addEventToCalendar(
-		_ event: Event,
-		from viewController: UIViewController
+		_ event: Event
 	) {
 		EventsCalendarManager.shared.presentCalendarModalToAddEvent(
 			event: event.toCalendarEvent(),
-			from: viewController
-		) { [weak viewController] result in
-			guard case let .failure(error) = result
+			from: topViewController
+		) { [weak self] result in
+			guard let self,
+				  case let .failure(error) = result
 			else { return }
 
 			if let calendarError = error as? CalendarError {
-				viewController?.showCalendarError(calendarError)
+				topViewController.showCalendarError(calendarError)
 			} else {
-				viewController?.showError(error)
+				topViewController.showError(error)
 			}
 		}
 	}
 
 	func locateEvent(
-		_ event: Event,
-		from viewController: UIViewController
+		_ event: Event
 	) {
 		let mapViewController = MapWebViewController()
 		mapViewController.url = event.mapURL ?? .map
 		mapViewController.navigationItem.title = event.mapURL != nil ?
 		event.venue:
 			.localized("title_generic_noi_techpark_map")
-		viewController.navigationController?.pushViewController(
+		topViewController.navigationController?.pushViewController(
 			mapViewController,
 			animated: true
 		)
 	}
 
 	func signupEvent(
-		_ event: Event,
-		from viewController: UIViewController
+		_ event: Event
 	) {
 		UIApplication.shared.open(
 			event.signupURL!,
@@ -288,9 +275,6 @@ private extension AppCoordinator {
 	}
 
 	func showEventDetails(eventId: String, sender: Any?) {
-		guard let topViewController
-		else { return }
-        
 		let viewModel = dependencyContainer.makeEventDetailsViewModel(
 			eventId: eventId
 		)
@@ -299,24 +283,14 @@ private extension AppCoordinator {
 				viewModel: viewModel
 			)
 
-			pageVC.addToCalendarActionHandler = { [weak self, weak pageVC] in
-				guard let pageVC
-				else { return }
-
-				self?.addEventToCalendar($0, from: pageVC)
+			pageVC.addToCalendarActionHandler = { [weak self] in
+				self?.addEventToCalendar($0)
 			}
-			pageVC.locateActionHandler = { [weak self, weak pageVC] in
-				guard let pageVC
-				else { return }
-
-				self?.locateEvent($0, from: pageVC)
+			pageVC.locateActionHandler = { [weak self] in
+				self?.locateEvent($0)
 			}
-			pageVC.signupActionHandler = { [weak self, weak pageVC] in
-				guard let pageVC
-				else { return }
-
-
-				self?.signupEvent($0, from: pageVC)
+			pageVC.signupActionHandler = { [weak self] in
+				self?.signupEvent($0)
 			}
 
 			pageVC.navigationItem.leftBarButtonItem = UIBarButtonItem(

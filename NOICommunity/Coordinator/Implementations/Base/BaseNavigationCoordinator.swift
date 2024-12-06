@@ -19,6 +19,10 @@ class BaseNavigationCoordinator: BaseCoordinator, NavigationCoordinatorType {
         navigationController.viewControllers.first
     }
 
+	override var topViewController: UIViewController {
+		super.topViewController ?? navigationController
+	}
+
     @available(*, unavailable)
     override init(dependencyContainer: DependencyRepresentable) {
         fatalError("\(#function) not available")
