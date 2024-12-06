@@ -202,12 +202,13 @@ private extension NewsViewController {
                         newsIds: [],
                         animated: self.isInWindowHierarchy
                     )
-                }
-                self.refreshControl?.setIsLoading(
-                    isLoadingFirstPage,
-                    forced: true,
-                    scrollToTop: true
-                )
+
+					if let refreshControl, !refreshControl.isRefreshing {
+						refreshControl.beginRefreshing()
+					}
+				} else {
+					self.refreshControl?.endRefreshing()
+				}
             })
             .store(in: &subscriptions)
         
