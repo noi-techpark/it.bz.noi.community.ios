@@ -82,6 +82,7 @@ final class NewsPageViewController: BasePageViewController<NewsDetailsViewModel>
 	override func configureLayout() {
 		super.configureLayout()
 
+		navigationItem.largeTitleDisplayMode = .never
 		embedChild(containerViewController)
 	}
 	

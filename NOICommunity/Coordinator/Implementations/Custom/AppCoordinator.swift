@@ -226,8 +226,6 @@ private extension AppCoordinator {
 				self?.showNewsAskAQuestion(for: $0, from: pageVC)
 			}
 
-			pageVC.navigationItem.title = nil
-			pageVC.navigationItem.largeTitleDisplayMode = .never
 			pageVC.navigationItem.leftBarButtonItem = UIBarButtonItem(
 				image: UIImage(systemName: "xmark.circle.fill"),
 				primaryAction: UIAction { [weak pageVC] _ in
@@ -320,8 +318,7 @@ private extension AppCoordinator {
 
 				self?.signupEvent($0, from: pageVC)
 			}
-            pageVC.navigationItem.title = nil
-			pageVC.navigationItem.largeTitleDisplayMode = .never
+
 			pageVC.navigationItem.leftBarButtonItem = UIBarButtonItem(
 				image: UIImage(systemName: "xmark.circle.fill"),
 				primaryAction: UIAction { [weak pageVC] _ in

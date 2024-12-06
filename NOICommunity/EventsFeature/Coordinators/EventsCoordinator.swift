@@ -120,9 +120,6 @@ private extension EventsCoordinator {
 			pageVC.signupActionHandler = { [weak self] in
 				self?.signupEvent($0)
 			}
-			
-			pageVC.navigationItem.largeTitleDisplayMode = .never
-
 			return pageVC
 		}()
         navigationController.pushViewController(pageVC, animated: true)

@@ -60,9 +60,6 @@ private extension NewsCoordinator {
 			pageVC.askQuestionActionHandler = { [weak self] in
 				self?.showAskAQuestion(for: $0)
 			}
-            
-			pageVC.navigationItem.largeTitleDisplayMode = .never
-
 			return pageVC
 		}()
         navigationController.pushViewController(pageVC, animated: true)

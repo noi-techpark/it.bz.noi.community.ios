@@ -85,6 +85,7 @@ final class EventPageViewController: BasePageViewController<EventDetailsViewMode
 	override func configureLayout() {
 		super.configureLayout()
 
+		navigationItem.largeTitleDisplayMode = .never
 		embedChild(containerViewController)
 	}
 
