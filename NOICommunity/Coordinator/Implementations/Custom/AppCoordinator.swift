@@ -31,7 +31,7 @@ final class AppCoordinator: BaseNavigationCoordinator {
     private var pendingDeepLinkIntent: DeepLinkIntent?
     
     private weak var tabCoordinator: TabCoordinator!
-    
+
     override func start(animated: Bool) {
         NotificationCenter
             .default
@@ -202,6 +202,9 @@ private extension AppCoordinator {
     }
     
     func showNewsDetails(newsId: String, sender: Any?) {
+		guard let topViewController
+		else { return }
+
         func configureBindings(
             viewModel: NewsDetailsViewModel,
 			pageViewController: NewsPageViewController
@@ -243,10 +246,9 @@ private extension AppCoordinator {
 			pageVC.navigationItem.largeTitleDisplayMode = .never
 			pageVC.navigationItem.leftBarButtonItem = UIBarButtonItem(
 				image: UIImage(systemName: "xmark.circle.fill"),
-				style: .plain,
-				target: self,
-				action: #selector(closeModal(sender:))
-			)
+				primaryAction: UIAction { [weak pageVC] _ in
+					pageVC?.dismiss(animated: true)
+				})
 			pageVC.modalPresentationStyle = .fullScreen
 
 			return pageVC
@@ -256,8 +258,8 @@ private extension AppCoordinator {
             viewModel: viewModel,
 			pageViewController: pageVC
         )
-        
-        navigationController.present(
+
+		topViewController.present(
             NavigationController(rootViewController: pageVC),
             animated: true
         )
@@ -309,6 +311,9 @@ private extension AppCoordinator {
 	}
 
 	func showEventDetails(eventId: String, sender: Any?) {
+		guard let topViewController
+		else { return }
+
 		func configureBindings(
 			viewModel: EventDetailsViewModel,
 			pageViewController: EventPageViewController
@@ -354,10 +359,9 @@ private extension AppCoordinator {
 			pageVC.navigationItem.largeTitleDisplayMode = .never
 			pageVC.navigationItem.leftBarButtonItem = UIBarButtonItem(
 				image: UIImage(systemName: "xmark.circle.fill"),
-				style: .plain,
-				target: self,
-				action: #selector(closeModal(sender:))
-			)
+				primaryAction: UIAction { [weak pageVC] _ in
+					pageVC?.dismiss(animated: true)
+				})
 			pageVC.modalPresentationStyle = .fullScreen
 
 			return pageVC
@@ -365,15 +369,11 @@ private extension AppCoordinator {
 
 		configureBindings(viewModel: viewModel, pageViewController: pageVC)
 
-		navigationController.present(
+		topViewController.present(
 			NavigationController(rootViewController: pageVC),
 			animated: true
 		)
 	}
-
-    @objc func closeModal(sender: Any?) {
-        navigationController.dismiss(animated: true)
-    }
 
     func showAccessNotGrantedCoordinator(animated: Bool) {
         let accessNotGrantedCoordinator = AccessNotGrantedCoordinator(

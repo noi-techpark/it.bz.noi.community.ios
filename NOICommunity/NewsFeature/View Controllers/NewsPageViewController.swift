@@ -28,13 +28,17 @@ final class NewsPageViewController: BasePageViewController<NewsDetailsViewModel>
 
 	var externalLinkActionHandler: ((Article) -> Void)? {
 		didSet {
-			newsDetailsViewController?.externalLinkActionHandler = externalLinkActionHandler
+			newsDetailsViewController?.externalLinkActionHandler = { [weak self] in
+				self?.externalLinkActionHandler?($0)
+			}
 		}
 	}
 
 	var askQuestionActionHandler: ((Article) -> Void)? {
 		didSet {
-			newsDetailsViewController?.askQuestionActionHandler = askQuestionActionHandler
+			newsDetailsViewController?.askQuestionActionHandler = { [weak self] in
+				self?.askQuestionActionHandler?($0)
+			}
 		}
 	}
 
@@ -89,8 +93,12 @@ private extension NewsPageViewController {
 
 	func makeResultContent(for news: Article) -> NewsDetailsViewController {
 		let result = NewsDetailsViewController(for: news)
-		result.externalLinkActionHandler = externalLinkActionHandler
-		result.askQuestionActionHandler = askQuestionActionHandler
+		result.externalLinkActionHandler = { [weak self] in
+			self?.externalLinkActionHandler?($0)
+		}
+		result.askQuestionActionHandler = { [weak self] in
+			self?.askQuestionActionHandler?($0)
+		}
 		return result
 	}
 

@@ -27,19 +27,25 @@ final class EventPageViewController: BasePageViewController<EventDetailsViewMode
 
 	var locateActionHandler: ((Event) -> Void)? {
 		didSet {
-			eventDetailsViewController?.locateActionHandler = locateActionHandler
+			eventDetailsViewController?.locateActionHandler = { [weak self] in
+				self?.locateActionHandler?($0)
+			}
 		}
 	}
 
 	var addToCalendarActionHandler: ((Event) -> Void)? {
 		didSet {
-			eventDetailsViewController?.addToCalendarActionHandler = addToCalendarActionHandler
+			eventDetailsViewController?.addToCalendarActionHandler = { [weak self] in
+				self?.addToCalendarActionHandler?($0)
+			}
 		}
 	}
 
 	var signupActionHandler: ((Event) -> Void)? {
 		didSet {
-			eventDetailsViewController?.signupActionHandler = signupActionHandler
+			eventDetailsViewController?.signupActionHandler = { [weak self] in
+				self?.signupActionHandler?($0)
+			}
 		}
 	}
 
@@ -93,9 +99,15 @@ private extension EventPageViewController {
 
 	func makeResultContent(for event: Event) -> EventDetailsViewController {
 		let result = EventDetailsViewController(for: event)
-		result.locateActionHandler = locateActionHandler
-		result.addToCalendarActionHandler = addToCalendarActionHandler
-		result.signupActionHandler = signupActionHandler
+		result.locateActionHandler = { [weak self] in
+			self?.locateActionHandler?($0)
+		}
+		result.addToCalendarActionHandler = { [weak self] in
+			self?.addToCalendarActionHandler?($0)
+		}
+		result.signupActionHandler = { [weak self] in
+			self?.signupActionHandler?($0)
+		}
 		return result
 	}
 
