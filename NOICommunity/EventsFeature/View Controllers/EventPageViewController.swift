@@ -69,7 +69,7 @@ final class EventPageViewController: BasePageViewController<EventDetailsViewMode
 				else { return }
 
 				// TODO: move set navigationItem title here
-				
+                self.navigationItem.title = event.title
 				self.show(content: self.makeResultContent(for: event))
 			}
 			.store(in: &subscriptions)

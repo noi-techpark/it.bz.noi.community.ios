@@ -120,9 +120,6 @@ private extension EventsCoordinator {
 			pageVC.signupActionHandler = { [weak self] in
 				self?.signupEvent($0)
 			}
-
-			// TODO: remove after title refactor
-			pageVC.navigationItem.title = event.title
 			
 			pageVC.navigationItem.largeTitleDisplayMode = .never
 

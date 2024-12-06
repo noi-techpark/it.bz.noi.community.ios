@@ -204,23 +204,6 @@ private extension AppCoordinator {
     func showNewsDetails(newsId: String, sender: Any?) {
 		guard let topViewController
 		else { return }
-
-		// TODO: remove after title refactor
-        func configureBindings(
-            viewModel: NewsDetailsViewModel,
-			pageViewController: NewsPageViewController
-        ) {
-            viewModel.$result
-				.compactMap { $0 }
-				.receive(on: DispatchQueue.main)
-                .sink { [weak pageViewController] news in
-					pageViewController?.navigationItem.title = localizedValue(
-                        from: news.languageToDetails
-                    )?
-                        .title
-                }
-                .store(in: &subscriptions)
-        }
         
         let viewModel = dependencyContainer.makeNewsDetailsViewModel(
 			newsId: newsId
@@ -254,12 +237,6 @@ private extension AppCoordinator {
 
 			return pageVC
 		}()
-
-		// TODO: remove after title refactor
-        configureBindings(
-            viewModel: viewModel,
-			pageViewController: pageVC
-        )
 
 		topViewController.present(
             NavigationController(rootViewController: pageVC),
@@ -315,21 +292,7 @@ private extension AppCoordinator {
 	func showEventDetails(eventId: String, sender: Any?) {
 		guard let topViewController
 		else { return }
-
-		// TODO: move set navigationItem title here
-		func configureBindings(
-			viewModel: EventDetailsViewModel,
-			pageViewController: EventPageViewController
-		) {
-			viewModel.$result
-				.compactMap { $0 }
-				.receive(on: DispatchQueue.main)
-				.sink { [weak pageViewController] event in
-					pageViewController?.navigationItem.title = event.title
-				}
-				.store(in: &subscriptions)
-		}
-
+        
 		let viewModel = dependencyContainer.makeEventDetailsViewModel(
 			eventId: eventId
 		)
@@ -357,10 +320,7 @@ private extension AppCoordinator {
 
 				self?.signupEvent($0, from: pageVC)
 			}
-
-			// TODO: move set navigationItem title here
-			pageVC.navigationItem.title = nil
-			
+            pageVC.navigationItem.title = nil
 			pageVC.navigationItem.largeTitleDisplayMode = .never
 			pageVC.navigationItem.leftBarButtonItem = UIBarButtonItem(
 				image: UIImage(systemName: "xmark.circle.fill"),
@@ -371,8 +331,6 @@ private extension AppCoordinator {
 
 			return pageVC
 		}()
-
-		configureBindings(viewModel: viewModel, pageViewController: pageVC)
 
 		topViewController.present(
 			NavigationController(rootViewController: pageVC),

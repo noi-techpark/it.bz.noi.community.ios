@@ -60,12 +60,7 @@ private extension NewsCoordinator {
 			pageVC.askQuestionActionHandler = { [weak self] in
 				self?.showAskAQuestion(for: $0)
 			}
-
-			// TODO: move set navigationItem title here
-			pageVC.navigationItem.title = localizedValue(
-				from: news.languageToDetails
-			)?
-				.title
+            
 			pageVC.navigationItem.largeTitleDisplayMode = .never
 
 			return pageVC
