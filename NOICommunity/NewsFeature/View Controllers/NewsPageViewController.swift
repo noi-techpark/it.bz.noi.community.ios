@@ -60,8 +60,7 @@ final class NewsPageViewController: BasePageViewController<NewsDetailsViewModel>
 			.sink { [weak self] event in
 				guard let self
 				else { return }
-                
-                // TODO: move set navigationItem title here
+        
                 self.navigationItem.title = localizedValue(
                     from: event.languageToDetails
                 )?
