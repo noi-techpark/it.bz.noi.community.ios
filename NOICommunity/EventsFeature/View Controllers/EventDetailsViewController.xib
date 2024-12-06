@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina5_9" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EventDetailsViewController" customModule="NOICommunity" customModuleProvider="target">
+            <connections>
+                <outlet property="aboutLabel" destination="Ghi-eY-AUf" id="cCA-Rj-fdb"/>
+                <outlet property="aboutSection" destination="uP2-sL-Mq1" id="xn8-Ql-ulQ"/>
+                <outlet property="actionsContainersView" destination="jJG-8A-cEa" id="aiq-cD-LUq"/>
+                <outlet property="addToCalendarButton" destination="r7U-vZ-h8f" id="efZ-MQ-OSf"/>
+                <outlet property="contentStackView" destination="Ms9-9u-gmy" id="LSs-vh-Vil"/>
+                <outlet property="descriptionTextView" destination="yHa-xw-ydP" id="h3j-Ue-4ex"/>
+                <outlet property="locateEventButton" destination="kST-yx-x1w" id="27l-Dt-5PT"/>
+                <outlet property="scrollView" destination="QeO-FA-lUc" id="YVH-xN-i78"/>
+                <outlet property="signupButton" destination="Y3W-5G-W9S" id="3A7-Hm-k4H"/>
+                <outlet property="view" destination="iN0-l3-epB" id="Rr7-cF-DkH"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QeO-FA-lUc">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="658"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Ms9-9u-gmy">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="745.66666666666663"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uP2-sL-Mq1">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="745.66666666666663"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacingType="standard" baselineRelativeArrangement="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DNt-cv-3h7">
+                                            <rect key="frame" x="17" y="0.0" width="341" height="745.66666666666663"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="About" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ghi-eY-AUf">
+                                                    <rect key="frame" x="0.0" y="0.0" width="341" height="26.333333333333332"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
+                                                    <color key="textColor" name="secondary_color"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="natural" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yHa-xw-ydP">
+                                                    <rect key="frame" x="0.0" y="18.333333333333314" width="341" height="727.33333333333348"/>
+                                                    <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                                    <color key="textColor" systemColor="labelColor"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                    <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES" calendarEvent="YES" shipmentTrackingNumber="YES" flightNumber="YES" lookupSuggestion="YES"/>
+                                                </textView>
+                                            </subviews>
+                                        </stackView>
+                                    </subviews>
+                                    <viewLayoutGuide key="safeArea" id="WDF-Vn-O75"/>
+                                    <constraints>
+                                        <constraint firstItem="DNt-cv-3h7" firstAttribute="top" secondItem="WDF-Vn-O75" secondAttribute="top" id="3wl-Zw-PHc"/>
+                                        <constraint firstItem="WDF-Vn-O75" firstAttribute="bottom" secondItem="DNt-cv-3h7" secondAttribute="bottom" id="FCv-fg-Yfx"/>
+                                        <constraint firstItem="DNt-cv-3h7" firstAttribute="leading" secondItem="WDF-Vn-O75" secondAttribute="leading" constant="17" id="KUC-wh-UH7"/>
+                                        <constraint firstItem="WDF-Vn-O75" firstAttribute="trailing" secondItem="DNt-cv-3h7" secondAttribute="trailing" constant="17" id="Oo4-qK-e1b"/>
+                                    </constraints>
+                                </view>
+                            </subviews>
+                        </stackView>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="Ms9-9u-gmy" firstAttribute="leading" secondItem="jkE-vN-MNa" secondAttribute="leading" id="0cl-kR-80s"/>
+                        <constraint firstItem="Ms9-9u-gmy" firstAttribute="width" secondItem="QeO-FA-lUc" secondAttribute="width" id="24u-Wr-5ZD"/>
+                        <constraint firstItem="Ms9-9u-gmy" firstAttribute="trailing" secondItem="jkE-vN-MNa" secondAttribute="trailing" id="C5D-cE-TdX"/>
+                        <constraint firstItem="jkE-vN-MNa" firstAttribute="top" secondItem="Ms9-9u-gmy" secondAttribute="top" id="jJQ-qs-uzA"/>
+                        <constraint firstItem="Ms9-9u-gmy" firstAttribute="bottom" secondItem="jkE-vN-MNa" secondAttribute="bottom" id="yhY-C9-3lf"/>
+                    </constraints>
+                    <viewLayoutGuide key="contentLayoutGuide" id="jkE-vN-MNa"/>
+                    <viewLayoutGuide key="frameLayoutGuide" id="U92-5u-5HP"/>
+                </scrollView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jJG-8A-cEa" customClass="FooterView" customModule="NOICommunity" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="658" width="375" height="154"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Wen-Nd-rfN">
+                            <rect key="frame" x="17" y="17" width="341" height="86"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r7U-vZ-h8f">
+                                    <rect key="frame" x="0.0" y="0.0" width="341" height="22"/>
+                                    <color key="backgroundColor" name="background_color"/>
+                                    <color key="tintColor" name="primary_color"/>
+                                    <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="20" maxY="0.0"/>
+                                    <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="-10" maxY="0.0"/>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" title="Add to calendar" image="ic_calendar_add">
+                                        <color key="titleColor" name="primary_color"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="addToCalendarActionWithSender:" destination="-1" eventType="primaryActionTriggered" id="M3z-eH-AKm"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y3W-5G-W9S">
+                                    <rect key="frame" x="0.0" y="32" width="341" height="22"/>
+                                    <color key="backgroundColor" name="background_color"/>
+                                    <color key="tintColor" name="primary_color"/>
+                                    <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="20" maxY="0.0"/>
+                                    <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="-10" maxY="0.0"/>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" title="Sign up" image="ic_sign_up">
+                                        <color key="titleColor" name="primary_color"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="signupActionWithSender:" destination="-1" eventType="primaryActionTriggered" id="ii1-ad-xd0"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kST-yx-x1w">
+                                    <rect key="frame" x="0.0" y="64" width="341" height="22"/>
+                                    <color key="tintColor" name="secondary_color"/>
+                                    <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="20" maxY="0.0"/>
+                                    <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="-10" maxY="0.0"/>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" title="Find on maps" image="ic_find">
+                                        <color key="titleColor" name="label_on_badge_background_color"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="findOnMapsActionWithSender:" destination="-1" eventType="primaryActionTriggered" id="HXo-4M-X9v"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                        </stackView>
+                    </subviews>
+                    <viewLayoutGuide key="safeArea" id="42g-Ww-RAc"/>
+                    <color key="backgroundColor" name="tertiary_background_color"/>
+                    <constraints>
+                        <constraint firstItem="42g-Ww-RAc" firstAttribute="bottom" secondItem="Wen-Nd-rfN" secondAttribute="bottom" constant="17" id="0aC-7e-bFn"/>
+                        <constraint firstItem="Wen-Nd-rfN" firstAttribute="top" secondItem="42g-Ww-RAc" secondAttribute="top" constant="17" id="NzC-8G-5yl"/>
+                        <constraint firstItem="Wen-Nd-rfN" firstAttribute="leading" secondItem="42g-Ww-RAc" secondAttribute="leading" constant="17" id="Une-Lo-OXE"/>
+                        <constraint firstItem="42g-Ww-RAc" firstAttribute="trailing" secondItem="Wen-Nd-rfN" secondAttribute="trailing" constant="17" id="yS5-ox-Xqu"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" name="secondary_background_color"/>
+            <constraints>
+                <constraint firstItem="QeO-FA-lUc" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="3lQ-Qn-NkS"/>
+                <constraint firstAttribute="bottom" secondItem="jJG-8A-cEa" secondAttribute="bottom" id="4Ar-Ay-qFN"/>
+                <constraint firstAttribute="trailing" secondItem="QeO-FA-lUc" secondAttribute="trailing" id="Isf-lm-eYc"/>
+                <constraint firstItem="jJG-8A-cEa" firstAttribute="trailing" secondItem="iN0-l3-epB" secondAttribute="trailing" id="PDF-Up-WOP"/>
+                <constraint firstItem="jJG-8A-cEa" firstAttribute="top" secondItem="QeO-FA-lUc" secondAttribute="bottom" id="UIy-bk-TZG"/>
+                <constraint firstItem="QeO-FA-lUc" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="cud-yI-VUn"/>
+                <constraint firstItem="jJG-8A-cEa" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="or8-yE-2sj"/>
+            </constraints>
+            <point key="canvasLocation" x="138.40000000000001" y="122.78860569715144"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="ic_calendar_add" width="16" height="17"/>
+        <image name="ic_find" width="16" height="18"/>
+        <image name="ic_sign_up" width="18" height="18"/>
+        <namedColor name="background_color">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="label_on_badge_background_color">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="primary_color">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="secondary_background_color">
+            <color red="0.94509803921568625" green="0.94509803921568625" blue="0.94509803921568625" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="secondary_color">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="tertiary_background_color">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

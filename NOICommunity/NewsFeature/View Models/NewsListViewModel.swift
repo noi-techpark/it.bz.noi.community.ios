@@ -53,66 +53,9 @@ final class NewsListViewModel {
     }
     
     func fetchNews(refresh: Bool = false) {
-        guard nextPage != nil || refresh
-        else { return }
-        
-        let pageNumber: Int
-        
-        if refresh {
-            pageNumber = firstPage
-        } else {
-            pageNumber = nextPage!
-        }
-        
-        let currentNewsIds: [String]
-        if refresh {
-            currentNewsIds = []
-        } else {
-            currentNewsIds = newsIds
-        }
-        
-        isLoadingFirstPage = pageNumber == firstPage
-        isLoading = true
-        
-        var articlesListPublisher = articlesClient.list(
-            Date(),
-            "noi-communityapp",
-            pageSize,
-            pageNumber
-        )
-        
-        if refresh {
-            articlesListPublisher = articlesListPublisher
-                .delay(for: 0.3, scheduler: RunLoop.main)
-                .eraseToAnyPublisher()
-        }
-        
-        fetchRequestCancellable = articlesListPublisher
-        .receive(on: DispatchQueue.main)
-        .sink(
-            receiveCompletion: { [weak self] completion in
-                self?.isLoadingFirstPage = false
-                self?.isLoading = false
-                
-                switch completion {
-                case .finished:
-                    break
-                case .failure(let error):
-                    self?.error = error
-                }
-            },
-            receiveValue: { [weak self] pagination in
-                guard let self = self
-                else { return }
-                
-                self.nextPage = pagination.nextPage
-                
-                guard let newItems = pagination.items
-                else { return }
-                
-                newItems.forEach { self.idToNews[$0.id] = $0 }
-                self.newsIds = currentNewsIds + newItems.map(\.id)
-            })
+		Task(priority: .userInitiated) { [weak self] in
+			await self?.performFetchNews(refresh: refresh)
+		}
     }
     
     func news(withId newsId: String) -> Article {
@@ -131,7 +74,53 @@ final class NewsListViewModel {
 // MARK: Private APIs
 
 private extension NewsListViewModel {
-    
+
+	func performFetchNews(refresh: Bool = false) async {
+		guard nextPage != nil || refresh
+		else { return }
+
+		let pageNumber: Int
+
+		if refresh {
+			pageNumber = firstPage
+		} else {
+			pageNumber = nextPage!
+		}
+
+		let currentNewsIds: [String]
+		if refresh {
+			currentNewsIds = []
+		} else {
+			currentNewsIds = newsIds
+		}
+
+		isLoadingFirstPage = pageNumber == firstPage
+		isLoading = true
+		defer {
+			isLoadingFirstPage = false
+			isLoading = false
+		}
+
+		do {
+			let pagination = try await articlesClient.getArticleList(
+				startDate: Date(),
+				publishedOn: "noi-communityapp",
+				pageSize: pageSize,
+				pageNumber: pageNumber
+			)
+
+			nextPage = pagination.nextPage
+
+			if let newItems = pagination.items {
+				newItems.forEach { idToNews[$0.id] = $0 }
+				newsIds = currentNewsIds + newItems.map(\.id)
+			}
+		} catch {
+			self.error = error
+		}
+
+	}
+
     func configureBindings() {
         refreshCancellable = NotificationCenter
             .default

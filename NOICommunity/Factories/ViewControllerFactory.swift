@@ -15,11 +15,15 @@ import PeopleClient
 protocol ViewControllerFactory {
     
     func makeEventListViewController() -> EventListViewController
-    
+
+	func makeEventPageViewController(
+		viewModel: EventDetailsViewModel
+	) -> EventPageViewController
+
     func makeEventFiltersViewController(
         viewModel: EventFiltersViewModel
     ) -> EventFiltersViewController
-    
+
     func makeWelcomeViewController(
         viewModel: WelcomeViewModel
     ) -> AuthWelcomeViewController
@@ -36,10 +40,9 @@ protocol ViewControllerFactory {
         viewModel: NewsListViewModel
     ) -> NewsViewController
     
-    func makeNewsDetailsViewController(
-        newsId: String,
+    func makeNewsPageViewController(
         viewModel: NewsDetailsViewModel
-    ) -> NewsDetailsViewController
+    ) -> NewsPageViewController
     
     func makeMeetMainViewController(
         viewModel: PeopleViewModel

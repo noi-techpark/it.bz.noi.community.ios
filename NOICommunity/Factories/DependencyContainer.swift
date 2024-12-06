@@ -122,7 +122,16 @@ extension DependencyContainer: ViewModelFactory {
             showFiltersHandler: showFiltersHandler
         )
     }
-    
+
+
+	func makeEventDetailsViewModel(eventId: String) -> EventDetailsViewModel {
+		.init(eventShortClient: eventShortClient, eventId: eventId)
+	}
+
+	func makeEventDetailsViewModel(event: Event) -> EventDetailsViewModel {
+		.init(eventShortClient: eventShortClient, event: event)
+	}
+
     func makeEventFiltersViewModel(
         showFilteredResultsHandler: @escaping () -> Void
     ) -> EventFiltersViewModel {
@@ -172,13 +181,17 @@ extension DependencyContainer: ViewModelFactory {
     func makeNewsListViewModel() -> NewsListViewModel {
         .init(articlesClient: makeArticlesClient())
     }
-    
-    func makeNewsDetailsViewModel(availableNews: Article?) -> NewsDetailsViewModel {
-        .init(
-            articlesClient: makeArticlesClient(),
-            availableNews: availableNews,
-            language: nil
-        )
+
+	func makeNewsDetailsViewModel(
+		newsId: String
+	) -> NewsDetailsViewModel {
+		.init(articlesClient: makeArticlesClient(), newsId: newsId)
+	}
+
+	func makeNewsDetailsViewModel(
+		news: Article
+	) -> NewsDetailsViewModel {
+		.init(articlesClient: makeArticlesClient(), news: news)
     }
     
     func makePeopleViewModel() -> PeopleViewModel {
@@ -202,7 +215,13 @@ extension DependencyContainer: ViewControllerFactory {
     func makeEventListViewController() -> EventListViewController {
         .init(items: [])
     }
-    
+
+	func makeEventPageViewController(
+		viewModel: EventDetailsViewModel
+	) -> EventPageViewController {
+		.init(viewModel: viewModel)
+	}
+
     func makeEventFiltersViewController(
         viewModel: EventFiltersViewModel
     ) -> EventFiltersViewController {
@@ -233,11 +252,10 @@ extension DependencyContainer: ViewControllerFactory {
         .init(viewModel: viewModel)
     }
     
-    func makeNewsDetailsViewController(
-        newsId: String,
-        viewModel: NewsDetailsViewModel
-    ) -> NewsDetailsViewController {
-        .init(newsId: newsId, viewModel: viewModel)
+	func makeNewsPageViewController(
+		viewModel: NewsDetailsViewModel
+	) -> NewsPageViewController {
+        .init(viewModel: viewModel)
     }
     
     func makeMeetMainViewController(

@@ -41,10 +41,6 @@ let package = Package(
             targets: ["EventShortClient"]
         ),
         .library(
-            name: "EventShortClientLive",
-            targets: ["EventShortClientLive"]
-        ),
-        .library(
             name: "AuthStateStorageClient",
             targets: ["AuthStateStorageClient"]
         ),
@@ -59,10 +55,6 @@ let package = Package(
         .library(
             name: "ArticlesClient",
             targets: ["ArticlesClient"]
-        ),
-        .library(
-            name: "ArticlesClientLive",
-            targets: ["ArticlesClientLive"]
         ),
         .library(
             name: "PeopleClient",
@@ -109,13 +101,6 @@ let package = Package(
                 "Core"
             ]
         ),
-        .testTarget(
-            name: "EventShortTypesClientTests",
-            dependencies: [
-                "Core",
-                "EventShortTypesClient"
-            ]
-        ),
         .target(
             name: "EventShortTypesClientLive",
             dependencies: [
@@ -129,13 +114,6 @@ let package = Package(
                 "Core"
             ]
         ),
-        .testTarget(
-            name: "AppPreferencesClientTests",
-            dependencies: [
-                "Core",
-                "AppPreferencesClient"
-            ]
-        ),
         .target(
             name: "AppPreferencesClientLive",
             dependencies: [
@@ -147,20 +125,6 @@ let package = Package(
             name: "EventShortClient",
             dependencies: [
                 "Core",
-            ]
-        ),
-        .testTarget(
-            name: "EventShortClientTests",
-            dependencies: [
-                "Core",
-                "EventShortClient"
-            ]
-        ),
-        .target(
-            name: "EventShortClientLive",
-            dependencies: [
-                "Core",
-                "EventShortClient"
             ]
         ),
         .target(
@@ -186,14 +150,9 @@ let package = Package(
         ),
         .target(
             name: "ArticlesClient",
-            dependencies: []
-        ),
-        .target(
-            name: "ArticlesClientLive",
             dependencies: [
-                "Core",
-                "ArticlesClient",
-            ]
+				"Core"
+			]
         ),
         .target(
             name: "PeopleClient",

@@ -16,7 +16,14 @@ class BaseCoordinator: NSObject, CoordinatorType {
     var childCoordinators: [CoordinatorType] = []
     
     var dependencyContainer: DependencyRepresentable
-    
+
+	var topViewController: UIViewController? {
+		guard let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? UIWindowSceneDelegate
+		else { return nil }
+
+		return sceneDelegate.window??.topViewController
+	}
+
     @available(*, unavailable)
     override init() {
         fatalError("\(#function) not available")

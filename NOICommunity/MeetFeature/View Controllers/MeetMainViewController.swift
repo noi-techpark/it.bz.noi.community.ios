@@ -268,7 +268,7 @@ private extension MeetMainViewController.CollectionViewController {
             var contentConfiguration = PersonCardContentConfiguration()
             
             contentConfiguration.fullname = person.fullname
-            contentConfiguration.company = company?.name ?? "N/D"
+            contentConfiguration.company = company?.name ?? .localized("label_no_value")
             contentConfiguration.avatarText = [
                 person.firstname.prefix(1),
                 person.lastname.prefix(1)

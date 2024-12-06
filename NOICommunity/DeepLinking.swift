@@ -15,6 +15,7 @@ import UIKit
 
 enum DeepLinkIntent {
     case showNews(newsId: String)
+    case showEvent(eventId: String)
 }
 
 // MARK: - DeepLinkManager
@@ -42,6 +43,9 @@ struct DeepLinkManager {
             case (URLConstant.newsDetailsPath, let newsId):
                 // Matches: <customURLScheme><host>/newsDetails/{newsId}
                 return .showNews(newsId: newsId)
+            case (URLConstant.eventDetailsPath, let eventId):
+                // Matches: <customURLScheme><host>/eventDetails/{eventId}
+                return .showEvent(eventId: eventId)
             default:
                 return nil
             }
@@ -71,6 +75,7 @@ private extension DeepLinkManager {
         static let customURLScheme = "noi-community"
         static let host = "it.bz.noi.community"
         static let newsDetailsPath = "newsDetails"
+        static let eventDetailsPath = "eventDetails"
     }
     
     enum NotificationConstant {
