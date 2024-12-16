@@ -180,10 +180,18 @@ class NewsDetailsViewController: UIViewController {
 		if news.imageGallery.isEmpty {
 			galleryContainerView.removeFromSuperview()
 		} else {
-			galleryVC.imageURLs = news.imageGallery.compactMap(\.url)
-			if galleryVC.parent != self {
-				embedChild(galleryVC, in: galleryContainerView)
-			}
+            Task {
+                if let thumbnailURL = try? await ThumbnailGenerator.generateThumbnail() {
+                    galleryVC.imageURLs = self.news.imageGallery.compactMap(\.url)
+                    galleryVC.imageURLs.insert(thumbnailURL, at: 0)
+                } else {
+                    galleryVC.imageURLs = news.imageGallery.compactMap(\.url)
+                }
+
+                if galleryVC.parent != self {
+                    embedChild(galleryVC, in: galleryContainerView)
+                }
+            }
 		}
 
 		if galleryTextStackView.subviews.isEmpty {

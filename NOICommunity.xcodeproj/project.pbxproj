@@ -226,6 +226,7 @@
 		31FAEA7D28197D9700CDBC1B /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FAEA7C28197D9700CDBC1B /* AppCoordinator.swift */; };
 		31FAEA7F28197EC200CDBC1B /* NavigationCoordinatorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FAEA7E28197EC200CDBC1B /* NavigationCoordinatorType.swift */; };
 		31FFE9502D01E068007C699B /* NewsPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FFE94F2D01E065007C699B /* NewsPageViewController.swift */; };
+		90D18AC22D10BF030063C623 /* ThumbnailGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90D18AC12D10BF030063C623 /* ThumbnailGenerator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -462,6 +463,7 @@
 		31FAEA7C28197D9700CDBC1B /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		31FAEA7E28197EC200CDBC1B /* NavigationCoordinatorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationCoordinatorType.swift; sourceTree = "<group>"; };
 		31FFE94F2D01E065007C699B /* NewsPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsPageViewController.swift; sourceTree = "<group>"; };
+		90D18AC12D10BF030063C623 /* ThumbnailGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbnailGenerator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -875,6 +877,7 @@
 		319C4656282BB7F300946AC7 /* NewsFeature */ = {
 			isa = PBXGroup;
 			children = (
+				90D18AC12D10BF030063C623 /* ThumbnailGenerator.swift */,
 				31B0205C2C78D19600175DA0 /* NewsFeatureConstants.swift */,
 				31D07BD6282E358A00AA7D99 /* Coordinators */,
 				3102F45C282C069500687CF7 /* View Controllers */,
@@ -1399,6 +1402,7 @@
 				31E7872427D7419200C67188 /* UIButton+Insets.swift in Sources */,
 				3182A179282CEFB7005439B4 /* NewsCardContentView.swift in Sources */,
 				31C28BFE2719BD7200312A62 /* LoadingViewController.swift in Sources */,
+				90D18AC22D10BF030063C623 /* ThumbnailGenerator.swift in Sources */,
 				312BBB5B2832658600AF84F0 /* UIViewController+PresentMailCompose.swift in Sources */,
 				3187667526FB35C100782FA6 /* String+NotDefined.swift in Sources */,
 				31892F2C281BC09F00DD89F7 /* MoreViewModel.swift in Sources */,

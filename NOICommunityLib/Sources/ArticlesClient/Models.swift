@@ -138,16 +138,10 @@ public struct Article: Codable, Hashable {
             LocalizedMap<Article.ContactInfos>.self,
             forKey: .languageToAuthor
         ) ?? [:]
-        
-        var gallery = try values.decodeIfPresent(
+        self.imageGallery =  try values.decodeIfPresent(
             [Article.ImageGallery].self,
             forKey: .imageGallery
         ) ?? []
-        // Aggiungi l'elemento in posizione 0
-        gallery.insert(Article.ImageGallery(url: URL(string: "https://i.vimeocdn.com/filter/overlay?src0=https%3A%2F%2Fi.vimeocdn.com%2Fvideo%2F1943592891-25f3316e798403a140e6f197abf71c0afdeb829419a7f0b84d5c1b9fd7e47df1-d_295x166&src1=http%3A%2F%2Ff.vimeocdn.com%2Fp%2Fimages%2Fcrawler_play.png")), at: 0)
-        // Assegna la copia modificata
-        self.imageGallery = gallery
-        
         self.tags = try values.decodeIfPresent(
             [Article.Tag].self,
             forKey: .tags
