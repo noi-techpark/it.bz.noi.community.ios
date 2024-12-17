@@ -228,6 +228,8 @@
 		31FFE9502D01E068007C699B /* NewsPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FFE94F2D01E065007C699B /* NewsPageViewController.swift */; };
 		90D18AC22D10BF030063C623 /* ThumbnailGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90D18AC12D10BF030063C623 /* ThumbnailGenerator.swift */; };
 		90D18AC42D1177CD0063C623 /* VideoPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90D18AC32D1177CD0063C623 /* VideoPlayerViewController.swift */; };
+		90D18AC92D118AFD0063C623 /* original_json_backup.json in Resources */ = {isa = PBXBuildFile; fileRef = 90D18AC82D118A920063C623 /* original_json_backup.json */; };
+		90D18ACA2D118B000063C623 /* original_json.json in Resources */ = {isa = PBXBuildFile; fileRef = 90D18AC72D118A920063C623 /* original_json.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -466,6 +468,8 @@
 		31FFE94F2D01E065007C699B /* NewsPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsPageViewController.swift; sourceTree = "<group>"; };
 		90D18AC12D10BF030063C623 /* ThumbnailGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbnailGenerator.swift; sourceTree = "<group>"; };
 		90D18AC32D1177CD0063C623 /* VideoPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerViewController.swift; sourceTree = "<group>"; };
+		90D18AC72D118A920063C623 /* original_json.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = original_json.json; sourceTree = "<group>"; };
+		90D18AC82D118A920063C623 /* original_json_backup.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = original_json_backup.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -609,6 +613,8 @@
 		3145D22426B3F73F00F16787 = {
 			isa = PBXGroup;
 			children = (
+				90D18AC82D118A920063C623 /* original_json_backup.json */,
+				90D18AC72D118A920063C623 /* original_json.json */,
 				3101C76F27DB37C30079EFE2 /* NOICommunityLib */,
 				3164BAC326F8630D00443CF0 /* NOICommunity.playground */,
 				3145D22F26B3F73F00F16787 /* NOICommunity */,
@@ -1209,8 +1215,10 @@
 				31515A1D286C868600642907 /* SourceSansPro-SemiBoldItalic.ttf in Resources */,
 				3167681C27036A2F00A9DB87 /* PlaceCardContentView.xib in Resources */,
 				31C640A826FE0CF8004B71A2 /* OrientateMainViewController.xib in Resources */,
+				90D18AC92D118AFD0063C623 /* original_json_backup.json in Resources */,
 				317D5C772841208400531432 /* PersonDetailHeaderContentView.xib in Resources */,
 				313FB0B72719C518000AD9DA /* GoogleService-Info.plist in Resources */,
+				90D18ACA2D118B000063C623 /* original_json.json in Resources */,
 				31515A22286C868600642907 /* SourceSansPro-Black.ttf in Resources */,
 				316ED05D270B12CF0070D272 /* Colors.xcassets in Resources */,
 				31CF8133270B49100077CB0D /* VersionContentView.xib in Resources */,

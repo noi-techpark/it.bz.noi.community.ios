@@ -91,14 +91,38 @@ public final class ArticlesClientImplementation: ArticlesClient {
 			)
 			.makeRequest(withBaseURL: baseURL)
 
-		let (data, _) = try await transport.send(request: request)
-
-		try Task.checkCancellation()
-
-		let articleListResponseWithPageURLs = try jsonDecoder.decode(
-			ArticleListResponseWithPageURLs.self,
-			from: data
-		)
+//        let (data1, _) = try await transport.send(request: request)
+//        
+//        try Task.checkCancellation()
+//        
+//        if let jsonString = String(data: data1, encoding: .utf8) {
+//            let fileURL = FileManager.default.temporaryDirectory.appendingPathComponent("articleList.json")
+//            try? jsonString.write(to: fileURL, atomically: true, encoding: .utf8)
+//            print("Saved JSON to: \(fileURL.path)")
+//        }
+        
+//        // Stampa il JSON ricevuto
+//        if let jsonString = String(data: data, encoding: .utf8) {
+//            print("Received JSON:\n\(jsonString)")
+//        } else {
+//            print("Failed to decode JSON to string")
+//        }
+        
+        let fileName = "original_json"
+        let fileExtension = "json"
+        
+        // Carica il file JSON dal bundle
+        guard let fileURL = Bundle.main.url(forResource: fileName, withExtension: fileExtension) else {
+            fatalError("File \(fileName).\(fileExtension) not found in the project bundle.")
+        }
+        
+        // Leggi il contenuto del file
+        let data = try Data(contentsOf: fileURL)
+        
+        let articleListResponseWithPageURLs = try jsonDecoder.decode(
+            ArticleListResponseWithPageURLs.self,
+            from: data
+        )
 		return .init(from: articleListResponseWithPageURLs)
 	}
 	

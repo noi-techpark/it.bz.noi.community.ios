@@ -107,6 +107,8 @@ public struct Article: Codable, Hashable {
 
     public let languageToAuthor: LocalizedMap<ContactInfos>
 
+    public let videoGallery: [VideoGallery]
+    
     public let imageGallery: [ImageGallery]
 
     public let tags: [Tag]
@@ -122,6 +124,7 @@ public struct Article: Codable, Hashable {
         case date = "articleDate"
         case languageToDetails = "detail"
         case languageToAuthor = "contactInfos"
+        case videoGallery
         case imageGallery
         case tags = "oDHTags"
         case isHighlighted = "highlight"
@@ -129,7 +132,7 @@ public struct Article: Codable, Hashable {
 
     public init(from decoder: any Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = try values.decode(String.self, forKey: .id)
+        self.id = UUID().uuidString //try values.decode(String.self, forKey: .id)
         self.date = try values.decodeIfPresent(Date.self, forKey: .date)
         self.languageToDetails = try values.decodeIfPresent(
             LocalizedMap<Article.Details>.self,
@@ -138,6 +141,10 @@ public struct Article: Codable, Hashable {
             LocalizedMap<Article.ContactInfos>.self,
             forKey: .languageToAuthor
         ) ?? [:]
+        self.videoGallery = try values.decodeIfPresent(
+            [Article.VideoGallery].self,
+            forKey: .videoGallery
+        ) ?? []
         self.imageGallery =  try values.decodeIfPresent(
             [Article.ImageGallery].self,
             forKey: .imageGallery
@@ -205,6 +212,16 @@ extension Article {
 
 extension Article {
 
+    public struct VideoGallery: Codable, Hashable {
+
+        public let url: URL?
+
+        private enum CodingKeys: String, CodingKey {
+            case url = "videoUrl"
+        }
+
+    }
+    
     public struct ImageGallery: Codable, Hashable {
 
         public let url: URL?

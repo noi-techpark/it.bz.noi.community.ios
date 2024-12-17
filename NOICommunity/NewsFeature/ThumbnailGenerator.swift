@@ -19,8 +19,7 @@ class ThumbnailGenerator {
         let thumbnail_url_with_play_button: String
     }
     
-    static func generateThumbnail() async throws -> URL? {
-        let m3u8URL = "https://player.vimeo.com/external/1024278566.m3u8?s=cbcbf4d98e7a731751c7361dd2d037ac1e4aa62e&logging=false"
+    static func generateThumbnail(from m3u8URL: String) async throws -> URL? {
         
         guard let videoID = extractVideoID(from: m3u8URL) else {
             print("ERRORE: Invalid video ID")

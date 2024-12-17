@@ -177,17 +177,35 @@ class NewsDetailsViewController: UIViewController {
 			textView.removeFromSuperview()
 		}
 
-		if news.imageGallery.isEmpty {
-			galleryContainerView.removeFromSuperview()
-		} else {
+        if news.imageGallery.isEmpty && news.videoGallery.isEmpty {
+            galleryContainerView.removeFromSuperview()
+        } else {
             Task {
-                if let thumbnailURL = try? await ThumbnailGenerator.generateThumbnail() {
-                    galleryVC.imageURLs = self.news.imageGallery.compactMap(\.url)
-                    galleryVC.imageURLs.insert(thumbnailURL, at: 0)
-                } else {
-                    galleryVC.imageURLs = news.imageGallery.compactMap(\.url)
+                // Creiamo una lista sincrona per le immagini
+                let imageList: [MediaItem] = news.imageGallery.compactMap { image in
+                    guard let imageURL = image.url else { return nil }
+                    return MediaItem(imageURL: imageURL, videoURL: nil)
+                }
+                
+                // Creiamo una lista sincrona per i video
+                var videoList: [MediaItem] = []
+                for video in news.videoGallery {
+                    guard let videoURL = video.url else { continue }
+                    
+                    // Tenta di generare il thumbnail per il video
+                    if let thumbnailURL = try? await ThumbnailGenerator.generateThumbnail(from: videoURL.absoluteString) {
+                        // Se la generazione del thumbnail ha successo, aggiungi MediaItem
+                        videoList.append(MediaItem(imageURL: thumbnailURL, videoURL: videoURL))
+                        print("URL ASSOLUTO VIDEO: \(videoURL.absoluteString)")
+                    } else {
+                        // Se fallisce, aggiungi comunque il MediaItem con solo videoURL
+                        videoList.append(MediaItem(imageURL: nil, videoURL: videoURL))
+                    }
                 }
 
+                // Unisci video e immagini
+                galleryVC.mediaItems = videoList + imageList
+                
                 if galleryVC.parent != self {
                     embedChild(galleryVC, in: galleryContainerView)
                 }
