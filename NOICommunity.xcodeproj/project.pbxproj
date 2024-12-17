@@ -227,6 +227,7 @@
 		31FAEA7F28197EC200CDBC1B /* NavigationCoordinatorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FAEA7E28197EC200CDBC1B /* NavigationCoordinatorType.swift */; };
 		31FFE9502D01E068007C699B /* NewsPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FFE94F2D01E065007C699B /* NewsPageViewController.swift */; };
 		90D18AC22D10BF030063C623 /* ThumbnailGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90D18AC12D10BF030063C623 /* ThumbnailGenerator.swift */; };
+		90D18AC42D1177CD0063C623 /* VideoPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90D18AC32D1177CD0063C623 /* VideoPlayerViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -464,6 +465,7 @@
 		31FAEA7E28197EC200CDBC1B /* NavigationCoordinatorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationCoordinatorType.swift; sourceTree = "<group>"; };
 		31FFE94F2D01E065007C699B /* NewsPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsPageViewController.swift; sourceTree = "<group>"; };
 		90D18AC12D10BF030063C623 /* ThumbnailGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbnailGenerator.swift; sourceTree = "<group>"; };
+		90D18AC32D1177CD0063C623 /* VideoPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -883,6 +885,7 @@
 				3102F45C282C069500687CF7 /* View Controllers */,
 				3102F45B282C068A00687CF7 /* View Models */,
 				3102F45D282C06A100687CF7 /* Views */,
+				90D18AC32D1177CD0063C623 /* VideoPlayerViewController.swift */,
 			);
 			path = NewsFeature;
 			sourceTree = "<group>";
@@ -1344,6 +1347,7 @@
 				316A82A12CFF1FF0002D62D3 /* EventListViewController.swift in Sources */,
 				316A82A22CFF1FF0002D62D3 /* Event.swift in Sources */,
 				316A82A32CFF1FF0002D62D3 /* EventsFeatureConstants.swift in Sources */,
+				90D18AC42D1177CD0063C623 /* VideoPlayerViewController.swift in Sources */,
 				316A82A42CFF1FF0002D62D3 /* EventDetailsViewController.swift in Sources */,
 				316A82A52CFF1FF0002D62D3 /* EventCardContentConfiguration.SharedConfig.swift in Sources */,
 				316A82A62CFF1FF0002D62D3 /* EventsCoordinator.swift in Sources */,

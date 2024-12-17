@@ -74,6 +74,17 @@ class GalleryCollectionViewController: UICollectionViewController {
         configureCollectionView()
         configureDataSource()
     }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let selectedURL =   URL(string:"https://player.vimeo.com/external/1024278566.m3u8?s=cbcbf4d98e7a731751c7361dd2d037ac1e4aa62e&logging=false")!
+        openVideoPlayer(with: selectedURL)
+    }
+    
+    func openVideoPlayer(with url: URL) {
+        let playerViewController = VideoPlayerViewController(videoURL: url)
+        playerViewController.modalPresentationStyle = .fullScreen
+        present(playerViewController, animated: true, completion: nil)
+    }
 
 }
 
