@@ -40,7 +40,7 @@ class ThumbnailGenerator {
 
     
     // url della chiamata per ricavare il json con il link alla thumbnail
-    private static func getJsonURL(for videoID: String, width: Int = 315, height: Int = 210) -> String? {
+    private static func getJsonURL(for videoID: String) -> String? {
         let vimeoURL = "https://vimeo.com/\(videoID)"
         
         guard let encodedVimeoURL = vimeoURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
@@ -48,7 +48,10 @@ class ThumbnailGenerator {
             return nil
         }
         
-        let apiURLString = "https://vimeo.com/api/oembed.json?url=\(encodedVimeoURL)&width=\(width)&height=\(height)"
+        let screenScale = UIScreen.main.scale
+        let imageWidth = 315 * screenScale  // Moltiplica per il fattore di scala
+        
+        let apiURLString = "https://vimeo.com/api/oembed.json?url=\(encodedVimeoURL)&width=\(imageWidth)"
         
         print("url json: \(apiURLString)")
         
