@@ -88,6 +88,9 @@ class NewsDetailsViewController: UIViewController {
         }
     }
     
+    // A cache that stores thumbnail URLs for video URLs to avoid redundant processing.
+    private static var thumbnailCache: [URL: URL] = [:]
+    
     private lazy var galleryVC = GalleryCollectionViewController(
         imageSize: CGSize(width: 315, height: 210),
         spacing: 17,
@@ -180,6 +183,26 @@ class NewsDetailsViewController: UIViewController {
         if news.imageGallery.isEmpty && news.videoGallery.isEmpty {
             galleryContainerView.removeFromSuperview()
         } else {
+            // Crea la lista sincrona per le immagini
+            let imageList: [MediaItem] = news.imageGallery.compactMap { image in
+                guard let imageURL = image.url else { return nil }
+                return MediaItem(imageURL: imageURL, videoURL: nil)
+            }
+
+            // Crea la lista iniziale per i video, con solo videoURL
+            let initialVideoList: [MediaItem] = news.videoGallery.compactMap { video in
+                guard let videoURL = video.url else { return nil }
+                // Controlla se c'è già un URL nella cache per la thumbnail
+                let cachedThumbnailURL = Self.thumbnailCache[videoURL]
+                return MediaItem(imageURL: cachedThumbnailURL, videoURL: videoURL) // Solo videoURL per ora
+            }
+            
+            // Imposta gli elementi iniziali su galleryVC.mediaItems
+            galleryVC.mediaItems = initialVideoList + imageList
+
+            if galleryVC.parent != self {
+                embedChild(galleryVC, in: galleryContainerView)
+            }
             Task {
                 // Creiamo una lista sincrona per le immagini
                 let imageList: [MediaItem] = news.imageGallery.compactMap { image in
@@ -192,14 +215,16 @@ class NewsDetailsViewController: UIViewController {
                 for video in news.videoGallery {
                     guard let videoURL = video.url else { continue }
                     
-                    // Tenta di generare il thumbnail per il video
-                    if let thumbnailURL = try? await ThumbnailGenerator.generateThumbnail(from: videoURL.absoluteString) {
-                        // Se la generazione del thumbnail ha successo, aggiungi MediaItem
-                        videoList.append(MediaItem(imageURL: thumbnailURL, videoURL: videoURL))
-                        print("URL ASSOLUTO VIDEO: \(videoURL.absoluteString)")
+                    if let cachedThumbnailURL = Self.thumbnailCache[videoURL] {
+                        videoList.append(MediaItem(imageURL: cachedThumbnailURL, videoURL: videoURL))
                     } else {
-                        // Se fallisce, aggiungi comunque il MediaItem con solo videoURL
-                        videoList.append(MediaItem(imageURL: nil, videoURL: videoURL))
+                        if let thumbnailURL = await ThumbnailGenerator.generateThumbnail(from: videoURL) {
+                            Self.thumbnailCache[videoURL] = thumbnailURL
+                            videoList.append(MediaItem(imageURL: thumbnailURL, videoURL: videoURL))
+                        } else {
+                            // Se fallisce, aggiungi comunque il MediaItem con solo videoURL
+                            videoList.append(MediaItem(imageURL: nil, videoURL: videoURL))
+                        }
                     }
                 }
 

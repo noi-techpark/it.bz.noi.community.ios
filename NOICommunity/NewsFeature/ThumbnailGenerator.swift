@@ -13,119 +13,102 @@ import AVFoundation
 
 class ThumbnailGenerator {
     
-    //let default_url = "https://player.vimeo.com/external/1024278566.m3u8?s=cbcbf4d98e7a731751c7361dd2d037ac1e4aa62e&logging=false"
-    
     private struct VimeoResponse: Codable {
         let thumbnail_url_with_play_button: String
     }
     
-    static func generateThumbnail(from m3u8URL: String) async throws -> URL? {
-        
-        guard let videoID = extractVideoID(from: m3u8URL) else {
-            print("ERRORE: Invalid video ID")
+    /// Generates a thumbnail from a `.m3u8` video URL of a vimeo video
+    /// - Parameter m3u8URL: URL of the `.m3u8` video
+    /// - Returns: URL of the thumbnail, if available
+    static func generateThumbnail(from m3u8URL: URL) async -> URL? {
+        do {
+            let videoID = try extractVideoID(from: m3u8URL)
+            let jsonURL = try getJsonURL(for: videoID)
+            let thumbnailURL = try await fetchThumbnailURL(from: jsonURL)
+            return thumbnailURL
+        } catch {
+            print("Error generating thumbnail: \(error)")
             return nil
         }
-        
-        guard let jsonURL = getJsonURL(for: videoID) else {
-            print("ERRORE: Unable to get JSON URL")
-            return nil
-        }
-        
-        // Chiamata asincrona per ottenere l'URL del thumbnail
-        let thumbnailURL = await fetchVimeoAPIResponse(from: jsonURL)
-        print("thumbnail URL: \(String(describing: thumbnailURL))")
-
-        return thumbnailURL
     }
-
     
-    // url della chiamata per ricavare il json con il link alla thumbnail
-    private static func getJsonURL(for videoID: String) -> String? {
-        let vimeoURL = "https://vimeo.com/\(videoID)"
+    /// Extracts the video ID from a `.m3u8` video URL of a vimeo video
+    /// - Parameter videoURL: URL of the video
+    /// - Throws: Error if the ID cannot be extracted
+    /// - Returns: The extracted video ID
+    private static func extractVideoID(from videoURL: URL) throws -> String {
+        let pathComponents = videoURL.pathComponents
+        guard let externalIndex = pathComponents.firstIndex(of: "external"),
+              externalIndex + 1 < pathComponents.count else {
+            throw ThumbnailError.invalidVideoURL
+        }
         
+        var videoID = pathComponents[externalIndex + 1]
+        
+        // Remove the `.m3u8` extension if present
+        if let range = videoID.range(of: ".m3u8") {
+            videoID.removeSubrange(range)
+        }
+        
+        print("Extracted Video ID: \(videoID)")
+        return videoID
+    }
+    
+    /// Constructs the JSON API URL to fetch the thumbnail
+    /// - Parameter videoID: The ID of the video
+    /// - Throws: Error if the API URL cannot be constructed
+    /// - Returns: The Vimeo API URL
+    private static func getJsonURL(for videoID: String) throws -> URL {
+        let vimeoURL = "https://vimeo.com/\(videoID)"
         guard let encodedVimeoURL = vimeoURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
-            print("Errore nella codifica dell'URL Vimeo")
-            return nil
+            throw ThumbnailError.invalidVimeoURL
         }
         
         let screenScale = UIScreen.main.scale
-        let imageWidth = 315 * screenScale  // Moltiplica per il fattore di scala
+        let imageWidth = Int(315 * screenScale) // Calculate the width based on screen scale
         
-        let apiURLString = "https://vimeo.com/api/oembed.json?url=\(encodedVimeoURL)&width=\(imageWidth)"
+        var components = URLComponents(string: "https://vimeo.com/api/oembed.json")
+        components?.queryItems = [
+            URLQueryItem(name: "url", value: encodedVimeoURL),
+            URLQueryItem(name: "width", value: "\(imageWidth)")
+        ]
         
-        print("url json: \(apiURLString)")
+        guard let apiURL = components?.url else {
+            throw ThumbnailError.invalidAPIURL
+        }
         
-        return apiURLString
+        print("Generated JSON API URL: \(apiURL)")
+        return apiURL
     }
     
-    // funzione per ricavare l'id dall'url del video
-    private static func extractVideoID(from urlString: String) -> String? {
-        guard let url = URL(string: urlString) else {
-            print("Invalid URL string.")
-            return nil
+    /// Makes a request to the Vimeo API to fetch the thumbnail
+    /// - Parameter apiURL: The Vimeo API URL
+    /// - Throws: Error if the request or decoding fails
+    /// - Returns: The URL of the thumbnail
+    private static func fetchThumbnailURL(from apiURL: URL) async throws -> URL {
+        let (data, response) = try await URLSession.shared.data(from: apiURL)
+        
+        // Validate the HTTP response status
+        guard let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) else {
+            throw ThumbnailError.invalidResponse
         }
         
-        // Estrai il percorso dall'URL (la parte dopo il dominio)
-        let pathComponents = url.pathComponents
+        // Decode the JSON response
+        let decoder = JSONDecoder()
+        let vimeoResponse = try decoder.decode(VimeoResponse.self, from: data)
         
-        // Verifica che ci sia il segmento "external" nel percorso
-        if let externalIndex = pathComponents.firstIndex(of: "external"),
-           externalIndex + 1 < pathComponents.count {
-            // L'ID del video è il componente che segue "external"
-            var videoID = pathComponents[externalIndex + 1]
-            
-            // Rimuovi l'estensione ".m3u8" se presente
-            if let range = videoID.range(of: ".m3u8") {
-                videoID.removeSubrange(range)
-            }
-            
-            print("Video ID: \(videoID)") // Stampiamo l'ID estratto
-            return videoID
+        guard let thumbnailURL = URL(string: vimeoResponse.thumbnail_url_with_play_button) else {
+            throw ThumbnailError.invalidThumbnailURL
         }
         
-        print("Video ID not found")
-        return nil
+        return thumbnailURL
     }
+}
 
-    
-    // funzione per recuperare l'url della thumbnail
-    private static func fetchVimeoAPIResponse(from apiURL: String) async -> URL? {
-        // Creazione dell'URL
-        guard let url = URL(string: apiURL) else {
-            print("Errore: URL non valido")
-            return nil
-        }
-        
-        do {
-            // Esegui la richiesta e ottieni i dati
-            let (data, response) = try await URLSession.shared.data(from: url)
-            
-            // Verifica se la risposta HTTP è corretta
-            if let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) {
-                // Prova a decodificare i dati JSON
-                let decoder = JSONDecoder()
-                do {
-                    // Decodifica la risposta JSON
-                    let vimeoResponse = try decoder.decode(VimeoResponse.self, from: data)
-                    
-                    // Converte la stringa in URL
-                    if let thumbnailURL = URL(string: vimeoResponse.thumbnail_url_with_play_button) {
-                        return thumbnailURL
-                    } else {
-                        print("Errore: URL thumbnail non valido")
-                        return nil
-                    }
-                } catch {
-                    print("Errore durante la decodifica JSON: \(error)")
-                    return nil
-                }
-            } else {
-                print("Errore: Risposta HTTP non valida")
-                return nil
-            }
-        } catch {
-            print("Errore durante la richiesta: \(error)")
-            return nil
-        }
-    }
+enum ThumbnailError: Error {
+    case invalidVideoURL
+    case invalidVimeoURL
+    case invalidAPIURL
+    case invalidResponse
+    case invalidThumbnailURL
 }

@@ -157,7 +157,6 @@ private extension GalleryCollectionViewController {
             
             if let imageURL = mediaItem.imageURL {
                 
-                // Carica l'immagine
                 KingfisherManager.shared.retrieveImage(with: imageURL) { result in
                     guard
                         cell.id == mediaItem,
@@ -189,5 +188,4 @@ private extension GalleryCollectionViewController {
         snapshot.appendItems(mediaItems, toSection: .main)
         dataSource.apply(snapshot, animatingDifferences: animated)
     }
-    
 }
