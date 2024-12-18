@@ -93,6 +93,19 @@ public struct ArticleListResponse: Codable, Hashable {
 
 }
 
+// MARK: - VideoItems
+
+public struct VideoItems: Codable, Hashable {
+    public let url: URL?
+    public let name: String?
+
+    private enum CodingKeys: String, CodingKey {
+        case url = "Url" // Mapping the URL key
+        case name = "Name" // Mapping the Name key
+    }
+}
+
+
 // MARK: - Article
 
 public struct Article: Codable, Hashable {
@@ -107,7 +120,7 @@ public struct Article: Codable, Hashable {
 
     public let languageToAuthor: LocalizedMap<ContactInfos>
 
-    public let videoGallery: [VideoGallery]
+    public let languageToVideoGallery: LocalizedMap<[VideoGallery]>
     
     public let imageGallery: [ImageGallery]
 
@@ -124,8 +137,8 @@ public struct Article: Codable, Hashable {
         case date = "articleDate"
         case languageToDetails = "detail"
         case languageToAuthor = "contactInfos"
-        case videoGallery
         case imageGallery
+        case languageToVideoGallery = "videoItems"
         case tags = "oDHTags"
         case isHighlighted = "highlight"
     }
@@ -141,10 +154,6 @@ public struct Article: Codable, Hashable {
             LocalizedMap<Article.ContactInfos>.self,
             forKey: .languageToAuthor
         ) ?? [:]
-        self.videoGallery = try values.decodeIfPresent(
-            [Article.VideoGallery].self,
-            forKey: .videoGallery
-        ) ?? []
         self.imageGallery =  try values.decodeIfPresent(
             [Article.ImageGallery].self,
             forKey: .imageGallery
@@ -157,6 +166,13 @@ public struct Article: Codable, Hashable {
             Bool.self,
             forKey: .isHighlighted
         ) ?? false
+        
+        self.languageToVideoGallery = try values.decodeIfPresent(
+            LocalizedMap<[VideoGallery]>.self,
+            forKey: .languageToVideoGallery
+        ) ?? [:]
+        
+        print("video gallery: \(self.languageToVideoGallery)")
     }
 
 }
@@ -211,16 +227,6 @@ extension Article {
 // MARK: Article.ContactInfos
 
 extension Article {
-
-    public struct VideoGallery: Codable, Hashable {
-
-        public let url: URL?
-
-        private enum CodingKeys: String, CodingKey {
-            case url = "videoUrl"
-        }
-
-    }
     
     public struct ImageGallery: Codable, Hashable {
 
@@ -242,4 +248,20 @@ extension Article {
         public let id: String?
     }
 
+}
+
+// MARK: - Article.VideoGallery
+
+extension Article {
+
+    public struct VideoGallery: Codable, Hashable {
+        public let url: URL?
+        public let name: String?
+
+        // Initialize with both URL and Name
+        public init(url: URL?, name: String?) {
+            self.url = url
+            self.name = name
+        }
+    }
 }

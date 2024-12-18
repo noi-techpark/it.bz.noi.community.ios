@@ -180,7 +180,8 @@ class NewsDetailsViewController: UIViewController {
 			textView.removeFromSuperview()
 		}
 
-        if news.imageGallery.isEmpty && news.videoGallery.isEmpty {
+        let localizedVideoList = localizedValue(from: news.languageToVideoGallery) ?? []
+        if news.imageGallery.isEmpty && localizedVideoList.isEmpty {
             galleryContainerView.removeFromSuperview()
         } else {
             // Crea la lista sincrona per le immagini
@@ -190,7 +191,7 @@ class NewsDetailsViewController: UIViewController {
             }
 
             // Crea la lista iniziale per i video, con solo videoURL
-            let initialVideoList: [MediaItem] = news.videoGallery.compactMap { video in
+            let initialVideoList: [MediaItem] = localizedVideoList.compactMap { video in
                 guard let videoURL = video.url else { return nil }
                 // Controlla se c'è già un URL nella cache per la thumbnail
                 let cachedThumbnailURL = Self.thumbnailCache[videoURL]
@@ -212,7 +213,7 @@ class NewsDetailsViewController: UIViewController {
                 
                 // Creiamo una lista sincrona per i video
                 var videoList: [MediaItem] = []
-                for video in news.videoGallery {
+                for video in localizedVideoList {
                     guard let videoURL = video.url else { continue }
                     
                     if let cachedThumbnailURL = Self.thumbnailCache[videoURL] {

@@ -46,11 +46,30 @@
       "ImageUrl": "https://tourism.images.opendatahub.com/api/Image/GetImage?imageurl=28b8f5d7-9872-4a66-ab40-1902c9d8fd1d.jpg"
     }
   ],
-  "VideoGallery": [
-    {
-      "VideoUrl": "https://player.vimeo.com/external/1024278566.m3u8?s=cbcbf4d98e7a731751c7361dd2d037ac1e4aa62e&logging=false"
-    }
-  ],
+  "VideoItems": {
+      "en": [
+        {
+          "Url": "https://player.vimeo.com/external/1024278566.m3u8?s=cbcbf4d98e7a731751c7361dd2d037ac1e4aa62e&logging=false",
+          "Name": "Test 1",
+          "Width": null,
+          "Active": null,
+          "Height": null,
+          "Bitrate": null,
+          "License": null,
+          "Duration": null,
+          "Language": null,
+          "CopyRight": null,
+          "VideoDesc": null,
+          "VideoType": null,
+          "Definition": null,
+          "Resolution": null,
+          "VideoTitle": "NOI_ICOFF_EN_281024",
+          "VideoSource": null,
+          "LicenseHolder": null,
+          "StreamingSource": null
+        }
+      ]
+    },
   "Highlight": false
 },{
   "Id": "48B8E52E-CCF6-4A58-B63B-C95583EEF9DG",
