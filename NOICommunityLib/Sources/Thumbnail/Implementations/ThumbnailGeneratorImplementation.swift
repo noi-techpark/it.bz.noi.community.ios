@@ -1,17 +1,14 @@
-// SPDX-FileCopyrightText: NOI Techpark <digital@noi.bz.it>
 //
-// SPDX-License-Identifier: AGPL-3.0-or-later
+//  File.swift
+//  
 //
-//  ThumbnailGenerator.swift
-//  NOICommunity
-//
-//  Created by Camilla on 16/12/24.
+//  Created by Camilla on 23/12/24.
 //
 
 import UIKit
 import AVFoundation
 
-class ThumbnailGenerator {
+public class ThumbnailGenerator: ThumbnailGeneratorProtocol {
     
     private struct VimeoResponse: Codable {
         let thumbnail_url_with_play_button: String
@@ -20,9 +17,9 @@ class ThumbnailGenerator {
     /// Generates a thumbnail from a `.m3u8` video URL of a vimeo video
     /// - Parameter m3u8URL: URL of the `.m3u8` video
     /// - Returns: URL of the thumbnail, if available
-    static func generateThumbnail(from m3u8URL: URL) async -> URL? {
+    public static func generateThumbnail(from videoURL: URL) async -> URL? {
         do {
-            let videoID = try extractVideoID(from: m3u8URL)
+            let videoID = try extractVideoID(from: videoURL)
             let jsonURL = try getJsonURL(for: videoID)
             let thumbnailURL = try await fetchThumbnailURL(from: jsonURL)
             return thumbnailURL
@@ -112,3 +109,4 @@ enum ThumbnailError: Error {
     case invalidResponse
     case invalidThumbnailURL
 }
+

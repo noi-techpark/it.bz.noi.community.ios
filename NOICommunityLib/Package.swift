@@ -63,6 +63,10 @@ let package = Package(
         .library(
             name: "PeopleClientLive",
             targets: ["PeopleClientLive"]
+        ),
+        .library(
+            name: "Thumbnail",
+            targets: ["Thumbnail"]
         )
     ],
     dependencies: [
@@ -164,6 +168,10 @@ let package = Package(
                 "Core",
                 "PeopleClient",
             ]
+        ),
+        .target(
+            name: "Thumbnail",
+            dependencies: ["Core"] // Aggiungi qui le dipendenze se ce ne sono
         )
     ]
 )

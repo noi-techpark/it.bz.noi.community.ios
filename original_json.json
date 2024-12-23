@@ -169,15 +169,56 @@
       "CompanyName": "NOI Techpark"
     }
   },
-  "VideoGallery": [
-    {
-      "VideoUrl": "https://player.vimeo.com/external/1024278566.m3u8?s=cbcbf4d98e7a731751c7361dd2d037ac1e4aa62e&logging=false"
-    }
-  ],
+  "VideoItems": {
+      "en": [
+        {
+          "Url": "https://player.vimeo.com/external/1024278566.m3u8?s=cbcbf4d98e7a731751c7361dd2d037ac1e4aa62e&logging=false",
+          "Name": "Test 1",
+          "Width": null,
+          "Active": null,
+          "Height": null,
+          "Bitrate": null,
+          "License": null,
+          "Duration": null,
+          "Language": null,
+          "CopyRight": null,
+          "VideoDesc": null,
+          "VideoType": null,
+          "Definition": null,
+          "Resolution": null,
+          "VideoTitle": "NOI_ICOFF_EN_281024",
+          "VideoSource": null,
+          "LicenseHolder": null,
+          "StreamingSource": null
+        }
+      ],
+      "it": [
+          {
+              "Url": "https://player.vimeo.com/external/1024278566.m3u8?s=cbcbf4d98e7a731751c7361dd2d037ac1e4aa62e&logging=false",
+              "Name": "Test 1",
+              "Width": null,
+              "Active": null,
+              "Height": null,
+              "Bitrate": null,
+              "License": null,
+              "Duration": null,
+              "Language": null,
+              "CopyRight": null,
+              "VideoDesc": null,
+              "VideoType": null,
+              "Definition": null,
+              "Resolution": null,
+              "VideoTitle": "NOI_ICOFF_EN_281024",
+              "VideoSource": null,
+              "LicenseHolder": null,
+              "StreamingSource": null
+          }
+      ]
+  },
   "Highlight": false
 },{
-  "Id": "0576796F-05DE-488E-A3C4-AC3852B25BE1",
-  "ArticleDate": "2024-02-12T00:00:00",
+    "Id": "0576796F-05DE-488E-A3C4-AC3852B25BE1",
+    "ArticleDate": "2024-02-12T00:00:00",
   "Detail": {
     "de": {
       "Title": "We’re (still) open: Zugang Community Bar nur mit Badge",

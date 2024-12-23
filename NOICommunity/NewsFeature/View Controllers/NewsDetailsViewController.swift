@@ -12,6 +12,7 @@
 import UIKit
 import Combine
 import ArticlesClient
+import Thumbnail
 
 class NewsDetailsViewController: UIViewController {
 
