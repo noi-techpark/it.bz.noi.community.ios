@@ -67,6 +67,10 @@ let package = Package(
         .library(
             name: "Thumbnail",
             targets: ["Thumbnail"]
+        ),
+        .library(
+            name: "VideoPlayer",
+            targets: ["VideoPlayer"]
         )
     ],
     dependencies: [
@@ -171,7 +175,11 @@ let package = Package(
         ),
         .target(
             name: "Thumbnail",
-            dependencies: ["Core"] // Aggiungi qui le dipendenze se ce ne sono
+            dependencies: ["Core"]
+        ),
+        .target(
+            name: "VideoPlayer",
+            dependencies: ["Core"] 
         )
     ]
 )

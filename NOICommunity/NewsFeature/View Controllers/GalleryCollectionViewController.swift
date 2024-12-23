@@ -11,6 +11,7 @@
 
 import UIKit
 import Kingfisher
+import VideoPlayer
 
 struct MediaItem: Hashable {
     let imageURL: URL?

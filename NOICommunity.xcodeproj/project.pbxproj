@@ -227,7 +227,7 @@
 		31FAEA7F28197EC200CDBC1B /* NavigationCoordinatorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FAEA7E28197EC200CDBC1B /* NavigationCoordinatorType.swift */; };
 		31FFE9502D01E068007C699B /* NewsPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FFE94F2D01E065007C699B /* NewsPageViewController.swift */; };
 		909E25FF2D1962B500C24B9A /* Thumbnail in Frameworks */ = {isa = PBXBuildFile; productRef = 909E25FE2D1962B500C24B9A /* Thumbnail */; };
-		90D18AC42D1177CD0063C623 /* VideoPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90D18AC32D1177CD0063C623 /* VideoPlayerViewController.swift */; };
+		909E26012D196E7400C24B9A /* VideoPlayer in Frameworks */ = {isa = PBXBuildFile; productRef = 909E26002D196E7400C24B9A /* VideoPlayer */; };
 		90D18AC92D118AFD0063C623 /* original_json_backup.json in Resources */ = {isa = PBXBuildFile; fileRef = 90D18AC82D118A920063C623 /* original_json_backup.json */; };
 		90D18ACA2D118B000063C623 /* original_json.json in Resources */ = {isa = PBXBuildFile; fileRef = 90D18AC72D118A920063C623 /* original_json.json */; };
 /* End PBXBuildFile section */
@@ -466,7 +466,6 @@
 		31FAEA7C28197D9700CDBC1B /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		31FAEA7E28197EC200CDBC1B /* NavigationCoordinatorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationCoordinatorType.swift; sourceTree = "<group>"; };
 		31FFE94F2D01E065007C699B /* NewsPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsPageViewController.swift; sourceTree = "<group>"; };
-		90D18AC32D1177CD0063C623 /* VideoPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerViewController.swift; sourceTree = "<group>"; };
 		90D18AC72D118A920063C623 /* original_json.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = original_json.json; sourceTree = "<group>"; };
 		90D18AC82D118A920063C623 /* original_json_backup.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = original_json_backup.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -481,6 +480,7 @@
 				31CE9BF62701BF33005EA61A /* Kingfisher in Frameworks */,
 				3182F4A227DB3841005ADDAF /* AppPreferencesClient in Frameworks */,
 				3182F4A627DB3841005ADDAF /* EventShortClient in Frameworks */,
+				909E26012D196E7400C24B9A /* VideoPlayer in Frameworks */,
 				3181B9212B1E12BD000D2A0F /* Core in Frameworks */,
 				3145054D2CE39190000F3E9F /* CoreUI in Frameworks */,
 				3182F4AA27DB3841005ADDAF /* EventShortTypesClient in Frameworks */,
@@ -890,7 +890,6 @@
 				3102F45C282C069500687CF7 /* View Controllers */,
 				3102F45B282C068A00687CF7 /* View Models */,
 				3102F45D282C06A100687CF7 /* Views */,
-				90D18AC32D1177CD0063C623 /* VideoPlayerViewController.swift */,
 			);
 			path = NewsFeature;
 			sourceTree = "<group>";
@@ -1114,6 +1113,7 @@
 				31B1926E2C6A2136009872E9 /* FirebaseCrashlytics */,
 				3145054C2CE39190000F3E9F /* CoreUI */,
 				909E25FE2D1962B500C24B9A /* Thumbnail */,
+				909E26002D196E7400C24B9A /* VideoPlayer */,
 			);
 			productName = NOICommunity;
 			productReference = 3145D22D26B3F73F00F16787 /* NOICommunity.app */;
@@ -1355,7 +1355,6 @@
 				316A82A12CFF1FF0002D62D3 /* EventListViewController.swift in Sources */,
 				316A82A22CFF1FF0002D62D3 /* Event.swift in Sources */,
 				316A82A32CFF1FF0002D62D3 /* EventsFeatureConstants.swift in Sources */,
-				90D18AC42D1177CD0063C623 /* VideoPlayerViewController.swift in Sources */,
 				316A82A42CFF1FF0002D62D3 /* EventDetailsViewController.swift in Sources */,
 				316A82A52CFF1FF0002D62D3 /* EventCardContentConfiguration.SharedConfig.swift in Sources */,
 				316A82A62CFF1FF0002D62D3 /* EventsCoordinator.swift in Sources */,
@@ -2405,6 +2404,10 @@
 		909E25FE2D1962B500C24B9A /* Thumbnail */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Thumbnail;
+		};
+		909E26002D196E7400C24B9A /* VideoPlayer */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = VideoPlayer;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
