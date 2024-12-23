@@ -89,9 +89,6 @@ class NewsDetailsViewController: UIViewController {
         }
     }
     
-    // A cache that stores thumbnail URLs for video URLs to avoid redundant processing.
-    private static var thumbnailCache: [URL: URL] = [:]
-    
     private lazy var galleryVC = GalleryCollectionViewController(
         imageSize: CGSize(width: 315, height: 210),
         spacing: 17,
@@ -195,7 +192,7 @@ class NewsDetailsViewController: UIViewController {
             let initialVideoList: [MediaItem] = localizedVideoList.compactMap { video in
                 guard let videoURL = video.url else { return nil }
                 // Controlla se c'è già un URL nella cache per la thumbnail
-                let cachedThumbnailURL = Self.thumbnailCache[videoURL]
+                let cachedThumbnailURL = ThumbnailCache.getThumbnail(for: videoURL)
                 return MediaItem(imageURL: cachedThumbnailURL, videoURL: videoURL) // Solo videoURL per ora
             }
             
@@ -217,11 +214,11 @@ class NewsDetailsViewController: UIViewController {
                 for video in localizedVideoList {
                     guard let videoURL = video.url else { continue }
                     
-                    if let cachedThumbnailURL = Self.thumbnailCache[videoURL] {
+                    if let cachedThumbnailURL = ThumbnailCache.getThumbnail(for:videoURL) {
                         videoList.append(MediaItem(imageURL: cachedThumbnailURL, videoURL: videoURL))
                     } else {
                         if let thumbnailURL = await ThumbnailGenerator.generateThumbnail(from: videoURL) {
-                            Self.thumbnailCache[videoURL] = thumbnailURL
+                            ThumbnailCache.setThumbnail(thumbnailURL, for: videoURL)
                             videoList.append(MediaItem(imageURL: thumbnailURL, videoURL: videoURL))
                         } else {
                             // Se fallisce, aggiungi comunque il MediaItem con solo videoURL

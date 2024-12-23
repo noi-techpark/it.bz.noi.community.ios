@@ -92,9 +92,6 @@ class GalleryCollectionViewController: UICollectionViewController {
         // Se il videoURL è presente, apri il video, altrimenti mostra l'immagine
         if let videoURL = selectedMediaItem.videoURL {
             openVideoPlayer(with: videoURL)
-        } else {
-            // Apri l'immagine o visualizzala (implementazione specifica per il tuo caso)
-            print("Image URL: \(selectedMediaItem.imageURL)")
         }
     }
     
