@@ -226,9 +226,7 @@
 		31FAEA7D28197D9700CDBC1B /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FAEA7C28197D9700CDBC1B /* AppCoordinator.swift */; };
 		31FAEA7F28197EC200CDBC1B /* NavigationCoordinatorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FAEA7E28197EC200CDBC1B /* NavigationCoordinatorType.swift */; };
 		31FFE9502D01E068007C699B /* NewsPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FFE94F2D01E065007C699B /* NewsPageViewController.swift */; };
-		9079D6392D19879700BE82BC /* ThumbnailCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9079D6382D19879700BE82BC /* ThumbnailCache.swift */; };
-		909E25FF2D1962B500C24B9A /* Thumbnail in Frameworks */ = {isa = PBXBuildFile; productRef = 909E25FE2D1962B500C24B9A /* Thumbnail */; };
-		909E26012D196E7400C24B9A /* VideoPlayer in Frameworks */ = {isa = PBXBuildFile; productRef = 909E26002D196E7400C24B9A /* VideoPlayer */; };
+		90B7C2482D2FF05E004B5DF7 /* VimeoOEmbedClient in Frameworks */ = {isa = PBXBuildFile; productRef = 90B7C2472D2FF05E004B5DF7 /* VimeoOEmbedClient */; };
 		90D18AC92D118AFD0063C623 /* original_json_backup.json in Resources */ = {isa = PBXBuildFile; fileRef = 90D18AC82D118A920063C623 /* original_json_backup.json */; };
 		90D18ACA2D118B000063C623 /* original_json.json in Resources */ = {isa = PBXBuildFile; fileRef = 90D18AC72D118A920063C623 /* original_json.json */; };
 /* End PBXBuildFile section */
@@ -467,7 +465,6 @@
 		31FAEA7C28197D9700CDBC1B /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		31FAEA7E28197EC200CDBC1B /* NavigationCoordinatorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationCoordinatorType.swift; sourceTree = "<group>"; };
 		31FFE94F2D01E065007C699B /* NewsPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsPageViewController.swift; sourceTree = "<group>"; };
-		9079D6382D19879700BE82BC /* ThumbnailCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbnailCache.swift; sourceTree = "<group>"; };
 		90D18AC72D118A920063C623 /* original_json.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = original_json.json; sourceTree = "<group>"; };
 		90D18AC82D118A920063C623 /* original_json_backup.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = original_json_backup.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -479,10 +476,10 @@
 			files = (
 				317EC88B283BB83E00F30B95 /* PeopleClientLive in Frameworks */,
 				31EF82592810517600EBE5F0 /* AppAuth in Frameworks */,
+				90B7C2482D2FF05E004B5DF7 /* VimeoOEmbedClient in Frameworks */,
 				31CE9BF62701BF33005EA61A /* Kingfisher in Frameworks */,
 				3182F4A227DB3841005ADDAF /* AppPreferencesClient in Frameworks */,
 				3182F4A627DB3841005ADDAF /* EventShortClient in Frameworks */,
-				909E26012D196E7400C24B9A /* VideoPlayer in Frameworks */,
 				3181B9212B1E12BD000D2A0F /* Core in Frameworks */,
 				3145054D2CE39190000F3E9F /* CoreUI in Frameworks */,
 				3182F4AA27DB3841005ADDAF /* EventShortTypesClient in Frameworks */,
@@ -493,7 +490,6 @@
 				3182F4AC27DB3841005ADDAF /* EventShortTypesClientLive in Frameworks */,
 				311E0EC62825157800404DCE /* FirebaseMessaging in Frameworks */,
 				31B1926F2C6A2136009872E9 /* FirebaseCrashlytics in Frameworks */,
-				909E25FF2D1962B500C24B9A /* Thumbnail in Frameworks */,
 				317B6F9E28118BD6008D07C0 /* AuthClientLive in Frameworks */,
 				317EC889283BB83E00F30B95 /* PeopleClient in Frameworks */,
 			);
@@ -888,7 +884,6 @@
 			isa = PBXGroup;
 			children = (
 				31B0205C2C78D19600175DA0 /* NewsFeatureConstants.swift */,
-				9079D6382D19879700BE82BC /* ThumbnailCache.swift */,
 				31D07BD6282E358A00AA7D99 /* Coordinators */,
 				3102F45C282C069500687CF7 /* View Controllers */,
 				3102F45B282C068A00687CF7 /* View Models */,
@@ -1115,8 +1110,7 @@
 				3181B9202B1E12BD000D2A0F /* Core */,
 				31B1926E2C6A2136009872E9 /* FirebaseCrashlytics */,
 				3145054C2CE39190000F3E9F /* CoreUI */,
-				909E25FE2D1962B500C24B9A /* Thumbnail */,
-				909E26002D196E7400C24B9A /* VideoPlayer */,
+				90B7C2472D2FF05E004B5DF7 /* VimeoOEmbedClient */,
 			);
 			productName = NOICommunity;
 			productReference = 3145D22D26B3F73F00F16787 /* NOICommunity.app */;
@@ -1296,7 +1290,6 @@
 				3110CF6026F0E89C003B7174 /* CircleView.swift in Sources */,
 				31B192762C6A38C2009872E9 /* DeveloperToolsViewModel.swift in Sources */,
 				31B0205D2C78D1D800175DA0 /* NewsFeatureConstants.swift in Sources */,
-				9079D6392D19879700BE82BC /* ThumbnailCache.swift in Sources */,
 				31C640AB26FE1397004B71A2 /* DependencyContainer.swift in Sources */,
 				31157D1B26FCB26200A43B33 /* String+Localization.swift in Sources */,
 				31AA31EE26F0A94E00744A00 /* IdentifiableCollectionViewCell.swift in Sources */,
@@ -2405,13 +2398,9 @@
 			package = 31EF82572810517500EBE5F0 /* XCRemoteSwiftPackageReference "AppAuth-iOS" */;
 			productName = AppAuth;
 		};
-		909E25FE2D1962B500C24B9A /* Thumbnail */ = {
+		90B7C2472D2FF05E004B5DF7 /* VimeoOEmbedClient */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = Thumbnail;
-		};
-		909E26002D196E7400C24B9A /* VideoPlayer */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = VideoPlayer;
+			productName = VimeoOEmbedClient;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

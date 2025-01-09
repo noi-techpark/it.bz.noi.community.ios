@@ -10,8 +10,8 @@
 //
 
 import UIKit
+import AVKit
 import Kingfisher
-import VideoPlayer
 
 struct MediaItem: Hashable {
     let imageURL: URL?
@@ -96,9 +96,13 @@ class GalleryCollectionViewController: UICollectionViewController {
     }
     
     func openVideoPlayer(with url: URL) {
-        let playerViewController = VideoPlayerViewController(videoURL: url)
+        let player = AVPlayer(url: url)
+        let playerViewController = AVPlayerViewController()
+        playerViewController.player = player
         playerViewController.modalPresentationStyle = .fullScreen
-        present(playerViewController, animated: true, completion: nil)
+        present(playerViewController, animated: true) {
+            player.play()
+        }
     }
 
 }

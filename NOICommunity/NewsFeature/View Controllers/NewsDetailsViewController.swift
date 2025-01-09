@@ -12,7 +12,8 @@
 import UIKit
 import Combine
 import ArticlesClient
-import Thumbnail
+import VimeoOEmbedClient
+import Core
 
 class NewsDetailsViewController: UIViewController {
 
@@ -23,6 +24,8 @@ class NewsDetailsViewController: UIViewController {
     var askQuestionActionHandler: ((Article) -> Void)?
 
 	private var subscriptions: Set<AnyCancellable> = []
+    
+    private static let thumbnailCache = Cache<URL, URL>()
 
     @IBOutlet private var scrollView: UIScrollView!
     
@@ -190,9 +193,9 @@ class NewsDetailsViewController: UIViewController {
 
             // Crea la lista iniziale per i video, con solo videoURL
             let initialVideoList: [MediaItem] = localizedVideoList.compactMap { video in
-                guard let videoURL = video.url else { return nil }
+                guard let videoURL = video.url else { return nil}
                 // Controlla se c'è già un URL nella cache per la thumbnail
-                let cachedThumbnailURL = ThumbnailCache.getThumbnail(for: videoURL)
+                let cachedThumbnailURL = NewsDetailsViewController.thumbnailCache.value(forKey: videoURL)
                 return MediaItem(imageURL: cachedThumbnailURL, videoURL: videoURL) // Solo videoURL per ora
             }
             
@@ -214,11 +217,11 @@ class NewsDetailsViewController: UIViewController {
                 for video in localizedVideoList {
                     guard let videoURL = video.url else { continue }
                     
-                    if let cachedThumbnailURL = ThumbnailCache.getThumbnail(for:videoURL) {
+                    if let cachedThumbnailURL = NewsDetailsViewController.thumbnailCache.value(forKey: videoURL) {
                         videoList.append(MediaItem(imageURL: cachedThumbnailURL, videoURL: videoURL))
                     } else {
                         if let thumbnailURL = await ThumbnailGenerator.generateThumbnail(from: videoURL) {
-                            ThumbnailCache.setThumbnail(thumbnailURL, for: videoURL)
+                            NewsDetailsViewController.thumbnailCache.insert(thumbnailURL, forKey: videoURL)
                             videoList.append(MediaItem(imageURL: thumbnailURL, videoURL: videoURL))
                         } else {
                             // Se fallisce, aggiungi comunque il MediaItem con solo videoURL
