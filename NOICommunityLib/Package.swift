@@ -64,9 +64,13 @@ let package = Package(
             name: "PeopleClientLive",
             targets: ["PeopleClientLive"]
         ),
+		.library(
+			name: "VimeoOEmbedClient",
+			targets: ["VimeoOEmbedClient"]
+		),
         .library(
-            name: "VimeoOEmbedClient",
-            targets: ["VimeoOEmbedClient"]
+            name: "VimeoVideoThumbnailClient",
+            targets: ["VimeoVideoThumbnailClient"]
         )
     ],
     dependencies: [
@@ -169,9 +173,17 @@ let package = Package(
                 "PeopleClient",
             ]
         ),
+		.target(
+			name: "VimeoOEmbedClient",
+			dependencies: ["Core"]
+		),
+		.testTarget(
+			name: "VimeoOEmbedClientTests",
+			dependencies: ["VimeoOEmbedClient"]
+		),
         .target(
-            name: "VimeoOEmbedClient",
-            dependencies: ["Core"]
+            name: "VimeoVideoThumbnailClient",
+            dependencies: ["Core", "VimeoOEmbedClient"]
         )
     ]
 )

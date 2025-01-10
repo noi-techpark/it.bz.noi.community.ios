@@ -20,6 +20,8 @@ import AuthClientLive
 import AuthStateStorageClient
 import ArticlesClient
 import PeopleClientLive
+import VimeoOEmbedClient
+import VimeoVideoThumbnailClient
 
 #if DEBUG
 private let accessGroupKey = "24PN5XJ85Y.it.dimension.noi-community"
@@ -82,7 +84,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 				baseURL: EventsFeatureConstants.clientBaseURL,
 				transport: URLSession.shared
 			),
-            peopleClient: .live(baseURL: MeetConstant.clientBaseURL)
+			peopleClient: .live(baseURL: MeetConstant.clientBaseURL),
+			vimeoVideoThumbnailClient: VimeoVideoThumbnailClientImplementation(vimeoOEmbedClient: VimeoOEmbedClientImplementation(transport: URLSession.shared))
+				.cached()
         )
     }()
     

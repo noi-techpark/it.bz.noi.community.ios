@@ -12,7 +12,7 @@
 import UIKit
 import Combine
 import ArticlesClient
-import VimeoOEmbedClient
+import VimeoVideoThumbnailClient
 import Core
 
 class NewsDetailsViewController: UIViewController {
@@ -23,9 +23,9 @@ class NewsDetailsViewController: UIViewController {
     
     var askQuestionActionHandler: ((Article) -> Void)?
 
+	private let dependencyContainer: DependencyRepresentable
+
 	private var subscriptions: Set<AnyCancellable> = []
-    
-    private static let thumbnailCache = Cache<URL, URL>()
 
     @IBOutlet private var scrollView: UIScrollView!
     
@@ -98,8 +98,11 @@ class NewsDetailsViewController: UIViewController {
         placeholderImage: .image(withColor: .noiPlaceholderImageColor)
     )
 
-	init(for item: Article) {
+	private lazy var vimeoVideoThumbnailClient = dependencyContainer.makeVimeoVideoThumbnailClient()
+
+	init(for item: Article, dependencyContainer: DependencyRepresentable) {
 		self.news = item
+		self.dependencyContainer = dependencyContainer
 		super.init(nibName: "\(NewsDetailsViewController.self)", bundle: nil)
 	}
     
@@ -150,16 +153,15 @@ class NewsDetailsViewController: UIViewController {
 		super.viewDidLoad()
 
 		configureBindings()
-		let author = localizedValue(from: news.languageToAuthor)
 
-		imageView.kf.setImage(with: author?.logoURL)
+		imageView.kf.setImage(with: news.author?.logoURL)
 
-		authorLabel.text = author?.name ?? .notDefined
+		authorLabel.text = news.author?.name ?? .notDefined
 
-		if author?.externalURL == nil {
+		if news.author?.externalURL == nil {
 			externalLinkButton.removeFromSuperview()
 		}
-		if author?.email == nil {
+		if news.author?.email == nil {
 			askQuestionButton.removeFromSuperview()
 		}
 		if actionsStackView.subviews.isEmpty {
@@ -169,20 +171,18 @@ class NewsDetailsViewController: UIViewController {
 		publishedDateLabel.text = news.date
 			.flatMap { publishedDateFormatter.string(from: $0) }
 
-		let details = localizedValue(from: news.languageToDetails)
-		titleLabel.text = details?.title
-		abstractLabel.text = details?.abstract
+		titleLabel.text = news.details?.title
+		abstractLabel.text = news.details?.abstract
 
-		textView.attributedText = details?.attributedText()?
+		textView.attributedText = news.details?.attributedText()?
 			.updatedFonts(usingTextStyle: .body)
 
 
-		if details?.text == nil {
+		if news.details?.text == nil {
 			textView.removeFromSuperview()
 		}
 
-        let localizedVideoList = localizedValue(from: news.languageToVideoGallery) ?? []
-        if news.imageGallery.isEmpty && localizedVideoList.isEmpty {
+		if news.imageGallery.isEmpty && news.videoGallery.isEmpty {
             galleryContainerView.removeFromSuperview()
         } else {
             // Crea la lista sincrona per le immagini
@@ -190,17 +190,9 @@ class NewsDetailsViewController: UIViewController {
                 guard let imageURL = image.url else { return nil }
                 return MediaItem(imageURL: imageURL, videoURL: nil)
             }
-
-            // Crea la lista iniziale per i video, con solo videoURL
-            let initialVideoList: [MediaItem] = localizedVideoList.compactMap { video in
-                guard let videoURL = video.url else { return nil}
-                // Controlla se c'è già un URL nella cache per la thumbnail
-                let cachedThumbnailURL = NewsDetailsViewController.thumbnailCache.value(forKey: videoURL)
-                return MediaItem(imageURL: cachedThumbnailURL, videoURL: videoURL) // Solo videoURL per ora
-            }
             
             // Imposta gli elementi iniziali su galleryVC.mediaItems
-            galleryVC.mediaItems = initialVideoList + imageList
+            galleryVC.mediaItems = imageList
 
             if galleryVC.parent != self {
                 embedChild(galleryVC, in: galleryContainerView)
@@ -214,20 +206,15 @@ class NewsDetailsViewController: UIViewController {
                 
                 // Creiamo una lista sincrona per i video
                 var videoList: [MediaItem] = []
-                for video in localizedVideoList {
+				for video in news.videoGallery {
                     guard let videoURL = video.url else { continue }
-                    
-                    if let cachedThumbnailURL = NewsDetailsViewController.thumbnailCache.value(forKey: videoURL) {
-                        videoList.append(MediaItem(imageURL: cachedThumbnailURL, videoURL: videoURL))
-                    } else {
-                        if let thumbnailURL = await ThumbnailGenerator.generateThumbnail(from: videoURL) {
-                            NewsDetailsViewController.thumbnailCache.insert(thumbnailURL, forKey: videoURL)
-                            videoList.append(MediaItem(imageURL: thumbnailURL, videoURL: videoURL))
-                        } else {
-                            // Se fallisce, aggiungi comunque il MediaItem con solo videoURL
-                            videoList.append(MediaItem(imageURL: nil, videoURL: videoURL))
-                        }
-                    }
+
+					if let thumbnailURL = try? await vimeoVideoThumbnailClient.fetchThumbnailURL(from: videoURL) {
+						videoList.append(MediaItem(imageURL: thumbnailURL, videoURL: videoURL))
+					} else {
+						// Se fallisce, aggiungi comunque il MediaItem con solo videoURL
+						videoList.append(MediaItem(imageURL: nil, videoURL: videoURL))
+					}
                 }
 
                 // Unisci video e immagini
@@ -352,4 +339,14 @@ private extension NSAttributedString {
         return NSAttributedString(attributedString: mSelf)
     }
     
+}
+
+private extension Article {
+
+	var author: ContactInfos? { localizedValue(from: languageToAuthor) }
+
+	var details: Details? { localizedValue(from: languageToDetails) }
+
+	var videoGallery: [VideoGallery] { localizedValue(from: languageToVideoGallery) ?? [] }
+
 }

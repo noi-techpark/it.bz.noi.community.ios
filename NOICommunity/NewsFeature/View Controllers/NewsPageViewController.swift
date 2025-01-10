@@ -15,7 +15,7 @@ import ArticlesClient
 
 // MARK: - NewsPageViewController
 
-final class NewsPageViewController: BasePageViewController<NewsDetailsViewModel> {
+final class NewsPageViewController: BasePageViewController<NewsDetailsViewModel, DependencyRepresentable> {
 
 	private lazy var containerViewController = ContainerViewController()
 
@@ -98,7 +98,7 @@ private extension NewsPageViewController {
 	}
 
 	func makeResultContent(for news: Article) -> NewsDetailsViewController {
-		let result = NewsDetailsViewController(for: news)
+		let result = NewsDetailsViewController(for: news, dependencyContainer: dependencyContainer)
 		result.externalLinkActionHandler = { [weak self] in
 			self?.externalLinkActionHandler?($0)
 		}

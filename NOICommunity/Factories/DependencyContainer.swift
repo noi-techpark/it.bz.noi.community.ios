@@ -20,6 +20,7 @@ import EventShortTypesClient
 import Core
 import ArticlesClient
 import PeopleClient
+import VimeoVideoThumbnailClient
 
 // MARK: - DependencyContainer
 
@@ -32,7 +33,8 @@ final class DependencyContainer {
     let eventShortTypesClient: EventShortTypesClient
     let artileClient: ArticlesClient
     let peopleClient: PeopleClient
-    
+	let vimeoVideoThumbnailClient: VimeoVideoThumbnailClient
+
     private var _userInfoCache: Cache<CacheKey, UserInfo>?
     private var userInfoCache: Cache<CacheKey, UserInfo>! {
         get {
@@ -58,7 +60,8 @@ final class DependencyContainer {
         eventShortClient: EventShortClient,
         eventShortTypesClient: EventShortTypesClient,
         articleClient: ArticlesClient,
-        peopleClient: PeopleClient
+        peopleClient: PeopleClient,
+		vimeoVideoThumbnailClient: VimeoVideoThumbnailClient
     ) {
         self.appPreferencesClient = appPreferencesClient
         self.isAutorizedClient = isAutorizedClient
@@ -66,8 +69,9 @@ final class DependencyContainer {
         self.eventShortClient = eventShortClient
         self.eventShortTypesClient = eventShortTypesClient
         self.artileClient = articleClient
-        self.peopleClient = peopleClient
-        
+		self.peopleClient = peopleClient
+		self.vimeoVideoThumbnailClient = vimeoVideoThumbnailClient
+
         NotificationCenter
             .default
             .publisher(for: logoutNotification)
@@ -102,7 +106,11 @@ extension DependencyContainer: ClientFactory {
     func makePeopleClient() -> PeopleClient {
         peopleClient
     }
-    
+
+	func makeVimeoVideoThumbnailClient() -> any VimeoVideoThumbnailClient {
+		vimeoVideoThumbnailClient
+	}
+
 }
 
 // MARK: ViewModelFactory
@@ -219,7 +227,7 @@ extension DependencyContainer: ViewControllerFactory {
 	func makeEventPageViewController(
 		viewModel: EventDetailsViewModel
 	) -> EventPageViewController {
-		.init(viewModel: viewModel)
+		.init(viewModel: viewModel, dependencyContainer: self)
 	}
 
     func makeEventFiltersViewController(
@@ -255,7 +263,7 @@ extension DependencyContainer: ViewControllerFactory {
 	func makeNewsPageViewController(
 		viewModel: NewsDetailsViewModel
 	) -> NewsPageViewController {
-        .init(viewModel: viewModel)
+		.init(viewModel: viewModel, dependencyContainer: self)
     }
     
     func makeMeetMainViewController(

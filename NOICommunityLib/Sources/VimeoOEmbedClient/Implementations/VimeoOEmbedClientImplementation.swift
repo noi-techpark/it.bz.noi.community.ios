@@ -1,112 +1,253 @@
+// SPDX-FileCopyrightText: NOI Techpark <digital@noi.bz.it>
 //
-//  File.swift
-//  
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
 //
-//  Created by Camilla on 23/12/24.
+//  VimeoOEmbedClientImplementation.swift
+//  NOICommunityLib
+//
+//  Created by Matteo Matassoni on 09/01/25.
 //
 
-import UIKit
-import AVFoundation
+import Foundation
+import Core
 
-public class ThumbnailGenerator: ThumbnailGeneratorProtocol {
-    
-    private struct VimeoResponse: Codable {
-        let thumbnail_url_with_play_button: String
-    }
-    
-    /// Generates a thumbnail from a `.m3u8` video URL of a vimeo video
-    /// - Parameter m3u8URL: URL of the `.m3u8` video
-    /// - Returns: URL of the thumbnail, if available
-    public static func generateThumbnail(from videoURL: URL) async -> URL? {
-        do {
-            let videoID = try extractVideoID(from: videoURL)
-            let jsonURL = try getJsonURL(for: videoID)
-            let thumbnailURL = try await fetchThumbnailURL(from: jsonURL)
-            return thumbnailURL
-        } catch {
-            print("Error generating thumbnail: \(error)")
-            return nil
-        }
-    }
-    
-    /// Extracts the video ID from a `.m3u8` video URL of a vimeo video
-    /// - Parameter videoURL: URL of the video
-    /// - Throws: Error if the ID cannot be extracted
-    /// - Returns: The extracted video ID
-    private static func extractVideoID(from videoURL: URL) throws -> String {
-        let pathComponents = videoURL.pathComponents
-        guard let externalIndex = pathComponents.firstIndex(of: "external"),
-              externalIndex + 1 < pathComponents.count else {
-            throw ThumbnailError.invalidVideoURL
-        }
-        
-        var videoID = pathComponents[externalIndex + 1]
-        
-        // Remove the `.m3u8` extension if present
-        if let range = videoID.range(of: ".m3u8") {
-            videoID.removeSubrange(range)
-        }
-        
-        print("Extracted Video ID: \(videoID)")
-        return videoID
-    }
-    
-    /// Constructs the JSON API URL to fetch the thumbnail
-    /// - Parameter videoID: The ID of the video
-    /// - Throws: Error if the API URL cannot be constructed
-    /// - Returns: The Vimeo API URL
-    private static func getJsonURL(for videoID: String) throws -> URL {
-        let vimeoURL = "https://vimeo.com/\(videoID)"
-        guard let encodedVimeoURL = vimeoURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
-            throw ThumbnailError.invalidVimeoURL
-        }
-        
-        let screenScale = UIScreen.main.scale
-        let imageWidth = Int(315 * screenScale) // Calculate the width based on screen scale
-        
-        var components = URLComponents(string: "https://vimeo.com/api/oembed.json")
-        components?.queryItems = [
-            URLQueryItem(name: "url", value: encodedVimeoURL),
-            URLQueryItem(name: "width", value: "\(imageWidth)")
-        ]
-        
-        guard let apiURL = components?.url else {
-            throw ThumbnailError.invalidAPIURL
-        }
-        
-        print("Generated JSON API URL: \(apiURL)")
-        return apiURL
-    }
-    
-    /// Makes a request to the Vimeo API to fetch the thumbnail
-    /// - Parameter apiURL: The Vimeo API URL
-    /// - Throws: Error if the request or decoding fails
-    /// - Returns: The URL of the thumbnail
-    private static func fetchThumbnailURL(from apiURL: URL) async throws -> URL {
-        let (data, response) = try await URLSession.shared.data(from: apiURL)
-        
-        // Validate the HTTP response status
-        guard let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) else {
-            throw ThumbnailError.invalidResponse
-        }
-        
-        // Decode the JSON response
-        let decoder = JSONDecoder()
-        let vimeoResponse = try decoder.decode(VimeoResponse.self, from: data)
-        
-        guard let thumbnailURL = URL(string: vimeoResponse.thumbnail_url_with_play_button) else {
-            throw ThumbnailError.invalidThumbnailURL
-        }
-        
-        return thumbnailURL
-    }
+public final class VimeoOEmbedClientImplementation: VimeoOEmbedClient {
+
+	private let baseURL = URL(string: "https://vimeo.com")!
+
+	private let transport: Transport
+
+	private let jsonDecoder: JSONDecoder = {
+		let jsonDecoder = JSONDecoder()
+		jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
+		return jsonDecoder
+	}()
+
+	public init(transport: Transport) {
+		self.transport = transport
+			.checkingStatusCodes()
+			.addingJSONHeaders()
+	}
+
+	public func fetchOEmbed(
+		for videoURL: URL,
+		width: Int?,
+		height: Int?,
+		maxWidth: Int?,
+		maxHeight: Int?,
+		autoplay: Bool?,
+		loop: Bool?,
+		muted: Bool?,
+		title: Bool?,
+		byline: Bool?,
+		portrait: Bool?,
+		dnt: Bool?,
+		api: Bool?,
+		airplay: Bool?,
+		audioTracks: Bool?,
+		audioTrack: String?,
+		autopause: Bool?,
+		background: Bool?,
+		callback: String?,
+		cc: Bool?,
+		chapterID: Int?,
+		chapters: Bool?,
+		chromecast: Bool?,
+		color: String?,
+		colors: [String]?,
+		controls: Bool?,
+		endTime: Int?,
+		fullscreen: Bool?,
+		interactiveMarkers: Bool?,
+		interactiveParams: [String: String]?,
+		keyboard: Bool?,
+		pip: Bool?,
+		playButtonPosition: String?,
+		playerID: String?,
+		playsinline: Bool?,
+		progressBar: Bool?,
+		quality: String?,
+		qualitySelector: Bool?,
+		responsive: Bool?,
+		speed: Bool?,
+		startTime: Int?,
+		textTrack: String?,
+		transcript: Bool?,
+		transparent: Bool?,
+		unmuteButton: Bool?,
+		vimeoLogo: Bool?,
+		volume: Bool?,
+		watchFullVideo: Bool?,
+		xhtml: Bool?
+	) async throws -> VimeoOEmbedResponse {
+		let processedURL = try VimeoURLProcessor.process(url: videoURL)
+
+		let request = Endpoint
+			.vimeoOEmbed(
+				videoURL: processedURL,
+				width: width,
+				height: height,
+				maxWidth: maxWidth,
+				maxHeight: maxHeight,
+				autoplay: autoplay,
+				loop: loop,
+				muted: muted,
+				title: title,
+				byline: byline,
+				portrait: portrait,
+				dnt: dnt,
+				api: api,
+				airplay: airplay,
+				audioTracks: audioTracks,
+				audioTrack: audioTrack,
+				autopause: autopause,
+				background: background,
+				callback: callback,
+				cc: cc,
+				chapterID: chapterID,
+				chapters: chapters,
+				chromecast: chromecast,
+				color: color,
+				colors: colors,
+				controls: controls,
+				endTime: endTime,
+				fullscreen: fullscreen,
+				interactiveMarkers: interactiveMarkers,
+				interactiveParams: interactiveParams,
+				keyboard: keyboard,
+				pip: pip,
+				playButtonPosition: playButtonPosition,
+				playerID: playerID,
+				playsinline: playsinline,
+				progressBar: progressBar,
+				quality: quality,
+				qualitySelector: qualitySelector,
+				responsive: responsive,
+				speed: speed,
+				startTime: startTime,
+				textTrack: textTrack,
+				transcript: transcript,
+				transparent: transparent,
+				unmuteButton: unmuteButton,
+				vimeoLogo: vimeoLogo,
+				volume: volume,
+				watchFullVideo: watchFullVideo,
+				xhtml: xhtml
+			)
+			.makeRequest(withBaseURL: baseURL)
+
+		let (data, _) = try await transport.send(request: request)
+
+		try Task.checkCancellation()
+
+		return try jsonDecoder.decode(VimeoOEmbedResponse.self, from: data)
+	}
+
 }
 
-enum ThumbnailError: Error {
-    case invalidVideoURL
-    case invalidVimeoURL
-    case invalidAPIURL
-    case invalidResponse
-    case invalidThumbnailURL
+extension URL {
+
+	/// Checks if the URL is compatible with Vimeo's video URL schemes.
+	func isVimeoCompatible() -> Bool {
+		// Ensure the host is "vimeo.com"
+		guard host == "vimeo.com" else { return false }
+
+		// Convert the URL to a string for regex matching
+		let urlString = absoluteString
+
+		// Define regex patterns for each Vimeo URL type with documentation
+		let patterns = [
+			// Regular Vimeo video: https://vimeo.com/{video_id}
+			#"^https://vimeo\.com/\d+$"#,
+
+			// In a showcase: https://vimeo.com/album/{album_id}/video/{video_id}
+			#"^https://vimeo\.com/album/\d+/video/\d+$"#,
+
+			// On a channel: https://vimeo.com/channels/{channel_name}/{video_id}
+			#"^https://vimeo\.com/channels/[\w-]+/\d+$"#,
+
+			// In a group: https://vimeo.com/groups/{group_name}/videos/{video_id}
+			#"^https://vimeo\.com/groups/[\w-]+/videos/\d+$"#,
+
+			// On Demand video: https://vimeo.com/ondemand/{ondemand_name}/{video_id}
+			#"^https://vimeo\.com/ondemand/[\w-]+/\d+$"#,
+
+			// Staff picks: https://vimeo.com/staffpicks/{video_id}
+			#"^https://vimeo\.com/staffpicks/\d+$"#
+		]
+
+		return patterns.contains { pattern in
+			urlString.range(of: pattern, options: .regularExpression) != nil
+		}
+	}
+
+	/// Extracts the video ID from the URL if possible
+	func extractVimeoVideoID() -> String? {
+		let patterns: [(pattern: String, group: Int)] = [
+			// Standard URL pattern
+			(#"vimeo\.com/(\d+)"#, 1),
+
+			// Video in album pattern
+			(#"vimeo\.com/album/\d+/video/(\d+)"#, 1),
+
+			// Channel video pattern
+			(#"vimeo\.com/channels/[\w-]+/(\d+)"#, 1),
+
+			// Group video pattern
+			(#"vimeo\.com/groups/[\w-]+/videos/(\d+)"#, 1),
+
+			// Staff pick
+			(#"^https://vimeo\.com/staffpicks/(\d+)"#, 1),
+
+			// On Demand video: https://vimeo.com/ondemand/{ondemand_name}/{video_id}
+			(#"^https://vimeo\.com/ondemand/[\w-]+/(\d+)"#, 1),
+
+			// Player embed pattern
+			(#"player\.vimeo\.com/external/(\d+)"#, 1),
+		]
+
+		let urlString = absoluteString
+
+		for (pattern, group) in patterns {
+			do {
+				let regex = try NSRegularExpression(pattern: pattern, options: [])
+				if let match = regex.firstMatch(in: urlString,
+												options: [],
+												range: NSRange(urlString.startIndex..., in: urlString)),
+				   let range = Range(match.range(at: group), in: urlString) {
+					return String(urlString[range])
+				}
+			} catch {
+				print("Regular expression error for pattern \(pattern): \(error.localizedDescription)")
+				continue
+			}
+		}
+
+		return nil
+	}
 }
 
+struct VimeoURLProcessor {
+	/// Converts any compatible Vimeo URL to its canonical form
+	static func canonicalURL(from url: URL) -> URL? {
+		guard let videoID = url.extractVimeoVideoID() else {
+			return nil
+		}
+
+		var urlBuilder = URLComponents()
+		urlBuilder.scheme = "https"
+		urlBuilder.host = "vimeo.com"
+		urlBuilder.path = "/" + videoID
+
+		return urlBuilder.url
+	}
+
+	/// Validates and processes a Vimeo URL
+	static func process(url: URL) throws -> URL {
+		guard let result = url.isVimeoCompatible() ? url : canonicalURL(from: url)
+		else { throw VimeoOEmbedError.invalidURL }
+
+		return result
+	}
+}
