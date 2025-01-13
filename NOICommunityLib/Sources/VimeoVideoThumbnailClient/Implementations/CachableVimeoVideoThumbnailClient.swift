@@ -4,7 +4,7 @@
 
 //
 //  CachableVimeoVideoThumbnailClient.swift
-//  NOICommunityLib
+//  VimeoVideoThumbnailClient
 //
 //  Created by Matteo Matassoni on 10/01/25.
 //
@@ -12,9 +12,20 @@
 import Foundation
 import Core
 
+// MARK: - CachableVimeoVideoThumbnailClient
+
 public final class CachableVimeoVideoThumbnailClient: VimeoVideoThumbnailClient {
 
 	let wrapped: VimeoVideoThumbnailClient
+
+	struct CacheKey: Hashable {
+
+		var videoURL: URL
+		var width: Int?
+		var height: Int?
+
+	}
+
 	let cache: Cache<CacheKey, URL> = .init()
 
 	public init(wrapping: VimeoVideoThumbnailClient) {
@@ -46,17 +57,7 @@ public final class CachableVimeoVideoThumbnailClient: VimeoVideoThumbnailClient 
 
 }
 
-extension CachableVimeoVideoThumbnailClient {
-
-	struct CacheKey: Hashable {
-
-		var videoURL: URL
-		var width: Int?
-		var height: Int?
-
-	}
-
-}
+// MARK: VimeoVideoThumbnailClient+Cache
 
 public extension VimeoVideoThumbnailClient {
 

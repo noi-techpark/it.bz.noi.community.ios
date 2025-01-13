@@ -11,12 +11,6 @@
 
 import Foundation
 
-// MARK: - VimeoOEmbedError
-
-public enum VimeoOEmbedError: Error {
-	case invalidURL
-}
-
 // MARK: - VimeoOEmbedClient
 
 public protocol VimeoOEmbedClient {

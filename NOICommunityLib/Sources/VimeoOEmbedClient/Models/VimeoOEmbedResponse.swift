@@ -4,12 +4,14 @@
 
 //
 //  VimeoOEmbedResponse.swift
-//  NOICommunityLib
+//  VimeoOEmbedClient
 //
 //  Created by Matteo Matassoni on 09/01/25.
 //
 
 import Foundation
+
+// MARK: - VimeoOEmbedResponse
 
 public struct VimeoOEmbedResponse: Codable {
 

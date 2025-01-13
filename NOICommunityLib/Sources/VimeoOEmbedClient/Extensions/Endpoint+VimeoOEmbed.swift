@@ -4,7 +4,7 @@
 
 //
 //  Endpoint+VimeoOEmbed.swift
-//  NOICommunityLib
+//  VimeoOEmbedClient
 //
 //  Created by Matteo Matassoni on 09/01/25.
 //
