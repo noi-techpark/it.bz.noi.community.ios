@@ -26,14 +26,19 @@ public final class VimeoVideoThumbnailClientImplementation: VimeoVideoThumbnailC
 	public func fetchThumbnailURL(
 		from videoURL: URL,
 		width: Int?,
-		height: Int?
+		height: Int?,
+		withPlayButton requiresPlayButton: Bool
 	) async throws -> URL {
-		try await vimeoOEmbedClient.fetchOEmbed(
+		let oEmbedResult = try await vimeoOEmbedClient.fetchOEmbed(
 			for: videoURL,
 			width: width,
 			height: height
 		)
-		.thumbnailUrlWithPlayButton
+		return if requiresPlayButton {
+			oEmbedResult.thumbnailUrlWithPlayButton
+		} else {
+			oEmbedResult.thumbnailUrl
+		}
 	}
 
 }

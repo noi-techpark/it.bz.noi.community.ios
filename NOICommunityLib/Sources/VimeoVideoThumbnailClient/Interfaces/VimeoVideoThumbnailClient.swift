@@ -35,7 +35,8 @@ public protocol VimeoVideoThumbnailClient {
 	func fetchThumbnailURL(
 		from videoURL: URL,
 		width: Int?,
-		height: Int?
+		height: Int?,
+		withPlayButton requiresPlayButton: Bool
 	) async throws -> URL
 }
 
@@ -44,12 +45,14 @@ public extension VimeoVideoThumbnailClient {
 	func fetchThumbnailURL(
 		from videoURL: URL,
 		width: Int? = nil,
-		height: Int? = nil
+		height: Int? = nil,
+		withPlayButton requiresPlayButton: Bool = false
 	) async throws -> URL {
 		try await fetchThumbnailURL(
 			from: videoURL,
 			width: width,
-			height: height
+			height: height,
+			withPlayButton: requiresPlayButton
 		)
 	}
 
@@ -71,7 +74,8 @@ public extension VimeoVideoThumbnailClient {
 	func fetchThumbnailURLs(
 		from videoURLs: [URL],
 		width: Int? = nil,
-		height: Int? = nil
+		height: Int? = nil,
+		withPlayButton requiresPlayButton: Bool = false
 	) async -> [URL: URL?] {
 		await withTaskGroup(of: (URL, URL?).self) { group in
 			for videoURL in videoURLs {
@@ -80,7 +84,8 @@ public extension VimeoVideoThumbnailClient {
 						let thumbnailURL = try await self.fetchThumbnailURL(
 							from: videoURL,
 							width: width,
-							height: height
+							height: height,
+							withPlayButton: requiresPlayButton
 						)
 						return (videoURL, thumbnailURL)
 					} catch {

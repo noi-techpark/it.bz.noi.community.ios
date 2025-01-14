@@ -87,22 +87,10 @@ class GalleryCollectionViewController: UICollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let selectedMediaItem = mediaItems[indexPath.item]
-        
-        // Se il videoURL è presente, apri il video, altrimenti mostra l'immagine
-        if let videoURL = selectedMediaItem.videoURL {
-            openVideoPlayer(with: videoURL)
-        }
-    }
-    
-    func openVideoPlayer(with url: URL) {
-        let player = AVPlayer(url: url)
-        let playerViewController = AVPlayerViewController()
-        playerViewController.player = player
-        playerViewController.modalPresentationStyle = .fullScreen
-        present(playerViewController, animated: true) {
-            player.play()
-        }
+		guard let selectedVideoURL = dataSource.itemIdentifier(for: indexPath)?.videoURL
+		else { return }
+
+		openVideoPlayer(videoURL: selectedVideoURL)
     }
 
 }
@@ -151,12 +139,29 @@ private extension GalleryCollectionViewController {
         let cellRegistration = UICollectionView.CellRegistration<IdentifiableCollectionViewCell<MediaItem>, MediaItem> { cell, _, mediaItem in
             cell.id = mediaItem
             var contentConfiguration = ImageContentConfiguration()
-            contentConfiguration.image = self.placeholderImage
+
+			contentConfiguration.image = self.placeholderImage
             var imageProperties = ImageContentConfiguration.ImageProperties()
             imageProperties.contentMode = .scaleAspectFill
             contentConfiguration.imageProperties = imageProperties
-            cell.contentConfiguration = contentConfiguration
-            
+
+			if mediaItem.videoURL != nil {
+				contentConfiguration.overlappingImage = UIImage(
+					systemName: "play.rectangle.fill",
+					withConfiguration: UIImage.SymbolConfiguration(
+						pointSize: 80
+					)
+				)
+				var overlappingImageProperties = ImageContentConfiguration.ImageProperties()
+				overlappingImageProperties.contentMode = .scaleAspectFill
+				overlappingImageProperties.tintColor = UIColor.noiSecondaryColor.withAlphaComponent(0.8)
+				contentConfiguration.overlappingImageProperties = overlappingImageProperties
+			} else {
+				contentConfiguration.overlappingImage = nil
+			}
+
+			cell.contentConfiguration = contentConfiguration
+
             if let imageURL = mediaItem.imageURL {
                 
                 KingfisherManager.shared.retrieveImage(with: imageURL) { result in
@@ -190,4 +195,15 @@ private extension GalleryCollectionViewController {
         snapshot.appendItems(mediaItems, toSection: .main)
         dataSource.apply(snapshot, animatingDifferences: animated)
     }
+
+	func openVideoPlayer(videoURL: URL) {
+		let player = AVPlayer(url: videoURL)
+		let playerViewController = AVPlayerViewController()
+		playerViewController.player = player
+		playerViewController.modalPresentationStyle = .fullScreen
+		present(playerViewController, animated: true) {
+			player.play()
+		}
+	}
+
 }

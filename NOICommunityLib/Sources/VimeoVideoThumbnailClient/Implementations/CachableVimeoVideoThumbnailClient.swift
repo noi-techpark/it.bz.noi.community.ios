@@ -23,6 +23,7 @@ public final class CachableVimeoVideoThumbnailClient: VimeoVideoThumbnailClient 
 		var videoURL: URL
 		var width: Int?
 		var height: Int?
+		var requiresPlayButton: Bool
 
 	}
 
@@ -35,12 +36,14 @@ public final class CachableVimeoVideoThumbnailClient: VimeoVideoThumbnailClient 
 	public func fetchThumbnailURL(
 		from videoURL: URL,
 		width: Int?,
-		height: Int?
+		height: Int?,
+		withPlayButton requiresPlayButton: Bool
 	) async throws -> URL {
 		let key = CacheKey(
 			videoURL: videoURL,
 			width: width,
-			height: height
+			height: height,
+			requiresPlayButton: requiresPlayButton
 		)
 		if let cachedResult = cache[key] {
 			return cachedResult

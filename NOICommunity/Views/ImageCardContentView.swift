@@ -14,7 +14,9 @@ import UIKit
 // MARK: - ImageContentView
 
 class ImageContentView: UIView, UIContentView {
+
     private var imageView: UIImageView!
+	private var overlappingImageView: UIImageView!
 
     private var currentConfiguration: ImageContentConfiguration!
     var configuration: UIContentConfiguration {
@@ -44,10 +46,21 @@ class ImageContentView: UIView, UIContentView {
 // MARK: Private APIs
 
 private extension ImageContentView {
+
     func configureViewHierarchy() {
         imageView = UIImageView()
         imageView.clipsToBounds = true
         embedSubview(imageView)
+
+		overlappingImageView = UIImageView()
+		overlappingImageView.clipsToBounds = true
+		addSubview(overlappingImageView)
+
+		overlappingImageView.translatesAutoresizingMaskIntoConstraints = false
+		NSLayoutConstraint.activate([
+			overlappingImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
+			overlappingImageView.centerYAnchor.constraint(equalTo: centerYAnchor)
+		])
     }
 
     private func apply(configuration: ImageContentConfiguration) {
@@ -62,37 +75,51 @@ private extension ImageContentView {
         // Update image view
         imageView.image = configuration.image
         imageView.apply(imageProperties: configuration.imageProperties)
+
+		// Update overlapping image view
+		overlappingImageView.image = configuration.overlappingImage
+		overlappingImageView
+			.apply(imageProperties: configuration.overlappingImageProperties)
+		overlappingImageView.isHidden = configuration.overlappingImage == nil
     }
+
 }
 
 // MARK: - ImageContentConfiguration
 
 struct ImageContentConfiguration: UIContentConfiguration, Hashable {
 
-    /// The image to display.
-    var image: UIImage?
+	/// The image to display.
+	var image: UIImage?
 
-    /// Properties for configuring the image.
-    var imageProperties = ImageProperties()
+	/// Properties for configuring the image.
+	var imageProperties = ImageProperties()
 
-    func makeContentView() -> UIView & UIContentView {
-        return ImageContentView(configuration: self)
-    }
+	/// The overlapping image to display.
+	var overlappingImage: UIImage?
 
-    func updated(for state: UIConfigurationState) -> Self {
-        return self
-    }
+	/// Properties for configuring the overlapping image.
+	var overlappingImageProperties = ImageProperties()
+
+	func makeContentView() -> UIView & UIContentView {
+		return ImageContentView(configuration: self)
+	}
+
+	func updated(for state: UIConfigurationState) -> Self {
+		return self
+	}
 }
 
 extension ImageContentConfiguration {
     struct ImageProperties: Hashable {
-        /// The maximum number of lines for the text.
         var contentMode: UIView.ContentMode = .scaleAspectFill
+		var tintColor: UIColor? = nil
     }
 }
 
 private extension UIImageView {
     func apply(imageProperties: ImageContentConfiguration.ImageProperties) {
         contentMode = imageProperties.contentMode
+		tintColor = imageProperties.tintColor
     }
 }
