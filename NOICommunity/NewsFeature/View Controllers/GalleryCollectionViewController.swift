@@ -146,15 +146,11 @@ private extension GalleryCollectionViewController {
             contentConfiguration.imageProperties = imageProperties
 
 			if mediaItem.videoURL != nil {
-				contentConfiguration.overlappingImage = UIImage(
-					systemName: "play.rectangle.fill",
-					withConfiguration: UIImage.SymbolConfiguration(
-						pointSize: 80
-					)
-				)
+				contentConfiguration.overlappingImage = #imageLiteral(resourceName: "play-circle-solid.pdf")
 				var overlappingImageProperties = ImageContentConfiguration.ImageProperties()
 				overlappingImageProperties.contentMode = .scaleAspectFill
-				overlappingImageProperties.tintColor = UIColor.noiSecondaryColor.withAlphaComponent(0.8)
+				overlappingImageProperties.tintColor =
+					.noiSecondaryColor
 				contentConfiguration.overlappingImageProperties = overlappingImageProperties
 			} else {
 				contentConfiguration.overlappingImage = nil
