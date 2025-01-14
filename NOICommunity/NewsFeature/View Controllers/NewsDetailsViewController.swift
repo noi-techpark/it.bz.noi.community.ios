@@ -193,11 +193,19 @@ class NewsDetailsViewController: UIViewController {
                 embedChild(galleryVC, in: galleryContainerView)
             }
 
-			galleryVC.mediaItems = news.imageGallery
+			let videoItems: [MediaItem] = news.videoGallery
 				.compactMap(\.url)
-				.map { MediaItem(imageURL: $0) }
+				.map { videoURL in
+					MediaItem(imageURL: nil, videoURL: videoURL)
+				}
+			let imageItems: [MediaItem] = news.imageGallery
+				.compactMap(\.url)
+				.map { imageURL in
+				MediaItem(imageURL: imageURL)
+			}
+			galleryVC.mediaItems = videoItems + imageItems
 
-			foo()
+			loadVideoThumbnails()
 		}
 
 		if galleryTextStackView.subviews.isEmpty {
@@ -257,30 +265,28 @@ private extension NewsDetailsViewController {
         textView.attributedText = textView.attributedText?.updatedFonts(usingTextStyle: .body)
     }
 
-	func foo() {
+	func loadVideoThumbnails() {
 		let imageURLs = news.imageGallery
 			.compactMap(\.url)
 		let videosURLs = news.videoGallery.compactMap(\.url)
 		let screenScale = UIScreen.main.scale
+		let pixelWidth = Int((SizeAndConstants.galleryItemWidth * screenScale)
+			.rounded(.up))
+		let pixelHeight = Int((SizeAndConstants.galleryItemHeight * screenScale)
+			.rounded(.up))
 
 		Task(priority: .userInitiated) {
-			let pixelWidth = Int((SizeAndConstants.galleryItemWidth * screenScale)
-				.rounded(.up))
-			let pixelHeight = Int((SizeAndConstants.galleryItemHeight * screenScale)
-				.rounded(.up))
-
 			let videoURLToThumbnailURL = await vimeoVideoThumbnailClient.fetchThumbnailURLs(
 				from: videosURLs,
 				width: pixelWidth,
 				height: pixelHeight
 			)
 
-			let thumbnailURLs = videosURLs.compactMap { videoURLToThumbnailURL[$0] }
-
 			let videoItems: [MediaItem] = videosURLs.map { videoURL in
 				MediaItem(
 					imageURL: videoURLToThumbnailURL[videoURL] ?? nil,
-					videoURL: videoURL)
+					videoURL: videoURL
+				)
 			}
 			let imageItems: [MediaItem] = imageURLs.map { imageURL in
 				MediaItem(imageURL: imageURL)
@@ -290,38 +296,6 @@ private extension NewsDetailsViewController {
 				galleryVC.mediaItems = videoItems + imageItems
 			}
 		}
-	}
-
-	func performFoo() async {
-
-
-
-
-		// Creiamo una lista sincrona per le immagini
-		let imageList: [MediaItem] = news.imageGallery.compactMap { image in
-			guard let imageURL = image.url else { return nil }
-			return MediaItem(imageURL: imageURL, videoURL: nil)
-		}
-
-		// Creiamo una lista sincrona per i video
-		var videoList: [MediaItem] = []
-		for video in news.videoGallery {
-			guard let videoURL = video.url else { continue }
-
-			if let thumbnailURL = try? await vimeoVideoThumbnailClient.fetchThumbnailURL(
-				from: videoURL,
-				width: Int((SizeAndConstants.galleryItemWidth * UIScreen.main.scale).rounded(.up)),
-				height: Int((SizeAndConstants.galleryItemHeight * UIScreen.main.scale).rounded(.up))
-			) {
-				videoList.append(MediaItem(imageURL: thumbnailURL, videoURL: videoURL))
-			} else {
-				// Se fallisce, aggiungi comunque il MediaItem con solo videoURL
-				videoList.append(MediaItem(imageURL: nil, videoURL: videoURL))
-			}
-		}
-
-		// Unisci video e immagini
-		galleryVC.mediaItems = videoList + imageList
 	}
 
 }

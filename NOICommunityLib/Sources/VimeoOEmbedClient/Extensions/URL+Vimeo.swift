@@ -39,9 +39,6 @@ extension URL {
 
 			// On Demand video: https://vimeo.com/ondemand/{ondemand_name}/{video_id}
 			#"^https://vimeo\.com/ondemand/[\w-]+/\d+$"#,
-
-			// Staff picks: https://vimeo.com/staffpicks/{video_id}
-			#"^https://vimeo\.com/staffpicks/\d+$"#
 		]
 
 		return patterns.contains { pattern in
