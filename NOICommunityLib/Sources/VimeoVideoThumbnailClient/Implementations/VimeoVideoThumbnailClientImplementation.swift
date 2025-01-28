@@ -29,15 +29,51 @@ public final class VimeoVideoThumbnailClientImplementation: VimeoVideoThumbnailC
 		height: Int?,
 		withPlayButton requiresPlayButton: Bool
 	) async throws -> URL {
-		let oEmbedResult = try await vimeoOEmbedClient.fetchOEmbed(
-			for: videoURL,
-			width: width,
-			height: height
-		)
-		return if requiresPlayButton {
+		let oEmbedResult = try await vimeoOEmbedClient
+			.fetchOEmbed(for: videoURL)
+		let thumbnailURL = if requiresPlayButton {
 			oEmbedResult.thumbnailUrlWithPlayButton
 		} else {
 			oEmbedResult.thumbnailUrl
+		}
+
+		if let width, let height {
+			return thumbnailURL
+				.replacingDimensions(
+					width: width,
+					height: height
+				) ?? thumbnailURL
+		} else {
+			return thumbnailURL
+		}
+	}
+
+}
+
+extension URL {
+
+	/// Replaces the dimensions in a Vimeo-style URL that contains "-d_WxH" format
+	/// - Parameters:
+	///   - width: The new width to set
+	///   - height: The new height to set
+	/// - Returns: A new URL with updated dimensions, or nil if modification fails
+	func replacingDimensions(width: Int, height: Int) -> URL? {
+		let pattern = #"-d_\d+x\d+"#
+
+		do {
+			let regex = try NSRegularExpression(pattern: pattern, options: [])
+			let range = NSRange(absoluteString.startIndex..., in: absoluteString)
+
+			let modifiedURLString = regex.stringByReplacingMatches(
+				in: absoluteString,
+				options: [],
+				range: range,
+				withTemplate: "-d_\(width)x\(height)"
+			)
+
+			return URL(string: modifiedURLString)
+		} catch {
+			return nil
 		}
 	}
 
