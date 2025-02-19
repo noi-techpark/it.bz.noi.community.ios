@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3101CEDD283E08E700180F8B /* NewsListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319C4658282BBB6100946AC7 /* NewsListViewModelTests.swift */; };
 		3101FC52283390F900A3416F /* TopTabBarController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3101FC50283390F900A3416F /* TopTabBarController.xib */; };
 		3101FC53283390F900A3416F /* TopTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3101FC51283390F900A3416F /* TopTabBarController.swift */; };
 		3101FC552833917200A3416F /* TopTabBarControlImageFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3101FC542833917200A3416F /* TopTabBarControlImageFactory.swift */; };
@@ -227,6 +226,8 @@
 		31FAEA7D28197D9700CDBC1B /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FAEA7C28197D9700CDBC1B /* AppCoordinator.swift */; };
 		31FAEA7F28197EC200CDBC1B /* NavigationCoordinatorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FAEA7E28197EC200CDBC1B /* NavigationCoordinatorType.swift */; };
 		31FFE9502D01E068007C699B /* NewsPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FFE94F2D01E065007C699B /* NewsPageViewController.swift */; };
+		90BFD5E22D64B35C0004CD27 /* ArticleTagsClient in Frameworks */ = {isa = PBXBuildFile; productRef = 90BFD5E12D64B35C0004CD27 /* ArticleTagsClient */; };
+		90BFD5E42D64B4760004CD27 /* ArticleTagsClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90BFD5E32D64B4760004CD27 /* ArticleTagsClientTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -463,6 +464,7 @@
 		31FAEA7C28197D9700CDBC1B /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		31FAEA7E28197EC200CDBC1B /* NavigationCoordinatorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationCoordinatorType.swift; sourceTree = "<group>"; };
 		31FFE94F2D01E065007C699B /* NewsPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsPageViewController.swift; sourceTree = "<group>"; };
+		90BFD5E32D64B4760004CD27 /* ArticleTagsClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleTagsClientTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -486,6 +488,7 @@
 				3182F4AC27DB3841005ADDAF /* EventShortTypesClientLive in Frameworks */,
 				311E0EC62825157800404DCE /* FirebaseMessaging in Frameworks */,
 				31B1926F2C6A2136009872E9 /* FirebaseCrashlytics in Frameworks */,
+				90BFD5E22D64B35C0004CD27 /* ArticleTagsClient in Frameworks */,
 				317B6F9E28118BD6008D07C0 /* AuthClientLive in Frameworks */,
 				317EC889283BB83E00F30B95 /* PeopleClient in Frameworks */,
 			);
@@ -675,6 +678,7 @@
 				319C4658282BBB6100946AC7 /* NewsListViewModelTests.swift */,
 				319C465B282BBE5100946AC7 /* XCTestCase+awaitPublisher.swift */,
 				319C465D282BCC5D00946AC7 /* collectNext.swift */,
+				90BFD5E32D64B4760004CD27 /* ArticleTagsClientTests.swift */,
 			);
 			path = NOICommunityTests;
 			sourceTree = "<group>";
@@ -1105,6 +1109,7 @@
 				31B1926E2C6A2136009872E9 /* FirebaseCrashlytics */,
 				3145054C2CE39190000F3E9F /* CoreUI */,
 				31665C4A2D315971007DAD3D /* VimeoVideoThumbnailClient */,
+				90BFD5E12D64B35C0004CD27 /* ArticleTagsClient */,
 			);
 			productName = NOICommunity;
 			productReference = 3145D22D26B3F73F00F16787 /* NOICommunity.app */;
@@ -1430,8 +1435,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3101CEDD283E08E700180F8B /* NewsListViewModelTests.swift in Sources */,
 				319C465E282BCC5D00946AC7 /* collectNext.swift in Sources */,
+				90BFD5E42D64B4760004CD27 /* ArticleTagsClientTests.swift in Sources */,
 				319C465C282BBE5100946AC7 /* XCTestCase+awaitPublisher.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2393,6 +2398,10 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 31EF82572810517500EBE5F0 /* XCRemoteSwiftPackageReference "AppAuth-iOS" */;
 			productName = AppAuth;
+		};
+		90BFD5E12D64B35C0004CD27 /* ArticleTagsClient */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ArticleTagsClient;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

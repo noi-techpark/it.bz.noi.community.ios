@@ -172,7 +172,6 @@ public struct Article: Codable, Hashable {
             forKey: .languageToVideoGallery
         ) ?? [:]
         
-        print("video gallery: \(self.languageToVideoGallery)")
     }
 
 }
