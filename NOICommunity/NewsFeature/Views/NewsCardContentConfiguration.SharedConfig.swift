@@ -34,10 +34,10 @@ extension NewsCardContentConfiguration {
         contentConfiguration.titleText = details?.title
         contentConfiguration.abstractText = details?.abstract
         
-        contentConfiguration.badgeText = if item.isImportant {
+		contentConfiguration.badgeText = if item.isHighlighted {
+			.localized("highlighted_tag")
+		} else if item.isImportant {
             .localized("important_tag")
-        } else if item.isHighlighted {
-            "TMP PINNATO"
         } else {
             nil
         }
