@@ -21,7 +21,9 @@ final class NewsListViewModel {
     
     let pageSize: Int
     let firstPage: Int
-    
+
+    private var needsToRequestHighlight: Bool
+
     private var nextPage: Int?
     
     var hasNextPage: Bool {
@@ -42,16 +44,18 @@ final class NewsListViewModel {
     init(
         articlesClient: ArticlesClient,
         pageSize: Int = 10,
-        firstPage: Int = 1
+        firstPage: Int = 1,
+        needsToRequestHighlight: Bool = true
     ) {
         self.articlesClient = articlesClient
         self.pageSize = pageSize
         self.firstPage = firstPage
         self.nextPage = firstPage
-        
+        self.needsToRequestHighlight = needsToRequestHighlight
+
         configureBindings()
     }
-    
+
     func fetchNews(refresh: Bool = false) {
 		Task(priority: .userInitiated) { [weak self] in
 			await self?.performFetchNews(refresh: refresh)
@@ -79,20 +83,8 @@ private extension NewsListViewModel {
 		guard nextPage != nil || refresh
 		else { return }
 
-		let pageNumber: Int
-
-		if refresh {
-			pageNumber = firstPage
-		} else {
-			pageNumber = nextPage!
-		}
-
-		let currentNewsIds: [String]
-		if refresh {
-			currentNewsIds = []
-		} else {
-			currentNewsIds = newsIds
-		}
+		let pageNumber = refresh ? firstPage : nextPage!
+		needsToRequestHighlight = needsToRequestHighlight || refresh
 
 		isLoadingFirstPage = pageNumber == firstPage
 		isLoading = true
@@ -105,15 +97,32 @@ private extension NewsListViewModel {
 			let pagination = try await articlesClient.getArticleList(
 				startDate: Date(),
 				publishedOn: "noi-communityapp",
+				articleType: "newsfeednoi",
+				rawSort: "-ArticleDate",
+				rawFilter: needsToRequestHighlight ? #"eq(Highlight,"true")"# : #"or(eq(Highlight,"false"),isnull(Highlight))"#,
 				pageSize: pageSize,
 				pageNumber: pageNumber
 			)
 
-			nextPage = pagination.nextPage
+			let hadRequestHighlight = needsToRequestHighlight
 
-			if let newItems = pagination.items {
-				newItems.forEach { idToNews[$0.id] = $0 }
-				newsIds = currentNewsIds + newItems.map(\.id)
+			if needsToRequestHighlight, !pagination.hasNextPage {
+				nextPage = firstPage
+				needsToRequestHighlight = false
+			} else {
+				nextPage = pagination.nextPage
+			}
+
+			let newItems = pagination.items
+			newItems.forEach { idToNews[$0.id] = $0 }
+			if refresh {
+				newsIds = newItems.map(\.id)
+			} else {
+				newsIds = newsIds + newItems.map(\.id)
+			}
+
+			if hadRequestHighlight, newItems.isEmpty {
+				fetchNews()
 			}
 		} catch {
 			self.error = error

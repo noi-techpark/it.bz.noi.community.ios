@@ -83,6 +83,7 @@
 		315275672847A01000D5C8A1 /* PersonId.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315275662847A01000D5C8A1 /* PersonId.swift */; };
 		3153010528071D1200471153 /* AuthWelcomePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3153010428071D1200471153 /* AuthWelcomePageViewController.swift */; };
 		3153010728071D5500471153 /* AuthWelcomePageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3153010628071D5500471153 /* AuthWelcomePageViewController.xib */; };
+		31665C4B2D315971007DAD3D /* VimeoVideoThumbnailClient in Frameworks */ = {isa = PBXBuildFile; productRef = 31665C4A2D315971007DAD3D /* VimeoVideoThumbnailClient */; };
 		3167681727035D9500A9DB87 /* EatMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3167681527035D9500A9DB87 /* EatMainViewController.swift */; };
 		3167681827035D9500A9DB87 /* EatCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3167681627035D9500A9DB87 /* EatCoordinator.swift */; };
 		3167681B27036A2F00A9DB87 /* PlaceCardContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3167681927036A2F00A9DB87 /* PlaceCardContentView.swift */; };
@@ -167,6 +168,7 @@
 		31AD1DB32B279558006F71A4 /* ComeOnBoardOnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31AD1DB02B2791D8006F71A4 /* ComeOnBoardOnboardingViewController.swift */; };
 		31AD1DB52B279976006F71A4 /* ComeOnBoardOnboardingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31AD1DB42B279976006F71A4 /* ComeOnBoardOnboardingCoordinator.swift */; };
 		31AD1DB62B279E78006F71A4 /* ComeOnBoardOnboardingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31AD1DAE2B2791A4006F71A4 /* ComeOnBoardOnboardingViewController.xib */; };
+		31B0205D2C78D1D800175DA0 /* NewsFeatureConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B0205C2C78D19600175DA0 /* NewsFeatureConstants.swift */; };
 		31B1926F2C6A2136009872E9 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 31B1926E2C6A2136009872E9 /* FirebaseCrashlytics */; };
 		31B192722C6A367D009872E9 /* DeveloperToolsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B192712C6A367D009872E9 /* DeveloperToolsViewController.swift */; };
 		31B192742C6A36E4009872E9 /* DeveloperToolsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B192732C6A36E4009872E9 /* DeveloperToolsCoordinator.swift */; };
@@ -404,6 +406,7 @@
 		31AD1DB02B2791D8006F71A4 /* ComeOnBoardOnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComeOnBoardOnboardingViewController.swift; sourceTree = "<group>"; };
 		31AD1DB12B27947B006F71A4 /* ComeOnBoardOnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComeOnBoardOnboardingViewModel.swift; sourceTree = "<group>"; };
 		31AD1DB42B279976006F71A4 /* ComeOnBoardOnboardingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComeOnBoardOnboardingCoordinator.swift; sourceTree = "<group>"; };
+		31B0205C2C78D19600175DA0 /* NewsFeatureConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsFeatureConstants.swift; sourceTree = "<group>"; };
 		31B192712C6A367D009872E9 /* DeveloperToolsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeveloperToolsViewController.swift; sourceTree = "<group>"; };
 		31B192732C6A36E4009872E9 /* DeveloperToolsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeveloperToolsCoordinator.swift; sourceTree = "<group>"; };
 		31B192752C6A38C2009872E9 /* DeveloperToolsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeveloperToolsViewModel.swift; sourceTree = "<group>"; };
@@ -468,6 +471,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				317EC88B283BB83E00F30B95 /* PeopleClientLive in Frameworks */,
+				31665C4B2D315971007DAD3D /* VimeoVideoThumbnailClient in Frameworks */,
 				31EF82592810517600EBE5F0 /* AppAuth in Frameworks */,
 				31CE9BF62701BF33005EA61A /* Kingfisher in Frameworks */,
 				3182F4A227DB3841005ADDAF /* AppPreferencesClient in Frameworks */,
@@ -873,6 +877,7 @@
 		319C4656282BB7F300946AC7 /* NewsFeature */ = {
 			isa = PBXGroup;
 			children = (
+				31B0205C2C78D19600175DA0 /* NewsFeatureConstants.swift */,
 				31D07BD6282E358A00AA7D99 /* Coordinators */,
 				3102F45C282C069500687CF7 /* View Controllers */,
 				3102F45B282C068A00687CF7 /* View Models */,
@@ -1099,6 +1104,7 @@
 				3181B9202B1E12BD000D2A0F /* Core */,
 				31B1926E2C6A2136009872E9 /* FirebaseCrashlytics */,
 				3145054C2CE39190000F3E9F /* CoreUI */,
+				31665C4A2D315971007DAD3D /* VimeoVideoThumbnailClient */,
 			);
 			productName = NOICommunity;
 			productReference = 3145D22D26B3F73F00F16787 /* NOICommunity.app */;
@@ -1275,6 +1281,7 @@
 				31892F2E281BC32800DD89F7 /* MyAccountViewModel.swift in Sources */,
 				3110CF6026F0E89C003B7174 /* CircleView.swift in Sources */,
 				31B192762C6A38C2009872E9 /* DeveloperToolsViewModel.swift in Sources */,
+				31B0205D2C78D1D800175DA0 /* NewsFeatureConstants.swift in Sources */,
 				31C640AB26FE1397004B71A2 /* DependencyContainer.swift in Sources */,
 				31157D1B26FCB26200A43B33 /* String+Localization.swift in Sources */,
 				31AA31EE26F0A94E00744A00 /* IdentifiableCollectionViewCell.swift in Sources */,
@@ -1553,6 +1560,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = it.bz.noi.community;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = "Release DEVELOPER_MENU";
 		};
@@ -1675,6 +1683,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = it.bz.noi.community;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = "Release TMA DEVELOPER_MENU";
 		};
@@ -1858,6 +1867,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "Noi Community Dev";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
 		};
@@ -1881,6 +1891,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = it.bz.noi.community;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
 		};
@@ -2050,6 +2061,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "Noi Community Dev";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = "Debug TMA";
 		};
@@ -2172,6 +2184,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = it.bz.noi.community;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = "Release TMA";
 		};
@@ -2318,6 +2331,10 @@
 		3145054C2CE39190000F3E9F /* CoreUI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = CoreUI;
+		};
+		31665C4A2D315971007DAD3D /* VimeoVideoThumbnailClient */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = VimeoVideoThumbnailClient;
 		};
 		317B6F9B28118BD6008D07C0 /* AuthClient */ = {
 			isa = XCSwiftPackageProductDependency;

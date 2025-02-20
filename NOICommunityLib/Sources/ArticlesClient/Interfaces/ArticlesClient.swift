@@ -16,6 +16,9 @@ public protocol ArticlesClient {
 	func getArticleList(
 		startDate: Date?,
 		publishedOn: String?,
+		articleType: String?,
+		rawSort: String?,
+		rawFilter: String?,
 		pageSize: Int?,
 		pageNumber: Int?
 	) async throws -> ArticleListResponse
@@ -29,12 +32,18 @@ public extension ArticlesClient {
 	func getArticleList(
 		startDate: Date? = nil,
 		publishedOn: String? = nil,
+		articleType: String? = nil,
+		rawSort: String? = nil,
+		rawFilter: String? = nil,
 		pageSize: Int? = nil,
 		pageNumber: Int? = nil
 	) async throws -> ArticleListResponse {
 		try await getArticleList(
 			startDate: startDate,
 			publishedOn: publishedOn,
+			articleType: articleType,
+			rawSort: rawSort,
+			rawFilter: rawFilter,
 			pageSize: pageSize,
 			pageNumber: pageNumber
 		)

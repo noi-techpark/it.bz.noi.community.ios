@@ -14,7 +14,7 @@ import CoreUI
 
 // MARK: - EventPageViewController
 
-final class EventPageViewController: BasePageViewController<EventDetailsViewModel> {
+final class EventPageViewController: BasePageViewController<EventDetailsViewModel, DependencyContainer> {
 
 	private lazy var containerViewController = ContainerViewController()
 

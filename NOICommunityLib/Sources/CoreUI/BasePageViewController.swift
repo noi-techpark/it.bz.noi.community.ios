@@ -14,9 +14,10 @@ import Combine
 
 // MARK: - BasePageViewController
 
-open class BasePageViewController<VM: BasePageViewModel>: UIViewController {
+open class BasePageViewController<VM: BasePageViewModel, DC>: UIViewController {
 
 	public let viewModel: VM
+	public let dependencyContainer: DC
 	public var subscriptions: Set<AnyCancellable> = []
 
 	@available(*, unavailable)
@@ -32,9 +33,10 @@ open class BasePageViewController<VM: BasePageViewModel>: UIViewController {
 		fatalError("\(#function) not available")
 	}
 
-	public init(viewModel: VM) {
+	public init(viewModel: VM, dependencyContainer: DC) {
 		self.viewModel = viewModel
-		
+		self.dependencyContainer = dependencyContainer
+
 		super.init(nibName: nil, bundle: nil)
 
 		configureBindings()

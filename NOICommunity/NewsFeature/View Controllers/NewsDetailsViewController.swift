@@ -11,7 +11,10 @@
 
 import UIKit
 import Combine
+import Core
+import CoreUI
 import ArticlesClient
+import VimeoVideoThumbnailClient
 
 class NewsDetailsViewController: UIViewController {
 
@@ -20,6 +23,8 @@ class NewsDetailsViewController: UIViewController {
     var externalLinkActionHandler: ((Article) -> Void)?
     
     var askQuestionActionHandler: ((Article) -> Void)?
+
+	private let dependencyContainer: DependencyRepresentable
 
 	private var subscriptions: Set<AnyCancellable> = []
 
@@ -89,13 +94,19 @@ class NewsDetailsViewController: UIViewController {
     }
     
     private lazy var galleryVC = GalleryCollectionViewController(
-        imageSize: CGSize(width: 315, height: 210),
-        spacing: 17,
+		imageSize: CGSize(
+			width: SizeAndConstants.galleryItemWidth,
+			height: SizeAndConstants.galleryItemHeight
+		),
+		spacing: SizeAndConstants.galleryItemSpacing,
         placeholderImage: .image(withColor: .noiPlaceholderImageColor)
     )
 
-	init(for item: Article) {
+	private lazy var vimeoVideoThumbnailClient = dependencyContainer.makeVimeoVideoThumbnailClient()
+
+	init(for item: Article, dependencyContainer: DependencyRepresentable) {
 		self.news = item
+		self.dependencyContainer = dependencyContainer
 		super.init(nibName: "\(NewsDetailsViewController.self)", bundle: nil)
 	}
     
@@ -146,16 +157,15 @@ class NewsDetailsViewController: UIViewController {
 		super.viewDidLoad()
 
 		configureBindings()
-		let author = localizedValue(from: news.languageToAuthor)
 
-		imageView.kf.setImage(with: author?.logoURL)
+		imageView.kf.setImage(with: news.author?.logoURL)
 
-		authorLabel.text = author?.name ?? .notDefined
+		authorLabel.text = news.author?.name ?? .notDefined
 
-		if author?.externalURL == nil {
+		if news.author?.externalURL == nil {
 			externalLinkButton.removeFromSuperview()
 		}
-		if author?.email == nil {
+		if news.author?.email == nil {
 			askQuestionButton.removeFromSuperview()
 		}
 		if actionsStackView.subviews.isEmpty {
@@ -165,25 +175,37 @@ class NewsDetailsViewController: UIViewController {
 		publishedDateLabel.text = news.date
 			.flatMap { publishedDateFormatter.string(from: $0) }
 
-		let details = localizedValue(from: news.languageToDetails)
-		titleLabel.text = details?.title
-		abstractLabel.text = details?.abstract
+		titleLabel.text = news.details?.title
+		abstractLabel.text = news.details?.abstract
 
-		textView.attributedText = details?.attributedText()?
+		textView.attributedText = news.details?.attributedText()?
 			.updatedFonts(usingTextStyle: .body)
 
 
-		if details?.text == nil {
+		if news.details?.text == nil {
 			textView.removeFromSuperview()
 		}
 
-		if news.imageGallery.isNilOrEmpty {
-			galleryContainerView.removeFromSuperview()
-		} else {
-			galleryVC.imageURLs = news.imageGallery?.compactMap(\.url) ?? []
-			if galleryVC.parent != self {
-				embedChild(galleryVC, in: galleryContainerView)
+		if news.imageGallery.isEmpty && news.videoGallery.isEmpty {
+            galleryContainerView.removeFromSuperview()
+        } else {
+            if galleryVC.parent != self {
+                embedChild(galleryVC, in: galleryContainerView)
+            }
+
+			let videoItems: [MediaItem] = news.videoGallery
+				.compactMap(\.url)
+				.map { videoURL in
+					MediaItem(imageURL: nil, videoURL: videoURL)
+				}
+			let imageItems: [MediaItem] = news.imageGallery
+				.compactMap(\.url)
+				.map { imageURL in
+				MediaItem(imageURL: imageURL)
 			}
+			galleryVC.mediaItems = videoItems + imageItems
+
+			loadVideoThumbnails()
 		}
 
 		if galleryTextStackView.subviews.isEmpty {
@@ -236,12 +258,46 @@ private extension NewsDetailsViewController {
             .store(in: &subscriptions)
     }
     
+
     func preferredContentSizeCategoryDidChange(
 		previousPreferredContentSizeCategory: UIContentSizeCategory?
 	) {
         textView.attributedText = textView.attributedText?.updatedFonts(usingTextStyle: .body)
     }
-    
+
+	func loadVideoThumbnails() {
+		let imageURLs = news.imageGallery
+			.compactMap(\.url)
+		let videosURLs = news.videoGallery.compactMap(\.url)
+		let screenScale = UIScreen.main.scale
+		let pixelWidth = Int((SizeAndConstants.galleryItemWidth * screenScale)
+			.rounded(.up))
+		let pixelHeight = Int((SizeAndConstants.galleryItemHeight * screenScale)
+			.rounded(.up))
+
+		Task(priority: .userInitiated) {
+			let videoURLToThumbnailURL = await vimeoVideoThumbnailClient.fetchThumbnailURLs(
+				from: videosURLs,
+				width: pixelWidth,
+				height: pixelHeight
+			)
+
+			let videoItems: [MediaItem] = videosURLs.map { videoURL in
+				MediaItem(
+					imageURL: videoURLToThumbnailURL[videoURL] ?? nil,
+					videoURL: videoURL
+				)
+			}
+			let imageItems: [MediaItem] = imageURLs.map { imageURL in
+				MediaItem(imageURL: imageURL)
+			}
+
+			Task(priority: .userInitiated) { @MainActor in
+				galleryVC.mediaItems = videoItems + imageItems
+			}
+		}
+	}
+
 }
 
 private extension Article.Details {
@@ -298,4 +354,21 @@ private extension NSAttributedString {
         return NSAttributedString(attributedString: mSelf)
     }
     
+}
+
+private extension Article {
+
+	var author: ContactInfos? { localizedValue(from: languageToAuthor) }
+
+	var details: Details? { localizedValue(from: languageToDetails) }
+
+	var videoGallery: [VideoGallery] { localizedValue(from: languageToVideoGallery) ?? [] }
+
+}
+
+private extension SizeAndConstants {
+
+	static let galleryItemWidth: CGFloat = 315
+	static let galleryItemHeight: CGFloat = 210
+	static let galleryItemSpacing: CGFloat = 17
 }

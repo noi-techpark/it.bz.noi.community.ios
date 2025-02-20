@@ -15,6 +15,7 @@ import AuthStateStorageClient
 import AuthClient
 import ArticlesClient
 import PeopleClient
+import VimeoVideoThumbnailClient
 
 typealias IsAutorizedClient = () -> Bool
 
@@ -29,5 +30,7 @@ protocol ClientFactory {
     func makeArticlesClient() -> ArticlesClient
     
     func makePeopleClient() -> PeopleClient
-    
+
+	func makeVimeoVideoThumbnailClient() -> VimeoVideoThumbnailClient
+
 }

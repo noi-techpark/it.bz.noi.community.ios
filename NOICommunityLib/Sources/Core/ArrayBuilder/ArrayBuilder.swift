@@ -50,9 +50,14 @@ public struct ArrayBuilder<Element> {
     }
     
     // Optional
-    static func buildOptional(_ component: [Element]?) -> [Element] {
+	public static func buildOptional(_ component: [Element]?) -> [Element] {
         return component ?? []
     }
+
+	// For
+	public static func buildArray(_ components: [[Element]]) -> [Element] {
+		components.flatMap { $0 }
+	}
 }
 
 // MARK: - Array.init(builder:)

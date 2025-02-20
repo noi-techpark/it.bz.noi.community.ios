@@ -194,23 +194,30 @@ private extension NewsViewController {
         viewModel.$isLoadingFirstPage
             .dropFirst()
             .receive(on: DispatchQueue.main)
-            .sink(receiveValue: { [unowned refreshControl, collectionView] isLoading in
-                if isLoading {
-                    collectionView?.scrollTo(direction: .top)
-                }
-                refreshControl?.setIsLoading(
-                    isLoading,
-                    forced: true,
-                    scrollToTop: true
-                )
+            .sink(receiveValue: { [weak self] isLoadingFirstPage in
+                guard let self else { return }
+                
+                if isLoadingFirstPage {
+                    self.updateUI(
+                        newsIds: [],
+                        animated: self.isInWindowHierarchy
+                    )
+
+					if let refreshControl, !refreshControl.isRefreshing {
+						refreshControl.beginRefreshing()
+					}
+				} else {
+					self.refreshControl?.endRefreshing()
+				}
             })
             .store(in: &subscriptions)
         
         viewModel.$newsIds            
             .receive(on: DispatchQueue.main)
             .sink { [weak self] in
-                let isOnScreen = self?.viewIfLoaded?.window != nil
-                self?.updateUI(newsIds: $0, animated: isOnScreen)
+                guard let self else { return }
+
+                self.updateUI(newsIds: $0, animated: self.isInWindowHierarchy)
             }
             .store(in: &subscriptions)
         

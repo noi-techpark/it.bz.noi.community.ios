@@ -73,13 +73,19 @@ public final class ArticlesClientImplementation: ArticlesClient {
 	public func getArticleList(
 		startDate: Date?,
 		publishedOn: String?,
+		articleType: String?,
+		rawSort: String?,
+		rawFilter: String?,
 		pageSize: Int?,
 		pageNumber: Int?
 	) async throws -> ArticleListResponse {
 		let request = Endpoint
 			.articleList(
 				startDate: startDate,
-				publishedon: publishedOn,
+				publishedOn: publishedOn,
+				articleType: articleType,
+				rawSort: rawSort,
+				rawFilter: rawFilter,
 				pageSize: pageSize,
 				pageNumber: pageNumber
 			)
@@ -89,13 +95,13 @@ public final class ArticlesClientImplementation: ArticlesClient {
 
 		try Task.checkCancellation()
 
-		let myArticleListResponse = try jsonDecoder.decode(
-			MyArticleListResponse.self,
+		let articleListResponseWithPageURLs = try jsonDecoder.decode(
+			ArticleListResponseWithPageURLs.self,
 			from: data
 		)
-		return .init(from: myArticleListResponse)
+		return .init(from: articleListResponseWithPageURLs)
 	}
-	
+
 	public func getArticle(newsId: String) async throws -> Article {
 		let request = Endpoint
 			.article(id: newsId)
@@ -106,7 +112,7 @@ public final class ArticlesClientImplementation: ArticlesClient {
 		try Task.checkCancellation()
 
 		return try jsonDecoder.decode(Article.self, from: data)
-	}	
+	}
 
 }
 

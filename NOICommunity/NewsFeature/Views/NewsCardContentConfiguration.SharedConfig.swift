@@ -34,9 +34,13 @@ extension NewsCardContentConfiguration {
         contentConfiguration.titleText = details?.title
         contentConfiguration.abstractText = details?.abstract
         
-        contentConfiguration.badgeText = item.isImportant
-        ? .localized("important_tag")
-        : nil
+		contentConfiguration.badgeText = if item.isHighlighted {
+			.localized("highlighted_tag")
+		} else if item.isImportant {
+            .localized("important_tag")
+        } else {
+            nil
+        }
         contentConfiguration.badgeTextProprieties.transform = .uppercase
         
         return contentConfiguration

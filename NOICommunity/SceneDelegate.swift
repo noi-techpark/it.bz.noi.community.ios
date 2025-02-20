@@ -20,6 +20,8 @@ import AuthClientLive
 import AuthStateStorageClient
 import ArticlesClient
 import PeopleClientLive
+import VimeoOEmbedClient
+import VimeoVideoThumbnailClient
 
 #if DEBUG
 private let accessGroupKey = "24PN5XJ85Y.it.dimension.noi-community"
@@ -70,18 +72,21 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                     withExtension: "json"
                 ) {
                     return .live(
+                        baseURL: EventsFeatureConstants.clientBaseURL,
                         memoryCache: cache,
                         diskCacheFileURL: fileURL
                     )
                 } else {
-                    return .live()
+                    return .live(baseURL: EventsFeatureConstants.clientBaseURL)
                 }
             }(),
 			articleClient: ArticlesClientImplementation(
 				baseURL: EventsFeatureConstants.clientBaseURL,
 				transport: URLSession.shared
 			),
-            peopleClient: .live(baseURL: MeetConstant.clientBaseURL)
+			peopleClient: .live(baseURL: MeetConstant.clientBaseURL),
+			vimeoVideoThumbnailClient: VimeoVideoThumbnailClientImplementation(vimeoOEmbedClient: VimeoOEmbedClientImplementation(transport: URLSession.shared))
+				.cached()
         )
     }()
     

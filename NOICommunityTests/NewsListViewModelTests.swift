@@ -21,7 +21,7 @@ class NewsListViewModelTests: XCTestCase {
     
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        viewModel = .init(articlesClient: .live())
+        viewModel = .init(articlesClient: .live(baseURL: NewsFeatureConstants.clientBaseURL))
     }
     
     override func tearDownWithError() throws {
