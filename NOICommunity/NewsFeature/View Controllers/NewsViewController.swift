@@ -24,6 +24,8 @@ class NewsViewController: UICollectionViewController {
     
     private var subscriptions: Set<AnyCancellable> = []
     
+    private var newsFilterBarView: NewsFilterBarView!
+    
     private var refreshControl: UIRefreshControl? {
         get { collectionView.refreshControl }
         set { collectionView.refreshControl = newValue }
@@ -66,6 +68,8 @@ class NewsViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupNewsFilterBar()
+        
         defer {
             viewModel.fetchNews()
         }
@@ -75,6 +79,79 @@ class NewsViewController: UICollectionViewController {
         configureDataSource()
         configureBindings()
     }
+    
+    private func setupNewsFilterBar() {
+        let filterBarContainerView = UIView()
+        filterBarContainerView.translatesAutoresizingMaskIntoConstraints = false
+        filterBarContainerView.backgroundColor = .noiSecondaryBackgroundColor
+        view.addSubview(filterBarContainerView)
+
+        newsFilterBarView = NewsFilterBarView()
+        newsFilterBarView.translatesAutoresizingMaskIntoConstraints = false
+        filterBarContainerView.addSubview(newsFilterBarView)
+        
+        // Add action to the filter button
+        newsFilterBarView.filtersButton.addTarget(
+            self,
+            action: #selector(goToFilters),
+            for: .touchUpInside
+        )
+        
+        // Reposition the collection view to start after the filter bar
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        // Remove collection view from its current position
+        collectionView.removeFromSuperview()
+        // Add it back to the view hierarchy
+        view.addSubview(collectionView)
+
+        NSLayoutConstraint.activate([
+            // Filter bar container anchored to the top
+            filterBarContainerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            filterBarContainerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            filterBarContainerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            
+            // Filter bar inside container with proper spacing
+            newsFilterBarView.topAnchor.constraint(equalTo: filterBarContainerView.topAnchor, constant: 17),
+            newsFilterBarView.leadingAnchor.constraint(equalTo: filterBarContainerView.leadingAnchor),
+            newsFilterBarView.trailingAnchor.constraint(equalTo: filterBarContainerView.trailingAnchor),
+            newsFilterBarView.bottomAnchor.constraint(equalTo: filterBarContainerView.bottomAnchor, constant: -17),
+            
+            // Position collection view BELOW the filter bar container
+            collectionView.topAnchor.constraint(equalTo: filterBarContainerView.bottomAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+        
+        // Reset content insets since we're properly positioning the collection view now
+        collectionView.contentInset.top = 0
+        collectionView.scrollIndicatorInsets.top = 0
+    }
+    
+    @objc private func goToFilters() {
+        let filtersVC = NewsFiltersViewController()
+        filtersVC.modalPresentationStyle = .fullScreen
+        filtersVC.navigationItem.leftBarButtonItem = UIBarButtonItem(
+            image: UIImage(systemName: "xmark.circle.fill"),
+            style: .plain,
+            target: self,
+            action: #selector(closeFilters)
+        )
+        navigationController?.present(
+            UINavigationController(rootViewController: filtersVC),
+            animated: true,
+            completion: nil
+        )
+    }
+    
+    @objc private func closeFilters() {
+        dismiss(animated: true, completion: nil)
+    }
+
+
+
+
+    
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .lightContent

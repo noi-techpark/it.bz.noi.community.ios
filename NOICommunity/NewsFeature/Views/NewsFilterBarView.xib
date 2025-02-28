@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EventsFiltersBarView" customModule="NOICommunity" customModuleProvider="target">
+            <connections>
+                <outlet property="contentView" destination="N45-Uj-LgX" id="gBc-yX-0a9"/>
+                <outlet property="filtersBarView" destination="tw7-nL-EkR" id="inJ-Hc-7VD"/>
+                <outlet property="filtersButton" destination="35S-Gd-hnZ" id="XSi-we-zVv"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="N45-Uj-LgX">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="40"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dme-iJ-Ntu">
+                    <rect key="frame" x="17" y="0.0" width="397" height="40"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="35S-Gd-hnZ">
+                            <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                            <color key="backgroundColor" name="background_color"/>
+                            <constraints>
+                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="40" id="h6M-yN-f1s"/>
+                            </constraints>
+                            <color key="tintColor" name="primary_color"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" image="ic_filter"/>
+                        </button>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tw7-nL-EkR" customClass="FiltersBarView" customModule="NOICommunity" customModuleProvider="target">
+                            <rect key="frame" x="40" y="0.0" width="357" height="40"/>
+                        </view>
+                    </subviews>
+                </stackView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="dmU-1L-C4F"/>
+            <constraints>
+                <constraint firstItem="Dme-iJ-Ntu" firstAttribute="top" secondItem="N45-Uj-LgX" secondAttribute="top" id="KE5-Q2-idd"/>
+                <constraint firstAttribute="bottom" secondItem="Dme-iJ-Ntu" secondAttribute="bottom" id="O2U-EB-zfV"/>
+                <constraint firstItem="Dme-iJ-Ntu" firstAttribute="trailing" secondItem="dmU-1L-C4F" secondAttribute="trailing" id="m8J-47-vW1"/>
+                <constraint firstItem="Dme-iJ-Ntu" firstAttribute="leading" secondItem="dmU-1L-C4F" secondAttribute="leading" constant="17" id="vXC-VU-a7p"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="11" y="90"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="ic_filter" width="24" height="24"/>
+        <namedColor name="background_color">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="primary_color">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>
