@@ -36,7 +36,9 @@ class PersonDetailHeaderContentView: UIView, UIContentView {
             companyLabel.font = .NOI.dynamic.bodySemibold
         }
     }
-    
+
+	@IBOutlet private var shareButton: UIButton!
+
     private var currentConfiguration: PersonDetailHeaderContentConfiguration!
     var configuration: UIContentConfiguration {
         get { currentConfiguration }
@@ -90,6 +92,15 @@ class PersonDetailHeaderContentView: UIView, UIContentView {
             (configuration.avatarAttributedText, configuration.avatarText),
             textProperties: configuration.avatarTextProprieties
         )
+
+		// Update share button
+		if let shareAction = configuration.shareAction {
+			shareButton.setAction(.init(handler: { _ in
+				shareAction()
+			}))
+		} else {
+			shareButton.setAction(nil)
+		}
     }
     
 }
@@ -149,7 +160,9 @@ struct PersonDetailHeaderContentConfiguration: UIContentConfiguration, Hashable 
     var avatarTextProprieties = ContentConfiguration.TextProperties(
         font: .NOI.fixed.headlineSemibold
     )
-    
+
+	var shareAction: (() -> Void)?
+
     func makeContentView() -> UIView & UIContentView {
         return PersonDetailHeaderContentView(configuration: self)
     }
@@ -157,4 +170,32 @@ struct PersonDetailHeaderContentConfiguration: UIContentConfiguration, Hashable 
     func updated(for state: UIConfigurationState) -> Self {
         return self
     }
+
+	// Hashable implementation
+	func hash(into hasher: inout Hasher) {
+		hasher.combine(fullname)
+		hasher.combine(company)
+		hasher.combine(avatarText)
+		hasher.combine(image)
+		hasher.combine(fullnameAttributedText)
+		hasher.combine(companyAttributedText)
+		hasher.combine(avatarAttributedText)
+		hasher.combine(fullnameTextProprieties)
+		hasher.combine(companyTextProprieties)
+		hasher.combine(avatarTextProprieties)
+	}
+
+	// Equatable implementation
+	static func == (lhs: PersonDetailHeaderContentConfiguration, rhs: PersonDetailHeaderContentConfiguration) -> Bool {
+		lhs.fullname == rhs.fullname &&
+		lhs.company == rhs.company &&
+		lhs.avatarText == rhs.avatarText &&
+		lhs.image == rhs.image &&
+		lhs.fullnameAttributedText == rhs.fullnameAttributedText &&
+		lhs.companyAttributedText == rhs.companyAttributedText &&
+		lhs.avatarAttributedText == rhs.avatarAttributedText &&
+		lhs.fullnameTextProprieties == rhs.fullnameTextProprieties &&
+		lhs.companyTextProprieties == rhs.companyTextProprieties &&
+		lhs.avatarTextProprieties == rhs.avatarTextProprieties
+	}
 }

@@ -1,7 +1,13 @@
-// Copyright © 2020 DIMENSION S.r.l. All rights reserved.
 // SPDX-FileCopyrightText: NOI Techpark <digital@noi.bz.it>
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
+
+//
+//  EventsCalendarManager.swift
+//  NOICommunity
+//
+//  Created by Matteo Matassoni on 27/09/21.
+//
 
 import EventKit
 import EventKitUI
