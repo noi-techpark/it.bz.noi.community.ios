@@ -104,7 +104,18 @@ private extension NewsListViewModel {
 				publishedOn: "noi-communityapp",
 				articleType: "newsfeednoi",
 				rawSort: "-ArticleDate",
-				rawFilter: needsToRequestHighlight ? #"eq(Highlight,"true")"# : #"or(eq(Highlight,"false"),isnull(Highlight))"#,
+                rawFilter: {
+                    // Prima aggiungiamo il filtro Highlight
+                    var filterString = needsToRequestHighlight ? #"eq(Highlight,"true")"# : #"or(eq(Highlight,"false"),isnull(Highlight))"#
+                    
+                    // Ora aggiungiamo i filtri di activeFilters se ci sono
+                    if let filtersQuery = activeFilters.toQuery(), !filtersQuery.isEmpty {
+                        // Invece di usare l'operatore testuale "and", racchiudiamo tutto in una funzione and()
+                        filterString = #"and(\#(filterString),\#(filtersQuery))"#
+                    }
+                    
+                    return filterString
+                }(),
 				pageSize: pageSize,
 				pageNumber: pageNumber
 			)
@@ -145,3 +156,30 @@ private extension NewsListViewModel {
     }
     
 }
+
+// MARK: Query Helper
+
+private extension Collection where Element == ArticleTag {
+    
+    func toQuery() -> String? {
+        let filterToQuery: (ArticleTag) -> String = {
+            // Converte i tag in formato query per il filtro
+            #"in(TagIds.[],"\#($0.id)")"#
+        }
+
+        let queryComponentsToQuery: ([String], String) -> String = { components, logicOperator in
+            let components = components.filter { !$0.isEmpty }
+            if components.isEmpty {
+                return ""
+            } else if components.count == 1 {
+                return components.first!
+            } else {
+                return logicOperator + "(" + components.joined(separator: ",") + ")"
+            }
+        }
+
+        let queryComponents = self.map(filterToQuery)
+        return queryComponentsToQuery(queryComponents, "or")
+    }
+}
+

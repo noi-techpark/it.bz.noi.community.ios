@@ -57,7 +57,7 @@ final class NewsCoordinator: BaseNavigationCoordinator {
             .sink { [unowned self] activeFilters in
                 print("Sink received: \(activeFilters.count) filters")
                 self.newsListViewModel.activeFilters = activeFilters
-                self.newsListViewModel.fetchNews()
+                self.newsListViewModel.fetchNews(refresh: true)
             }
             .store(in: &subscriptions)
         
