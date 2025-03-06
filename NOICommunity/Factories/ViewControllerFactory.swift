@@ -23,6 +23,10 @@ protocol ViewControllerFactory {
     func makeEventFiltersViewController(
         viewModel: EventFiltersViewModel
     ) -> EventFiltersViewController
+    
+    func makeNewsFiltersViewController(
+        viewModel: NewsFiltersViewModel
+    ) -> NewsFiltersViewController
 
     func makeWelcomeViewController(
         viewModel: WelcomeViewModel

@@ -26,11 +26,20 @@ final class NewsCoordinator: BaseNavigationCoordinator {
     private var mainVC: NewsViewController!
     
     private var newsListViewModel: NewsListViewModel!
+    private lazy var newsFiltersViewModel = dependencyContainer
+        .makeNewsFiltersViewModel { [weak self] in
+            self?.closeFilters()
+        }
     
     private var subscriptions: Set<AnyCancellable> = []
     
     override func start(animated: Bool) {
-        newsListViewModel = dependencyContainer.makeNewsListViewModel()
+        let newsListViewModel = dependencyContainer.makeNewsListViewModel {[weak self] in
+            self?.goToFilters()
+        }
+        
+        self.newsListViewModel = newsListViewModel
+        
         newsListViewModel.showDetailsHandler = { [weak self] news, _ in
             self?.goToDetails(of: news)
         }
@@ -38,6 +47,31 @@ final class NewsCoordinator: BaseNavigationCoordinator {
             viewModel: newsListViewModel
         )
         mainVC.tabBarItem.title = .localized("news_top_tab")
+        
+        newsFiltersViewModel.$activeFilters
+            .dropFirst()
+            .receive(on: DispatchQueue.main)
+            .handleEvents(receiveOutput: { filters in
+                print("Publisher emitted: \(filters.count) filters")
+            })
+            .sink { [unowned self] activeFilters in
+                print("Sink received: \(activeFilters.count) filters")
+                self.newsListViewModel.activeFilters = activeFilters
+                self.newsListViewModel.fetchNews()
+            }
+            .store(in: &subscriptions)
+        
+        // TODO: implementare
+//        eventsViewModel.$eventResults
+//            .map(\.?.count)
+//            .receive(on: DispatchQueue.main)
+//            .sink(receiveValue: { [unowned eventFiltersViewModel] numberOfResults in
+//                guard let numberOfResults = numberOfResults
+//                else { return }
+//
+//                eventFiltersViewModel.numberOfResults = numberOfResults
+//            })
+//            .store(in: &subscriptions)
     }
 }
 
@@ -65,6 +99,24 @@ private extension NewsCoordinator {
         navigationController.pushViewController(pageVC, animated: true)
     }
     
+    func goToFilters() {
+        let filtersVC = dependencyContainer.makeNewsFiltersViewController(
+            viewModel: newsFiltersViewModel
+        )
+        filtersVC.modalPresentationStyle = .fullScreen
+        filtersVC.navigationItem.leftBarButtonItem = UIBarButtonItem(
+            image: UIImage(systemName: "xmark.circle.fill"),
+            style: .plain,
+            target: self,
+            action: #selector(closeFilters)
+        )
+        navigationController.present(
+            NavigationController(rootViewController: filtersVC),
+            animated: true,
+            completion: nil
+        )
+    }
+    
     func showExternalLink(of news: Article) {
         let author = localizedValue(from: news.languageToAuthor)
         let safariVC = SFSafariViewController(url: author!.externalURL!)
@@ -78,6 +130,10 @@ private extension NewsCoordinator {
             delegate: self,
             completion: nil
         )
+    }
+    
+    @objc func closeFilters() {
+        navigationController.dismiss(animated: true, completion: nil)
     }
     
 }

@@ -13,6 +13,7 @@ import UIKit
 import Combine
 import Kingfisher
 import ArticlesClient
+import ArticleTagsClient
 
 private let loadNextPageOnItemIndexOffset = 0
 
@@ -129,19 +130,7 @@ class NewsViewController: UICollectionViewController {
     }
     
     @objc private func goToFilters() {
-        let filtersVC = NewsFiltersViewController()
-        filtersVC.modalPresentationStyle = .fullScreen
-        filtersVC.navigationItem.leftBarButtonItem = UIBarButtonItem(
-            image: UIImage(systemName: "xmark.circle.fill"),
-            style: .plain,
-            target: self,
-            action: #selector(closeFilters)
-        )
-        navigationController?.present(
-            UINavigationController(rootViewController: filtersVC),
-            animated: true,
-            completion: nil
-        )
+        viewModel.showFiltersHandler()
     }
     
     @objc private func closeFilters() {

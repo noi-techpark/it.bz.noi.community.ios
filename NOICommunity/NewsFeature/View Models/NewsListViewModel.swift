@@ -12,6 +12,7 @@
 import Foundation
 import Combine
 import ArticlesClient
+import ArticleTagsClient
 
 // MARK: - NewsViewModel
 
@@ -34,20 +35,24 @@ final class NewsListViewModel {
     @Published private(set) var isLoading = false
     @Published private(set) var error: Error!
     @Published private(set) var newsIds: [String] = []
+    @Published var activeFilters: Set<ArticleTag> = []
     private var idToNews: [String: Article] = [:]
     
     private var refreshCancellable: AnyCancellable?
     private var fetchRequestCancellable: AnyCancellable?
     
     var showDetailsHandler: ((Article, Any?) -> Void)!
+    let showFiltersHandler: () -> Void
     
     init(
         articlesClient: ArticlesClient,
+        showFiltersHandler: @escaping () -> Void,
         pageSize: Int = 10,
         firstPage: Int = 1,
         needsToRequestHighlight: Bool = true
     ) {
         self.articlesClient = articlesClient
+        self.showFiltersHandler = showFiltersHandler
         self.pageSize = pageSize
         self.firstPage = firstPage
         self.nextPage = firstPage

@@ -19,6 +19,7 @@ import Core
 import AuthClientLive
 import AuthStateStorageClient
 import ArticlesClient
+import ArticleTagsClient
 import PeopleClientLive
 import VimeoOEmbedClient
 import VimeoVideoThumbnailClient
@@ -83,7 +84,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 			articleClient: ArticlesClientImplementation(
 				baseURL: EventsFeatureConstants.clientBaseURL,
 				transport: URLSession.shared
-			),
+            ), 
+            articleTagsClient: ArticleTagsClientImplementation(
+                baseURL: EventsFeatureConstants.clientBaseURL,
+                transport: URLSession.shared),
 			peopleClient: .live(baseURL: MeetConstant.clientBaseURL),
 			vimeoVideoThumbnailClient: VimeoVideoThumbnailClientImplementation(vimeoOEmbedClient: VimeoOEmbedClientImplementation(transport: URLSession.shared))
 				.cached()

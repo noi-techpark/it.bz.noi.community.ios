@@ -10,6 +10,7 @@
 //
 
 import UIKit
+import Combine
 import ArticleTagsClient
 
 class NewsFiltersViewController: UIViewController {
@@ -31,13 +32,17 @@ class NewsFiltersViewController: UIViewController {
         didSet {
             showResultsButton
                 .configureAsPrimaryActionButton()
-                .setTitle("Show Results", for: .normal) // Testo statico per ora
         }
     }
 
+    private var subscriptions: Set<AnyCancellable> = []
+    
     private lazy var resultsVC = makeResultsViewController()
     
-    init() {
+    let viewModel: NewsFiltersViewModel
+    
+    init(viewModel: NewsFiltersViewModel) {
+        self.viewModel = viewModel
         super.init(nibName: "NewsFiltersViewController", bundle: nil)
     }
     
@@ -46,31 +51,113 @@ class NewsFiltersViewController: UIViewController {
         fatalError("\(#function) not available")
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        title = "Filters"
-        embedChild(resultsVC, in: contentContainer)
+    @available(*, unavailable)
+    override init(
+        nibName nibNameOrNil: String?,
+        bundle nibBundleOrNil: Bundle?
+    ) {
+        fatalError("\(#function) not available")
     }
     
-    private func makeResultsViewController() -> NewsFiltersListViewController {
-        let articleTags: [ArticleTag] = [
-            ArticleTag(
-                id: "dce044b2-e5e5-4e86-992a-b7e6562e5934",
-                tagName: ["it": "A1", "de": "A1", "en": "A1"],
-                types: ["noicommunitycategory"]
-            ),
-            ArticleTag(
-                id: "6f6a4377-f9a5-4536-aab6-72470e5ab2ca",
-                tagName: ["it": "A3", "de": "A3", "en": "A3"],
-                types: ["noicommunitycategory"]
-            ),
-            ArticleTag(
-                id: "4fa326d5-37a8-43f0-866e-c87faaabb075",
-                tagName: ["de": "A4", "en": "A4", "it": "A4"],
-                types: ["noicommunitycategory"]
-            )
-        ]
-        
-        return NewsFiltersListViewController(items: articleTags, onItemsIds: [])
+    @available(*, unavailable)
+    init() {
+        fatalError("\(#function) not available")
     }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        title = "Filters" // TODO: modificare
+        configureBindings()
+        viewModel.refreshNewsFilters()
+    }
+}
+
+// MARK: Private APIs
+
+private extension NewsFiltersViewController {
+    
+    func updateContent(isLoading: Bool) {
+        if isLoading {
+            embedChild(
+                LoadingViewController(style: .light),
+                in: contentContainer
+            )
+        } else {
+            embedChild(resultsVC, in: contentContainer)
+        }
+    }
+    
+    func makeResultsViewController() -> NewsFiltersListViewController {
+        let resultsViewController = NewsFiltersListViewController(
+            items: viewModel.filtersResults,
+            onItemsIds: Set(viewModel.activeFilters.map(\ .id))
+        )
+        resultsViewController.filterValueDidChangeHandler = { [weak viewModel] in
+            viewModel?.setFilter($0, isActive: $1)
+        }
+        return resultsViewController
+    }
+    
+    func configureBindings() {
+        viewModel.$isLoading
+            .dropFirst()
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] isLoading in
+                self?.updateContent(isLoading: isLoading)
+            })
+            .store(in: &subscriptions)
+        
+        viewModel.$error
+            .dropFirst()
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] error in
+                if let error = error {
+                    self?.showError(error)
+                }
+            }
+            .store(in: &subscriptions)
+        
+        viewModel.$filtersResults
+            .dropFirst()
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] results in
+                self?.resultsVC.items = results
+            }
+            .store(in: &subscriptions)
+        
+        viewModel.$activeFilters
+            .dropFirst()
+            .receive(on: DispatchQueue.main)
+            .sink { [weak resultsVC] activeFiltersIds in
+                resultsVC?.onItemsIds = Set(activeFiltersIds.map(\ .id))
+            }
+            .store(in: &subscriptions)
+        
+        viewModel.$numberOfResults
+            .receive(on: DispatchQueue.main)
+            .sink { [weak showResultsButton] numberOfResults in
+                showResultsButton?.setTitle(
+                    .localizedStringWithFormat(
+                        .localized("show_results_btn_format"),
+                        numberOfResults
+                    ),
+                    for: .normal
+                )
+            }
+            .store(in: &subscriptions)
+        
+        resetActiveFiltersButton.publisher(for: .primaryActionTriggered)
+            .sink { [weak viewModel] in
+                viewModel?.clearActiveFilters()
+            }
+            .store(in: &subscriptions)
+        
+        showResultsButton.publisher(for: .primaryActionTriggered)
+            .sink { [weak viewModel] in
+                viewModel?.showFilteredResults()
+            }
+            .store(in: &subscriptions)
+    }
+
 }

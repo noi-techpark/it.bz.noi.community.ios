@@ -19,6 +19,7 @@ import EventShortClient
 import EventShortTypesClient
 import Core
 import ArticlesClient
+import ArticleTagsClient
 import PeopleClient
 import VimeoVideoThumbnailClient
 
@@ -32,6 +33,7 @@ final class DependencyContainer {
     let eventShortClient: EventShortClient
     let eventShortTypesClient: EventShortTypesClient
     let artileClient: ArticlesClient
+    let articleTagsClient: ArticleTagsClient
     let peopleClient: PeopleClient
 	let vimeoVideoThumbnailClient: VimeoVideoThumbnailClient
 
@@ -60,6 +62,7 @@ final class DependencyContainer {
         eventShortClient: EventShortClient,
         eventShortTypesClient: EventShortTypesClient,
         articleClient: ArticlesClient,
+        articleTagsClient: ArticleTagsClient,
         peopleClient: PeopleClient,
 		vimeoVideoThumbnailClient: VimeoVideoThumbnailClient
     ) {
@@ -69,6 +72,7 @@ final class DependencyContainer {
         self.eventShortClient = eventShortClient
         self.eventShortTypesClient = eventShortTypesClient
         self.artileClient = articleClient
+        self.articleTagsClient = articleTagsClient
 		self.peopleClient = peopleClient
 		self.vimeoVideoThumbnailClient = vimeoVideoThumbnailClient
 
@@ -186,8 +190,13 @@ extension DependencyContainer: ViewModelFactory {
         )
     }
     
-    func makeNewsListViewModel() -> NewsListViewModel {
-        .init(articlesClient: makeArticlesClient())
+    func makeNewsListViewModel(
+        showFiltersHandler: @escaping () -> Void
+    ) -> NewsListViewModel {
+        .init(
+            articlesClient: makeArticlesClient(),
+            showFiltersHandler: showFiltersHandler
+        )
     }
 
 	func makeNewsDetailsViewModel(
@@ -200,6 +209,15 @@ extension DependencyContainer: ViewModelFactory {
 		news: Article
 	) -> NewsDetailsViewModel {
 		.init(articlesClient: makeArticlesClient(), news: news)
+    }
+    
+    func makeNewsFiltersViewModel(
+        showFilteredResultsHandler: @escaping () -> Void
+    ) -> NewsFiltersViewModel {
+        .init(
+            articleTagsClient: articleTagsClient,
+            showFilteredResultsHandler: showFilteredResultsHandler
+        )
     }
     
     func makePeopleViewModel() -> PeopleViewModel {
@@ -233,6 +251,10 @@ extension DependencyContainer: ViewControllerFactory {
     func makeEventFiltersViewController(
         viewModel: EventFiltersViewModel
     ) -> EventFiltersViewController {
+        .init(viewModel: viewModel)
+    }
+    
+    func makeNewsFiltersViewController(viewModel: NewsFiltersViewModel) -> NewsFiltersViewController {
         .init(viewModel: viewModel)
     }
     

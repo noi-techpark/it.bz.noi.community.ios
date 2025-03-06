@@ -37,37 +37,40 @@ class NewsFiltersViewModel {
         self.showFilteredResultsHandler = showFilteredResultsHandler
     }
 
-    func refreshNewsFilters() {
+    
+    func performRefreshNewsFilters() async {
         guard !isLoading else { return }
         isLoading = true
         filtersResults = []
-
-        refreshTagsRequestCancellable = articleTagsClient.getArticleTagListPublisher()
-            .receive(on: DispatchQueue.main)
-            .sink(
-                receiveCompletion: { [weak self] completion in
-                    switch completion {
-                    case .finished:
-                        break
-                    case .failure(let error):
-                        self?.error = error
-                    }
-                    self?.isLoading = false
-                },
-                receiveValue: { [weak self] tags in
-                    self?.filtersResults = tags
-                }
-            )
+        
+        do {
+            filtersResults = try await articleTagsClient.getArticleTagList().items
+        }
+        catch{
+            self.error = error
+        }
+        self.isLoading = false
     }
-
+    
+    func refreshNewsFilters(){
+        Task{
+            await self.performRefreshNewsFilters()
+        }
+    }
     
     func setFilter(_ filter: ArticleTag, isActive: Bool) {
+        print("Before change: \(activeFilters.count) filters")
         if isActive {
             activeFilters.insert(filter)
         } else {
             activeFilters.remove(filter)
         }
+        // 🔥 Trigger manuale della pubblicazione:
+        let activeFilters2 = activeFilters
+        activeFilters = activeFilters2
+        print("After change: \(activeFilters.count) filters")
     }
+
     
     func clearActiveFilters() {
         activeFilters.removeAll()

@@ -58,6 +58,12 @@ class NewsFiltersListViewController: UICollectionViewController {
 // MARK: Private APIs
 
 private extension NewsFiltersListViewController {
+    
+    func filter(_ item: ArticleTag, didChangeValue isOn: Bool) {
+        print("Filter changed: \(item.id), isOn: \(isOn)")
+        filterValueDidChangeHandler(item, isOn)
+    }
+    
     func configureDataSource() {
         let cellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, ArticleTag.Id> { cell, _, id in
             let item = self.dict[id]!
@@ -105,24 +111,29 @@ private extension NewsFiltersListViewController {
     }
 
     func reconfigureFiltersWithIds(_ filterIds: [ArticleTag.Id], animated: Bool) {
-        let reconfigureIndexPaths = filterIds.compactMap { dataSource.indexPath(for: $0) }
+        let reconfigureIndexPaths = filterIds.compactMap {
+            dataSource.indexPath(for: $0)
+        }
         let visibleIndexPaths = collectionView.indexPathsForVisibleItems
-        let foundIndexPaths = visibleIndexPaths.filter { reconfigureIndexPaths.contains($0) }
-        
+        let foundIndexPaths = visibleIndexPaths
+            .filter { reconfigureIndexPaths.contains($0) }
+
         for foundIndexPath in foundIndexPaths {
             guard let cell = collectionView.cellForItem(at: foundIndexPath) as? UICollectionViewListCell,
-                  let id = dataSource.itemIdentifier(for: foundIndexPath) else { return }
-            
-            let item = self.dict[id]!
-            
-            for accessory in cell.accessories {
-                if case let .customView(customView) = accessory.accessoryType,
-                   let `switch` = customView as? UISwitch {
-                    `switch`.setOn(onItemsIds.contains(id), animated: animated)
+                  let id = dataSource.itemIdentifier(for: foundIndexPath),
+                  let item = self.dict[id] else { return }
+
+            cell.configureItem(
+                item,
+                isActive: onItemsIds.contains(id),
+                animated: animated,
+                isActiveDidChangeHandler: { [weak self] in
+                    self?.filter($0, didChangeValue: $1)
                 }
-            }
+            )
         }
     }
+
     
     func configureCollectionView() {
         let layout = UICollectionViewCompositionalLayout { (sectionIndex, layoutEnvironment) -> NSCollectionLayoutSection? in
@@ -142,11 +153,26 @@ private extension NewsFiltersListViewController {
     }
 }
 
-private extension NewsFiltersListViewController {
-    func filter(_ item: ArticleTag, didChangeValue isOn: Bool) {
-        print("Filter changed: \(item.id), isOn: \(isOn)")
-        //filterValueDidChangeHandler(item, isOn)
+// MARK: UICollectionViewListCell Configure Helper
+
+private extension UICollectionViewListCell {
+
+    func configureItem(
+        _ item: ArticleTag,
+        isActive: Bool,
+        animated: Bool,
+        isActiveDidChangeHandler: @escaping (ArticleTag, Bool) -> Void
+    ) {
+        for accessory in accessories {
+            guard
+                case let .customView(customView) = accessory.accessoryType,
+                let `switch` = customView as? UISwitch
+            else { continue }
+
+            `switch`.setOn(isActive, animated: animated)
+        }
     }
+
 }
 
 private enum Section: Int {
