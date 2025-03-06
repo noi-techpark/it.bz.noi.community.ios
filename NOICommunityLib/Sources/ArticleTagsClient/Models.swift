@@ -55,14 +55,15 @@ public struct ArticleTagListResponse: Codable, Hashable {
 public struct ArticleTag: Codable, Hashable {
 
     public typealias LocalizedMap<T: Codable> = [String:T]
+    public typealias Id = String
 
-    public let id: String
+    public let id: Id
     public let tagName: LocalizedMap<String>
     public let types: [String]
 
     public init(from decoder: any Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = try values.decode(String.self, forKey: .id)
+        self.id = try values.decode(Id.self, forKey: .id)
         self.tagName = try values.decodeIfPresent(LocalizedMap<String>.self, forKey: .tagName) ?? [:]
         self.types = try values.decodeIfPresent([String].self, forKey: .types) ?? []
     }

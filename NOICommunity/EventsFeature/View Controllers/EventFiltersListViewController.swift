@@ -97,7 +97,6 @@ private extension EventFiltersListViewController {
 
     func createLayout() -> UICollectionViewLayout {
         var config = UICollectionLayoutListConfiguration(appearance: .grouped)
-        config.headerMode = .supplementary
         config.backgroundColor = .noiSecondaryBackgroundColor
         return UICollectionViewCompositionalLayout.list(using: config)
     }

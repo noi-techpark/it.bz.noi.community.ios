@@ -3,10 +3,10 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 //
-//  EventsFiltersBarView.swift
+//  NewsFiltersBarView.swift
 //  NOICommunity
 //
-//  Created by Matteo Matassoni on 15/10/21.
+//  Created by Camilla on 27/02/25.
 //
 
 import UIKit

@@ -11,6 +11,7 @@
 
 import Foundation
 import Core
+import Combine
 
 public final class ArticleTagsClientImplementation: ArticleTagsClient {
 
@@ -45,6 +46,28 @@ public final class ArticleTagsClientImplementation: ArticleTagsClient {
 
         return try jsonDecoder.decode(ArticleTagListResponse.self, from: data)
     }
+    
+    public func getArticleTagListPublisher() -> AnyPublisher<[ArticleTag], Error> {
+        Future { promise in
+            Task {
+                do {
+                    // Ottieni la risposta completa con ArticleTagListResponse
+                    let response = try await self.getArticleTagList()
+                    
+                    // Estrai l'array items da ArticleTagListResponse
+                    let tags = response.items
+                    
+                    // Invia il risultato
+                    promise(.success(tags))
+                } catch {
+                    // Se si verifica un errore, invia il fallimento
+                    promise(.failure(error))
+                }
+            }
+        }
+        .eraseToAnyPublisher()
+    }
+
 
 }
 
