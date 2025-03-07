@@ -15,9 +15,6 @@ import Combine
 public protocol ArticleTagsClient {
     
     func getArticleTagList() async throws -> ArticleTagListResponse
-    
-    func getArticleTagListPublisher() -> AnyPublisher<[ArticleTag], Error>
-    
 }
 
 public extension ArticleTagsClient {
@@ -25,11 +22,6 @@ public extension ArticleTagsClient {
     func getArticleTagList() async throws -> ArticleTagListResponse {
         try await getArticleTagList()
     }
-    
-    func getArticleTagListPublisher() -> AnyPublisher<[ArticleTag], Error> {
-        getArticleTagListPublisher()
-    }
-
 }
 
 

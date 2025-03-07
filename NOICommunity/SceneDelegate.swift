@@ -39,6 +39,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var currentAuthorizationFlow: OIDExternalUserAgentSession?
     
     lazy var cache: Cache<EventShortTypesClient.CacheKey, [EventsFilter]> = Cache()
+    lazy var articleTagsCache = Cache<String, ArticleTagListResponse>()
     
     lazy var dependencyContainer: DependencyContainer = {
         let tokenStorage = KeychainAuthStateStorageClient(
@@ -85,9 +86,25 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 				baseURL: EventsFeatureConstants.clientBaseURL,
 				transport: URLSession.shared
             ), 
-            articleTagsClient: ArticleTagsClientImplementation(
-                baseURL: EventsFeatureConstants.clientBaseURL,
-                transport: URLSession.shared),
+            articleTagsClient: {
+                if let fileURL = Bundle.main.url(
+                    forResource: "ArticleTags",
+                    withExtension: "json"
+                ) {
+                    return ArticleTagsClientImplementation(
+                        baseURL: EventsFeatureConstants.clientBaseURL,
+                        transport: URLSession.shared,
+                        memoryCache: articleTagsCache,
+                        diskCacheFileURL: fileURL
+                    )
+                } else {
+                    return ArticleTagsClientImplementation(
+                        baseURL: EventsFeatureConstants.clientBaseURL,
+                        transport: URLSession.shared,
+                        memoryCache: articleTagsCache
+                    )
+                }
+            }(),
 			peopleClient: .live(baseURL: MeetConstant.clientBaseURL),
 			vimeoVideoThumbnailClient: VimeoVideoThumbnailClientImplementation(vimeoOEmbedClient: VimeoOEmbedClientImplementation(transport: URLSession.shared))
 				.cached()

@@ -18,56 +18,72 @@ public final class ArticleTagsClientImplementation: ArticleTagsClient {
     private let baseURL: URL
 
     private let transport: Transport
+    
+    private let memoryCache: Cache<String, ArticleTagListResponse>
+    
+    private let diskCacheFileURL: URL?
 
     private let jsonDecoder: JSONDecoder = {
         let jsonDecoder = JSONDecoder()
         jsonDecoder.keyDecodingStrategy = .convertFromPascalCase
         return jsonDecoder
     }()
+    
+    public enum CacheKey: Int {
+        case newsFilters = 0
+    }
 
     public init(
         baseURL: URL,
-        transport: Transport
+        transport: Transport,
+        memoryCache: Cache<String, ArticleTagListResponse>,
+        diskCacheFileURL: URL? = nil
     ) {
         self.baseURL = baseURL
         self.transport = transport
             .checkingStatusCodes()
             .addingJSONHeaders()
-    }
-
-    public func getArticleTagList() async throws -> ArticleTagListResponse {
-        let request = Endpoint
-            .articleTagList()
-            .makeRequest(withBaseURL: baseURL)
-
-        let (data, _) = try await transport.send(request: request)
-
-        try Task.checkCancellation()
-
-        return try jsonDecoder.decode(ArticleTagListResponse.self, from: data)
+        self.memoryCache = memoryCache
+        self.diskCacheFileURL = diskCacheFileURL
     }
     
-    public func getArticleTagListPublisher() -> AnyPublisher<[ArticleTag], Error> {
-        Future { promise in
-            Task {
-                do {
-                    // Ottieni la risposta completa con ArticleTagListResponse
-                    let response = try await self.getArticleTagList()
-                    
-                    // Estrai l'array items da ArticleTagListResponse
-                    let tags = response.items
-                    
-                    // Invia il risultato
-                    promise(.success(tags))
-                } catch {
-                    // Se si verifica un errore, invia il fallimento
-                    promise(.failure(error))
-                }
-            }
-        }
-        .eraseToAnyPublisher()
-    }
+    public func getArticleTagList() async throws -> ArticleTagListResponse {
+            let cacheKey = "articleTagList"
 
+            // Controlla se il dato è già in cache (memoria)
+            if let cachedData = memoryCache[cacheKey] {
+                return cachedData
+            }
+
+            // Prova a leggere dal file di cache su disco (se disponibile)
+            if let fileURL = diskCacheFileURL,
+               let data = try? Data(contentsOf: fileURL),
+               let cachedResponse = try? jsonDecoder.decode(ArticleTagListResponse.self, from: data) {
+                memoryCache[cacheKey] = cachedResponse
+                return cachedResponse
+            }
+
+            // Scarica i dati dalla rete e aggiorna la cache
+            let request = Endpoint
+                .articleTagList()
+                .makeRequest(withBaseURL: baseURL)
+
+            let (data, _) = try await transport.send(request: request)
+
+            try Task.checkCancellation()
+
+            let response = try jsonDecoder.decode(ArticleTagListResponse.self, from: data)
+
+            // Salva nella cache in memoria
+            memoryCache[cacheKey] = response
+
+            // Se c'è un file di cache, salva su disco
+            if let fileURL = diskCacheFileURL {
+                try? data.write(to: fileURL)
+            }
+
+            return response
+        }
 
 }
 

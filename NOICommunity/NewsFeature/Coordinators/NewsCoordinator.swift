@@ -51,27 +51,11 @@ final class NewsCoordinator: BaseNavigationCoordinator {
         newsFiltersViewModel.$activeFilters
             .dropFirst()
             .receive(on: DispatchQueue.main)
-            .handleEvents(receiveOutput: { filters in
-                print("Publisher emitted: \(filters.count) filters")
-            })
             .sink { [unowned self] activeFilters in
-                print("Sink received: \(activeFilters.count) filters")
                 self.newsListViewModel.activeFilters = activeFilters
                 self.newsListViewModel.fetchNews(refresh: true)
             }
             .store(in: &subscriptions)
-        
-        // TODO: implementare
-//        eventsViewModel.$eventResults
-//            .map(\.?.count)
-//            .receive(on: DispatchQueue.main)
-//            .sink(receiveValue: { [unowned eventFiltersViewModel] numberOfResults in
-//                guard let numberOfResults = numberOfResults
-//                else { return }
-//
-//                eventFiltersViewModel.numberOfResults = numberOfResults
-//            })
-//            .store(in: &subscriptions)
     }
 }
 

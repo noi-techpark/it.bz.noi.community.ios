@@ -59,16 +59,11 @@ class NewsFiltersViewModel {
     }
     
     func setFilter(_ filter: ArticleTag, isActive: Bool) {
-        print("Before change: \(activeFilters.count) filters")
         if isActive {
             activeFilters.insert(filter)
         } else {
             activeFilters.remove(filter)
         }
-        // 🔥 Trigger manuale della pubblicazione:
-        let activeFilters2 = activeFilters
-        activeFilters = activeFilters2
-        print("After change: \(activeFilters.count) filters")
     }
 
     

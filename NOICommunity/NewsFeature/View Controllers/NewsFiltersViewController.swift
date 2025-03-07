@@ -139,7 +139,7 @@ private extension NewsFiltersViewController {
             .sink { [weak showResultsButton] numberOfResults in
                 showResultsButton?.setTitle(
                     .localizedStringWithFormat(
-                        .localized("show_results_btn_format"),
+                        .localized("show_results_btn_format"), // TODO: mettere nuovo show results senza numero
                         numberOfResults
                     ),
                     for: .normal

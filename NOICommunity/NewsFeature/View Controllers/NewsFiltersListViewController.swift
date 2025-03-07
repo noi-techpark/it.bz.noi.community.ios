@@ -37,7 +37,6 @@ class NewsFiltersListViewController: UICollectionViewController {
 
     init(items: [ArticleTag], onItemsIds: Set<ArticleTag.Id> = []) {
         self.items = items
-        print(self.items)
         self.onItemsIds = onItemsIds
         self.dict = Dictionary(uniqueKeysWithValues: items.map { ($0.id, $0) })
         super.init(collectionViewLayout: UICollectionViewFlowLayout())
@@ -60,7 +59,6 @@ class NewsFiltersListViewController: UICollectionViewController {
 private extension NewsFiltersListViewController {
     
     func filter(_ item: ArticleTag, didChangeValue isOn: Bool) {
-        print("Filter changed: \(item.id), isOn: \(isOn)")
         filterValueDidChangeHandler(item, isOn)
     }
     
@@ -68,7 +66,6 @@ private extension NewsFiltersListViewController {
         let cellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, ArticleTag.Id> { cell, _, id in
             let item = self.dict[id]!
             
-            print("🔍 Configuring cell for item: \(item.id)")
             var contentConfiguration = UIListContentConfiguration.noiCell2()
             contentConfiguration.text = localizedValue(from: item.tagName, defaultValue: item.id)
             cell.contentConfiguration = contentConfiguration
