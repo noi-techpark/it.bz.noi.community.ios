@@ -10,14 +10,16 @@
 //
 
 import XCTest
+import Core
 @testable import ArticleTagsClient
 
 final class ArticleTagsClientTests: XCTestCase {
     func testGetArticleTagList() async throws {
         let baseURL = URL(string: "https://tourism.opendatahub.com")!
         let transport = URLSession.shared
+        lazy var articleTagsCache = Cache<String, ArticleTagListResponse>()
 
-        let client = ArticleTagsClientImplementation(baseURL: baseURL, transport: transport)
+        let client = ArticleTagsClientImplementation(baseURL: baseURL, transport: transport, memoryCache: articleTagsCache)
 
         do {
             let response = try await client.getArticleTagList()
