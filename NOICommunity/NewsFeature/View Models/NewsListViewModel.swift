@@ -105,12 +105,11 @@ private extension NewsListViewModel {
 				articleType: "newsfeednoi",
 				rawSort: "-ArticleDate",
                 rawFilter: {
-                    // Prima aggiungiamo il filtro Highlight
+                    // Highlight Filter
                     var filterString = needsToRequestHighlight ? #"eq(Highlight,"true")"# : #"or(eq(Highlight,"false"),isnull(Highlight))"#
                     
-                    // Ora aggiungiamo i filtri di activeFilters se ci sono
+                    // Active Tag Filters
                     if let filtersQuery = activeFilters.toQuery(), !filtersQuery.isEmpty {
-                        // Invece di usare l'operatore testuale "and", racchiudiamo tutto in una funzione and()
                         filterString = #"and(\#(filterString),\#(filtersQuery))"#
                     }
                     
@@ -163,7 +162,6 @@ private extension Collection where Element == ArticleTag {
     
     func toQuery() -> String? {
         let filterToQuery: (ArticleTag) -> String = {
-            // Converte i tag in formato query per il filtro
             #"in(TagIds.[],"\#($0.id)")"#
         }
 

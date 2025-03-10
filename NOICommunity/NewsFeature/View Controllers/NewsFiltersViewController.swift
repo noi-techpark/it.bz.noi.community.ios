@@ -67,7 +67,7 @@ class NewsFiltersViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "Filters" // TODO: modificare
+        title = .localized("title_filters")
         configureBindings()
         viewModel.refreshNewsFilters()
     }

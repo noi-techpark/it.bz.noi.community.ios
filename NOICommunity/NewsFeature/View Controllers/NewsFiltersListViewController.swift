@@ -135,7 +135,7 @@ private extension NewsFiltersListViewController {
     func configureCollectionView() {
         let layout = UICollectionViewCompositionalLayout { (sectionIndex, layoutEnvironment) -> NSCollectionLayoutSection? in
             // Configurazione per una lista con celle singole
-            var config = UICollectionLayoutListConfiguration(appearance: .plain)
+            var config = UICollectionLayoutListConfiguration(appearance: .grouped)
             config.showsSeparators = true // Aggiungi separatori tra le celle
             config.backgroundColor = .noiSecondaryBackgroundColor
             
@@ -146,7 +146,7 @@ private extension NewsFiltersListViewController {
         collectionView.collectionViewLayout = layout
         collectionView.backgroundColor = .noiSecondaryBackgroundColor
         collectionView.allowsSelection = false
-        collectionView.contentInset = .init(top: 24, left: 0, bottom: 0, right: 0)
+        collectionView.contentInset = .init(top: 0, left: 0, bottom: 0, right: 0)
     }
 }
 

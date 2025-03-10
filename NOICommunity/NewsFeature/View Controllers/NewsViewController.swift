@@ -131,16 +131,7 @@ class NewsViewController: UICollectionViewController {
     
     @objc private func goToFilters() {
         viewModel.showFiltersHandler()
-    }
-    
-    @objc private func closeFilters() {
-        dismiss(animated: true, completion: nil)
-    }
-
-
-
-
-    
+    }    
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .lightContent
