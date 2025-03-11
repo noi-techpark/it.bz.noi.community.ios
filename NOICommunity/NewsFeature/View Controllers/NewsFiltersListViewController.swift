@@ -87,8 +87,24 @@ private extension NewsFiltersListViewController {
             cell.accessories = [.customView(configuration: customAccessory)]
         }
         
+        let headerRegistration = UICollectionView
+            .SupplementaryRegistration<UICollectionViewCell>(
+                elementKind: UICollectionView.elementKindSectionHeader
+            ) { cell, kind, indexPath in
+                var config = UIListContentConfiguration.noiGroupedHeader()
+                config.text = .localized("filter_by") // aggiungere "case .main:" in caso di più header .localized("filter_by") // TODO: AGGIUNGERE COPY
+                cell.contentConfiguration = config
+            }
+        
         dataSource = .init(collectionView: collectionView) { collectionView, indexPath, item in
             collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: item)
+        }
+        
+        dataSource.supplementaryViewProvider = { collectionView, kind, indexPath in
+            collectionView.dequeueConfiguredReusableSupplementary(
+                using: headerRegistration,
+                for: indexPath
+            )
         }
         
         updateUI(items: items, animated: false)
@@ -134,10 +150,10 @@ private extension NewsFiltersListViewController {
     
     func configureCollectionView() {
         let layout = UICollectionViewCompositionalLayout { (sectionIndex, layoutEnvironment) -> NSCollectionLayoutSection? in
-            // Configurazione per una lista con celle singole
             var config = UICollectionLayoutListConfiguration(appearance: .grouped)
-            config.showsSeparators = true // Aggiungi separatori tra le celle
+            config.showsSeparators = true
             config.backgroundColor = .noiSecondaryBackgroundColor
+            config.headerMode = .supplementary
             
             let section = NSCollectionLayoutSection.list(using: config, layoutEnvironment: layoutEnvironment)
             return section
@@ -146,8 +162,9 @@ private extension NewsFiltersListViewController {
         collectionView.collectionViewLayout = layout
         collectionView.backgroundColor = .noiSecondaryBackgroundColor
         collectionView.allowsSelection = false
-        collectionView.contentInset = .init(top: 0, left: 0, bottom: 0, right: 0)
+        collectionView.contentInset = .init(top: 24, left: 0, bottom: 0, right: 0)
     }
+
 }
 
 // MARK: UICollectionViewListCell Configure Helper

@@ -117,7 +117,7 @@ private extension NewsViewController {
 
     func makeEmptyResultsViewController() -> UIViewController {
         UIViewController.emptyViewController(
-            detailedText: .localized("label_news_empty_state_subtitle")
+            detailedText: .localized("label_news_empty_state_subtitle") // TODO: AGGIUNGERE COPY
         )
     }
 
