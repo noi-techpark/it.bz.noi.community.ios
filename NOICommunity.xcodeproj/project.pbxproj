@@ -1589,6 +1589,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = it.bz.noi.community;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = "Release DEVELOPER_MENU";
 		};
@@ -1711,6 +1712,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = it.bz.noi.community;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = "Release TMA DEVELOPER_MENU";
 		};
@@ -1894,6 +1896,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "Noi Community Dev";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
 		};
@@ -1917,6 +1920,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = it.bz.noi.community;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
 		};
@@ -2086,6 +2090,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "Noi Community Dev";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = "Debug TMA";
 		};
@@ -2208,6 +2213,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = it.bz.noi.community;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = "Release TMA";
 		};
