@@ -9,50 +9,77 @@
 //  Created by Matteo Matassoni on 11/05/22.
 //
 
-import UIKit
-import Combine
-import Kingfisher
-import ArticlesClient
-import ArticleTagsClient
-
-private let loadNextPageOnItemIndexOffset = 0
-
 // MARK: - NewsViewController
 
-class NewsViewController: UICollectionViewController {
-    
+import UIKit
+import Combine
+import ArticleTagsClient
+
+// MARK: - NewsViewController
+final class NewsViewController: UIViewController {
+
     let viewModel: NewsListViewModel
-    
+
     private var subscriptions: Set<AnyCancellable> = []
-    
-    private var newsFilterBarView: NewsFilterBarView!
-    
-    private var refreshControl: UIRefreshControl? {
-        get { collectionView.refreshControl }
-        set { collectionView.refreshControl = newValue }
+
+    private var content: UIViewController? {
+        get { children.last }
+        set {
+            guard newValue != content
+            else { return }
+
+            var isLoading = false
+            if let content = content {
+                if let refreshableContent = content as? UIRefreshableViewController,
+                   let refreshControl = refreshableContent.refreshControl {
+                    isLoading = refreshControl.isLoading
+                    refreshControl.isLoading = false
+                }
+                
+                content.willMove(toParent: nil)
+                content.view.removeFromSuperview()
+                content.removeFromParent()
+            }
+
+            if let newContent = newValue {
+                embedChild(newContent, in: contentContainerView)
+
+                if let refreshableNewContent = newContent as? UIRefreshableViewController {
+                    addRefreshControl(
+                        to: refreshableNewContent,
+                        isLoading: isLoading
+                    )
+                }
+            }
+        }
     }
-    
-    private var dataSource: UICollectionViewDiffableDataSource<Section, String>!
-    
-    private var imagePrefetcher: ImagePrefetcher?
-    
+
+    @IBOutlet private var filterBarContainerView: UIView!
+
+    @IBOutlet private var filterBarView: NewsFilterBarView! {
+        didSet {
+            // Add any necessary setup for filter bar
+        }
+    }
+
+    @IBOutlet private var contentContainerView: UIView!
+
+    private var filtersButton: UIButton {
+        filterBarView.filtersButton
+    }
+
+    private lazy var resultsVC = makeResultsViewController()
+
     init(viewModel: NewsListViewModel) {
         self.viewModel = viewModel
-        super.init(collectionViewLayout: UICollectionViewFlowLayout())
+        super.init(nibName: "\(NewsViewController.self)", bundle: nil)
     }
-    
+
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("\(#function) not available")
     }
-    
-    @available(*, unavailable)
-    override init(
-        collectionViewLayout layout: UICollectionViewLayout
-    ) {
-        fatalError("\(#function) not available")
-    }
-    
+
     @available(*, unavailable)
     override init(
         nibName nibNameOrNil: String?,
@@ -60,311 +87,142 @@ class NewsViewController: UICollectionViewController {
     ) {
         fatalError("\(#function) not available")
     }
-    
-    @available(*, unavailable)
-    init() {
-        fatalError("\(#function) not available")
-    }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        setupNewsFilterBar()
-        
-        defer {
-            viewModel.fetchNews()
-        }
-        
-        refreshControl = UIRefreshControl()
-        configureCollectionView()
-        configureDataSource()
+
+        configureViewHierarchy()
         configureBindings()
-    }
-    
-    private func setupNewsFilterBar() {
-        let filterBarContainerView = UIView()
-        filterBarContainerView.translatesAutoresizingMaskIntoConstraints = false
-        filterBarContainerView.backgroundColor = .noiSecondaryBackgroundColor
-        view.addSubview(filterBarContainerView)
 
-        newsFilterBarView = NewsFilterBarView()
-        newsFilterBarView.translatesAutoresizingMaskIntoConstraints = false
-        filterBarContainerView.addSubview(newsFilterBarView)
-        
-        // Add action to the filter button
-        newsFilterBarView.filtersButton.addTarget(
-            self,
-            action: #selector(goToFilters),
-            for: .touchUpInside
-        )
-        
-        // Reposition the collection view to start after the filter bar
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        // Remove collection view from its current position
-        collectionView.removeFromSuperview()
-        // Add it back to the view hierarchy
-        view.addSubview(collectionView)
-
-        NSLayoutConstraint.activate([
-            // Filter bar container anchored to the top
-            filterBarContainerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            filterBarContainerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            filterBarContainerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            
-            // Filter bar inside container with proper spacing
-            newsFilterBarView.topAnchor.constraint(equalTo: filterBarContainerView.topAnchor, constant: 17),
-            newsFilterBarView.leadingAnchor.constraint(equalTo: filterBarContainerView.leadingAnchor),
-            newsFilterBarView.trailingAnchor.constraint(equalTo: filterBarContainerView.trailingAnchor),
-            newsFilterBarView.bottomAnchor.constraint(equalTo: filterBarContainerView.bottomAnchor, constant: -17),
-            
-            // Position collection view BELOW the filter bar container
-            collectionView.topAnchor.constraint(equalTo: filterBarContainerView.bottomAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
-        
-        // Reset content insets since we're properly positioning the collection view now
-        collectionView.contentInset.top = 0
-        collectionView.scrollIndicatorInsets.top = 0
+        viewModel.fetchNews()
     }
-    
-    @objc private func goToFilters() {
-        viewModel.showFiltersHandler()
-    }    
-    
+
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        .lightContent
+        return .lightContent
     }
-    
 }
 
 // MARK: Private APIs
 
 private extension NewsViewController {
-    
-    enum Section {
-        case main
+
+    func configureViewHierarchy() {
+        // Setup any additional view hierarchy if needed
     }
-    
-    func columnCount(
-        for layoutEnviroment: NSCollectionLayoutEnvironment
-    ) -> Int {
-        switch (
-            layoutEnviroment.container.effectiveContentSize.width
-        ) {
-        case 0..<600:
-            return 1
-        default:
-            return 2
-        }
+
+    func makeResultsViewController() -> NewsCollectionViewController {
+        let resultsViewController = NewsCollectionViewController(viewModel: viewModel)
+        return resultsViewController
     }
-    
-    func createLayout() -> UICollectionViewLayout {
-        let layout = UICollectionViewCompositionalLayout { sectionIndex, layoutEnvironment in
-            let columns = self.columnCount(for: layoutEnvironment)
-            
-            let estimatedHeight = NSCollectionLayoutDimension.estimated(137)
-            let itemSize = NSCollectionLayoutSize(
-                widthDimension: .fractionalWidth(1.0),
-                heightDimension: estimatedHeight
-            )
-            let item = NSCollectionLayoutItem(layoutSize: itemSize)
-            
-            let groupSize = NSCollectionLayoutSize(
-                widthDimension: .fractionalWidth(1.0),
-                heightDimension: estimatedHeight
-            )
-            let group = NSCollectionLayoutGroup.horizontal(
-                layoutSize: groupSize,
-                subitem: item,
-                count: columns
-            )
-            group.interItemSpacing = .fixed(10)
-            
-            let section = NSCollectionLayoutSection(group: group)
-            section.interGroupSpacing = 10
-            section.contentInsets = NSDirectionalEdgeInsets(
-                top: 10,
-                leading: 0,
-                bottom: 10,
-                trailing: 0
-            )
-            return section
-        }
-        return layout
+
+    func makeEmptyResultsViewController() -> UIViewController {
+        UIViewController.emptyViewController(
+            detailedText: .localized("label_news_empty_state_subtitle")
+        )
     }
-    
-    func configureDataSource() {
-        let cellRegistration = UICollectionView.CellRegistration<IdentifiableCollectionViewCell<String>, String> { cell, indexPath, newsId in
-            cell.id = newsId
-            
-            let item = self.viewModel.news(withId: newsId)
-            
-            cell.backgroundConfiguration = UIBackgroundConfiguration.noiListPlainCell(for: cell)
-            
-            let contentConfiguration = NewsCardContentConfiguration
-                .makeContentConfiguration(for: item)
-            
-            cell.contentConfiguration = contentConfiguration
-            
-            if let author = localizedValue(from: item.languageToAuthor),
-               let authorImageURL = author.logoURL {
-                KingfisherManager.shared
-                    .retrieveImage(with: authorImageURL) { result in
-                        guard
-                            cell.id == item.id,
-                            case let .success(imageInfo) = result,
-                            var contentConfiguration = cell.contentConfiguration as? NewsCardContentConfiguration
-                        else { return }
-                        
-                        contentConfiguration.image = imageInfo.image
-                        cell.contentConfiguration = contentConfiguration
-                    }
-            }
-        }
-        
-        dataSource = .init(
-            collectionView: collectionView
-        ) { collectionView, indexPath, item in
-            collectionView.dequeueConfiguredReusableCell(
-                using: cellRegistration,
-                for: indexPath,
-                item: item
-            )
-        }
+
+    func makeLoadingViewController() -> LoadingViewController {
+        LoadingViewController()
     }
-    
-    func configureCollectionView() {
-        collectionView.backgroundColor = .noiSecondaryBackgroundColor
-        collectionView.prefetchDataSource = self
-        collectionView.collectionViewLayout = createLayout()
-    }
-    
-    func configureBindings() {
-        refreshControl?.publisher(for: .valueChanged)
+
+    func addRefreshControl(to viewController: UIRefreshableViewController, isLoading: Bool) {
+        let refreshControl = UIRefreshControl()
+        refreshControl.publisher(for: .valueChanged)
             .sink { [weak viewModel] in
                 viewModel?.fetchNews(refresh: true)
             }
             .store(in: &subscriptions)
-        
+        viewController.refreshControl = refreshControl
+        refreshControl.isLoading = isLoading
+    }
+
+    func configureBindings() {
+        filtersButton.publisher(for: .primaryActionTriggered)
+            .sink { [weak viewModel] in
+                viewModel?.showFiltersHandler()
+            }
+            .store(in: &subscriptions)
+
         viewModel.$isLoadingFirstPage
             .dropFirst()
             .receive(on: DispatchQueue.main)
-            .sink(receiveValue: { [weak self] isLoadingFirstPage in
-                guard let self else { return }
-                
-                if isLoadingFirstPage {
-                    self.updateUI(
-                        newsIds: [],
-                        animated: self.isInWindowHierarchy
-                    )
+            .sink(receiveValue: { [weak self] isLoading in
+                guard let self = self
+                else { return }
 
-					if let refreshControl, !refreshControl.isRefreshing {
-						refreshControl.beginRefreshing()
-					}
-				} else {
-					self.refreshControl?.endRefreshing()
-				}
+                if let refreshableContent = self.content as? UIRefreshableViewController,
+                   let refreshControl = refreshableContent.refreshControl {
+                    if isLoading && !refreshControl.isRefreshing {
+                        refreshControl.beginRefreshing()
+                    } else if !isLoading {
+                        refreshControl.endRefreshing()
+                    }
+                } else {
+                    if isLoading {
+                        self.content = self.makeLoadingViewController()
+                    } else {
+                        if self.content is LoadingViewController {
+                            self.content = nil
+                        }
+                    }
+                }
             })
             .store(in: &subscriptions)
-        
-        viewModel.$newsIds            
+
+        viewModel.$error
+            .dropFirst()
             .receive(on: DispatchQueue.main)
             .sink { [weak self] in
-                guard let self else { return }
-
-                self.updateUI(newsIds: $0, animated: self.isInWindowHierarchy)
-            }
-            .store(in: &subscriptions)
-        
-        viewModel.$error
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] error in
-                guard let error = error
+                guard let error = $0
                 else { return }
-                    
-                self?.showError(error)
+                
+                self?.content = MessageViewController(error: error)
+            }
+            .store(in: &subscriptions)
+
+        viewModel.$newsIds
+            .combineLatest(viewModel.$nextPage)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] combinedValue in
+                guard let self = self
+                else { return }
+                
+                let (newsIds, nextPage) = combinedValue
+                
+                if newsIds.isEmpty, nextPage == nil {
+                    self.content = self.makeEmptyResultsViewController()
+                } else {
+                    if !(self.content is NewsCollectionViewController) {
+                        self.content = self.resultsVC
+                    }
+                }
+            }
+            .store(in: &subscriptions)
+
+        // Handle active filters count to update the filters button
+        viewModel.$activeFilters
+            .map(\.count)
+            .receive(on: DispatchQueue.main)
+            .sink { [unowned filtersButton] numberOfFilters in
+                let title: String? = {
+                    switch numberOfFilters {
+                    case 0:
+                        return nil
+                    default:
+                        return "(\(numberOfFilters))"
+                    }
+                }()
+                filtersButton.setInsets(
+                    forContentPadding: .init(
+                        top: 8,
+                        left: 8,
+                        bottom: 8,
+                        right: 8
+                    ),
+                    imageTitlePadding: title == nil ? 0 : 8
+                )
+                filtersButton.setTitle(title, for: .normal)
             }
             .store(in: &subscriptions)
     }
-    
-    func updateUI(newsIds: [String], animated: Bool) {
-        var snapshot = NSDiffableDataSourceSnapshot<Section, String>()
-        snapshot.appendSections([.main])
-        snapshot.appendItems(newsIds, toSection: .main)
-        dataSource.apply(snapshot, animatingDifferences: animated)
-    }
-    
-    func needsToTriggerNextPageFetchForIndexPath(_ indexPath: IndexPath) -> Bool {
-        guard viewModel.hasNextPage, !viewModel.isLoading
-        else { return false }
-
-        let lastSectionIndex = collectionView.numberOfSections - 1
-        guard indexPath.section == lastSectionIndex
-        else { return false }
-        
-        let lastItemIndex = collectionView.numberOfItems(
-            inSection: lastSectionIndex
-        ) - 1
-        return indexPath.item == lastItemIndex - loadNextPageOnItemIndexOffset
-    }
-    
-}
-
-// MARK: UICollectionViewDataSourcePrefetching
-
-extension NewsViewController: UICollectionViewDataSourcePrefetching {
-    
-    func collectionView(
-        _ collectionView: UICollectionView,
-        prefetchItemsAt indexPaths: [IndexPath]
-    ) {
-        // Prefetch images from URLs
-        let imageURLs: [URL] = indexPaths
-            .compactMap(dataSource.itemIdentifier(for:))
-            .map { self.viewModel.news(withId: $0)}
-            .compactMap {
-                let author = localizedValue(from: $0.languageToAuthor)
-                return author?.logoURL
-            }
-        if !imageURLs.isEmpty {
-            let imagePrefetcher = ImagePrefetcher(urls: imageURLs)
-            self.imagePrefetcher = imagePrefetcher
-            imagePrefetcher.start()
-        }
-        
-        if indexPaths.contains(where: {
-            self.needsToTriggerNextPageFetchForIndexPath($0)
-        }) {
-            viewModel.fetchNews()
-        }
-        
-    }
-    
-}
-
-// MARK: UICollectionViewDelegate
-
-extension NewsViewController {
-    
-    override func collectionView(
-        _ collectionView: UICollectionView,
-        didSelectItemAt indexPath: IndexPath
-    ) {
-        let newsId = dataSource.itemIdentifier(for:indexPath)!
-        let selectedCell = collectionView.cellForItem(at: indexPath)!
-        viewModel.showNewsDetails(of: newsId, sender: selectedCell)
-    }
-    
-    override func collectionView(
-        _ collectionView: UICollectionView,
-        willDisplay cell: UICollectionViewCell,
-        forItemAt indexPath: IndexPath
-    ) {
-        if needsToTriggerNextPageFetchForIndexPath(indexPath) {
-            viewModel.fetchNews()
-        }
-    }
-    
 }

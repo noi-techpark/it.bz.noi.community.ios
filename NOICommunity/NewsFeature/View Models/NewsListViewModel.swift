@@ -24,13 +24,12 @@ final class NewsListViewModel {
     let firstPage: Int
 
     private var needsToRequestHighlight: Bool
-
-    private var nextPage: Int?
     
     var hasNextPage: Bool {
         nextPage != nil
     }
     
+    @Published private(set) var nextPage: Int?
     @Published private(set) var isLoadingFirstPage = false
     @Published private(set) var isLoading = false
     @Published private(set) var error: Error!
@@ -121,13 +120,6 @@ private extension NewsListViewModel {
 
 			let hadRequestHighlight = needsToRequestHighlight
 
-			if needsToRequestHighlight, !pagination.hasNextPage {
-				nextPage = firstPage
-				needsToRequestHighlight = false
-			} else {
-				nextPage = pagination.nextPage
-			}
-
 			let newItems = pagination.items
 			newItems.forEach { idToNews[$0.id] = $0 }
 			if refresh {
@@ -135,6 +127,13 @@ private extension NewsListViewModel {
 			} else {
 				newsIds = newsIds + newItems.map(\.id)
 			}
+            
+            if needsToRequestHighlight, !pagination.hasNextPage {
+                nextPage = firstPage
+                needsToRequestHighlight = false
+            } else {
+                nextPage = pagination.nextPage
+            }
 
 			if hadRequestHighlight, newItems.isEmpty {
 				fetchNews()
@@ -180,4 +179,3 @@ private extension Collection where Element == ArticleTag {
         return queryComponentsToQuery(queryComponents, "or")
     }
 }
-
