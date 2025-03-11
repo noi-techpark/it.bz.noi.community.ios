@@ -67,7 +67,7 @@ private extension NewsFiltersListViewController {
             let item = self.dict[id]!
             
             var contentConfiguration = UIListContentConfiguration.noiCell2()
-            contentConfiguration.text = localizedValue(from: item.tagName, defaultValue: item.id)
+            contentConfiguration.text = localizedValue(from: item.tagName, defaultValue: .localized("label_no_value"))
             cell.contentConfiguration = contentConfiguration
             cell.backgroundConfiguration = .noiListPlainCell(for: cell)
             

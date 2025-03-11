@@ -241,6 +241,7 @@ extension NewsCollectionViewController {
         let newsId = dataSource.itemIdentifier(for:indexPath)!
         let selectedCell = collectionView.cellForItem(at: indexPath)!
         viewModel.showNewsDetails(of: newsId, sender: selectedCell)
+        collectionView.deselectItem(at: indexPath, animated: true)
     }
     
     override func collectionView(

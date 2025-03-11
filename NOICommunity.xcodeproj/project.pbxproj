@@ -550,6 +550,7 @@
 			isa = PBXGroup;
 			children = (
 				31FFE94F2D01E065007C699B /* NewsPageViewController.swift */,
+				90C296F82D80348C00835858 /* NewsCollectionViewController.swift */,
 				3102F45E282C06B700687CF7 /* NewsViewController.swift */,
 				90C296F62D7F0B7E00835858 /* NewsViewController.xib */,
 				3182A1BC282D5159005439B4 /* NewsDetailsViewController.swift */,
@@ -558,7 +559,6 @@
 				905C7E7A2D7097EA00070444 /* NewsFiltersViewController.swift */,
 				905C7E782D70909500070444 /* NewsFiltersViewController.xib */,
 				311350E6282E4F0A00AC9BC9 /* GalleryCollectionViewController.swift */,
-				90C296F82D80348C00835858 /* NewsCollectionViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
