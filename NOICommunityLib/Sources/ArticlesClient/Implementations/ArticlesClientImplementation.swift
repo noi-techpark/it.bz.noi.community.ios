@@ -101,6 +101,29 @@ public final class ArticlesClientImplementation: ArticlesClient {
 		)
 		return .init(from: articleListResponseWithPageURLs)
 	}
+    
+    public func getTotalArticleResults(
+        startDate: Date?,
+        publishedOn: String?,
+        articleType: String?,
+        rawFilter: String?
+    ) async throws -> Int {
+        let request = Endpoint
+            .articleListResponseNumber(
+                startDate: startDate,
+                publishedOn: publishedOn,
+                articleType: articleType,
+                rawFilter: rawFilter
+            )
+            .makeRequest(withBaseURL: baseURL)
+        
+        let (data, _) = try await transport.send(request: request)
+        
+        try Task.checkCancellation()
+        
+        let totalResultsResponse = try jsonDecoder.decode(ArticleTotalResultsResponse.self, from: data)
+        return totalResultsResponse.totalResults
+    }
 
 	public func getArticle(newsId: String) async throws -> Article {
 		let request = Endpoint

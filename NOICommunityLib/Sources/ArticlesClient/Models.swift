@@ -27,6 +27,10 @@ public struct Language: RawRepresentable, Codable, Hashable {
 
 }
 
+public struct ArticleTotalResultsResponse: Codable {
+    public let totalResults: Int
+}
+
 // MARK: - ArticleListResponse
 
 public struct ArticleListResponse: Codable, Hashable {

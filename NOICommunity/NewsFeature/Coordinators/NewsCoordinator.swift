@@ -56,6 +56,14 @@ final class NewsCoordinator: BaseNavigationCoordinator {
                 self.newsListViewModel.fetchNews(refresh: true)
             }
             .store(in: &subscriptions)
+        
+        newsListViewModel.$newsResults
+            .compactMap { $0 } 
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] resultsNumber in
+                self?.newsFiltersViewModel.numberOfResults = resultsNumber
+            }
+            .store(in: &subscriptions)
     }
 }
 

@@ -34,6 +34,7 @@ final class NewsListViewModel {
     @Published private(set) var isLoading = false
     @Published private(set) var error: Error!
     @Published private(set) var newsIds: [String] = []
+    @Published var newsResults: Int = 0
     @Published var activeFilters: Set<ArticleTag> = []
     private var idToNews: [String: Article] = [:]
     
@@ -64,6 +65,9 @@ final class NewsListViewModel {
 		Task(priority: .userInitiated) { [weak self] in
 			await self?.performFetchNews(refresh: refresh)
 		}
+        Task(priority: .userInitiated) { [weak self] in
+            await self?.performFetchResultNumber()
+        }
     }
     
     func news(withId newsId: String) -> Article {
@@ -83,6 +87,27 @@ final class NewsListViewModel {
 
 private extension NewsListViewModel {
 
+    func performFetchResultNumber() async {
+        do {
+            let resultsNumber = try await articlesClient.getTotalArticleResults(
+                startDate: Date(),
+                publishedOn: "noi-communityapp",
+                articleType: "newsfeednoi",
+                rawFilter: {
+                    if let filtersQuery = activeFilters.toQuery(), !filtersQuery.isEmpty {
+                        return filtersQuery
+                    }
+                    return nil
+                }()
+            )
+            
+            self.newsResults = resultsNumber
+        }
+        catch {
+            self.error = error
+        }
+    }
+    
 	func performFetchNews(refresh: Bool = false) async {
 		guard nextPage != nil || refresh
 		else { return }
