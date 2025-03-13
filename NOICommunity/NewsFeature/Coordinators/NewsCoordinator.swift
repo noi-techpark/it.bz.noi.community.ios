@@ -26,19 +26,26 @@ final class NewsCoordinator: BaseNavigationCoordinator {
     private var mainVC: NewsViewController!
     
     private var newsListViewModel: NewsListViewModel!
-    private lazy var newsFiltersViewModel = dependencyContainer
-        .makeNewsFiltersViewModel { [weak self] in
-            self?.closeFilters()
-        }
+    private var newsFiltersViewModel: NewsFiltersViewModel!
     
     private var subscriptions: Set<AnyCancellable> = []
     
     override func start(animated: Bool) {
+        
+        let newsFiltersViewModel = dependencyContainer.makeNewsFiltersViewModel { [weak self] in
+            self?.closeFilters()
+        }
+        
+        self.newsFiltersViewModel = newsFiltersViewModel
+        
         let newsListViewModel = dependencyContainer.makeNewsListViewModel {[weak self] in
             self?.goToFilters()
         }
         
         self.newsListViewModel = newsListViewModel
+        
+        newsFiltersViewModel.loadActiveFiltersFromPreferences()
+        newsListViewModel.activeFilters = newsFiltersViewModel.activeFilters
         
         newsListViewModel.showDetailsHandler = { [weak self] news, _ in
             self?.goToDetails(of: news)

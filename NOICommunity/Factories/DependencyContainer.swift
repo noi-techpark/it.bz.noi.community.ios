@@ -216,6 +216,7 @@ extension DependencyContainer: ViewModelFactory {
     ) -> NewsFiltersViewModel {
         .init(
             articleTagsClient: articleTagsClient,
+            appPreferencesClient: makeAppPreferencesClient(),
             showFilteredResultsHandler: showFilteredResultsHandler
         )
     }

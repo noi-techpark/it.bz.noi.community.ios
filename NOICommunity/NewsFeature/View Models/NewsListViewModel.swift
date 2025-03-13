@@ -35,7 +35,7 @@ final class NewsListViewModel {
     @Published private(set) var error: Error!
     @Published private(set) var newsIds: [String] = []
     @Published var newsResults: Int = 0
-    @Published var activeFilters: Set<ArticleTag> = []
+    @Published var activeFilters: Set<ArticleTag.Id> = []
     private var idToNews: [String: Article] = [:]
     
     private var refreshCancellable: AnyCancellable?
@@ -65,9 +65,6 @@ final class NewsListViewModel {
 		Task(priority: .userInitiated) { [weak self] in
 			await self?.performFetchNews(refresh: refresh)
 		}
-        Task(priority: .userInitiated) { [weak self] in
-            await self?.performFetchResultNumber()
-        }
     }
     
     func news(withId newsId: String) -> Article {
@@ -162,7 +159,10 @@ private extension NewsListViewModel {
 
 			if hadRequestHighlight, newItems.isEmpty {
 				fetchNews()
-			}
+            }
+            if nextPage == nil && !refresh{
+                await performFetchResultNumber()
+            }
 		} catch {
 			self.error = error
 		}
@@ -182,11 +182,11 @@ private extension NewsListViewModel {
 
 // MARK: Query Helper
 
-private extension Collection where Element == ArticleTag {
+private extension Collection where Element == ArticleTag.Id {
     
     func toQuery() -> String? {
-        let filterToQuery: (ArticleTag) -> String = {
-            #"in(TagIds.[],"\#($0.id)")"#
+        let filterToQuery: (ArticleTag.Id) -> String = {
+            #"in(TagIds.[],"\#($0)")"#
         }
 
         let queryComponentsToQuery: ([String], String) -> String = { components, logicOperator in

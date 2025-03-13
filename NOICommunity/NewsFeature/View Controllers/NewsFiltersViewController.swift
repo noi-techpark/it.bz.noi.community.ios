@@ -91,7 +91,7 @@ private extension NewsFiltersViewController {
     func makeResultsViewController() -> NewsFiltersListViewController {
         let resultsViewController = NewsFiltersListViewController(
             items: viewModel.filtersResults,
-            onItemsIds: Set(viewModel.activeFilters.map(\ .id))
+            onItemsIds: viewModel.activeFilters
         )
         resultsViewController.filterValueDidChangeHandler = { [weak viewModel] in
             viewModel?.setFilter($0, isActive: $1)
@@ -130,7 +130,7 @@ private extension NewsFiltersViewController {
             .dropFirst()
             .receive(on: DispatchQueue.main)
             .sink { [weak resultsVC] activeFiltersIds in
-                resultsVC?.onItemsIds = Set(activeFiltersIds.map(\ .id))
+                resultsVC?.onItemsIds = activeFiltersIds
             }
             .store(in: &subscriptions)
         
