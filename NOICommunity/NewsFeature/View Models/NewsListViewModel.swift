@@ -33,9 +33,13 @@ final class NewsListViewModel {
     @Published private(set) var isLoadingFirstPage = false
     @Published private(set) var isLoading = false
     @Published private(set) var error: Error!
-    @Published private(set) var newsIds: [String] = []
-    @Published var newsResults: Int = 0
-    @Published var activeFilters: Set<ArticleTag.Id> = []
+    @Published private(set) var newsIds: [String] = []    
+	@Published var activeFilters: Set<ArticleTag.Id> = [] {
+		didSet {
+			fetchNews(refresh: true)
+		}
+	}
+
     private var idToNews: [String: Article] = [:]
     
     private var refreshCancellable: AnyCancellable?
@@ -83,27 +87,6 @@ final class NewsListViewModel {
 // MARK: Private APIs
 
 private extension NewsListViewModel {
-
-    func performFetchResultNumber() async {
-        do {
-            let resultsNumber = try await articlesClient.getTotalArticleResults(
-                startDate: Date(),
-                publishedOn: "noi-communityapp",
-                articleType: "newsfeednoi",
-                rawFilter: {
-                    if let filtersQuery = activeFilters.toQuery(), !filtersQuery.isEmpty {
-                        return filtersQuery
-                    }
-                    return nil
-                }()
-            )
-            
-            self.newsResults = resultsNumber
-        }
-        catch {
-            self.error = error
-        }
-    }
     
 	func performFetchNews(refresh: Bool = false) async {
 		guard nextPage != nil || refresh
@@ -120,22 +103,21 @@ private extension NewsListViewModel {
 		}
 
 		do {
+			let rawFilterQuery: String = {
+				let highlightQuery = needsToRequestHighlight ? #"eq(Highlight,"true")"# : #"or(eq(Highlight,"false"),isnull(Highlight))"#
+				let activeFiltersQuery = activeFilters.toRawFilterQuery()
+				if activeFiltersQuery.isEmpty {
+					return highlightQuery
+				} else {
+					return #"and(\#(highlightQuery),\#(activeFiltersQuery))"#
+				}
+			}()
 			let pagination = try await articlesClient.getArticleList(
 				startDate: Date(),
 				publishedOn: "noi-communityapp",
 				articleType: "newsfeednoi",
 				rawSort: "-ArticleDate",
-                rawFilter: {
-                    // Highlight Filter
-                    var filterString = needsToRequestHighlight ? #"eq(Highlight,"true")"# : #"or(eq(Highlight,"false"),isnull(Highlight))"#
-                    
-                    // Active Tag Filters
-                    if let filtersQuery = activeFilters.toQuery(), !filtersQuery.isEmpty {
-                        filterString = #"and(\#(filterString),\#(filtersQuery))"#
-                    }
-                    
-                    return filterString
-                }(),
+                rawFilter: rawFilterQuery,
 				pageSize: pageSize,
 				pageNumber: pageNumber
 			)
@@ -160,9 +142,6 @@ private extension NewsListViewModel {
 			if hadRequestHighlight, newItems.isEmpty {
 				fetchNews()
             }
-            if nextPage == nil && !refresh{
-                await performFetchResultNumber()
-            }
 		} catch {
 			self.error = error
 		}
@@ -178,29 +157,4 @@ private extension NewsListViewModel {
             }
     }
     
-}
-
-// MARK: Query Helper
-
-private extension Collection where Element == ArticleTag.Id {
-    
-    func toQuery() -> String? {
-        let filterToQuery: (ArticleTag.Id) -> String = {
-            #"in(TagIds.[],"\#($0)")"#
-        }
-
-        let queryComponentsToQuery: ([String], String) -> String = { components, logicOperator in
-            let components = components.filter { !$0.isEmpty }
-            if components.isEmpty {
-                return ""
-            } else if components.count == 1 {
-                return components.first!
-            } else {
-                return logicOperator + "(" + components.joined(separator: ",") + ")"
-            }
-        }
-
-        let queryComponents = self.map(filterToQuery)
-        return queryComponentsToQuery(queryComponents, "or")
-    }
 }

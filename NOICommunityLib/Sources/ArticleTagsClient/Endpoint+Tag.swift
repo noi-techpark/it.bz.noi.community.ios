@@ -27,7 +27,7 @@ extension Endpoint {
 
             URLQueryItem(
                 name: "fields",
-                value: "Id,TagName,Types"
+                value: "Id,TagName"
             )
 
             URLQueryItem(

@@ -31,7 +31,6 @@ final class NewsCoordinator: BaseNavigationCoordinator {
     private var subscriptions: Set<AnyCancellable> = []
     
     override func start(animated: Bool) {
-        
         let newsFiltersViewModel = dependencyContainer.makeNewsFiltersViewModel { [weak self] in
             self?.closeFilters()
         }
@@ -44,7 +43,6 @@ final class NewsCoordinator: BaseNavigationCoordinator {
         
         self.newsListViewModel = newsListViewModel
         
-        newsFiltersViewModel.loadActiveFiltersFromPreferences()
         newsListViewModel.activeFilters = newsFiltersViewModel.activeFilters
         
         newsListViewModel.showDetailsHandler = { [weak self] news, _ in
@@ -58,17 +56,8 @@ final class NewsCoordinator: BaseNavigationCoordinator {
         newsFiltersViewModel.$activeFilters
             .dropFirst()
             .receive(on: DispatchQueue.main)
-            .sink { [unowned self] activeFilters in
-                self.newsListViewModel.activeFilters = activeFilters
-                self.newsListViewModel.fetchNews(refresh: true)
-            }
-            .store(in: &subscriptions)
-        
-        newsListViewModel.$newsResults
-            .compactMap { $0 } 
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] resultsNumber in
-                self?.newsFiltersViewModel.numberOfResults = resultsNumber
+            .sink { [weak self] activeFilters in
+                self?.newsListViewModel.activeFilters = activeFilters
             }
             .store(in: &subscriptions)
     }

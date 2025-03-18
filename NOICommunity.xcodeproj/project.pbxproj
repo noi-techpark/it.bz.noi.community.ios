@@ -36,6 +36,7 @@
 		3121AFDE2858B43A00248CDF /* MeetMainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3121AFDD2858B43A00248CDF /* MeetMainViewController.xib */; };
 		31260A632CFF611B00ADBDEF /* EventPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31260A622CFF610F00ADBDEF /* EventPageViewController.swift */; };
 		31260A652CFF68CF00ADBDEF /* EventDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31260A642CFF68CF00ADBDEF /* EventDetailsViewModel.swift */; };
+		3126DEC82D8C020000659979 /* ArticleTags.json in Resources */ = {isa = PBXBuildFile; fileRef = 3126DEC72D8C020000659979 /* ArticleTags.json */; };
 		3126E7252B287F670013F456 /* LoadUserInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3126E7242B287F670013F456 /* LoadUserInfoViewModel.swift */; };
 		3126E7272B2882620013F456 /* CacheKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3126E7262B2882620013F456 /* CacheKey.swift */; };
 		312BBB5B2832658600AF84F0 /* UIViewController+PresentMailCompose.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312BBB5A2832658600AF84F0 /* UIViewController+PresentMailCompose.swift */; };
@@ -290,6 +291,7 @@
 		3121AFDD2858B43A00248CDF /* MeetMainViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MeetMainViewController.xib; sourceTree = "<group>"; };
 		31260A622CFF610F00ADBDEF /* EventPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventPageViewController.swift; sourceTree = "<group>"; };
 		31260A642CFF68CF00ADBDEF /* EventDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailsViewModel.swift; sourceTree = "<group>"; };
+		3126DEC72D8C020000659979 /* ArticleTags.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ArticleTags.json; sourceTree = "<group>"; };
 		3126E7242B287F670013F456 /* LoadUserInfoViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadUserInfoViewModel.swift; sourceTree = "<group>"; };
 		3126E7262B2882620013F456 /* CacheKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheKey.swift; sourceTree = "<group>"; };
 		312BBB5A2832658600AF84F0 /* UIViewController+PresentMailCompose.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+PresentMailCompose.swift"; sourceTree = "<group>"; };
@@ -689,6 +691,7 @@
 				31E058F42812F2A700D1F7FE /* NOICommunityRelease.entitlements */,
 				31E058F32812F29500D1F7FE /* NOICommunityDebug.entitlements */,
 				31B6741F27C79E520044A285 /* EventShortTypes.json */,
+				3126DEC72D8C020000659979 /* ArticleTags.json */,
 				316ED05C270B12C60070D272 /* Colors.xcassets */,
 				31157D0E26FC70A500A43B33 /* Localizable.strings */,
 				31157D0726FC66FB00A43B33 /* InfoPlist.strings */,
@@ -1248,6 +1251,7 @@
 				313010C72844F5A500AF6520 /* PersonDetailsViewController.xib in Resources */,
 				31515A25286C868600642907 /* SourceSansPro-BoldItalic.ttf in Resources */,
 				31515A20286C868600642907 /* SourceSansPro-LightItalic.ttf in Resources */,
+				3126DEC82D8C020000659979 /* ArticleTags.json in Resources */,
 				3121AFDE2858B43A00248CDF /* MeetMainViewController.xib in Resources */,
 				31515A1F286C868600642907 /* SourceSansPro-Bold.ttf in Resources */,
 				313010CD2846102000AF6520 /* MyAccountViewController.xib in Resources */,

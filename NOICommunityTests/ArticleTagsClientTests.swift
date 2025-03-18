@@ -17,7 +17,7 @@ final class ArticleTagsClientTests: XCTestCase {
     func testGetArticleTagList() async throws {
         let baseURL = URL(string: "https://tourism.opendatahub.com")!
         let transport = URLSession.shared
-        lazy var articleTagsCache = Cache<String, ArticleTagListResponse>()
+		lazy var articleTagsCache = Cache<ArticleTagsClientCacheKey, ArticleTagListResponse>()
 
         let client = ArticleTagsClientImplementation(baseURL: baseURL, transport: transport, memoryCache: articleTagsCache)
 
@@ -30,7 +30,6 @@ final class ArticleTagsClientTests: XCTestCase {
                 print("""
                 - Id: \(tag.id)
                   TagName: \(tag.tagName)
-                  Types: \(tag.types)
                 """)
             }
         } catch {

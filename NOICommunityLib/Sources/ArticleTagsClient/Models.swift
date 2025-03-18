@@ -59,23 +59,19 @@ public struct ArticleTag: Codable, Hashable {
 
     public let id: Id
     public let tagName: LocalizedMap<String>
-    public let types: [String]
 
     public init(from decoder: any Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         self.id = try values.decode(Id.self, forKey: .id)
         self.tagName = try values.decodeIfPresent(LocalizedMap<String>.self, forKey: .tagName) ?? [:]
-        self.types = try values.decodeIfPresent([String].self, forKey: .types) ?? []
     }
 
     public init(
         id: String,
-        tagName: LocalizedMap<String>,
-        types: [String]
+        tagName: LocalizedMap<String>
     ) {
         self.id = id
         self.tagName = tagName
-        self.types = types
     }
 }
 

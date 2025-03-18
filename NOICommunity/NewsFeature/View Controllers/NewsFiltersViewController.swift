@@ -69,7 +69,7 @@ class NewsFiltersViewController: UIViewController {
         
         title = .localized("title_filters")
         configureBindings()
-        viewModel.refreshNewsFilters()
+        viewModel.fetchPossibleFilters()
     }
 }
 

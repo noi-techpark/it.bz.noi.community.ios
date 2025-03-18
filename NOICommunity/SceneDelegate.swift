@@ -38,9 +38,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     var currentAuthorizationFlow: OIDExternalUserAgentSession?
     
-    lazy var cache: Cache<EventShortTypesClient.CacheKey, [EventsFilter]> = Cache()
-    lazy var articleTagsCache = Cache<String, ArticleTagListResponse>()
-    
+    lazy var eventsCache: Cache<EventShortTypesClient.CacheKey, [EventsFilter]> = Cache()
+	lazy var articleTagsCache = Cache<ArticleTagsClientCacheKey, ArticleTagListResponse>()
+
     lazy var dependencyContainer: DependencyContainer = {
         let tokenStorage = KeychainAuthStateStorageClient(
             keyChainAccessGroup: accessGroupKey
@@ -75,7 +75,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 ) {
                     return .live(
                         baseURL: EventsFeatureConstants.clientBaseURL,
-                        memoryCache: cache,
+                        memoryCache: eventsCache,
                         diskCacheFileURL: fileURL
                     )
                 } else {
