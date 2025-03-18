@@ -19,7 +19,7 @@ private let loadNextPageOnItemIndexOffset = 0
 
 // MARK: - NewsCollectionViewController
 
-class NewsCollectionViewController: UICollectionViewController, UIRefreshableViewController {
+final class NewsCollectionViewController: UICollectionViewController, UIRefreshableViewController {
     
     let viewModel: NewsListViewModel
     

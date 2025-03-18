@@ -92,7 +92,7 @@ private extension NewsFiltersListViewController {
                 elementKind: UICollectionView.elementKindSectionHeader
             ) { cell, kind, indexPath in
                 var config = UIListContentConfiguration.noiGroupedHeader()
-                config.text = .localized("filter_by") // aggiungere "case .main:" in caso di più header .localized("filter_by") // TODO: AGGIUNGERE COPY
+                config.text = .localized("filter_by")
                 cell.contentConfiguration = config
             }
         

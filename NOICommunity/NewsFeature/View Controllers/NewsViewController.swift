@@ -9,13 +9,12 @@
 //  Created by Matteo Matassoni on 11/05/22.
 //
 
-// MARK: - NewsViewController
-
 import UIKit
 import Combine
 import ArticleTagsClient
 
 // MARK: - NewsViewController
+
 final class NewsViewController: UIViewController {
 
     let viewModel: NewsListViewModel
@@ -117,7 +116,7 @@ private extension NewsViewController {
 
     func makeEmptyResultsViewController() -> UIViewController {
         UIViewController.emptyViewController(
-            detailedText: .localized("label_news_empty_state_subtitle") // TODO: AGGIUNGERE COPY
+            detailedText: .localized("label_news_empty_state_subtitle")
         )
     }
 
@@ -186,7 +185,7 @@ private extension NewsViewController {
             .sink { [weak self] combinedValue in
                 guard let self = self
                 else { return }
-                
+
                 let (newsIds, nextPage) = combinedValue
                 
                 if newsIds.isEmpty, nextPage == nil {
