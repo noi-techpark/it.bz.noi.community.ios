@@ -37,6 +37,8 @@
 		31260A632CFF611B00ADBDEF /* EventPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31260A622CFF610F00ADBDEF /* EventPageViewController.swift */; };
 		31260A652CFF68CF00ADBDEF /* EventDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31260A642CFF68CF00ADBDEF /* EventDetailsViewModel.swift */; };
 		3126DEC82D8C020000659979 /* ArticleTags.json in Resources */ = {isa = PBXBuildFile; fileRef = 3126DEC72D8C020000659979 /* ArticleTags.json */; };
+		3126DECA2D8C142800659979 /* EventShortTypes.json.license in Resources */ = {isa = PBXBuildFile; fileRef = 3126DEC92D8C142800659979 /* EventShortTypes.json.license */; };
+		3126DECC2D8C144C00659979 /* ArticleTags.json.license in Resources */ = {isa = PBXBuildFile; fileRef = 3126DECB2D8C144C00659979 /* ArticleTags.json.license */; };
 		3126E7252B287F670013F456 /* LoadUserInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3126E7242B287F670013F456 /* LoadUserInfoViewModel.swift */; };
 		3126E7272B2882620013F456 /* CacheKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3126E7262B2882620013F456 /* CacheKey.swift */; };
 		312BBB5B2832658600AF84F0 /* UIViewController+PresentMailCompose.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312BBB5A2832658600AF84F0 /* UIViewController+PresentMailCompose.swift */; };
@@ -292,6 +294,8 @@
 		31260A622CFF610F00ADBDEF /* EventPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventPageViewController.swift; sourceTree = "<group>"; };
 		31260A642CFF68CF00ADBDEF /* EventDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailsViewModel.swift; sourceTree = "<group>"; };
 		3126DEC72D8C020000659979 /* ArticleTags.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ArticleTags.json; sourceTree = "<group>"; };
+		3126DEC92D8C142800659979 /* EventShortTypes.json.license */ = {isa = PBXFileReference; lastKnownFileType = text; path = EventShortTypes.json.license; sourceTree = "<group>"; };
+		3126DECB2D8C144C00659979 /* ArticleTags.json.license */ = {isa = PBXFileReference; lastKnownFileType = text; path = ArticleTags.json.license; sourceTree = "<group>"; };
 		3126E7242B287F670013F456 /* LoadUserInfoViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadUserInfoViewModel.swift; sourceTree = "<group>"; };
 		3126E7262B2882620013F456 /* CacheKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheKey.swift; sourceTree = "<group>"; };
 		312BBB5A2832658600AF84F0 /* UIViewController+PresentMailCompose.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+PresentMailCompose.swift"; sourceTree = "<group>"; };
@@ -691,7 +695,9 @@
 				31E058F42812F2A700D1F7FE /* NOICommunityRelease.entitlements */,
 				31E058F32812F29500D1F7FE /* NOICommunityDebug.entitlements */,
 				31B6741F27C79E520044A285 /* EventShortTypes.json */,
+				3126DEC92D8C142800659979 /* EventShortTypes.json.license */,
 				3126DEC72D8C020000659979 /* ArticleTags.json */,
+				3126DECB2D8C144C00659979 /* ArticleTags.json.license */,
 				316ED05C270B12C60070D272 /* Colors.xcassets */,
 				31157D0E26FC70A500A43B33 /* Localizable.strings */,
 				31157D0726FC66FB00A43B33 /* InfoPlist.strings */,
@@ -1276,11 +1282,13 @@
 				31AD1DB62B279E78006F71A4 /* ComeOnBoardOnboardingViewController.xib in Resources */,
 				316A82AD2CFF1FF0002D62D3 /* EventsMainViewController.xib in Resources */,
 				316A82AE2CFF1FF0002D62D3 /* EventsFiltersBarView.xib in Resources */,
+				3126DECC2D8C144C00659979 /* ArticleTags.json.license in Resources */,
 				316A82AF2CFF1FF0002D62D3 /* EventFiltersViewController.xib in Resources */,
 				90C296F72D7F0B7E00835858 /* NewsViewController.xib in Resources */,
 				316A82B02CFF1FF0002D62D3 /* EventCardContentView.xib in Resources */,
 				316A82B12CFF1FF0002D62D3 /* EventDetailsViewController.xib in Resources */,
 				311350E9282E5BD300AC9BC9 /* Photos.xcassets in Resources */,
+				3126DECA2D8C142800659979 /* EventShortTypes.json.license in Resources */,
 				3101FC52283390F900A3416F /* TopTabBarController.xib in Resources */,
 				31155BEC2B224FDE0027AEC1 /* BlockAccessViewController.xib in Resources */,
 				31CF8128270B3CD90077CB0D /* NOI_begins-with-you_Animation_black_short.mp4 in Resources */,
