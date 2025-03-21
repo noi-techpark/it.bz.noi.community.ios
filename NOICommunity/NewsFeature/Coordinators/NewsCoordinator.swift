@@ -31,35 +31,27 @@ final class NewsCoordinator: BaseNavigationCoordinator {
     private var subscriptions: Set<AnyCancellable> = []
     
     override func start(animated: Bool) {
-        let newsFiltersViewModel = dependencyContainer.makeNewsFiltersViewModel { [weak self] in
+		newsListViewModel = dependencyContainer.makeNewsListViewModel {[weak self] in
+			self?.goToFilters()
+		}
+		newsListViewModel.showDetailsHandler = { [weak self] news, _ in
+			self?.goToDetails(of: news)
+		}
+
+        newsFiltersViewModel = dependencyContainer.makeNewsFiltersViewModel { [weak self] in
             self?.closeFilters()
         }
-        
-        self.newsFiltersViewModel = newsFiltersViewModel
-        
-        let newsListViewModel = dependencyContainer.makeNewsListViewModel {[weak self] in
-            self?.goToFilters()
-        }
-        
-        self.newsListViewModel = newsListViewModel
-        
-        newsListViewModel.activeFilters = newsFiltersViewModel.activeFilters
-        
-        newsListViewModel.showDetailsHandler = { [weak self] news, _ in
-            self?.goToDetails(of: news)
-        }
+		newsFiltersViewModel.$activeFilters
+			.receive(on: DispatchQueue.main)
+			.sink { [weak self] activeFilters in
+				self?.newsListViewModel.activeFilters = activeFilters
+			}
+			.store(in: &subscriptions)
+		
         mainVC = dependencyContainer.makeNewsViewController(
             viewModel: newsListViewModel
         )
         mainVC.tabBarItem.title = .localized("news_top_tab")
-        
-        newsFiltersViewModel.$activeFilters
-            .dropFirst()
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] activeFilters in
-                self?.newsListViewModel.activeFilters = activeFilters
-            }
-            .store(in: &subscriptions)
     }
 }
 

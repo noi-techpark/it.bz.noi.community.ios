@@ -23,13 +23,15 @@ final class NewsListViewModel {
     let pageSize: Int
     let firstPage: Int
 
+	var hasNextPage: Bool {
+		nextPage != nil
+	}
+
     private var needsToRequestHighlight: Bool
-    
-    var hasNextPage: Bool {
-        nextPage != nil
-    }
-    
-    @Published private(set) var nextPage: Int?
+
+	private var nextPage: Int?
+
+	@Published private(set) var isEmpty = false
     @Published private(set) var isLoadingFirstPage = false
     @Published private(set) var isLoading = false
     @Published private(set) var error: Error!
@@ -43,8 +45,8 @@ final class NewsListViewModel {
     private var idToNews: [String: Article] = [:]
     
     private var refreshCancellable: AnyCancellable?
-    private var fetchRequestCancellable: AnyCancellable?
-    
+	private var fetchTask: Task<(), Never>?
+
     var showDetailsHandler: ((Article, Any?) -> Void)!
     let showFiltersHandler: () -> Void
     
@@ -66,7 +68,7 @@ final class NewsListViewModel {
     }
 
     func fetchNews(refresh: Bool = false) {
-		Task(priority: .userInitiated) { [weak self] in
+		fetchTask = Task(priority: .userInitiated) { [weak self] in
 			await self?.performFetchNews(refresh: refresh)
 		}
     }
@@ -87,7 +89,7 @@ final class NewsListViewModel {
 // MARK: Private APIs
 
 private extension NewsListViewModel {
-    
+
 	func performFetchNews(refresh: Bool = false) async {
 		guard nextPage != nil || refresh
 		else { return }
@@ -142,6 +144,8 @@ private extension NewsListViewModel {
 			if hadRequestHighlight, newItems.isEmpty {
 				fetchNews()
             }
+
+			isEmpty = newItems.isEmpty && nextPage == nil
 		} catch {
 			self.error = error
 		}

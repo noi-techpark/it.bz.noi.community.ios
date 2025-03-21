@@ -92,8 +92,6 @@ final class NewsViewController: UIViewController {
 
         configureViewHierarchy()
         configureBindings()
-
-        viewModel.fetchNews()
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -179,24 +177,21 @@ private extension NewsViewController {
             }
             .store(in: &subscriptions)
 
-        viewModel.$newsIds
-            .combineLatest(viewModel.$nextPage)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] combinedValue in
-                guard let self = self
-                else { return }
+		viewModel.$isEmpty
+			.receive(on: DispatchQueue.main)
+			.sink { [weak self] isNewsEmpty in
+				guard let self = self
+				else { return }
 
-                let (newsIds, nextPage) = combinedValue
-                
-                if newsIds.isEmpty, nextPage == nil {
-                    self.content = self.makeEmptyResultsViewController()
-                } else {
-                    if !(self.content is NewsCollectionViewController) {
-                        self.content = self.resultsVC
-                    }
-                }
-            }
-            .store(in: &subscriptions)
+				if isNewsEmpty {
+					self.content = self.makeEmptyResultsViewController()
+				} else {
+					if !(self.content is NewsCollectionViewController) {
+						self.content = self.resultsVC
+					}
+				}
+			}
+			.store(in: &subscriptions)
 
         // Handle active filters count to update the filters button
         viewModel.$activeFilters
