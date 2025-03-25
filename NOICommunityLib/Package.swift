@@ -57,6 +57,10 @@ let package = Package(
             targets: ["ArticlesClient"]
         ),
         .library(
+            name: "ArticleTagsClient",
+            targets: ["ArticleTagsClient"]
+        ),
+        .library(
             name: "PeopleClient",
             targets: ["PeopleClient"]
         ),
@@ -161,6 +165,12 @@ let package = Package(
             dependencies: [
 				"Core"
 			]
+        ),
+        .target(
+            name: "ArticleTagsClient",
+            dependencies: [
+                "Core"
+            ]
         ),
         .target(
             name: "PeopleClient",

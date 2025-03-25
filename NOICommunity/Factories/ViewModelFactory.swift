@@ -34,8 +34,14 @@ protocol ViewModelFactory {
     
     func makeMyAccountViewModel() -> MyAccountViewModel
     
-    func makeNewsListViewModel() -> NewsListViewModel
-
+    func makeNewsListViewModel(
+        showFiltersHandler: @escaping () -> Void
+    ) -> NewsListViewModel
+    
+    func makeNewsFiltersViewModel(
+        showFilteredResultsHandler: @escaping () -> Void
+    ) -> NewsFiltersViewModel
+    
 	func makeNewsDetailsViewModel(
 		newsId: String
 	) -> NewsDetailsViewModel

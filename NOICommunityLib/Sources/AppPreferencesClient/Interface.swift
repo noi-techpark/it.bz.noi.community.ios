@@ -15,12 +15,19 @@ public struct AppPreferences {
     
     public var skipIntro: Bool
     public var skipComeOnBoardOnboarding: Bool
-
-    public init(skipIntro: Bool, skipComeOnBoardOnboarding: Bool) {
+    public var activeNewsFilterIds: [String]
+    
+    public init(
+        skipIntro: Bool,
+        skipComeOnBoardOnboarding: Bool,
+        activeNewsFilterIds: [String] = []
+    ) {
         self.skipIntro = skipIntro
         self.skipComeOnBoardOnboarding = skipComeOnBoardOnboarding
+        self.activeNewsFilterIds = activeNewsFilterIds
     }
 }
+
 
 public struct AppPreferencesClient {
     

@@ -93,6 +93,64 @@ extension Endpoint {
         }
     }
     
+    static func articleListResponseNumber(
+        startDate: Date?,
+        publishedOn: String?,
+        articleType: String?,
+        rawFilter: String?
+    ) -> Endpoint {
+        Self(path: "/v1/Article") {
+            if let startDate {
+                URLQueryItem(
+                    name: "startDate",
+                    value: dateFormatter.string(from: startDate)
+                )
+            }
+
+            if let publishedOn {
+                URLQueryItem(
+                    name: "publishedon",
+                    value: publishedOn
+                )
+            }
+            
+            URLQueryItem(
+                name: "pagesize",
+                value: String(1)
+            )
+            
+            URLQueryItem(
+                name: "pagenumber",
+                value: String(1)
+            )
+            
+
+            URLQueryItem(
+                name: "removeNullValues",
+                value: "true"
+            )
+
+            if let articleType {
+                URLQueryItem(
+                    name: "articletype",
+                    value: articleType
+                )
+            }
+
+            if let rawFilter {
+                URLQueryItem(
+                    name: "rawfilter",
+                    value: rawFilter
+                )
+            }
+
+            URLQueryItem(
+                name: "fields",
+                value: "Id"
+            )
+        }
+    }
+    
     static func article(id: String) -> Endpoint {
         Self(path: "/v1/Article/\(id)") {
             URLQueryItem(
