@@ -12,6 +12,7 @@
 import Foundation
 import Combine
 import ArticlesClient
+import ArticleTagsClient
 
 // MARK: - NewsViewModel
 
@@ -22,32 +23,42 @@ final class NewsListViewModel {
     let pageSize: Int
     let firstPage: Int
 
+	var hasNextPage: Bool {
+		nextPage != nil
+	}
+
     private var needsToRequestHighlight: Bool
 
-    private var nextPage: Int?
-    
-    var hasNextPage: Bool {
-        nextPage != nil
-    }
-    
+	private var nextPage: Int?
+
+	@Published private(set) var isEmpty = false
     @Published private(set) var isLoadingFirstPage = false
     @Published private(set) var isLoading = false
     @Published private(set) var error: Error!
-    @Published private(set) var newsIds: [String] = []
+    @Published private(set) var newsIds: [String] = []    
+	@Published var activeFilters: Set<ArticleTag.Id> = [] {
+		didSet {
+			fetchNews(refresh: true)
+		}
+	}
+
     private var idToNews: [String: Article] = [:]
     
     private var refreshCancellable: AnyCancellable?
-    private var fetchRequestCancellable: AnyCancellable?
-    
+	private var fetchTask: Task<(), Never>?
+
     var showDetailsHandler: ((Article, Any?) -> Void)!
+    let showFiltersHandler: () -> Void
     
     init(
         articlesClient: ArticlesClient,
+        showFiltersHandler: @escaping () -> Void,
         pageSize: Int = 10,
         firstPage: Int = 1,
         needsToRequestHighlight: Bool = true
     ) {
         self.articlesClient = articlesClient
+        self.showFiltersHandler = showFiltersHandler
         self.pageSize = pageSize
         self.firstPage = firstPage
         self.nextPage = firstPage
@@ -57,7 +68,7 @@ final class NewsListViewModel {
     }
 
     func fetchNews(refresh: Bool = false) {
-		Task(priority: .userInitiated) { [weak self] in
+		fetchTask = Task(priority: .userInitiated) { [weak self] in
 			await self?.performFetchNews(refresh: refresh)
 		}
     }
@@ -94,24 +105,26 @@ private extension NewsListViewModel {
 		}
 
 		do {
+			let rawFilterQuery: String = {
+				let highlightQuery = needsToRequestHighlight ? #"eq(Highlight,"true")"# : #"or(eq(Highlight,"false"),isnull(Highlight))"#
+				let activeFiltersQuery = activeFilters.toRawFilterQuery()
+				if activeFiltersQuery.isEmpty {
+					return highlightQuery
+				} else {
+					return #"and(\#(highlightQuery),\#(activeFiltersQuery))"#
+				}
+			}()
 			let pagination = try await articlesClient.getArticleList(
 				startDate: Date(),
 				publishedOn: "noi-communityapp",
 				articleType: "newsfeednoi",
 				rawSort: "-ArticleDate",
-				rawFilter: needsToRequestHighlight ? #"eq(Highlight,"true")"# : #"or(eq(Highlight,"false"),isnull(Highlight))"#,
+                rawFilter: rawFilterQuery,
 				pageSize: pageSize,
 				pageNumber: pageNumber
 			)
 
 			let hadRequestHighlight = needsToRequestHighlight
-
-			if needsToRequestHighlight, !pagination.hasNextPage {
-				nextPage = firstPage
-				needsToRequestHighlight = false
-			} else {
-				nextPage = pagination.nextPage
-			}
 
 			let newItems = pagination.items
 			newItems.forEach { idToNews[$0.id] = $0 }
@@ -120,10 +133,19 @@ private extension NewsListViewModel {
 			} else {
 				newsIds = newsIds + newItems.map(\.id)
 			}
+            
+            if needsToRequestHighlight, !pagination.hasNextPage {
+                nextPage = firstPage
+                needsToRequestHighlight = false
+            } else {
+                nextPage = pagination.nextPage
+            }
 
 			if hadRequestHighlight, newItems.isEmpty {
 				fetchNews()
-			}
+            }
+
+			isEmpty = newItems.isEmpty && nextPage == nil
 		} catch {
 			self.error = error
 		}

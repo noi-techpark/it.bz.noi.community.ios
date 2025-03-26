@@ -26,14 +26,28 @@ final class NewsCoordinator: BaseNavigationCoordinator {
     private var mainVC: NewsViewController!
     
     private var newsListViewModel: NewsListViewModel!
+    private var newsFiltersViewModel: NewsFiltersViewModel!
     
     private var subscriptions: Set<AnyCancellable> = []
     
     override func start(animated: Bool) {
-        newsListViewModel = dependencyContainer.makeNewsListViewModel()
-        newsListViewModel.showDetailsHandler = { [weak self] news, _ in
-            self?.goToDetails(of: news)
+		newsListViewModel = dependencyContainer.makeNewsListViewModel {[weak self] in
+			self?.goToFilters()
+		}
+		newsListViewModel.showDetailsHandler = { [weak self] news, _ in
+			self?.goToDetails(of: news)
+		}
+
+        newsFiltersViewModel = dependencyContainer.makeNewsFiltersViewModel { [weak self] in
+            self?.closeFilters()
         }
+		newsFiltersViewModel.$activeFilters
+			.receive(on: DispatchQueue.main)
+			.sink { [weak self] activeFilters in
+				self?.newsListViewModel.activeFilters = activeFilters
+			}
+			.store(in: &subscriptions)
+		
         mainVC = dependencyContainer.makeNewsViewController(
             viewModel: newsListViewModel
         )
@@ -65,6 +79,24 @@ private extension NewsCoordinator {
         navigationController.pushViewController(pageVC, animated: true)
     }
     
+    func goToFilters() {
+        let filtersVC = dependencyContainer.makeNewsFiltersViewController(
+            viewModel: newsFiltersViewModel
+        )
+        filtersVC.modalPresentationStyle = .fullScreen
+        filtersVC.navigationItem.leftBarButtonItem = UIBarButtonItem(
+            image: UIImage(systemName: "xmark.circle.fill"),
+            style: .plain,
+            target: self,
+            action: #selector(closeFilters)
+        )
+        navigationController.present(
+            NavigationController(rootViewController: filtersVC),
+            animated: true,
+            completion: nil
+        )
+    }
+    
     func showExternalLink(of news: Article) {
         let author = localizedValue(from: news.languageToAuthor)
         let safariVC = SFSafariViewController(url: author!.externalURL!)
@@ -78,6 +110,10 @@ private extension NewsCoordinator {
             delegate: self,
             completion: nil
         )
+    }
+    
+    @objc func closeFilters() {
+        navigationController.dismiss(animated: true, completion: nil)
     }
     
 }

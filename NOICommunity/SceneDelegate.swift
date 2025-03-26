@@ -19,6 +19,7 @@ import Core
 import AuthClientLive
 import AuthStateStorageClient
 import ArticlesClient
+import ArticleTagsClient
 import PeopleClientLive
 import VimeoOEmbedClient
 import VimeoVideoThumbnailClient
@@ -37,8 +38,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     var currentAuthorizationFlow: OIDExternalUserAgentSession?
     
-    lazy var cache: Cache<EventShortTypesClient.CacheKey, [EventsFilter]> = Cache()
-    
+    lazy var eventsCache: Cache<EventShortTypesClient.CacheKey, [EventsFilter]> = Cache()
+	lazy var articleTagsCache = Cache<ArticleTagsClientCacheKey, ArticleTagListResponse>()
+
     lazy var dependencyContainer: DependencyContainer = {
         let tokenStorage = KeychainAuthStateStorageClient(
             keyChainAccessGroup: accessGroupKey
@@ -73,7 +75,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 ) {
                     return .live(
                         baseURL: EventsFeatureConstants.clientBaseURL,
-                        memoryCache: cache,
+                        memoryCache: eventsCache,
                         diskCacheFileURL: fileURL
                     )
                 } else {
@@ -83,7 +85,26 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 			articleClient: ArticlesClientImplementation(
 				baseURL: EventsFeatureConstants.clientBaseURL,
 				transport: URLSession.shared
-			),
+            ), 
+            articleTagsClient: {
+                if let fileURL = Bundle.main.url(
+                    forResource: "ArticleTags",
+                    withExtension: "json"
+                ) {
+                    return ArticleTagsClientImplementation(
+                        baseURL: EventsFeatureConstants.clientBaseURL,
+                        transport: URLSession.shared,
+                        memoryCache: articleTagsCache,
+                        diskCacheFileURL: fileURL
+                    )
+                } else {
+                    return ArticleTagsClientImplementation(
+                        baseURL: EventsFeatureConstants.clientBaseURL,
+                        transport: URLSession.shared,
+                        memoryCache: articleTagsCache
+                    )
+                }
+            }(),
 			peopleClient: .live(baseURL: MeetConstant.clientBaseURL),
 			vimeoVideoThumbnailClient: VimeoVideoThumbnailClientImplementation(vimeoOEmbedClient: VimeoOEmbedClientImplementation(transport: URLSession.shared))
 				.cached()

@@ -22,6 +22,13 @@ public protocol ArticlesClient {
 		pageSize: Int?,
 		pageNumber: Int?
 	) async throws -> ArticleListResponse
+    
+    func getTotalArticleResults(
+        startDate: Date?,
+        publishedOn: String?,
+        articleType: String?,
+        rawFilter: String?
+    ) async throws -> Int
 	
 	func getArticle(newsId: String) async throws -> Article
 	
@@ -48,6 +55,20 @@ public extension ArticlesClient {
 			pageNumber: pageNumber
 		)
 	}
+    
+    
+    func getTotalArticleResults(
+        startDate: Date?,
+        publishedOn: String?,
+        articleType: String?,
+        rawFilter: String?
+    ) async throws -> Int {
+        try await getTotalArticleResults(
+            startDate: startDate,
+            publishedOn: publishedOn,
+            articleType: articleType,
+            rawFilter: rawFilter)
+    }
 	
 }
 
