@@ -54,6 +54,10 @@
 		313010D42846640400AF6520 /* MeetFilterBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 313010D32846640400AF6520 /* MeetFilterBarView.xib */; };
 		3132EF39283D29DA0016DF7F /* PersonCardContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3132EF38283D04470016DF7F /* PersonCardContentView.swift */; };
 		3132EF3A283D29E00016DF7F /* PersonCardContentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3132EF36283D04470016DF7F /* PersonCardContentView.xib */; };
+		3135F2982D93E83700DC4FC0 /* UIButton+Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3135F2972D93E83700DC4FC0 /* UIButton+Action.swift */; };
+		3135F2992D93E83700DC4FC0 /* UIApplication+LaunchScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3135F2962D93E83700DC4FC0 /* UIApplication+LaunchScreen.swift */; };
+		3135F29B2D93E87400DC4FC0 /* ContactInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3135F29A2D93E87400DC4FC0 /* ContactInfo.swift */; };
+		3135F29D2D93E88E00DC4FC0 /* ContactVCardActivityItemProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3135F29C2D93E88E00DC4FC0 /* ContactVCardActivityItemProvider.swift */; };
 		3136CC402706F75F00C27129 /* SourcePresentAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3136CC3F2706F75F00C27129 /* SourcePresentAnimator.swift */; };
 		3136CC422706F8D200C27129 /* UIView+TransitionId.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3136CC412706F8D200C27129 /* UIView+TransitionId.swift */; };
 		3136CC442707093B00C27129 /* SourceDismissAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3136CC432707093B00C27129 /* SourceDismissAnimator.swift */; };
@@ -311,6 +315,10 @@
 		313010D32846640400AF6520 /* MeetFilterBarView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MeetFilterBarView.xib; sourceTree = "<group>"; };
 		3132EF36283D04470016DF7F /* PersonCardContentView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PersonCardContentView.xib; sourceTree = "<group>"; };
 		3132EF38283D04470016DF7F /* PersonCardContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonCardContentView.swift; sourceTree = "<group>"; };
+		3135F2962D93E83700DC4FC0 /* UIApplication+LaunchScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+LaunchScreen.swift"; sourceTree = "<group>"; };
+		3135F2972D93E83700DC4FC0 /* UIButton+Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Action.swift"; sourceTree = "<group>"; };
+		3135F29A2D93E87400DC4FC0 /* ContactInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactInfo.swift; sourceTree = "<group>"; };
+		3135F29C2D93E88E00DC4FC0 /* ContactVCardActivityItemProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactVCardActivityItemProvider.swift; sourceTree = "<group>"; };
 		3136CC3F2706F75F00C27129 /* SourcePresentAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourcePresentAnimator.swift; sourceTree = "<group>"; };
 		3136CC412706F8D200C27129 /* UIView+TransitionId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+TransitionId.swift"; sourceTree = "<group>"; };
 		3136CC432707093B00C27129 /* SourceDismissAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceDismissAnimator.swift; sourceTree = "<group>"; };
@@ -948,6 +956,8 @@
 		31AA31F226F0B71800744A00 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				3135F2962D93E83700DC4FC0 /* UIApplication+LaunchScreen.swift */,
+				3135F2972D93E83700DC4FC0 /* UIButton+Action.swift */,
 				31BFAB3A283FC88A00EF274D /* CALayer+XibConfiguration.swift */,
 				319C0E9F26F4790300C6D38B /* CalendarAdditions.swift */,
 				31178FDF26FA318800BDCDAA /* Collection.swift */,
@@ -1003,6 +1013,7 @@
 		31B3623A26F1D62700031024 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				3135F29C2D93E88E00DC4FC0 /* ContactVCardActivityItemProvider.swift */,
 				31157CFD26FC5DEB00A43B33 /* EventsCalendarManager.swift */,
 				31178FCD26F8D7CC00BDCDAA /* Localization.swift */,
 				31C28BF52719709B00312A62 /* NOICells.swift */,
@@ -1028,6 +1039,7 @@
 		31C640C126FE1E43004B71A2 /* MeetFeature */ = {
 			isa = PBXGroup;
 			children = (
+				3135F29A2D93E87400DC4FC0 /* ContactInfo.swift */,
 				31BFAB34283FB49800EF274D /* MeetConstant.swift */,
 				3132EF30283CB5320016DF7F /* Coordinators */,
 				3132EF35283D04290016DF7F /* Views */,
@@ -1327,6 +1339,8 @@
 				31B3623E26F1E27A00031024 /* UIColor+NOI.swift in Sources */,
 				31892F2E281BC32800DD89F7 /* MyAccountViewModel.swift in Sources */,
 				3110CF6026F0E89C003B7174 /* CircleView.swift in Sources */,
+				3135F2982D93E83700DC4FC0 /* UIButton+Action.swift in Sources */,
+				3135F2992D93E83700DC4FC0 /* UIApplication+LaunchScreen.swift in Sources */,
 				31B192762C6A38C2009872E9 /* DeveloperToolsViewModel.swift in Sources */,
 				31B0205D2C78D1D800175DA0 /* NewsFeatureConstants.swift in Sources */,
 				31C640AB26FE1397004B71A2 /* DependencyContainer.swift in Sources */,
@@ -1351,7 +1365,9 @@
 				31BFAB35283FB49A00EF274D /* MeetConstant.swift in Sources */,
 				318664A22B22471E0088A752 /* LinkTextView.swift in Sources */,
 				3136CC422706F8D200C27129 /* UIView+TransitionId.swift in Sources */,
+				3135F29D2D93E88E00DC4FC0 /* ContactVCardActivityItemProvider.swift in Sources */,
 				3182A1BE282D5159005439B4 /* NewsDetailsViewController.swift in Sources */,
+				3135F29B2D93E87400DC4FC0 /* ContactInfo.swift in Sources */,
 				319C0EA026F4790300C6D38B /* CalendarAdditions.swift in Sources */,
 				31C640A226FE0BA9004B71A2 /* CoordinatorType.swift in Sources */,
 				3126E7252B287F670013F456 /* LoadUserInfoViewModel.swift in Sources */,
