@@ -17,9 +17,9 @@ enum EventsFeatureConstants {
 
 	public static let clientBaseURL: URL = {
 #if TESTINGMACHINE_OAUTH
-		URL(string: "https://api.tourism.testingmachine.eu")!
+		URL(string: "https://tourism.api.opendatahub.testingmachine.eu")!
 #else
-		URL(string: "https://tourism.opendatahub.com")!
+		URL(string: "https://tourism.api.opendatahub.com")!
 #endif
 	}()
 }

@@ -15,9 +15,9 @@ enum NewsFeatureConstants {
 
     public static let clientBaseURL: URL = {
 #if TESTINGMACHINE_OAUTH
-        return URL(string: "https://api.tourism.testingmachine.eu")!
+        return URL(string: "https://tourism.api.opendatahub.testingmachine.eu")!
 #else
-        return URL(string: "https://tourism.opendatahub.com")!
+        return URL(string: "https://tourism.api.opendatahub.com")!
 #endif
     }()
 }

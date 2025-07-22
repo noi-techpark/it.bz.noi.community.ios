@@ -15,7 +15,7 @@ enum AuthConstant {
     
     private static let NOIOAuth2BaseURL: URL = {
 #if TESTINGMACHINE_OAUTH
-        return URL(string: "https://auth.opendatahub.testingmachine.eu/auth/realms/noi/")!
+        return URL(string: "https://auth.opendatahub.testingmachine.eu/auth/realms/noi-community/")!
 #else
         return URL(string: "https://auth.opendatahub.com/auth/realms/noi/")!
 #endif
@@ -40,7 +40,15 @@ enum AuthConstant {
         return urlComponents.url!
     }()
     
-    static let clientID = "it.bz.noi.community"
+    //static let clientID = "it.bz.noi.community"
+
+    static let clientID = {
+#if TESTINGMACHINE_OAUTH
+        return "community-app"
+#else
+        return "it.bz.noi.community"
+#endif
+    }()
     
     static let redirectURI = URL(string: "noi-community://oauth2redirect/login-callback")!
     
