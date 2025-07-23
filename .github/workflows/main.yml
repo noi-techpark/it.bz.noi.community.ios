@@ -3,31 +3,30 @@ on: [ pull_request, push ]
 jobs:
 
   ## Test on latest MacOS
-  # test:
-  #   runs-on: macos-14
-  #   steps:
+  test:
+    runs-on: macos-14
+    steps:
 
-  #     - name: Checkout the code
-  #       uses: actions/checkout@v2
+      - name: Checkout the code
+        uses: actions/checkout@v2
 
+      - name: Mock GoogleService-Info.plist
+        run: mv NOICommunity/GoogleService-Info_mock.plist NOICommunity/GoogleService-Info.plist
 
-  #     - name: Mock GoogleService-Info.plist
-  #       run: mv NOICommunity/GoogleService-Info_mock.plist NOICommunity/GoogleService-Info.plist
+      - name: Resolve package dependencies
+        run: xcodebuild -resolvePackageDependencies
 
-  #     - name: Resolve package dependencies
-  #       run: xcodebuild -resolvePackageDependencies
+      - name: List schemes (optional step to gather information)
+        run: xcodebuild -list -project NOICommunity.xcodeproj
 
-  #     - name: List schemes (optional step to gather information)
-  #       run: xcodebuild -list -project NOICommunity.xcodeproj
-
-  #     - name: Test the app
-  #       run: |
-  #         set -eo pipefail
-  #         xcodebuild clean test \
-  #           -scheme NOICommunity \
-  #           -destination 'platform=iOS Simulator,OS=16.2,name=iPhone 14' \
-  #           IPHONEOS_DEPLOYMENT_TARGET='16.2' \
-  #         | xcpretty
+      - name: Test the app
+        run: |
+          set -eo pipefail
+          xcodebuild clean test \
+            -scheme NOICommunity \
+            -destination 'platform=iOS Simulator,OS=16.2,name=iPhone 14' \
+            IPHONEOS_DEPLOYMENT_TARGET='16.2' \
+          | xcpretty
 
 
   ## Deploy to TestFlight
