@@ -33,7 +33,7 @@ jobs:
   ## Deploy to TestFlight
   deploy_testflight:
     name: Deploy to Testflight
-    runs-on: macos-14
+    runs-on: macos-15
     if: github.ref == 'refs/heads/main'
     # needs: [ test ]
     steps:
@@ -73,10 +73,10 @@ jobs:
 
       # Force Xcode specific version (if needed)
       # This action switches Xcode to the specified version.
-      # For details on available versions of Xcode, see https://github.com/actions/runner-images/blob/main/images/macos/macos-14-Readme.md.
+      # For details on available versions of Xcode, see https://github.com/actions/runner-images/blob/main/images/macos/macos-15-Readme.md.
 
       # - name: Force XCode specific version
-      #   run: sudo xcode-select -switch /Applications/Xcode_15.4.app
+      #   run: sudo xcode-select -switch /Applications/Xcode_16.4.app
 
       - name: Resolve package dependencies
         run: xcodebuild -resolvePackageDependencies
