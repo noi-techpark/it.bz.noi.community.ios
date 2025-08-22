@@ -137,10 +137,10 @@ jobs:
         run: |
           BUILD_DIR=$(xcodebuild -showBuildSettings | grep -m 1 "BUILD_DIR" | cut -d'=' -f2)
           POSSIBLE_PATHS=(
-            "${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run"
-            "$PWD/build/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run"
-            "$HOME/Library/Developer/Xcode/DerivedData/*/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run"
-            "./SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run"
+            "${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/upload-symbols"
+            "$PWD/build/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/upload-symbols"
+            "$HOME/Library/Developer/Xcode/DerivedData/*/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/upload-symbols"
+            "./SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/upload-symbols"
           )
           
           CRASHLYTICS_PATH=""
