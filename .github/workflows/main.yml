@@ -75,8 +75,8 @@ jobs:
       # This action switches Xcode to the specified version.
       # For details on available versions of Xcode, see https://github.com/actions/runner-images/blob/main/images/macos/macos-15-Readme.md.
 
-      # - name: Force XCode specific version
-      #   run: sudo xcode-select -switch /Applications/Xcode_16.4.app
+      - name: Force XCode specific version
+        run: sudo xcode-select -switch /Applications/Xcode_16.4.app
 
       - name: Resolve package dependencies
         run: xcodebuild -resolvePackageDependencies
