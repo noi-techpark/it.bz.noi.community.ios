@@ -136,7 +136,7 @@ jobs:
         if: success()
         run: |
           BUILD_DIR=$(xcodebuild -showBuildSettings | grep -m 1 "BUILD_DIR" | cut -d'=' -f2)
-          ${BUILD_DIR%Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/upload-symbols \
+          ${BUILD_DIR%Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run \
           -gsp "NOICommunity/GoogleService-Info.plist" \
           -p ios \
           "$PWD/build/NOICommunity.xcarchive/dSYMs"
