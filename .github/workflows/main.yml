@@ -136,7 +136,25 @@ jobs:
         if: success()
         run: |
           BUILD_DIR=$(xcodebuild -showBuildSettings | grep -m 1 "BUILD_DIR" | cut -d'=' -f2)
-          CRASHLYTICS_PATH="${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run"
+          POSSIBLE_PATHS=(
+            "${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run"
+            "$PWD/build/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run"
+            "$HOME/Library/Developer/Xcode/DerivedData/*/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run"
+            "./SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run"
+          )
+          
+          CRASHLYTICS_PATH=""
+          for path in "${POSSIBLE_PATHS[@]}"; do
+            # Expand wildcards
+            for expanded_path in $path; do
+              if [ -f "$expanded_path" ]; then
+                CRASHLYTICS_PATH="$expanded_path"
+                echo "Found Crashlytics upload script at: $CRASHLYTICS_PATH"
+                break 2
+              fi
+            done
+          done
+
           if [ ! -f "$CRASHLYTICS_PATH" ]; then
             echo "Crashlytics upload script not found at: $CRASHLYTICS_PATH"
             exit 1
