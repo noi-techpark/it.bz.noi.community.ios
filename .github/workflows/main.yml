@@ -32,7 +32,7 @@ jobs:
   ## Deploy to TestFlight
   deploy_testflight:
     name: Deploy to Testflight
-    runs-on: macos-14
+    runs-on: macos-15
     if: github.ref == 'refs/heads/main'
     # needs: [ test ]
     steps:
@@ -72,10 +72,10 @@ jobs:
 
       # Force Xcode specific version (if needed)
       # This action switches Xcode to the specified version.
-      # For details on available versions of Xcode, see https://github.com/actions/runner-images/blob/main/images/macos/macos-14-Readme.md.
+      # For details on available versions of Xcode, see https://github.com/actions/runner-images/blob/main/images/macos/macos-15-Readme.md.
 
-      # - name: Force XCode specific version
-      #   run: sudo xcode-select -switch /Applications/Xcode_15.4.app
+      - name: Force XCode specific version
+        run: sudo xcode-select -switch /Applications/Xcode_16.4.app
 
       - name: Resolve package dependencies
         run: xcodebuild -resolvePackageDependencies
@@ -135,7 +135,31 @@ jobs:
         if: success()
         run: |
           BUILD_DIR=$(xcodebuild -showBuildSettings | grep -m 1 "BUILD_DIR" | cut -d'=' -f2)
-          ${BUILD_DIR%Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/upload-symbols \
+          POSSIBLE_PATHS=(
+            "${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/upload-symbols"
+            "$PWD/build/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/upload-symbols"
+            "$HOME/Library/Developer/Xcode/DerivedData/*/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/upload-symbols"
+            "./SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/upload-symbols"
+          )
+          
+          CRASHLYTICS_PATH=""
+          for path in "${POSSIBLE_PATHS[@]}"; do
+            # Expand wildcards
+            for expanded_path in $path; do
+              if [ -f "$expanded_path" ]; then
+                CRASHLYTICS_PATH="$expanded_path"
+                echo "Found Crashlytics upload script at: $CRASHLYTICS_PATH"
+                break 2
+              fi
+            done
+          done
+
+          if [ ! -f "$CRASHLYTICS_PATH" ]; then
+            echo "Crashlytics upload script not found at: $CRASHLYTICS_PATH"
+            exit 1
+          fi
+
+          "$CRASHLYTICS_PATH" \
           -gsp "NOICommunity/GoogleService-Info.plist" \
           -p ios \
           "$PWD/build/NOICommunity.xcarchive/dSYMs"
