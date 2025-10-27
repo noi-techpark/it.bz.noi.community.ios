@@ -14,9 +14,8 @@ import XCTest
 
 final class ArticleResponseNumber: XCTestCase {
 
-    public func testGetTotalArticleResults() async {
-        //let baseURL = URL(string: "https://tourism.opendatahub.com")! 
-        let baseURL = URL(string: "https://api.tourism.testingmachine.eu")!
+    public func testGetTotalArticleResults() async { 
+        let baseURL = URL(string: "https://tourism.api.opendatahub.com")!
         let transport = URLSession.shared
         
         let client = ArticlesClientImplementation(baseURL: baseURL, transport: transport)

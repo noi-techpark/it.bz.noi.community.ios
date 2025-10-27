@@ -184,7 +184,7 @@
 		31B37E1E2833AFF700C26E6B /* MessageViewController+Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B37E1D2833AFF700C26E6B /* MessageViewController+Error.swift */; };
 		31B4477F26F86FE5000999BA /* SegmentedControlBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B4477E26F86FE4000999BA /* SegmentedControlBuilder.swift */; };
 		31B6742027C79E520044A285 /* EventShortTypes.json in Resources */ = {isa = PBXBuildFile; fileRef = 31B6741F27C79E520044A285 /* EventShortTypes.json */; };
-		31BFAB35283FB49A00EF274D /* MeetConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BFAB34283FB49800EF274D /* MeetConstant.swift */; };
+		31BFAB35283FB49A00EF274D /* MeetFeatureConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BFAB34283FB49800EF274D /* MeetFeatureConstants.swift */; };
 		31BFAB39283FB8EC00EF274D /* PersonDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BFAB38283FB8EC00EF274D /* PersonDetailsViewController.swift */; };
 		31BFAB3B283FC88A00EF274D /* CALayer+XibConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BFAB3A283FC88A00EF274D /* CALayer+XibConfiguration.swift */; };
 		31C028412B55924B00D851EE /* FeatureFlag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C028402B55924B00D851EE /* FeatureFlag.swift */; };
@@ -439,7 +439,7 @@
 		31B37E1D2833AFF700C26E6B /* MessageViewController+Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MessageViewController+Error.swift"; sourceTree = "<group>"; };
 		31B4477E26F86FE4000999BA /* SegmentedControlBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControlBuilder.swift; sourceTree = "<group>"; };
 		31B6741F27C79E520044A285 /* EventShortTypes.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = EventShortTypes.json; sourceTree = "<group>"; };
-		31BFAB34283FB49800EF274D /* MeetConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetConstant.swift; sourceTree = "<group>"; };
+		31BFAB34283FB49800EF274D /* MeetFeatureConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetFeatureConstants.swift; sourceTree = "<group>"; };
 		31BFAB38283FB8EC00EF274D /* PersonDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonDetailsViewController.swift; sourceTree = "<group>"; };
 		31BFAB3A283FC88A00EF274D /* CALayer+XibConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+XibConfiguration.swift"; sourceTree = "<group>"; };
 		31C028402B55924B00D851EE /* FeatureFlag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureFlag.swift; sourceTree = "<group>"; };
@@ -1040,7 +1040,7 @@
 			isa = PBXGroup;
 			children = (
 				3135F29A2D93E87400DC4FC0 /* ContactInfo.swift */,
-				31BFAB34283FB49800EF274D /* MeetConstant.swift */,
+				31BFAB34283FB49800EF274D /* MeetFeatureConstants.swift */,
 				3132EF30283CB5320016DF7F /* Coordinators */,
 				3132EF35283D04290016DF7F /* Views */,
 				3132EF31283CB53A0016DF7F /* View Controllers */,
@@ -1362,7 +1362,7 @@
 				317D5C79284120C000531432 /* PersonDetailHeaderContentView.swift in Sources */,
 				31C8F52B282522150009BCB7 /* NoiNewsTopic.swift in Sources */,
 				31178FDA26FA16A200BDCDAA /* NavigationController.swift in Sources */,
-				31BFAB35283FB49A00EF274D /* MeetConstant.swift in Sources */,
+				31BFAB35283FB49A00EF274D /* MeetFeatureConstants.swift in Sources */,
 				318664A22B22471E0088A752 /* LinkTextView.swift in Sources */,
 				3136CC422706F8D200C27129 /* UIView+TransitionId.swift in Sources */,
 				3135F29D2D93E88E00DC4FC0 /* ContactVCardActivityItemProvider.swift in Sources */,
