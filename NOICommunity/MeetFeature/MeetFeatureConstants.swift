@@ -11,14 +11,14 @@
 
 import Foundation
 
-enum MeetConstant {
-    
-    public static let clientBaseURL: URL = {
+enum MeetFeatureConstants {
+
+	public static let clientBaseURL: URL = {
 #if TESTINGMACHINE_OAUTH
-        return URL(string: "https://api.community.noi.testingmachine.eu")!
+		return URL(string: "https://api.v2.community.noi.testingmachine.eu")!
 #else
-        return URL(string: "https://api.community.noi.opendatahub.com")!
+		return URL(string: "https://api.v2.community.noi.opendatahub.com")!
 #endif
-    }()
-    
+	}()
+
 }

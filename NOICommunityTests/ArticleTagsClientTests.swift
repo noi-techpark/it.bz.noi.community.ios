@@ -15,7 +15,7 @@ import Core
 
 final class ArticleTagsClientTests: XCTestCase {
     func testGetArticleTagList() async throws {
-        let baseURL = URL(string: "https://tourism.opendatahub.com")!
+        let baseURL = URL(string: "https://tourism.api.opendatahub.com")!
         let transport = URLSession.shared
 		lazy var articleTagsCache = Cache<ArticleTagsClientCacheKey, ArticleTagListResponse>()
 

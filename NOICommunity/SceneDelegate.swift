@@ -83,7 +83,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 }
             }(),
 			articleClient: ArticlesClientImplementation(
-				baseURL: EventsFeatureConstants.clientBaseURL,
+				baseURL: NewsFeatureConstants.clientBaseURL,
 				transport: URLSession.shared
             ), 
             articleTagsClient: {
@@ -92,20 +92,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                     withExtension: "json"
                 ) {
                     return ArticleTagsClientImplementation(
-                        baseURL: EventsFeatureConstants.clientBaseURL,
+                        baseURL: NewsFeatureConstants.clientBaseURL,
                         transport: URLSession.shared,
                         memoryCache: articleTagsCache,
                         diskCacheFileURL: fileURL
                     )
                 } else {
                     return ArticleTagsClientImplementation(
-                        baseURL: EventsFeatureConstants.clientBaseURL,
+                        baseURL: NewsFeatureConstants.clientBaseURL,
                         transport: URLSession.shared,
                         memoryCache: articleTagsCache
                     )
                 }
             }(),
-			peopleClient: .live(baseURL: MeetConstant.clientBaseURL),
+			peopleClient: .live(baseURL: MeetFeatureConstants.clientBaseURL),
 			vimeoVideoThumbnailClient: VimeoVideoThumbnailClientImplementation(vimeoOEmbedClient: VimeoOEmbedClientImplementation(transport: URLSession.shared))
 				.cached()
         )
