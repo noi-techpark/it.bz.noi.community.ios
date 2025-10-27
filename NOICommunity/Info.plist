@@ -31,12 +31,37 @@
 	</array>
 	<key>CFBundleVersion</key>
 	<string>3</string>
+	<key>FirebaseAppDelegateProxyEnabled</key>
+	<false/>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>tel</string>
+		<string>mailto</string>
+		<string>maps</string>
+		<string>comgooglemaps</string>
+		<string>waze</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCalendarsUsageDescription</key>
 	<string>NSCalendarsUsageDescription</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>SourceSansPro-Black.ttf</string>
+		<string>SourceSansPro-BlackItalic.ttf</string>
+		<string>SourceSansPro-Bold.ttf</string>
+		<string>SourceSansPro-BoldItalic.ttf</string>
+		<string>SourceSansPro-ExtraLight.ttf</string>
+		<string>SourceSansPro-ExtraLightItalic.ttf</string>
+		<string>SourceSansPro-Italic.ttf</string>
+		<string>SourceSansPro-Light.ttf</string>
+		<string>SourceSansPro-LightItalic.ttf</string>
+		<string>SourceSansPro-Regular.ttf</string>
+		<string>SourceSansPro-SemiBold.ttf</string>
+		<string>SourceSansPro-SemiBoldItalic.ttf</string>
+	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
@@ -55,6 +80,8 @@
 		</dict>
 	</dict>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
+	<true/>
+	<key>UIDesignRequiresCompatibility</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
@@ -81,30 +108,5 @@
 	<string>Light</string>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
-	<key>FirebaseAppDelegateProxyEnabled</key>
-	<false/>
-    <key>LSApplicationQueriesSchemes</key>
-    <array>
-        <string>tel</string>
-        <string>mailto</string>
-        <string>maps</string>
-        <string>comgooglemaps</string>
-        <string>waze</string>
-    </array>
-	<key>UIAppFonts</key>
-	<array>
-        <string>SourceSansPro-Black.ttf</string>
-        <string>SourceSansPro-BlackItalic.ttf</string>
-        <string>SourceSansPro-Bold.ttf</string>
-        <string>SourceSansPro-BoldItalic.ttf</string>
-        <string>SourceSansPro-ExtraLight.ttf</string>
-        <string>SourceSansPro-ExtraLightItalic.ttf</string>
-        <string>SourceSansPro-Italic.ttf</string>
-        <string>SourceSansPro-Light.ttf</string>
-        <string>SourceSansPro-LightItalic.ttf</string>
-        <string>SourceSansPro-Regular.ttf</string>
-        <string>SourceSansPro-SemiBold.ttf</string>
-        <string>SourceSansPro-SemiBoldItalic.ttf</string>
-	</array>
 </dict>
 </plist>
