@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="24128" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24063"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -40,7 +40,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IO1-oc-lYG" userLabel="Container View">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="591"/>
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="676"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GMW-bO-gGD" customClass="CircleView" customModule="NOICommunity" customModuleProvider="target">
                                     <rect key="frame" x="17" y="17" width="50" height="50"/>
@@ -62,31 +62,31 @@
                                     </constraints>
                                 </view>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Author" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cLR-jb-Ayu">
-                                    <rect key="frame" x="77" y="17" width="320" height="17"/>
+                                    <rect key="frame" x="77" y="17" width="320" height="20.5"/>
                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                     <color key="textColor" name="secondary_color"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Published date" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rtd-gV-C95">
-                                    <rect key="frame" x="77" y="37" width="320" height="17"/>
+                                    <rect key="frame" x="77" y="39" width="320" height="20.5"/>
                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                     <color key="textColor" name="secondary_color"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n8g-pX-34t">
-                                    <rect key="frame" x="17" y="76" width="380" height="17"/>
+                                    <rect key="frame" x="17" y="81.5" width="380" height="20.5"/>
                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                     <color key="textColor" name="secondary_color"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Abstract" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AeH-1L-0Sg">
-                                    <rect key="frame" x="17" y="96" width="380" height="17"/>
+                                    <rect key="frame" x="17" y="103.5" width="380" height="20.5"/>
                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                     <color key="textColor" name="secondary_color"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="o5L-Md-VNE">
-                                    <rect key="frame" x="17" y="131" width="380" height="436"/>
+                                    <rect key="frame" x="17" y="142" width="380" height="510"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gWF-hB-LMc">
                                             <rect key="frame" x="0.0" y="0.0" width="380" height="210"/>
@@ -95,7 +95,7 @@
                                             </constraints>
                                         </view>
                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" bouncesZoom="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="h2D-U9-Alo">
-                                            <rect key="frame" x="0.0" y="230" width="380" height="206"/>
+                                            <rect key="frame" x="0.0" y="230" width="380" height="280"/>
                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                             <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                             <color key="textColor" systemColor="labelColor"/>
@@ -107,10 +107,11 @@
                                             </connections>
                                         </textView>
                                     </subviews>
+                                    <color key="backgroundColor" name="tertiary_background_color"/>
                                 </stackView>
                             </subviews>
                             <viewLayoutGuide key="safeArea" id="9e4-Ue-9h0"/>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <color key="backgroundColor" name="tertiary_background_color"/>
                             <constraints>
                                 <constraint firstItem="Rtd-gV-C95" firstAttribute="firstBaseline" secondItem="cLR-jb-Ayu" secondAttribute="baseline" constant="20" symbolType="layoutAnchor" id="5g1-mW-tpx"/>
                                 <constraint firstItem="n8g-pX-34t" firstAttribute="trailing" secondItem="cLR-jb-Ayu" secondAttribute="trailing" id="7VA-wz-Eyg"/>
@@ -150,7 +151,7 @@
                     <viewLayoutGuide key="frameLayoutGuide" id="U8b-Y6-DQr"/>
                 </scrollView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bjl-uL-b7y" customClass="FooterView" customModule="NOICommunity" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="774" width="414" height="122"/>
+                    <rect key="frame" x="0.0" y="740" width="414" height="156"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="iRJ-Gk-uPj">
                             <rect key="frame" x="17" y="17" width="380" height="54"/>
@@ -178,7 +179,7 @@
                         </stackView>
                     </subviews>
                     <viewLayoutGuide key="safeArea" id="LL8-5L-MIJ"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <color key="backgroundColor" name="tertiary_background_color"/>
                     <constraints>
                         <constraint firstItem="iRJ-Gk-uPj" firstAttribute="leading" secondItem="LL8-5L-MIJ" secondAttribute="leading" constant="17" id="Abt-QO-fTz"/>
                         <constraint firstItem="LL8-5L-MIJ" firstAttribute="bottom" secondItem="iRJ-Gk-uPj" secondAttribute="bottom" constant="17" id="KHN-ad-vz2"/>
@@ -187,7 +188,7 @@
                     </constraints>
                 </view>
             </subviews>
-            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <color key="backgroundColor" name="tertiary_background_color"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="Bjl-uL-b7y" secondAttribute="bottom" id="7GD-oZ-HqK"/>
                 <constraint firstItem="Bjl-uL-b7y" firstAttribute="leading" secondItem="Ut3-0t-2dZ" secondAttribute="leading" id="8vP-QZ-hiF"/>
@@ -214,6 +215,9 @@
         </namedColor>
         <namedColor name="secondary_color">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="tertiary_background_color">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
