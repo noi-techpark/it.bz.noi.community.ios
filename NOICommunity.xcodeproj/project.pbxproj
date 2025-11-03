@@ -230,6 +230,7 @@
 		31EF82592810517600EBE5F0 /* AppAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 31EF82582810517600EBE5F0 /* AppAuth */; };
 		31EFE4AB28575B0F00B496DB /* UIViewController+EmptyState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EFE4AA28575B0F00B496DB /* UIViewController+EmptyState.swift */; };
 		31F0DBD3280F0D3D00E782D5 /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F0DBD2280F02DC00E782D5 /* AuthCoordinator.swift */; };
+		31FAB7D52EB8C93A004051FB /* String+HTML.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FAB7D42EB8C939004051FB /* String+HTML.swift */; };
 		31FAEA7D28197D9700CDBC1B /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FAEA7C28197D9700CDBC1B /* AppCoordinator.swift */; };
 		31FAEA7F28197EC200CDBC1B /* NavigationCoordinatorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FAEA7E28197EC200CDBC1B /* NavigationCoordinatorType.swift */; };
 		31FFE9502D01E068007C699B /* NewsPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FFE94F2D01E065007C699B /* NewsPageViewController.swift */; };
@@ -484,6 +485,7 @@
 		31EE1A9127143AA1006A8EEF /* MapWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapWebViewController.swift; sourceTree = "<group>"; };
 		31EFE4AA28575B0F00B496DB /* UIViewController+EmptyState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+EmptyState.swift"; sourceTree = "<group>"; };
 		31F0DBD2280F02DC00E782D5 /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
+		31FAB7D42EB8C939004051FB /* String+HTML.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+HTML.swift"; sourceTree = "<group>"; };
 		31FAEA7C28197D9700CDBC1B /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		31FAEA7E28197EC200CDBC1B /* NavigationCoordinatorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationCoordinatorType.swift; sourceTree = "<group>"; };
 		31FFE94F2D01E065007C699B /* NewsPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsPageViewController.swift; sourceTree = "<group>"; };
@@ -956,6 +958,7 @@
 		31AA31F226F0B71800744A00 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				31FAB7D42EB8C939004051FB /* String+HTML.swift */,
 				3135F2962D93E83700DC4FC0 /* UIApplication+LaunchScreen.swift */,
 				3135F2972D93E83700DC4FC0 /* UIButton+Action.swift */,
 				31BFAB3A283FC88A00EF274D /* CALayer+XibConfiguration.swift */,
@@ -1468,6 +1471,7 @@
 				31E7872427D7419200C67188 /* UIButton+Insets.swift in Sources */,
 				3182A179282CEFB7005439B4 /* NewsCardContentView.swift in Sources */,
 				31C28BFE2719BD7200312A62 /* LoadingViewController.swift in Sources */,
+				31FAB7D52EB8C93A004051FB /* String+HTML.swift in Sources */,
 				312BBB5B2832658600AF84F0 /* UIViewController+PresentMailCompose.swift in Sources */,
 				905C7E7D2D7097FC00070444 /* NewsFiltersListViewController.swift in Sources */,
 				3187667526FB35C100782FA6 /* String+NotDefined.swift in Sources */,

@@ -66,7 +66,9 @@ class EventDetailsViewController: UIViewController {
                 .foregroundColor: UIColor.noiSecondaryColor,
                 .underlineStyle: NSUnderlineStyle.single.rawValue,
             ]
-            descriptionTextView.text = event.description
+			descriptionTextView.attributedText = event.description?.htmlAttributedString(
+				textStyle: .body
+			)
         }
     }
     
@@ -122,14 +124,29 @@ class EventDetailsViewController: UIViewController {
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .lightContent
     }
-    
-    override func preferredContentSizeDidChange(forChildContentContainer container: UIContentContainer) {
-        super.preferredContentSizeDidChange(forChildContentContainer: container)
-    }
+
+	override func traitCollectionDidChange(
+		_ previousTraitCollection: UITraitCollection?
+	) {
+		super.traitCollectionDidChange(previousTraitCollection)
+		if traitCollection.preferredContentSizeCategory != previousTraitCollection?.preferredContentSizeCategory {
+			preferredContentSizeCategoryDidChange(previousPreferredContentSizeCategory: previousTraitCollection?.preferredContentSizeCategory)
+		}
+	}
+
 }
 
 // MARK: Private APIs
 private extension EventDetailsViewController {
+
+	func preferredContentSizeCategoryDidChange(
+		previousPreferredContentSizeCategory: UIContentSizeCategory?
+	) {
+		descriptionTextView.attributedText = event.description?.htmlAttributedString(
+			textStyle: .body
+		)
+	}
+
     func configureViewHierarchy() {
         var contentConfiguration = EventCardContentConfiguration.makeDetailedContentConfiguration(for: event)
 		_cardView = contentConfiguration.makeContentView()
