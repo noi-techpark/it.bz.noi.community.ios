@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="24128" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24063"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -25,7 +24,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YEh-XZ-Raz" customClass="FooterView" customModule="NOICommunity" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="806" width="414" height="90"/>
+                    <rect key="frame" x="0.0" y="772" width="414" height="124"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="chI-cP-wqv">
                             <rect key="frame" x="17" y="17" width="380" height="22"/>
@@ -64,7 +63,7 @@
                         </stackView>
                     </subviews>
                     <viewLayoutGuide key="safeArea" id="bg6-tX-2X0"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <color key="backgroundColor" name="tertiary_background_color"/>
                     <constraints>
                         <constraint firstItem="chI-cP-wqv" firstAttribute="top" secondItem="bg6-tX-2X0" secondAttribute="top" constant="17" id="BZ3-Y8-aix"/>
                         <constraint firstItem="bg6-tX-2X0" firstAttribute="bottom" secondItem="chI-cP-wqv" secondAttribute="bottom" constant="17" id="S9h-At-YaA"/>
@@ -74,7 +73,7 @@
                 </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="8G1-M6-q93"/>
-            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <color key="backgroundColor" name="tertiary_background_color"/>
             <constraints>
                 <constraint firstItem="YEh-XZ-Raz" firstAttribute="leading" secondItem="G8k-qh-TaL" secondAttribute="leading" id="izu-0c-V0W"/>
                 <constraint firstAttribute="bottom" secondItem="YEh-XZ-Raz" secondAttribute="bottom" id="o6D-7Z-o2m"/>
@@ -93,8 +92,8 @@
         <namedColor name="secondary_color">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
+        <namedColor name="tertiary_background_color">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>
