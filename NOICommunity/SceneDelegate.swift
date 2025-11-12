@@ -53,7 +53,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 
                 
                 return authState.isAuthorized
-            },
+			},
+			oidcAuthValidator: LiveOIDCAuthValidator(
+				tokenStorage: tokenStorage,
+				clientID: AuthConstant.clientID
+			),
             authClient: .live(
                 client: .init(
                     issuer: AuthConstant.issuerURL,

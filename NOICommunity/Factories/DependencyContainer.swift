@@ -29,6 +29,7 @@ final class DependencyContainer {
     
     let appPreferencesClient: AppPreferencesClient
     let isAutorizedClient: IsAutorizedClient
+	let oidcAuthValidator: OIDCAuthValidator
     let authClient: AuthClient
     let eventShortClient: EventShortClient
     let eventShortTypesClient: EventShortTypesClient
@@ -58,6 +59,7 @@ final class DependencyContainer {
     init(
         appPreferencesClient: AppPreferencesClient,
         isAutorizedClient: @escaping IsAutorizedClient,
+		oidcAuthValidator: OIDCAuthValidator,
         authClient: AuthClient,
         eventShortClient: EventShortClient,
         eventShortTypesClient: EventShortTypesClient,
@@ -68,6 +70,7 @@ final class DependencyContainer {
     ) {
         self.appPreferencesClient = appPreferencesClient
         self.isAutorizedClient = isAutorizedClient
+		self.oidcAuthValidator = oidcAuthValidator
         self.authClient = authClient
         self.eventShortClient = eventShortClient
         self.eventShortTypesClient = eventShortTypesClient
@@ -98,7 +101,11 @@ extension DependencyContainer: ClientFactory {
     func makeAppPreferencesClient() -> AppPreferencesClient {
         appPreferencesClient
     }
-    
+
+	func makeOIDCAuthValidator() -> any OIDCAuthValidator {
+		oidcAuthValidator
+	}
+
     func makeAuthClient() -> AuthClient {
         authClient
     }
@@ -234,6 +241,10 @@ extension DependencyContainer: ViewModelFactory {
         .init()
     }
 
+	func makeReauthenticatePopUpViewModel() -> ReauthenticatePopUpViewModel {
+		.init()
+	}
+
 }
 
 // MARK: ViewControllerFactory
@@ -320,5 +331,11 @@ extension DependencyContainer: ViewControllerFactory {
     ) -> DeveloperToolsViewController {
         .init(viewModel: viewModel)
     }
+
+	func makeReauthenticatePopUpViewController(
+		viewModel: ReauthenticatePopUpViewModel
+	) -> ReauthenticatePopUpViewController {
+		.init(viewModel: viewModel)
+	}
 
 }

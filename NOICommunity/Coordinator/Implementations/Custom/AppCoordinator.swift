@@ -28,6 +28,9 @@ final class AppCoordinator: BaseNavigationCoordinator {
     private lazy var isAutorizedClient = dependencyContainer
         .makeIsAutorizedClient()
 
+	private lazy var oidcAuthValidator = dependencyContainer
+		.makeOIDCAuthValidator()
+
     private var pendingDeepLinkIntent: DeepLinkIntent?
     
     private weak var tabCoordinator: TabCoordinator!
@@ -40,12 +43,12 @@ final class AppCoordinator: BaseNavigationCoordinator {
                 self?.logout(animated: true)
             }
             .store(in: &subscriptions)
-        
-        if !isAutorizedClient() {
-            showAuthCoordinator()
-        } else {
-            showLoadUserInfo()
-        }
+
+		if !oidcAuthValidator.validate() {
+			showReauthenticatePopUp()
+		} else {
+			startAuthenticationOrLoginFlow()
+		}
 
     }
     
@@ -70,7 +73,28 @@ final class AppCoordinator: BaseNavigationCoordinator {
 // MARK: Private APIs
 
 private extension AppCoordinator {
-    
+
+	func startAuthenticationOrLoginFlow(animated: Bool = false) {
+		if !isAutorizedClient() {
+			showAuthCoordinator(animated: animated)
+		} else {
+			showLoadUserInfo(animated: animated)
+		}
+	}
+
+	func showReauthenticatePopUp(animated: Bool = false) {
+		let reauthenticatePopUpCoordinator = ReauthenticatePopUpCoordinator(
+			navigationController: navigationController,
+			dependencyContainer: dependencyContainer
+		)
+		reauthenticatePopUpCoordinator.didFinishHandler = { [weak self] coordinator in
+			self?.sacrifice(child: coordinator)
+			self?.startAuthenticationOrLoginFlow(animated: true)
+		}
+		childCoordinators.append(reauthenticatePopUpCoordinator)
+		reauthenticatePopUpCoordinator.start(animated: animated)
+	}
+
     func showAuthCoordinator(animated: Bool = false) {
         let authCoordinator = AuthCoordinator(
             navigationController: navigationController,
