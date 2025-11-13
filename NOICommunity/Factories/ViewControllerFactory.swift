@@ -68,4 +68,9 @@ protocol ViewControllerFactory {
     func makeDeveloperToolsViewController(
         viewModel: DeveloperToolsViewModel
     ) -> DeveloperToolsViewController
+
+	func makeReauthenticatePopUpViewController(
+		viewModel: ReauthenticatePopUpViewModel
+	) -> ReauthenticatePopUpViewController
+	
 }

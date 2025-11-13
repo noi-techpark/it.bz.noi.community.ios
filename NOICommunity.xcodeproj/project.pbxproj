@@ -217,6 +217,11 @@
 		31CF8132270B49100077CB0D /* VersionContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CF8130270B472F0077CB0D /* VersionContentView.swift */; };
 		31CF8133270B49100077CB0D /* VersionContentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31CF812E270B46470077CB0D /* VersionContentView.xib */; };
 		31D07BD8282E35AA00AA7D99 /* NewsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D07BD7282E35AA00AA7D99 /* NewsCoordinator.swift */; };
+		31D2E2012EC49B94009DBCA7 /* OIDCAuthValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D2E2002EC49B93009DBCA7 /* OIDCAuthValidator.swift */; };
+		31D2E2072EC4BD6E009DBCA7 /* ReauthenticatePopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D2E2042EC4BD6E009DBCA7 /* ReauthenticatePopUpViewController.swift */; };
+		31D2E2092EC4BD6E009DBCA7 /* ReauthenticatePopUpCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D2E2022EC4BD6E009DBCA7 /* ReauthenticatePopUpCoordinator.swift */; };
+		31D2E20D2EC4BE62009DBCA7 /* ReauthenticatePopUpViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31D2E20C2EC4BE62009DBCA7 /* ReauthenticatePopUpViewController.xib */; };
+		31D2E2102EC4BF01009DBCA7 /* ReauthenticatePopUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D2E20F2EC4BF01009DBCA7 /* ReauthenticatePopUpViewModel.swift */; };
 		31D77E742733FFDD0054397C /* UIRefreshControlAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D77E732733FFDD0054397C /* UIRefreshControlAdditions.swift */; };
 		31DA4A762705EA110098E395 /* MoreMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31DA4A742705EA110098E395 /* MoreMainViewController.swift */; };
 		31DA4A772705EA110098E395 /* MoreCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31DA4A752705EA110098E395 /* MoreCoordinator.swift */; };
@@ -471,6 +476,11 @@
 		31CF812E270B46470077CB0D /* VersionContentView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VersionContentView.xib; sourceTree = "<group>"; };
 		31CF8130270B472F0077CB0D /* VersionContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionContentView.swift; sourceTree = "<group>"; };
 		31D07BD7282E35AA00AA7D99 /* NewsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsCoordinator.swift; sourceTree = "<group>"; };
+		31D2E2002EC49B93009DBCA7 /* OIDCAuthValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OIDCAuthValidator.swift; sourceTree = "<group>"; };
+		31D2E2022EC4BD6E009DBCA7 /* ReauthenticatePopUpCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReauthenticatePopUpCoordinator.swift; sourceTree = "<group>"; };
+		31D2E2042EC4BD6E009DBCA7 /* ReauthenticatePopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReauthenticatePopUpViewController.swift; sourceTree = "<group>"; };
+		31D2E20C2EC4BE62009DBCA7 /* ReauthenticatePopUpViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReauthenticatePopUpViewController.xib; sourceTree = "<group>"; };
+		31D2E20F2EC4BF01009DBCA7 /* ReauthenticatePopUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReauthenticatePopUpViewModel.swift; sourceTree = "<group>"; };
 		31D77E732733FFDD0054397C /* UIRefreshControlAdditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIRefreshControlAdditions.swift; sourceTree = "<group>"; };
 		31D9C78926FDFCD3001F2DBB /* BaseTabCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTabCoordinator.swift; sourceTree = "<group>"; };
 		31DA4A742705EA110098E395 /* MoreMainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoreMainViewController.swift; sourceTree = "<group>"; };
@@ -690,6 +700,7 @@
 				3167681427035D9500A9DB87 /* EatFeature */,
 				31DA4A732705EA110098E395 /* MoreFeature */,
 				31B3623A26F1D62700031024 /* Helpers */,
+				31D2E2062EC4BD6E009DBCA7 /* ReauthenticatePopUpFeature */,
 				31AD1DAF2B2791CB006F71A4 /* ComeOnBoardOnboardingFeature */,
 				319C0E8F26F33BE200C6D38B /* ViewControllers */,
 				31AA31EC26F0A94400744A00 /* Views */,
@@ -770,6 +781,7 @@
 		3153010228071CF500471153 /* AuthFeature */ = {
 			isa = PBXGroup;
 			children = (
+				31D2E2002EC49B93009DBCA7 /* OIDCAuthValidator.swift */,
 				3185AA13281FEAAE00767E31 /* AccessNotGrantedCoordinator */,
 				3153010328071CFF00471153 /* WelcomeFeature */,
 				3106A2E4282132840029839A /* AuthConstants.swift */,
@@ -1069,6 +1081,17 @@
 			path = Coordinators;
 			sourceTree = "<group>";
 		};
+		31D2E2062EC4BD6E009DBCA7 /* ReauthenticatePopUpFeature */ = {
+			isa = PBXGroup;
+			children = (
+				31D2E2022EC4BD6E009DBCA7 /* ReauthenticatePopUpCoordinator.swift */,
+				31D2E20F2EC4BF01009DBCA7 /* ReauthenticatePopUpViewModel.swift */,
+				31D2E2042EC4BD6E009DBCA7 /* ReauthenticatePopUpViewController.swift */,
+				31D2E20C2EC4BE62009DBCA7 /* ReauthenticatePopUpViewController.xib */,
+			);
+			path = ReauthenticatePopUpFeature;
+			sourceTree = "<group>";
+		};
 		31D9C78726FDFC58001F2DBB /* OrientateFeature */ = {
 			isa = PBXGroup;
 			children = (
@@ -1296,6 +1319,7 @@
 				317A5D71284E0EA300750412 /* CompaniesFiltersViewController.xib in Resources */,
 				31AD1DB62B279E78006F71A4 /* ComeOnBoardOnboardingViewController.xib in Resources */,
 				316A82AD2CFF1FF0002D62D3 /* EventsMainViewController.xib in Resources */,
+				31D2E20D2EC4BE62009DBCA7 /* ReauthenticatePopUpViewController.xib in Resources */,
 				316A82AE2CFF1FF0002D62D3 /* EventsFiltersBarView.xib in Resources */,
 				3126DECC2D8C144C00659979 /* ArticleTags.json.license in Resources */,
 				316A82AF2CFF1FF0002D62D3 /* EventFiltersViewController.xib in Resources */,
@@ -1389,6 +1413,7 @@
 				31157D1526FC83FE00A43B33 /* UIViewController+ShowCalenderError.swift in Sources */,
 				31CF8132270B49100077CB0D /* VersionContentView.swift in Sources */,
 				31C28BF62719709B00312A62 /* NOICells.swift in Sources */,
+				31D2E2012EC49B94009DBCA7 /* OIDCAuthValidator.swift in Sources */,
 				3185AA10281FD77400767E31 /* AccessNotGrantedCoordinator.swift in Sources */,
 				313010C928450A5B00AF6520 /* UIApplication+URL.swift in Sources */,
 				3152756328479E2700D5C8A1 /* CompaniesFiltersViewController.swift in Sources */,
@@ -1401,6 +1426,7 @@
 				31C1ECB82C74E248004C9104 /* FiltersBarView.swift in Sources */,
 				31C640B126FE1449004B71A2 /* TabCoordinatorType.swift in Sources */,
 				317B6F9A28118950008D07C0 /* ClientFactory.swift in Sources */,
+				31D2E2092EC4BD6E009DBCA7 /* ReauthenticatePopUpCoordinator.swift in Sources */,
 				31DA4A762705EA110098E395 /* MoreMainViewController.swift in Sources */,
 				31DAC7BC2B56853A00F24D79 /* URL+Params.swift in Sources */,
 				311350E7282E4F0A00AC9BC9 /* GalleryCollectionViewController.swift in Sources */,
@@ -1429,6 +1455,7 @@
 				3101FC5B283394FA00A3416F /* TodayCoordinator.swift in Sources */,
 				3145D23326B3F73F00F16787 /* SceneDelegate.swift in Sources */,
 				90CECA462D78F422009B3134 /* NewsFiltersViewModel.swift in Sources */,
+				31D2E2102EC4BF01009DBCA7 /* ReauthenticatePopUpViewModel.swift in Sources */,
 				31B192722C6A367D009872E9 /* DeveloperToolsViewController.swift in Sources */,
 				3187667726FB38D600782FA6 /* DateIntervalFormatter+Factory.swift in Sources */,
 				3102F45F282C06B700687CF7 /* NewsViewController.swift in Sources */,
@@ -1443,6 +1470,7 @@
 				3136CC442707093B00C27129 /* SourceDismissAnimator.swift in Sources */,
 				319C465A282BBD8000946AC7 /* NewsListViewModel.swift in Sources */,
 				3167681B27036A2F00A9DB87 /* PlaceCardContentView.swift in Sources */,
+				31D2E2072EC4BD6E009DBCA7 /* ReauthenticatePopUpViewController.swift in Sources */,
 				319C0E8B26F33BD000C6D38B /* UIViewController+ShowError.swift in Sources */,
 				318DA63428354F2D00E5819E /* DeepLinking.swift in Sources */,
 				3182A178282CEFB7005439B4 /* NewsCardContentConfiguration.SharedConfig.swift in Sources */,

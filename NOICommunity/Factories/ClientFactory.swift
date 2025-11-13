@@ -24,7 +24,9 @@ protocol ClientFactory {
     func makeAppPreferencesClient() -> AppPreferencesClient
     
     func makeIsAutorizedClient() -> IsAutorizedClient
-    
+
+	func makeOIDCAuthValidator() -> OIDCAuthValidator
+
     func makeAuthClient() -> AuthClient
     
     func makeArticlesClient() -> ArticlesClient
