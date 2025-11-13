@@ -56,7 +56,7 @@ public protocol AuthContext {
 // MARK: - AuthClient+Live
 
 public extension AuthClient {
-    
+
     static func live<T: AuthStateStorageClient>(
         client: OpenIDConfiguration,
         context: AuthContext,
@@ -65,14 +65,17 @@ public extension AuthClient {
     ) -> Self where T.AuthState == OIDAuthState {
         let stateChangeDelegate = StateChangeDelegate(tokenStorage: tokenStorage)
         
-        var authState: OIDAuthState? = tokenStorage?.state {
-            didSet {
-                authState?.stateChangeDelegate = stateChangeDelegate
-                tokenStorage?.state = authState
-                if let authState = authState {
-                    authState.stateChangeDelegate?.didChange(authState)
+        var authState: OIDAuthState? {
+			get {
+				tokenStorage?.state
+			}
+            set(newAuthState) {
+				newAuthState?.stateChangeDelegate = stateChangeDelegate
+				newAuthState?.errorDelegate = stateChangeDelegate
+                tokenStorage?.state = newAuthState
+                if let newAuthState {
+					newAuthState.stateChangeDelegate?.didChange(newAuthState)
                 }
-                authState?.errorDelegate = stateChangeDelegate
             }
         }
         

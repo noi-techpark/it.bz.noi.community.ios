@@ -58,4 +58,6 @@ protocol ViewModelFactory {
 
     func makeDeveloperToolsViewModel() -> DeveloperToolsViewModel
 
+	func makeReauthenticatePopUpViewModel() -> ReauthenticatePopUpViewModel
+
 }
