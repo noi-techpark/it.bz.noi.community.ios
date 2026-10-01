@@ -1,0 +1,58 @@
+{
+  "Id": "urn:event:noi:29f3ca8d-5ec7-462f-ab9d-7b00abefa738",
+  "DateBegin": "2024-06-01T09:30:00",
+  "DateEnd": "2024-06-01T12:00:00",
+  "Detail": {
+    "de": {
+      "Title": "Scratch Stories mit AI | 6-8 Jahre",
+      "BaseText": "Wir werden generative künstliche Intelligenz verwenden, um vollständig personalisierbare Figuren und Hintergründe für unsere Animationsfilme oder Videospiele zu erstellen. Wir werden dann mit der visuellen Programmiersprache Scratch programmieren lernen. Kreativität, Logik und Informatik in einem MiniNOI-Workshop!\n\nDie Registrierung ist ab dem 15. April möglich.\n\nWichtig zu wissen: Für unsere Programmierworkshops ist es unerlässlich, dass die Kinder lesen und schreiben können, also mindestens die erste Klasse der Grundschule besuchen.",
+      "Language": "de"
+    },
+    "en": {
+      "Title": "Scratch Stories with AI | 6-8 years",
+      "BaseText": "Wir werden generative künstliche Intelligenz verwenden, um vollständig personalisierbare Figuren und Hintergründe für unsere Animationsfilme oder Videospiele zu erstellen. Wir werden dann mit der visuellen Programmiersprache Scratch programmieren lernen. Kreativität, Logik und Informatik in einem MiniNOI-Workshop!\n\nDie Registrierung ist ab dem 15. April möglich.\n\nWichtig zu wissen: Für unsere Programmierworkshops ist es unerlässlich, dass die Kinder lesen und schreiben können, also mindestens die erste Klasse der Grundschule besuchen.\n\n---\n\nUseremo l’intelligenza artificiale generativa per creare personaggi e sfondi completamente personalizzati per le nostre storie animate o videogiochi, che impareremo poi a programmare usando i blocchi di Scratch. Creatività, logica e informatica in un unico workshop targato MiniNOI!\n\nL'iscrizione apre il 15 aprile.\n\nRicordiamo che per questo workshop di programmazione è fondamentale che i partecipanti sappiano leggere e scrivere, e che quindi stiano frequentando almeno il primo anno di Scuola Primaria.",
+      "Language": "en"
+    },
+    "it": {
+      "Title": "Scratch Stories con l'IA | 6-8 anni",
+      "BaseText": "Useremo l’intelligenza artificiale generativa per creare personaggi e sfondi completamente personalizzati per le nostre storie animate o videogiochi, che impareremo poi a programmare usando i blocchi di Scratch. Creatività, logica e informatica in un unico workshop targato MiniNOI!\n\nL'iscrizione apre il 15 aprile.\n\nRicordiamo che per questo workshop di programmazione è fondamentale che i partecipanti sappiano leggere e scrivere, e che quindi stiano frequentando almeno il primo anno di Scuola Primaria.",
+      "Language": "it"
+    }
+  },
+  "EventUrls": [
+    {
+      "Url": {
+        "en": "https://registration.noi.bz.it/event/?id=MiniNOI_Science_Club_01062024_6-8_anni_930-12003585025325"
+      },
+      "Type": "default",
+      "Active": true
+    }
+  ],
+  "ImageGallery": [
+    {
+      "ImageUrl": "https://tourism.images.opendatahub.com/api/Image/GetImage?imageurl=b0c9006c-27ce-407f-93f4-d456c3bbf778.jpg"
+    }
+  ],
+  "OrganizerInfos": {
+    "en": {
+      "CompanyName": "NOI"
+    }
+  },
+  "VenueIds": [
+    "urn:venue:noi:6b3f0a14-3c5b-5d09-81f3-3ebe5b7885ea"
+  ],
+  "EventDate": [
+    {
+      "To": "2024-06-01T00:00:00",
+      "End": "12:00:00",
+      "From": "2024-06-01T00:00:00",
+      "Begin": "09:30:00",
+      "ToUTC": 1717236000000.0,
+      "Active": true,
+      "FromUTC": 1717227000000.0,
+      "VenueRoomDetailsIds": [
+        "urn:venueroomid:noi:5041c0f8-880d-5fb0-ac8d-62d4792d5c2f"
+      ]
+    }
+  ]
+}

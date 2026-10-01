@@ -15,7 +15,7 @@ import Kingfisher
 class EventDetailsViewController: UIViewController {
 
     let event: Event
-    
+
     var locateActionHandler: ((Event) -> Void)?
 
     var addToCalendarActionHandler: ((Event) -> Void)?
@@ -73,7 +73,7 @@ class EventDetailsViewController: UIViewController {
     }
     
     @IBOutlet private var actionsContainersView: FooterView!
-    
+
     @IBOutlet private var locateEventButton: UIButton! {
         didSet {
             locateEventButton
@@ -81,7 +81,7 @@ class EventDetailsViewController: UIViewController {
                 .withTitle(.localized("btn_find_on_maps"))
         }
     }
-    
+
     @IBOutlet private var addToCalendarButton: UIButton! {
         didSet {
             addToCalendarButton
@@ -173,7 +173,7 @@ private extension EventDetailsViewController {
     @IBAction func findOnMapsAction(sender: Any?) {
         locateActionHandler?(event)
     }
-    
+
     @IBAction func addToCalendarAction(sender: Any?) {
         addToCalendarActionHandler?(event)
     }

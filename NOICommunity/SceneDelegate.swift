@@ -11,10 +11,9 @@
 
 import UIKit
 import AppAuth
-import EventShortClient
+import EventClient
 import AppPreferencesClientLive
-import EventShortTypesClient
-import EventShortTypesClientLive
+import EventTagsClient
 import Core
 import AuthClientLive
 import AuthStateStorageClient
@@ -38,7 +37,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 	
 	var currentAuthorizationFlow: OIDExternalUserAgentSession?
 	
-	lazy var eventsCache: Cache<EventShortTypesClient.CacheKey, [EventsFilter]> = Cache()
+	lazy var eventTagsCache = Cache<EventTagsClientCacheKey, EventTagListResponse>()
 	lazy var articleTagsCache = Cache<ArticleTagsClientCacheKey, ArticleTagListResponse>()
 	
 	lazy var dependencyContainer: DependencyContainer = {
@@ -74,22 +73,27 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 					)
 				}
 			),
-			eventShortClient: EventShortClientImplementation(
+			eventClient: EventClientImplementation(
 				baseURL: EventsFeatureConstants.clientBaseURL,
 				transport: URLSession.shared
 			),
-			eventShortTypesClient: {
+			eventTagsClient: {
 				if let fileURL = Bundle.main.url(
-					forResource: "EventShortTypes",
+					forResource: "EventTags",
 					withExtension: "json"
 				) {
-					return .live(
+					return EventTagsClientImplementation(
 						baseURL: EventsFeatureConstants.clientBaseURL,
-						memoryCache: eventsCache,
+						transport: URLSession.shared,
+						memoryCache: eventTagsCache,
 						diskCacheFileURL: fileURL
 					)
 				} else {
-					return .live(baseURL: EventsFeatureConstants.clientBaseURL)
+					return EventTagsClientImplementation(
+						baseURL: EventsFeatureConstants.clientBaseURL,
+						transport: URLSession.shared,
+						memoryCache: eventTagsCache
+					)
 				}
 			}(),
 			articleClient: ArticlesClientImplementation(

@@ -15,8 +15,8 @@ import AppAuth
 import AppPreferencesClient
 import AuthStateStorageClient
 import AuthClient
-import EventShortClient
-import EventShortTypesClient
+import EventClient
+import EventTagsClient
 import Core
 import ArticlesClient
 import ArticleTagsClient
@@ -31,8 +31,8 @@ final class DependencyContainer {
 	let isAutorizedClient: IsAutorizedClient
 	let oidcAuthStateValidator: OIDCAuthStateValidator
 	let authClient: AuthClient
-	let eventShortClient: EventShortClient
-	let eventShortTypesClient: EventShortTypesClient
+	let eventClient: EventClient
+	let eventTagsClient: EventTagsClient
 	let artileClient: ArticlesClient
 	let articleTagsClient: ArticleTagsClient
 	let peopleClient: PeopleClient
@@ -61,8 +61,8 @@ final class DependencyContainer {
 		isAutorizedClient: @escaping IsAutorizedClient,
 		oidcAuthStateValidator: OIDCAuthStateValidator,
 		authClient: AuthClient,
-		eventShortClient: EventShortClient,
-		eventShortTypesClient: EventShortTypesClient,
+		eventClient: EventClient,
+		eventTagsClient: EventTagsClient,
 		articleClient: ArticlesClient,
 		articleTagsClient: ArticleTagsClient,
 		peopleClient: PeopleClient,
@@ -72,8 +72,8 @@ final class DependencyContainer {
 		self.isAutorizedClient = isAutorizedClient
 		self.oidcAuthStateValidator = oidcAuthStateValidator
 		self.authClient = authClient
-		self.eventShortClient = eventShortClient
-		self.eventShortTypesClient = eventShortTypesClient
+		self.eventClient = eventClient
+		self.eventTagsClient = eventTagsClient
 		self.artileClient = articleClient
 		self.articleTagsClient = articleTagsClient
 		self.peopleClient = peopleClient
@@ -136,7 +136,7 @@ extension DependencyContainer: ViewModelFactory {
 			.compactMap(Language.init(rawValue:))
 			.first
 		return .init(
-			eventShortClient: eventShortClient,
+			eventClient: eventClient,
 			language: supportedPreferredLanguage,
 			showFiltersHandler: showFiltersHandler
 		)
@@ -144,18 +144,18 @@ extension DependencyContainer: ViewModelFactory {
 
 
 	func makeEventDetailsViewModel(eventId: String) -> EventDetailsViewModel {
-		.init(eventShortClient: eventShortClient, eventId: eventId)
+		.init(eventClient: eventClient, eventId: eventId)
 	}
 
 	func makeEventDetailsViewModel(event: Event) -> EventDetailsViewModel {
-		.init(eventShortClient: eventShortClient, event: event)
+		.init(eventClient: eventClient, event: event)
 	}
 
 	func makeEventFiltersViewModel(
 		showFilteredResultsHandler: @escaping () -> Void
 	) -> EventFiltersViewModel {
 		.init(
-			eventShortTypes: eventShortTypesClient,
+			eventTagsClient: eventTagsClient,
 			showFilteredResultsHandler: showFilteredResultsHandler
 		)
 	}

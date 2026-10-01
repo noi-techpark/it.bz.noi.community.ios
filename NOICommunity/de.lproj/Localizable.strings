@@ -92,7 +92,7 @@
 "delete_profile_compose_subject" = "Anfrage zum Löschen des Profils";
 
 /* App doesn't have calendar access or calendar access is restricted */
-"error_calendar_access_not_granted_or_restricted" = "Zugriff auf Kalender nicht möglich.\nÜberprüfe die Zugriffseinstellungen der App.";
+"error_calendar_access_not_granted_or_restricted" = "Zugriff auf Kalender nicht möglich.\nÜberprüfe die Zugriffseinstellungen der App.";
 
 /* Error while adding an event to the calendar  */
 "error_calendar_event_not_added" = "Kalendereintrag nicht möglich";

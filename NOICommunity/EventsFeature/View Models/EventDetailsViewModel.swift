@@ -12,20 +12,18 @@
 import Foundation
 import Combine
 import CoreUI
-import EventShortClient
+import EventClient
 
 // MARK: - EventDetailsViewModel
 
 final class EventDetailsViewModel: BasePageViewModel {
 
-	let eventShortClient: EventShortClient
+	let eventClient: EventClient
 	let eventId: String
 
 	@Published private(set) var isLoading = false
 	@Published private(set) var error: Error!
 	@Published private(set) var result: Event!
-
-	private var roomMapping: [String:String]!
 
 	private var fetchRequestCancellable: AnyCancellable?
 
@@ -35,20 +33,20 @@ final class EventDetailsViewModel: BasePageViewModel {
 	}
 
 	init(
-		eventShortClient: EventShortClient,
+		eventClient: EventClient,
 		eventId: String
 	) {
-		self.eventShortClient = eventShortClient
+		self.eventClient = eventClient
 		self.eventId = eventId
 
 		super.init()
 	}
 
 	init(
-		eventShortClient: EventShortClient,
+		eventClient: EventClient,
 		event: Event
 	) {
-		self.eventShortClient = eventShortClient
+		self.eventClient = eventClient
 		self.eventId = event.id
 		self.result = event
 
@@ -82,38 +80,37 @@ private extension EventDetailsViewModel {
 		}
 
 		do {
-			roomMapping = if let availableRoomMapping = roomMapping {
-				availableRoomMapping
-			} else {
-				try await eventShortClient.getRoomMapping()
-			}
-
-			let eventShort = try await eventShortClient.getEventShort(
+			let remoteEvent = try await eventClient.getEvent(
 				id: eventId,
-				optimizeDates: true,
 				fields: [
-					"AnchorVenue",
-					"AnchorVenueRoomMapping",
-					"CompanyName",
-					"Display5",
-					"EndDate",
-					"EventDescriptionDE",
-					"EventDescriptionEN",
-					"EventDescriptionIT",
-					"EventLocation",
-					"EventTextDE",
-					"EventTextEN",
-					"EventTextIT",
+					"DateBegin",
+					"DateEnd",
+					"Detail",
+					"EventDate",
+					"EventUrls",
 					"Id",
 					"ImageGallery",
-					"StartDate",
-					"WebAddress"
+					"OrganizerInfos",
+					"VenueIds"
 				],
 				removeNullValues: true
 			)
+
+			let venues: [String:Venue]
+			if let venueIds = remoteEvent.venueIds, !venueIds.isEmpty {
+				let response = try await eventClient.getVenues(ids: venueIds)
+				venues = Dictionary(
+					uniqueKeysWithValues: response.items.compactMap { venue in
+						venue.id.map { ($0, venue) }
+					}
+				)
+			} else {
+				venues = [:]
+			}
+
 			result = .init(
-				from: eventShort,
-				roomMapping: roomMapping
+				from: remoteEvent,
+				venues: venues
 			)
 		} catch {
 			self.error = error

@@ -21,12 +21,8 @@ let package = Package(
             targets: ["CoreUI"]
         ),
         .library(
-            name: "EventShortTypesClient",
-            targets: ["EventShortTypesClient"]
-        ),
-        .library(
-            name: "EventShortTypesClientLive",
-            targets: ["EventShortTypesClientLive"]
+            name: "EventTagsClient",
+            targets: ["EventTagsClient"]
         ),
         .library(
             name: "AppPreferencesClient",
@@ -37,8 +33,8 @@ let package = Package(
             targets: ["AppPreferencesClientLive"]
         ),
         .library(
-            name: "EventShortClient",
-            targets: ["EventShortClient"]
+            name: "EventClient",
+            targets: ["EventClient"]
         ),
         .library(
             name: "AuthStateStorageClient",
@@ -108,16 +104,18 @@ let package = Package(
             ]
         ),
         .target(
-            name: "EventShortTypesClient",
+            name: "EventTagsClient",
             dependencies: [
                 "Core"
             ]
         ),
-        .target(
-            name: "EventShortTypesClientLive",
+        .testTarget(
+            name: "EventTagsClientTests",
             dependencies: [
-                "Core",
-                "EventShortTypesClient"
+                "EventTagsClient"
+            ],
+            resources: [
+                .copy("Fixtures")
             ]
         ),
         .target(
@@ -134,9 +132,18 @@ let package = Package(
             ]
         ),
         .target(
-            name: "EventShortClient",
+            name: "EventClient",
             dependencies: [
                 "Core",
+            ]
+        ),
+        .testTarget(
+            name: "EventClientTests",
+            dependencies: [
+                "EventClient"
+            ],
+            resources: [
+                .copy("Fixtures")
             ]
         ),
         .target(

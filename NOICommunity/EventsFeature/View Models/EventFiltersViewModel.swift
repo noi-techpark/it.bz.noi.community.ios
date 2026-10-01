@@ -11,7 +11,7 @@
 
 import Foundation
 import Combine
-import EventShortTypesClient
+import EventTagsClient
 
 // MARK: - EventFiltersViewModel
 
@@ -19,70 +19,53 @@ class EventFiltersViewModel {
 
     @Published private(set) var isLoading = false
     @Published private(set) var error: Error!
-    @Published private(set) var filtersResults: [EventsFilter] = []
-    @Published private(set) var activeFilters: Set<EventsFilter> = []
+    @Published private(set) var filtersResults: [Tag] = []
+    @Published private(set) var activeFilters: Set<Tag> = []
     @Published var numberOfResults = 0
 
-    private var activeCustomTaggingFilter: EventsFilter?
-    private var activeTechnologyFieldsFiltersIds: Set<EventsFilter> = []
+    private var activeCustomTaggingFilter: Tag?
+    private var activeTechnologyFieldsFiltersIds: Set<Tag> = []
 
-    private var refreshEventsRequestCancellable: AnyCancellable?
-
-    let eventShortTypes: EventShortTypesClient
+    let eventTagsClient: EventTagsClient
 
     private var subscriptions: Set<AnyCancellable> = []
-
-    private var roomMapping: [String:String]!
 
     private let showFilteredResultsHandler: () -> Void
 
     init(
-        eventShortTypes: EventShortTypesClient,
+        eventTagsClient: EventTagsClient,
         showFilteredResultsHandler: @escaping () -> Void
     ) {
-        self.eventShortTypes = eventShortTypes
+        self.eventTagsClient = eventTagsClient
         self.showFilteredResultsHandler = showFilteredResultsHandler
     }
 
     func refreshEventsFilters() {
-        guard !isLoading
-        else { return }
-        
-        isLoading = true
-        filtersResults = []
-
-        refreshEventsRequestCancellable = eventShortTypes.filters()
-            .receive(on: DispatchQueue.main)
-            .sink(
-                receiveCompletion: { [weak self] completion in
-                    switch completion {
-                    case .finished:
-                        break
-                    case .failure(let error):
-                        self?.error = error
-                    }
-                },
-                receiveValue: { [weak self] in
-                    self?.isLoading = false
-                    self?.filtersResults = $0
-                })
+        Task(priority: .userInitiated) { [weak self] in
+            await self?.performRefreshEventsFilters()
+        }
     }
 
-    func setFilter(_ filter: EventsFilter, isActive: Bool) {
-        switch (filter.type, isActive) {
-        case (.customTagging, false):
+    func setFilter(_ filter: Tag, isActive: Bool) {
+        switch (filter.isCustomTagging, isActive) {
+        case (true, false):
             activeCustomTaggingFilter = nil
-        case (.customTagging, true):
+        case (true, true):
             activeCustomTaggingFilter = filter
-        case (.technologyFields, false):
+        default:
+            break
+        }
+
+        switch (filter.isTechnologyFields, isActive) {
+        case (true, false):
             activeTechnologyFieldsFiltersIds.remove(filter)
-        case (.technologyFields, true):
+        case (true, true):
             activeTechnologyFieldsFiltersIds.insert(filter)
         default:
             break
         }
 
-        var newActiveFiltersIds: Set<EventsFilter> = []
+        var newActiveFiltersIds: Set<Tag> = []
         if let activeCustomTaggingFilter = activeCustomTaggingFilter {
             newActiveFiltersIds.insert(activeCustomTaggingFilter)
         }
@@ -102,14 +85,25 @@ class EventFiltersViewModel {
 
 }
 
-extension EventsFilter {
+// MARK: Private APIs
 
-    var isCustomTagging: Bool {
-        type == .customTagging
-    }
+private extension EventFiltersViewModel {
 
-    var isTechnologyFields: Bool {
-        type == .technologyFields
+    func performRefreshEventsFilters() async {
+        guard !isLoading
+        else { return }
+
+        isLoading = true
+        filtersResults = []
+        defer {
+            isLoading = false
+        }
+
+        do {
+            filtersResults = try await eventTagsClient.getEventTagList().items
+        } catch {
+            self.error = error
+        }
     }
 
 }

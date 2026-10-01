@@ -13,15 +13,16 @@ import Foundation
 
 extension Event {
     func toCalendarEvent() -> CalendarEvent {
+        // Every event surfaced by this app is a NOI Techpark event (location
+        // filtering happens server-side), so the address is always appended.
         let fullLocation: String?
-        if location == .noi,
-           let venue = venue {
+        if let venue {
             fullLocation = [
                 venue,
                 .localized("noi_techpark_address")
             ].joined(separator: "\n")
         } else {
-            fullLocation = self.venue
+            fullLocation = nil
         }
         return AnyCalendarEvent(
             title: title,

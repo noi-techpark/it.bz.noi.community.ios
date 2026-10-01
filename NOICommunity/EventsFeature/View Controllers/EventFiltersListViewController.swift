@@ -10,11 +10,11 @@
 //
 
 import UIKit
-import EventShortTypesClient
+import EventTagsClient
 
 class EventFiltersListViewController: UICollectionViewController {
 
-    var items: [EventsFilter] {
+    var items: [Tag] {
         didSet {
             guard items != oldValue
             else { return }
@@ -27,7 +27,7 @@ class EventFiltersListViewController: UICollectionViewController {
         }
     }
 
-    var onItemsIds: Set<EventsFilter.Id> = [] {
+    var onItemsIds: Set<Tag.Id> = [] {
         didSet {
             guard onItemsIds != oldValue
             else { return }
@@ -38,14 +38,14 @@ class EventFiltersListViewController: UICollectionViewController {
             updateUI(oldOnItemsIds: oldValue, newOnItemsIds: onItemsIds)
         }
     }
-    
-    private var dict: [EventsFilter.Id: EventsFilter]
 
-    var filterValueDidChangeHandler: ((EventsFilter, Bool) -> Void)!
+    private var dict: [Tag.Id: Tag]
 
-    private var dataSource: UICollectionViewDiffableDataSource<Section, EventsFilter.Id>! = nil
+    var filterValueDidChangeHandler: ((Tag, Bool) -> Void)!
 
-    init(items: [EventsFilter], onItemsIds: Set<EventsFilter.Id> = []) {
+    private var dataSource: UICollectionViewDiffableDataSource<Section, FilterItemId>! = nil
+
+    init(items: [Tag], onItemsIds: Set<Tag.Id> = []) {
         self.items = items
         self.onItemsIds = onItemsIds
         self.dict = Dictionary(uniqueKeysWithValues: items.map { ($0.id, $0) })
@@ -95,6 +95,15 @@ private extension EventFiltersListViewController {
         case technologyFields
     }
 
+    /// A single `Tag` can belong to more than one category (e.g. a tag can be
+    /// both a custom tag and a technology field), so it may need to be shown
+    /// as a row in more than one section. The diffable data source requires
+    /// globally unique item identifiers, so the section is part of the identity.
+    struct FilterItemId: Hashable {
+        let section: Section
+        let tagId: Tag.Id
+    }
+
     func createLayout() -> UICollectionViewLayout {
         var config = UICollectionLayoutListConfiguration(appearance: .grouped)
         config.headerMode = .supplementary
@@ -102,26 +111,26 @@ private extension EventFiltersListViewController {
         return UICollectionViewCompositionalLayout.list(using: config)
     }
 
-    func filter(_ item: EventsFilter, didChangeValue isOn: Bool) {
+    func filter(_ item: Tag, didChangeValue isOn: Bool) {
         filterValueDidChangeHandler(item, isOn)
     }
 
     func configureDataSource() {
         let cellRegistration = UICollectionView
-            .CellRegistration<UICollectionViewListCell, EventsFilter.Id> { cell, _, id in
-                let item = self.dict[id]!
+            .CellRegistration<UICollectionViewListCell, FilterItemId> { cell, _, itemId in
+                let item = self.dict[itemId.tagId]!
 
                 var contentConfiguration = UIListContentConfiguration.noiCell2()
                 contentConfiguration.text = localizedValue(
-                    from: item.typeDesc,
-                    defaultValue: item.key
+                    from: item.tagName,
+                    defaultValue: item.id
                 )
                 cell.contentConfiguration = contentConfiguration
 
                 cell.backgroundConfiguration = .noiListPlainCell(for: cell)
 
                 let `switch` = UISwitch()
-                `switch`.isOn = self.onItemsIds.contains(id)
+                `switch`.isOn = self.onItemsIds.contains(itemId.tagId)
                 `switch`.addAction(
                     .init(handler: { [weak self] action in
                         let `switch` = action.sender as! UISwitch
@@ -154,14 +163,14 @@ private extension EventFiltersListViewController {
 
         dataSource = .init(
             collectionView: collectionView
-        ) { collectionView, indexPath, item in
+        ) { collectionView, indexPath, itemId in
             collectionView.dequeueConfiguredReusableCell(
                 using: cellRegistration,
                 for: indexPath,
-                item: item
+                item: itemId
             )
         }
-        
+
         dataSource.supplementaryViewProvider = { collectionView, kind, indexPath in
             collectionView.dequeueConfiguredReusableSupplementary(
                 using: headerRegistration,
@@ -173,15 +182,15 @@ private extension EventFiltersListViewController {
         updateUI(items: items, animated: false)
     }
 
-    func updateUI(items: [EventsFilter], animated: Bool) {
+    func updateUI(items: [Tag], animated: Bool) {
         dict = Dictionary(uniqueKeysWithValues: items.map { ($0.id, $0) })
-        var newSnapshot = NSDiffableDataSourceSnapshot<Section, EventsFilter.Id>()
+        var newSnapshot = NSDiffableDataSourceSnapshot<Section, FilterItemId>()
 
         let customTaggingFilters = items.filter(\.isCustomTagging)
         if !customTaggingFilters.isEmpty {
             newSnapshot.appendSections([.customTagging])
             newSnapshot.appendItems(
-                customTaggingFilters.map(\.id),
+                customTaggingFilters.map { FilterItemId(section: .customTagging, tagId: $0.id) },
                 toSection: .customTagging
             )
         }
@@ -190,7 +199,7 @@ private extension EventFiltersListViewController {
         if !technologyFieldsFilters.isEmpty {
             newSnapshot.appendSections([.technologyFields])
             newSnapshot.appendItems(
-                technologyFieldsFilters.map(\.id),
+                technologyFieldsFilters.map { FilterItemId(section: .technologyFields, tagId: $0.id) },
                 toSection: .technologyFields
             )
         }
@@ -199,18 +208,23 @@ private extension EventFiltersListViewController {
     }
 
     func updateUI(
-        oldOnItemsIds: Set<EventsFilter.Id>,
-        newOnItemsIds: Set<EventsFilter.Id>
+        oldOnItemsIds: Set<Tag.Id>,
+        newOnItemsIds: Set<Tag.Id>
     ) {
         let itemsWithChangedIsOn = Array(oldOnItemsIds.union(newOnItemsIds))
         reconfigureFiltersWithIds(itemsWithChangedIsOn, animated: true)
     }
 
     func reconfigureFiltersWithIds(
-        _ filterIds: [EventsFilter.Id],
+        _ tagIds: [Tag.Id],
         animated: Bool
     ) {
-        let reconfigureIndexPaths = filterIds.compactMap {
+        let itemIds = tagIds.flatMap { tagId in
+            [Section.customTagging, Section.technologyFields].map {
+                FilterItemId(section: $0, tagId: tagId)
+            }
+        }
+        let reconfigureIndexPaths = itemIds.compactMap {
             dataSource.indexPath(for: $0)
         }
         let visibleIndexPaths = collectionView.indexPathsForVisibleItems
@@ -222,14 +236,14 @@ private extension EventFiltersListViewController {
                     .cellForItem(at: foundIndexPath) as? UICollectionViewListCell
             else { return }
 
-            guard let id = dataSource.itemIdentifier(for: foundIndexPath)
+            guard let itemId = dataSource.itemIdentifier(for: foundIndexPath)
             else { return }
 
-            let item = self.dict[id]!
+            let item = self.dict[itemId.tagId]!
 
             cell.configureItem(
                 item,
-                isActive: onItemsIds.contains(id),
+                isActive: onItemsIds.contains(itemId.tagId),
                 animated: animated,
                 isActiveDidChangeHandler: { [weak self] in
                     self?.filter($0, didChangeValue: $1)
@@ -257,10 +271,10 @@ private extension EventFiltersListViewController {
 private extension UICollectionViewListCell {
 
     func configureItem(
-        _ item: EventsFilter,
+        _ item: Tag,
         isActive: Bool,
         animated: Bool,
-        isActiveDidChangeHandler: @escaping (EventsFilter, Bool) -> Void
+        isActiveDidChangeHandler: @escaping (Tag, Bool) -> Void
     ) {
         for accessory in accessories {
             guard

@@ -1,0 +1,33 @@
+{
+  "TotalResults": 2,
+  "TotalPages": 1,
+  "CurrentPage": 1,
+  "PreviousPage": null,
+  "NextPage": null,
+  "Seed": null,
+  "Items": [
+    {
+      "Id": "digital",
+      "TagName": {
+        "de": "Digital",
+        "en": "Digital",
+        "it": "Digital"
+      },
+      "Types": [
+        "technologyfields",
+        "customtagging"
+      ]
+    },
+    {
+      "Id": "artsculture",
+      "TagName": {
+        "de": "Arts Culture",
+        "en": "Arts Culture",
+        "it": "Arts Culture"
+      },
+      "Types": [
+        "customtagging"
+      ]
+    }
+  ]
+}

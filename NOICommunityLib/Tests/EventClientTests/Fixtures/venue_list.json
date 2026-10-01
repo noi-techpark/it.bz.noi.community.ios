@@ -1,0 +1,44 @@
+{
+  "TotalResults": 1,
+  "TotalPages": 1,
+  "CurrentPage": 1,
+  "PreviousPage": null,
+  "NextPage": null,
+  "Seed": null,
+  "Items": [
+    {
+      "Id": "urn:venue:noi:6b3f0a14-3c5b-5d09-81f3-3ebe5b7885ea",
+      "Detail": {
+        "en": {
+          "Title": "NOI Techpark",
+          "Language": "en"
+        }
+      },
+      "RoomDetails": [
+        {
+          "Id": "urn:venueroomid:noi:5041c0f8-880d-5fb0-ac8d-62d4792d5c2f",
+          "Shortname": "NOISE",
+          "Mapping": {
+            "momentus": {
+              "id": "room-33-A",
+              "name": "NOI - NOISE"
+            }
+          }
+        },
+        {
+          "Id": "urn:venueroomid:noi:79179fbf-fef5-536c-b63f-eb7bf130522f",
+          "Shortname": "Seminar 3",
+          "Mapping": {
+            "momentus": {
+              "id": "room-36-A",
+              "name": "NOI - Seminar 3"
+            },
+            "maps": {
+              "roommapping": "https://maps.noi.bz.it/en/?shared=A1--1-17"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

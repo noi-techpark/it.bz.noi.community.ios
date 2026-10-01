@@ -10,19 +10,16 @@
 //
 
 import Foundation
-import EventShortClient
 
 struct Event: Hashable, Identifiable {
     let id: String
     let title: String?
     let startDate: Date
     let endDate: Date
-    let location: EventLocation?
     let venue: String?
     let imageURL: URL?
     let description: String?
     let organizer: String?
-    let technologyFields: [String]
     let mapURL: URL?
     let signupURL: URL?
 }

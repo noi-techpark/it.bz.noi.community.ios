@@ -4,7 +4,7 @@
 
 //
 //  Order.swift
-//  NOICommunityLib
+//  EventClient
 //
 //  Created by Matteo Matassoni on 03/12/24.
 //

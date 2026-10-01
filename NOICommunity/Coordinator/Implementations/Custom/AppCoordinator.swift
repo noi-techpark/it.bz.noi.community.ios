@@ -289,7 +289,7 @@ private extension AppCoordinator {
 			animated: true
 		)
 	}
-	
+
 	func signupEvent(
 		_ event: Event
 	) {

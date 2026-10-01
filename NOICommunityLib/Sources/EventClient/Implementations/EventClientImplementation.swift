@@ -3,18 +3,18 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 //
-//  EventShortClientImplementation.swift
+//  EventClientImplementation.swift
 //  NOICommunityLib
 //
-//  Created by Matteo Matassoni on 03/12/24.
+//  Created by Matteo Matassoni on 03/08/26.
 //
 
 import Foundation
 import Core
 
-// MARK: - EventShortClientImplementation
+// MARK: - EventClientImplementation
 
-public final class EventShortClientImplementation: EventShortClient {
+public final class EventClientImplementation: EventClient {
 
 	private let baseURL: URL
 
@@ -31,11 +31,6 @@ public final class EventShortClientImplementation: EventShortClient {
 			dateFormatter.calendar = Calendar(identifier: .iso8601)
 			dateFormatter.timeZone = TimeZone(identifier: "Europe/Rome")
 			dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-
-			dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSZZZ"
-			if let date = dateFormatter.date(from: dateStr) {
-				return date
-			}
 
 			dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSZZZ"
 			if let date = dateFormatter.date(from: dateStr) {
@@ -72,16 +67,13 @@ public final class EventShortClientImplementation: EventShortClient {
 			.addingJSONHeaders()
 	}
 
-	public func getEventShortList(
+	public func getEventList(
 		pageNumber: Int?,
 		pageSize: Int?,
-		startDate: Date?,
+		beginDate: Date?,
 		endDate: Date?,
-		source: Source?,
-		eventLocation: EventLocation?,
 		publishedon: String?,
 		eventIds: [String]?,
-		webAddress: String?,
 		sortOrder: Order?,
 		seed: Int?,
 		language: String?,
@@ -92,19 +84,17 @@ public final class EventShortClientImplementation: EventShortClient {
 		rawFilter: String?,
 		rawSort: String?,
 		removeNullValues: Bool?,
-		optimizeDates: Bool?
-	) async throws -> EventShortListResponse {
+		optimizeDates: Bool?,
+		denormalize: Bool?
+	) async throws -> EventListResponse {
 		let request = Endpoint
-			.eventShortList(
+			.eventList(
 				pageNumber: pageNumber,
 				pageSize: pageSize,
-				startDate: startDate,
+				beginDate: beginDate,
 				endDate: endDate,
-				source: source,
-				eventLocation: eventLocation,
 				publishedon: publishedon,
 				eventIds: eventIds,
-				webAddress: webAddress,
 				sortOrder: sortOrder,
 				seed: seed,
 				language: language,
@@ -115,7 +105,8 @@ public final class EventShortClientImplementation: EventShortClient {
 				rawFilter: rawFilter,
 				rawSort: rawSort,
 				removeNullValues: removeNullValues,
-				optimizeDates: optimizeDates
+				optimizeDates: optimizeDates,
+				denormalize: denormalize
 			)
 			.makeRequest(withBaseURL: baseURL)
 
@@ -124,37 +115,36 @@ public final class EventShortClientImplementation: EventShortClient {
 		try Task.checkCancellation()
 
 		return try jsonDecoder.decode(
-			EventShortListResponse.self,
+			EventListResponse.self,
 			from: data
 		)
 	}
 
-	public func getRoomMapping(
+	public func getVenues(
+		ids: [String],
 		language: String?
-	) async throws -> [String:String] {
+	) async throws -> VenueListResponse {
 		let request = Endpoint
-			.roomMapping(language: language)
+			.venues(ids: ids, language: language)
 			.makeRequest(withBaseURL: baseURL)
 
 		let (data, _) = try await transport.send(request: request)
 
 		try Task.checkCancellation()
 
-		return try jsonDecoder.decode([String:String].self, from: data)
+		return try jsonDecoder.decode(VenueListResponse.self, from: data)
 	}
 
-	public func getEventShort(
+	public func getEvent(
 		id: String,
 		language: String?,
-		optimizeDates: Bool?,
 		fields: [String]?,
 		removeNullValues: Bool?
-	) async throws -> EventShort {		
+	) async throws -> RemoteEvent {
 		let request = Endpoint
-			.eventShort(
+			.event(
 				id: id,
 				language: language,
-				optimizeDates: optimizeDates,
 				fields: fields,
 				removeNullValues: removeNullValues
 			)
@@ -164,7 +154,7 @@ public final class EventShortClientImplementation: EventShortClient {
 
 		try Task.checkCancellation()
 
-		return try jsonDecoder.decode(EventShort.self, from: data)
+		return try jsonDecoder.decode(RemoteEvent.self, from: data)
 	}
 
 }

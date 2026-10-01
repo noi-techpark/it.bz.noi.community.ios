@@ -3,26 +3,23 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 //
-//  EventShortClient.swift
-//  EventShortClient
+//  EventClient.swift
+//  EventClient
 //
-//  Created by Matteo Matassoni on 16/09/21.
+//  Created by Matteo Matassoni on 03/08/26.
 //
 
 import Foundation
 
-public protocol EventShortClient {
+public protocol EventClient {
 
-	func getEventShortList(
+	func getEventList(
 		pageNumber: Int?,
 		pageSize: Int?,
-		startDate: Date?,
+		beginDate: Date?,
 		endDate: Date?,
-		source: Source?,
-		eventLocation: EventLocation?,
 		publishedon: String?,
 		eventIds: [String]?,
-		webAddress: String?,
 		sortOrder: Order?,
 		seed: Int?,
 		language: String?,
@@ -33,35 +30,33 @@ public protocol EventShortClient {
 		rawFilter: String?,
 		rawSort: String?,
 		removeNullValues: Bool?,
-		optimizeDates: Bool?
-	) async throws -> EventShortListResponse
+		optimizeDates: Bool?,
+		denormalize: Bool?
+	) async throws -> EventListResponse
 
-	func getRoomMapping(
+	func getVenues(
+		ids: [String],
 		language: String?
-	) async throws -> [String:String]
+	) async throws -> VenueListResponse
 
-	func getEventShort(
+	func getEvent(
 		id: String,
 		language: String?,
-		optimizeDates: Bool?,
 		fields: [String]?,
 		removeNullValues: Bool?
-	) async throws -> EventShort
+	) async throws -> RemoteEvent
 
 }
 
-public extension EventShortClient {
+public extension EventClient {
 
-	func getEventShortList(
+	func getEventList(
 		pageNumber: Int? = nil,
 		pageSize: Int? = nil,
-		startDate: Date? = nil,
+		beginDate: Date? = nil,
 		endDate: Date? = nil,
-		source: Source? = nil,
-		eventLocation: EventLocation? = nil,
 		publishedon: String? = nil,
 		eventIds: [String]? = nil,
-		webAddress: String? = nil,
 		sortOrder: Order? = nil,
 		seed: Int? = nil,
 		language: String? = nil,
@@ -72,18 +67,16 @@ public extension EventShortClient {
 		rawFilter: String? = nil,
 		rawSort: String? = nil,
 		removeNullValues: Bool? = nil,
-		optimizeDates: Bool? = nil
-	) async throws -> EventShortListResponse {
-		try await getEventShortList(
+		optimizeDates: Bool? = nil,
+		denormalize: Bool? = nil
+	) async throws -> EventListResponse {
+		try await getEventList(
 			pageNumber: pageNumber,
 			pageSize: pageSize,
-			startDate: startDate,
+			beginDate: beginDate,
 			endDate: endDate,
-			source: source,
-			eventLocation: eventLocation,
 			publishedon: publishedon,
 			eventIds: eventIds,
-			webAddress: webAddress,
 			sortOrder: sortOrder,
 			seed: seed,
 			language: language,
@@ -94,27 +87,27 @@ public extension EventShortClient {
 			rawFilter: rawFilter,
 			rawSort: rawSort,
 			removeNullValues: removeNullValues,
-			optimizeDates: optimizeDates
+			optimizeDates: optimizeDates,
+			denormalize: denormalize
 		)
 	}
 
-	func getRoomMapping(
+	func getVenues(
+		ids: [String],
 		language: String? = nil
-	) async throws -> [String:String] {
-		try await getRoomMapping(language: language)
+	) async throws -> VenueListResponse {
+		try await getVenues(ids: ids, language: language)
 	}
 
-	func getEventShort(
+	func getEvent(
 		id: String,
 		language: String? = nil,
-		optimizeDates: Bool? = nil,
 		fields: [String]? = nil,
 		removeNullValues: Bool? = nil
-	) async throws -> EventShort {
-		try await getEventShort(
+	) async throws -> RemoteEvent {
+		try await getEvent(
 			id: id,
 			language: language,
-			optimizeDates: optimizeDates,
 			fields: fields,
 			removeNullValues: removeNullValues
 		)
