@@ -82,7 +82,6 @@ private extension EventDetailsViewModel {
 		do {
 			let remoteEvent = try await eventClient.getEvent(
 				id: eventId,
-				optimizeDates: true,
 				fields: [
 					"DateBegin",
 					"DateEnd",

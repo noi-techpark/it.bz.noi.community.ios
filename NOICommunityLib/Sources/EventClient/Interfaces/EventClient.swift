@@ -42,7 +42,6 @@ public protocol EventClient {
 	func getEvent(
 		id: String,
 		language: String?,
-		optimizeDates: Bool?,
 		fields: [String]?,
 		removeNullValues: Bool?
 	) async throws -> RemoteEvent
@@ -103,14 +102,12 @@ public extension EventClient {
 	func getEvent(
 		id: String,
 		language: String? = nil,
-		optimizeDates: Bool? = nil,
 		fields: [String]? = nil,
 		removeNullValues: Bool? = nil
 	) async throws -> RemoteEvent {
 		try await getEvent(
 			id: id,
 			language: language,
-			optimizeDates: optimizeDates,
 			fields: fields,
 			removeNullValues: removeNullValues
 		)

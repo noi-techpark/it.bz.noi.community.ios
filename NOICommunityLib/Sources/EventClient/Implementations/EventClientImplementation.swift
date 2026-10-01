@@ -138,7 +138,6 @@ public final class EventClientImplementation: EventClient {
 	public func getEvent(
 		id: String,
 		language: String?,
-		optimizeDates: Bool?,
 		fields: [String]?,
 		removeNullValues: Bool?
 	) async throws -> RemoteEvent {
@@ -146,7 +145,6 @@ public final class EventClientImplementation: EventClient {
 			.event(
 				id: id,
 				language: language,
-				optimizeDates: optimizeDates,
 				fields: fields,
 				removeNullValues: removeNullValues
 			)

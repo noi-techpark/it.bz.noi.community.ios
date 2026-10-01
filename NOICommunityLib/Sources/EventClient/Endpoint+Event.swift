@@ -172,7 +172,6 @@ extension Endpoint {
 	static func event(
 		id: String,
 		language: String? = nil,
-		optimizeDates: Bool? = nil,
 		fields: [String]? = nil,
 		removeNullValues: Bool? = nil
 	) -> Endpoint {
@@ -188,13 +187,6 @@ extension Endpoint {
 				URLQueryItem(
 					name: "fields",
 					value: fields.joined(separator: ",")
-				)
-			}
-
-			if let optimizeDates {
-				URLQueryItem(
-					name: "optimizedates",
-					value: String(optimizeDates)
 				)
 			}
 
